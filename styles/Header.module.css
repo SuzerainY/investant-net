@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+.header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  width: 100vw;
+  height: 300px;
+  background: transparent;
+  margin-top: 100px;
+}
+
+.title {
+  position: absolute;
+  top: 0px;
+  left: 5vw;
+  display: inherit;
+  width: min-content;
+  height: auto;
+}
+
+.announcementBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: Montserrat;
+  font-size: 30px;
+  font-weight: 700;
+  top: 0px;
+  width: 100%;
+  height: 70px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.announcementBar a {
+  color: #40C9FF;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+.announcementBar a:hover {
+  color: #E81CFF;
+}
+
+.media {
+  display: grid;
+  position: absolute;
+  top: 90px;
+  width: fit-content;
+  height: auto;
+}
+.mediaList {
+  display: grid;
+  list-style: none;
+  /* border: 6px solid #24327E;
+  border-radius: 50em;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+  5px 5px 15px rgba(0, 0, 0, 0.3),
+  inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+  inset 5px 5px 15px rgba(0, 0, 0, 0.3); */
+}
+.mediaListItem {
+  padding-left: 7px;
+  margin: 12px;
+  width: 40px;
+  height: 40px;
+  transition: 0.15s ease-in-out;
+}
+.mediaListItem:hover {
+  transform: scale(1.1);
+}
+
+.nav {
+  display: flex;
+  position: absolute;
+  top: 45px;
+}
+.navList {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  margin: 0 auto;
+  font-family: Montserrat;
+}
+.navListItem {
+  display: inline-block;
+  width: fit-content;
+  padding: 0px 25px;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+  transition: all 0.1s ease-in-out;
+}
+.navListItem:hover {
+  transform: scale(1.05);
+}
+
+.buttonSidebar {
+  font-family: Monserrat;
+  font-weight: 700;
+  font-size: large;
+  margin: 30px;
+  width: 200px;
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+  -10px -10px -10px -1px rgba(255, 255, 255, 0.7);
+}
+.navSidebarClose {
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.navSidebarOpen {
+  display: none;
+  position: absolute;
+  justify-content: center;
+  width: min-content;
+  height: auto;
+  top: -80px;
+  right: 18vw;
+  font-family: Montserrat;
+  font-size: large;
+}
+.navSidebarList {
+  display: grid;
+  position: absolute;
+  color: white;
+}
+.navSidebarItem {
+  display: block;
+  margin: 10px;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 1160px) {
+  .announcementBar {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .nav {
+    display: none;
+  }
+
+  .navSidebarOpen {
+    display: grid;
+  }
+}

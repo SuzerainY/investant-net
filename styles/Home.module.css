@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+.main {
+  display: block;
+  position: relative;
+  justify-content: center;
+  width: 100vw;
+  height: 600px;
+  align-items: center;
+  background: transparent;
+}
+
+.body {
+  display: flex;
+  position: relative;
+  top: 0px;
+  width: 100vw;
+  height: 600px;
+  background: transparent;
+  font-family: Montserrat;
+  overflow-y: hidden;
+}
+
+.blockOne {
+  display: block;
+  position: absolute;
+  top: 0px;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: inherit;
+  background: transparent;
+}
+
+.blockTwoContainer {
+  height: 630px;
+  width: 100vw;
+  margin-top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-top: 5px solid white;
+}
+.blockTwo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 95%;
+  height: 95%;
+  font-family: Montserrat;
+  background: transparent;
+  color: white;
+}
+.blockTwoContent {
+  position: absolute;
+  width: 500px;
+  height: 100%;
+  background: transparent;
+  border: 5px solid white;
+  border-radius: 20px;
+}
+.blockTwoHeading {
+  text-align: center;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+.discordWidget {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.homeContainerImage {
+  display: block;
+  position: absolute;
+  top: -200px;
+  right: 0px;
+  width: 60vw;
+  height: 36vw;
+}
+.homeContainerImageText {
+  position: absolute;
+  left: 12vw;
+  top: 0px;
+  font-family: Montserrat;
+  color: white;
+  font-size: 4vw;
+  font-weight: 100;
+}
+.homeContainerImageTextBold {
+  font-weight: 900;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--card-rgb), 0.1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .card:hover span {
+    transform: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .homeContainerImageText {
+    position: absolute;
+    left: 60vw;
+    top: 0px;
+  }
+  .discordWidget {
+    display: none;
+  }
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .grid {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .mediaIcons {
+    filter: invert(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
