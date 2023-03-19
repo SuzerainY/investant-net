@@ -1,0 +1,47 @@
+.homepage {
+  background: linear-gradient(
+    to bottom left,
+    $black 0%,
+    $soft-purple 50%,
+    $light-blue 100%
+  );
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-section {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  min-height: 90vh;
+}
+
+.hero-text-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  .hero-text--span {
+    font-weight: 700;
+  }
+}
+
+.hero-image-container {
+  position: relative;
+  object-fit: contain;
+  width: 100%;
+}
+
+@media screen and (max-width: 1079px) {
+  .hero-section {
+    grid-template-columns: 100%;
+    grid-template-rows: 50% 50%;
+  }
+
+  .hero-text-container {
+    justify-content: center;
+  }
+}
