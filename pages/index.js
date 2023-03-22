@@ -24,7 +24,7 @@ export default function Home() {
       <div className="homepage">
         <AlertBanner
           message={"PaperTrade Available NOW in the Investant Discord Server!"}
-          link={"https://discord.gg/SFUKKjWEjHs"}
+          link={"https://discord.gg/SFUKKjWEjH"}
           linkMessage={" Click here to join!"}
         />
         <DefaultLayout>

@@ -5,7 +5,7 @@ function AlertBanner({message, link, linkMessage}) {
     <div className="alert-banner">
       <h3>
         {message}{" "}
-        <a href={link} target="_blank">
+        <a href={link} target="_blank" rel="noopener noreferrer">
          {linkMessage}
         </a>
       </h3>
