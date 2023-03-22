@@ -17,16 +17,16 @@ function Header() {
       </Link>
    
       <ul>
-        <li>
+        <li className="page-nav-link">
           <Link href="/">Home</Link>
         </li>
-        <li>
+        <li className="page-nav-link">
           <Link href="/blog">Blog</Link>
         </li>
-        <li>
+        <li className="page-nav-link">
           <Link href="/papertrade">PaperTrade</Link>
         </li>
-        <li>
+        <li className="page-nav-link">
           <Link href="/about-us">About Us</Link>
         </li>
       </ul>
