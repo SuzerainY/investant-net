@@ -22,7 +22,8 @@
 .hero-text-container {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
+  font-size: 3vw;
 
   .hero-text--span {
     font-weight: 700;

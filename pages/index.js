@@ -1,13 +1,8 @@
-// import Header from "@/components/header.js";
-import Header from "@/components/Header/Header.js";
-import HomeImage from "@/components/homeImage.js";
 import Head from "next/head";
-import HomeBody from "@/components/homeBody.js";
-import Footer from "@/components/footer.js";
-import DefaultLayout from "@/layouts/DefaultLayout";
 import Image from "next/image";
+import DefaultLayout from "@/layouts/DefaultLayout";
 import OfficeWorker from "/public/images/clipart/ClipArtOfficeWorker.svg";
-import AlertBanner from "@/components/AlertBanner.js/AlertBanner";
+import AlertBanner from "@/components/AlertBanner/AlertBanner";
 export default function Home() {
   return (
     <>
@@ -35,13 +30,13 @@ export default function Home() {
         <DefaultLayout>
           <section className="hero-section">
             <div className="hero-text-container">
-              <h1>
+              <text>
                 An investment
                 <br />
                 community
                 <br />
                 <span className="hero-text--span">made for you.</span>
-              </h1>
+              </text>
             </div>
 
             <div className="hero-image-container">
@@ -50,10 +45,6 @@ export default function Home() {
           </section>
         </DefaultLayout>
       </div>
-
-      {/* <HomeImage />
-        <HomeBody />
-        <Footer /> */}
     </>
   );
 }
