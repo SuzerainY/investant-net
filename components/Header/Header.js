@@ -21,13 +21,13 @@ function Header() {
           <Link href="/">Home</Link>
         </li>
         <li className="page-nav-link">
-          <Link href="/blog">Blog</Link>
-        </li>
-        <li className="page-nav-link">
           <Link href="/papertrade">PaperTrade</Link>
         </li>
         <li className="page-nav-link">
           <Link href="/about-us">About Us</Link>
+        </li>
+        <li className="page-nav-link">
+          <Link href="/blog">Blog</Link>
         </li>
       </ul>
 
