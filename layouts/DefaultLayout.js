@@ -4,7 +4,7 @@ import Header from "@/components/Header/Header.js";
 function DefaultLayout({ children }) {
   return (
     <div className="default-layout">
-      <Header />
+      <Header/>
       {children}
     </div>
   );
