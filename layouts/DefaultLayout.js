@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/Header/Header.js";
 
-function DefaultLayout({ children }) {
+export default function DefaultLayout({ children }) {
   return (
     <div className="default-layout">
       <Header/>
@@ -9,5 +9,3 @@ function DefaultLayout({ children }) {
     </div>
   );
 }
-
-export default DefaultLayout;
