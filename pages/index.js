@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import OfficeWorker from "/public/images/clipart/ClipArtOfficeWorker.svg";
-import AlertBanner from "@/components/AlertBanner/AlertBanner";
 export default function Home() {
   return (
     <>
@@ -22,11 +21,6 @@ export default function Home() {
       </Head>
 
       <div className="homepage">
-        <AlertBanner
-          message={"PaperTrade Available NOW in the Investant Discord Server!"}
-          link={"https://discord.gg/SFUKKjWEjH"}
-          linkMessage={" Click here to join!"}
-        />
         <DefaultLayout>
           <section className="hero-section">
             <div className="hero-text-container">

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import SeparateHeaderLayout from '@/layouts/SeparateHeaderLayout';
+import DefaultLayout from '@/layouts/DefaultLayout';
 import ReactMarkdown from 'react-markdown';
 
 const STRAPIurl = process.env.STRAPIBASEURL
@@ -124,24 +124,22 @@ export default function BlogPost(props) {
                 <link rel="icon" href="images/branding/FaviconTransparent.png" />
             </Head>
 
-            <div className='default-header'>
-                <SeparateHeaderLayout></SeparateHeaderLayout>
-            </div>
-
-            <div className='default-layout'>
-                <main className='slug-page'>
-                    <h1 className='slug-page-title'>{post.attributes.Title}</h1>
-                    <img className='slug-page-image'
-                        src={`http://localhost:1337${post.attributes.SPLASH.data.attributes.url}`}
-                        alt={post.attributes.Title}
-                        width={800}
-                        height={600}
-                    />
-                    <div className='slug-page-body'>
-                        <ReactMarkdown>{BlogPostBodyMarkdown}</ReactMarkdown>
-                    </div>
-                </main>
-            </div>
+            <DefaultLayout>
+                <div className='default-layout'>
+                    <main className='slug-page'>
+                        <h1 className='slug-page-title'>{post.attributes.Title}</h1>
+                        <img className='slug-page-image'
+                            src={`http://localhost:1337${post.attributes.SPLASH.data.attributes.url}`}
+                            alt={post.attributes.Title}
+                            width={800}
+                            height={600}
+                        />
+                        <div className='slug-page-body'>
+                            <ReactMarkdown>{BlogPostBodyMarkdown}</ReactMarkdown>
+                        </div>
+                    </main>
+                </div>
+            </DefaultLayout>
         </>
     );
 }

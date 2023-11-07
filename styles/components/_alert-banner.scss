@@ -1,8 +1,10 @@
 .alert-banner {
+    position: static;
     width: 100%;
     padding: 2rem;
     text-align: center;
     background-color: rgba(64, 201, 255, 1.0);
+    z-index: 100; /* Ensure the banner is above other content */
 }
 .alert-banner a {
     color: rgba(232, 28, 255, 1.0);

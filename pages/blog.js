@@ -42,8 +42,10 @@ export async function getStaticProps(context) {
 }
 
 export default function Blog(props) {
-  const blogPosts = props.data.blogPosts.data;
-  
+  const data = props.data.blogPosts.data;
+  const mostRecentPost = data[data.length - 1]; // Get the last post
+  const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
+
   return (
     <>
       <Head>
@@ -62,14 +64,36 @@ export default function Blog(props) {
       </Head>
       <div className="homepage">
         <DefaultLayout>
+          {/* Display the most recent post outside the mapping */}
+          <div className="blog-post featured-post">
+            <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
+              <img
+                className="slug-page-image"
+                src={`http://localhost:1337${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                alt={mostRecentPost.attributes.Title}
+                width={600}
+                height={300}
+              />
+              <h2>{mostRecentPost.attributes.Title}</h2>
+              <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+            </Link>
+          </div>
           <div className="blog-post-list">
+            {/* Loop through other blog posts */}
             {blogPosts.map((post) => (
-              <Link key={post.attributes.SLUG} href={`/blog/${post.attributes.SLUG}`}>
-                <div className="blog-post">
-                  <h3>{post.attributes.Title}</h3>
+              <div className="blog-post" key={post.attributes.SLUG}>
+                <Link href={`/blog/${post.attributes.SLUG}`}>
+                  <img
+                    className="slug-page-image"
+                    src={`http://localhost:1337${post.attributes.SPLASH.data.attributes.url}`}
+                    alt={post.attributes.Title}
+                    width={600}
+                    height={300}
+                  />
+                  <h2>{post.attributes.Title}</h2>
                   <p>{post.attributes.BlogPostDescription}</p>
-                </div>
-              </Link>
+                </Link>
+              </div>
             ))}
           </div>
         </DefaultLayout>
