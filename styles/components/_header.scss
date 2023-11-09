@@ -20,7 +20,9 @@
   }
 
   li {
-    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     &:hover {
       transform: scale(1.04);
       transition-duration: 0.2s;
@@ -29,9 +31,11 @@
 
   a {
     text-decoration: none;
-    color: white;
+    align-items: center;
     font-size: 2rem;
     margin: 2rem;
+    color: white;
+    white-space: nowrap;
   }
 }
 
@@ -42,15 +46,6 @@
 
     ul {
       flex-direction: column;
-    }
-
-    li {
-      padding: 0.5rem;
-    }
-
-    a {
-      font-size: 1.5rem;
-      padding: 0.5rem;
     }
   }
 }

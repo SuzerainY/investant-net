@@ -2,9 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
-const STRAPIurl = process.env.STRAPIBASEURL
-
 export async function getStaticProps(context) {
+  const STRAPIurl = process.env.STRAPIBASEURL
   const fetchParams = {
     method: "post",
     headers: {
@@ -19,6 +18,8 @@ export async function getStaticProps(context) {
               BlogPostBody
               BlogPostDescription
               SLUG
+              Author
+              PublishDate
               SPLASH {
                 data {
                   attributes {
@@ -42,6 +43,7 @@ export async function getStaticProps(context) {
 }
 
 export default function Blog(props) {
+  const STRAPIurl = process.env.STRAPIBASEURL
   const data = props.data.blogPosts.data;
   const mostRecentPost = data[data.length - 1]; // Get the last post
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
@@ -65,11 +67,11 @@ export default function Blog(props) {
       <div className="homepage">
         <DefaultLayout>
           {/* Display the most recent post outside the mapping */}
-          <div className="blog-post featured-post">
+          <div className="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
               <img
                 className="slug-page-image"
-                src={`http://localhost:1337${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                src={`${STRAPIurl}${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                 alt={mostRecentPost.attributes.Title}
                 width={600}
                 height={300}
@@ -85,7 +87,7 @@ export default function Blog(props) {
                 <Link href={`/blog/${post.attributes.SLUG}`}>
                   <img
                     className="slug-page-image"
-                    src={`http://localhost:1337${post.attributes.SPLASH.data.attributes.url}`}
+                    src={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`}
                     alt={post.attributes.Title}
                     width={600}
                     height={300}

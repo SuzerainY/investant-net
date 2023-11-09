@@ -12,10 +12,10 @@
     object-fit: cover;
   }
   h2 {
-    font-size: 24px;
+    font-size: 50px;
   }
   p {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
   }
   a {
@@ -33,13 +33,18 @@
 }
 
 .blog-post-list {
-    margin-left: 18%;
-    margin-right: 18%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    text-align: center;
-    }
+  margin-left: 18%;
+  margin-right: 18%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  text-align: center;
+  background-color: $grey;
+  box-shadow: 4px 4px 8px 4px $magenta;
+  padding: 20px;
+  border-radius: 0 50px 0 50px;
+  }
   
   .blog-post {
     width: 33.333%;
@@ -83,10 +88,28 @@
 
   .slug-page-title {
     font-weight: 700;
-    color: black;
+    color: $black;
     text-align: center;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .slug-page-author-date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: $black;
+
+    h2, h4 {
+      margin: 0; /* Remove default margins */
+      text-align: center; /* Center text within each heading */
+    }
+
+    h2::after {
+      content: '\00a0|\00a0'; /* Add the pipe symbol with spacing around it */
+    }
   }
 
   .slug-page-image {
@@ -96,7 +119,7 @@
 
   .slug-page-body {
     font-weight: 200;
-    color: black;
+    color: $black;
     text-align: left;
     margin: 25px 0;
     max-width: 100%;
@@ -110,6 +133,23 @@
 }
 
 @media screen and (max-width: 1079px) {
+  .featured-post {
+    width: 90%;
+  }
+
+  .blog-post-list {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+
+    .blog-post {
+      width: 100%;
+    }
+  }
+
   .slug-page {
     width: 80vw;
     margin-left: 10vw;

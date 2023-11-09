@@ -3,9 +3,8 @@ import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import ReactMarkdown from 'react-markdown';
 
-const STRAPIurl = process.env.STRAPIBASEURL
-
 export async function getStaticPaths() {
+    const STRAPIurl = process.env.STRAPIBASEURL
     const fetchParams = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,6 +29,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+    const STRAPIurl = process.env.STRAPIBASEURL
     const slug = params.slug;
 
     const fetchParams = {
@@ -45,6 +45,8 @@ export async function getStaticProps({ params }) {
                                 BlogPostBody
                                 BlogPostDescription
                                 SLUG
+                                Author
+                                PublishDate
                                 SPLASH {
                                     data {
                                         attributes {
@@ -68,40 +70,60 @@ export async function getStaticProps({ params }) {
 }
 
 export default function BlogPost(props) {
+    const STRAPIurl = process.env.STRAPIBASEURL
     const post = props.data.blogPosts.data[0];
 
     // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
     // This method will adjust them to: (`${STRAPIurl}/uploads/ImageNamehere.png`) so that we properly fetch the image and display on site
     function ParseImageURL(post) {
-        var BlogPostBody = post.attributes.BlogPostBody;
+        var BlogPostBody = String(post.attributes.BlogPostBody);
         var BlogPostBodyMarkdown = "";
 
-        let openUriIndex = 0;
-        let closeUriIndex = 0;
-
-        // Iterate through each instance of "(" searching for "/uploads" afterwards
-        for (let i = 0; i < BlogPostBody.length; i++) {
-
-            if (BlogPostBody[i] === "(" && i + 9 < BlogPostBody.length && BlogPostBody.substring(i + 1, i + 9) === "/uploads") {
-                // i must be the opening parenthesis of this URI
-                openUriIndex = i
-
-                // Fetch the closing parenthesis of this URI
-                for (let j = openUriIndex; j < BlogPostBody.length; j++) {
-                    if (BlogPostBody[j] === ")") {
-                        closeUriIndex = j;
-                        break;
+        function recursiveParse(BlogPostBody) {
+            let openUriIndex = 0;
+            let closeUriIndex = 0;
+            // Iterate through each instance of "(" searching for "/uploads" afterwards
+            for (let i = 0; i < BlogPostBody.length; i++) {
+                
+                if (BlogPostBody[i] === "(" && i + 9 < BlogPostBody.length && BlogPostBody.substring(i + 1, i + 9) === "/uploads") {
+                    // i must be the opening parenthesis of this URI
+                    openUriIndex = i
+    
+                    // Fetch the closing parenthesis of this URI
+                    for (let j = openUriIndex; j < BlogPostBody.length; j++) {
+                        if (BlogPostBody[j] === ")") {
+                            closeUriIndex = j;
+                            break;
+                        }
                     }
+    
+                    // Insert the correct URI address to the image
+                    // let NewUri = `http://localhost:1337${BlogPostBody.substring(openUriIndex + 1, closeUriIndex + 1)}`;
+                    let NewUri = `${STRAPIurl}${BlogPostBody.substring(openUriIndex + 1, closeUriIndex + 1)}`;
+                    BlogPostBodyMarkdown = BlogPostBody.substring(0, openUriIndex + 1) + NewUri + BlogPostBody.substring(closeUriIndex + 1);
+                    recursiveParse(BlogPostBodyMarkdown);
                 }
-
-                // Insert the correct URI address to the image
-                let NewUri = `http://localhost:1337${BlogPostBody.substring(openUriIndex + 1, closeUriIndex + 1)}`;
-                BlogPostBodyMarkdown = BlogPostBody.substring(0, openUriIndex + 1) + NewUri + BlogPostBody.substring(closeUriIndex + 1);
             }
+            return BlogPostBodyMarkdown
         }
-        return BlogPostBodyMarkdown;
+        return recursiveParse(BlogPostBody);
     }
     var BlogPostBodyMarkdown = ParseImageURL(post);
+
+    // Return a Date() object as yyyy-mm-dd
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
 
     const router = useRouter();
     // Render a loading state while data is being fetched
@@ -128,14 +150,18 @@ export default function BlogPost(props) {
                 <div className='default-layout'>
                     <main className='slug-page'>
                         <h1 className='slug-page-title'>{post.attributes.Title}</h1>
+                        <div className='slug-page-author-date'>
+                            <h2>{post.attributes.Author}</h2> 
+                            <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
+                        </div>
                         <img className='slug-page-image'
-                            src={`http://localhost:1337${post.attributes.SPLASH.data.attributes.url}`}
+                            src={`${STRAPIurl}/${post.attributes.SPLASH.data.attributes.url}`}
                             alt={post.attributes.Title}
                             width={800}
                             height={600}
                         />
                         <div className='slug-page-body'>
-                            <ReactMarkdown>{BlogPostBodyMarkdown}</ReactMarkdown>
+                            <ReactMarkdown className='html'>{BlogPostBodyMarkdown}</ReactMarkdown>
                         </div>
                     </main>
                 </div>
