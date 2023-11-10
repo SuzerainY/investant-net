@@ -10,6 +10,18 @@
 html {
   // 1rem = 10px
   font-size: 62.5%;
+
+  .ul {
+    list-style-position: inside !important;
+  }
+
+  .ol {
+    list-style-position: inside !important;
+  }
+
+  .li {
+    list-style-position: inside !important;
+  }
 }
 
 body {

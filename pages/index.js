@@ -24,13 +24,13 @@ export default function Home() {
         <DefaultLayout>
           <section className="hero-section">
             <div className="hero-text-container">
-              <text>
+              <h1>
                 An investment
                 <br />
                 community
                 <br />
                 <span className="hero-text--span">made for you.</span>
-              </text>
+              </h1>
             </div>
 
             <div className="hero-image-container">

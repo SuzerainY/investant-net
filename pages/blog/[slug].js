@@ -3,8 +3,9 @@ import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import ReactMarkdown from 'react-markdown';
 
+const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
+
 export async function getStaticPaths() {
-    const STRAPIurl = process.env.STRAPIBASEURL
     const fetchParams = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,7 +30,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const STRAPIurl = process.env.STRAPIBASEURL
     const slug = params.slug;
 
     const fetchParams = {
@@ -70,7 +70,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function BlogPost(props) {
-    const STRAPIurl = process.env.STRAPIBASEURL
     const post = props.data.blogPosts.data[0];
 
     // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
@@ -143,7 +142,7 @@ export default function BlogPost(props) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="twitter:image" content={post.attributes.SPLASH.data.url} />
                 <meta name="twitter:card" content="summary_large_image" />
-                <link rel="icon" href="images/branding/FaviconTransparent.png" />
+                <link rel="icon" href="../images/branding/FaviconTransparent.png" />
             </Head>
 
             <DefaultLayout>

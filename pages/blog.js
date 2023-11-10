@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
+const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
+
 export async function getStaticProps(context) {
-  const STRAPIurl = process.env.STRAPIBASEURL
   const fetchParams = {
     method: "post",
     headers: {
@@ -43,7 +44,6 @@ export async function getStaticProps(context) {
 }
 
 export default function Blog(props) {
-  const STRAPIurl = process.env.STRAPIBASEURL
   const data = props.data.blogPosts.data;
   const mostRecentPost = data[data.length - 1]; // Get the last post
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
