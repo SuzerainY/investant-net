@@ -76,7 +76,7 @@ export default function Blog(props) {
                 width={600}
                 height={300}
               />
-              <h2>{mostRecentPost.attributes.Title}</h2>
+              <h1>{mostRecentPost.attributes.Title}</h1>
               <p>{mostRecentPost.attributes.BlogPostDescription}</p>
             </Link>
           </div>

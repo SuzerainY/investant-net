@@ -1,7 +1,7 @@
 .featured-post {
   margin-left: auto;
   margin-right: auto;
-  width: 64%;
+  width: 55%;
   display: flex;
   margin-bottom: 20px;
   overflow: hidden;
@@ -11,8 +11,9 @@
     height: auto; /* Adjust the height as needed */
     object-fit: cover;
   }
-  h2 {
-    font-size: 50px;
+  h1 {
+    font-size: 75px;
+    font-weight: 600;
   }
   p {
     font-size: 20px;
@@ -101,10 +102,15 @@
     justify-content: center;
     margin-bottom: 1rem;
     color: $black;
+    white-space: nowrap;
 
     h2, h4 {
-      margin: 0; /* Remove default margins */
       text-align: center; /* Center text within each heading */
+      align-items: center;
+    }
+
+    h4 {
+      padding-top: 0.25rem;
     }
 
     h2::after {
