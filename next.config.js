@@ -4,9 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '1337',
+        protocol: 'https',
+        hostname: 'investantcms.net',
+        port: '',
+        pathname: '/uploads/**'
       }
     ]
   }

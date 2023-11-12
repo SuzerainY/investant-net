@@ -2,10 +2,11 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
 
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
-export async function getStaticPaths() {
+export async function getServerSidePaths() {
     const fetchParams = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,7 +30,7 @@ export async function getStaticPaths() {
     return { paths, fallback: true };
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
     const slug = params.slug;
 
     const fetchParams = {
@@ -153,8 +154,8 @@ export default function BlogPost(props) {
                             <h2>{post.attributes.Author}</h2> 
                             <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
                         </div>
-                        <img className='slug-page-image'
-                            src={`${STRAPIurl}/${post.attributes.SPLASH.data.attributes.url}`}
+                        <Image className='slug-page-image'
+                            src={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`}
                             alt={post.attributes.Title}
                             width={800}
                             height={600}

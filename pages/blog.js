@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import Image from 'next/image'
 
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
@@ -69,7 +70,7 @@ export default function Blog(props) {
           {/* Display the most recent post outside the mapping */}
           <div className="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-              <img
+              <Image
                 className="slug-page-image"
                 src={`${STRAPIurl}${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                 alt={mostRecentPost.attributes.Title}
@@ -85,7 +86,7 @@ export default function Blog(props) {
             {blogPosts.map((post) => (
               <div className="blog-post" key={post.attributes.SLUG}>
                 <Link href={`/blog/${post.attributes.SLUG}`}>
-                  <img
+                  <Image
                     className="slug-page-image"
                     src={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`}
                     alt={post.attributes.Title}
