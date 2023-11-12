@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "@/components/Header/Header.js";
 import AlertBanner from "@/components/AlertBanner/AlertBanner";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function DefaultLayout({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function DefaultLayout({ children }) {
       />
       <Header/>
       {children}
+      <Analytics/>
     </div>
   );
 }
