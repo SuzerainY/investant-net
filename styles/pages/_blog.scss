@@ -6,6 +6,7 @@
   margin-bottom: 20px;
   overflow: hidden;
   text-align: center;
+  justify-content: center;
   img {
     width: 100%;
     height: auto; /* Adjust the height as needed */
@@ -40,7 +41,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  text-align: center;
   background-color: $grey;
   box-shadow: 4px 4px 8px 4px $magenta;
   padding: 20px;
@@ -50,6 +50,7 @@
   .blog-post {
     width: 33.333%;
     margin-bottom: 20px;
+    text-align: center;
     overflow: hidden;
     img {
       width: 100%;
