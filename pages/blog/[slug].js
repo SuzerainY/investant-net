@@ -136,14 +136,24 @@ export default function BlogPost(props) {
             <Head>
                 <title>{`Investant | ${post.attributes.Title}`}</title>
                 <meta name="description" content={post.attributes.BlogPostDescription} />
-                <meta
-                name="twitter:description"
-                content={post.attributes.BlogPostDescription}
-                />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="twitter:image" content={post.attributes.SPLASH.data.url} />
+
+                {/* Twitter Meta Tags */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <link rel="icon" href="../images/branding/FaviconTransparent.png" />
+                <meta name="twitter:title" content={`Investant | ${post.attributes.Title}`} />
+                <meta name="twitter:description" content={post.attributes.BlogPostDescription} />
+                <meta name="twitter:image" content={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`} />
+
+                {/* Open Graph Meta Tags (for platforms like Facebook) */}
+                <meta property="og:title" content={`Investant | ${post.attributes.Title}`} />
+                <meta property="og:description" content={post.attributes.BlogPostDescription} />
+                <meta property="og:image" content={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`} />
+                <meta property="og:url" content="https://investant.net" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Investant" />
+
+                {/* Favicon */}
+                <link rel="icon" href="/images/branding/FaviconTransparent.png" />
             </Head>
 
             <DefaultLayout>
