@@ -112,17 +112,8 @@ export default function BlogPost(props) {
 
     // Return a Date() object as yyyy-mm-dd
     function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-    
-        if (month.length < 2) 
-            month = '0' + month;
-        if (day.length < 2) 
-            day = '0' + day;
-    
-        return [year, month, day].join('-');
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options);
     }
 
     const router = useRouter();
@@ -161,7 +152,7 @@ export default function BlogPost(props) {
                     <main className='slug-page'>
                         <h1 className='slug-page-title'>{post.attributes.Title}</h1>
                         <div className='slug-page-author-date'>
-                            <h2>{post.attributes.Author}</h2> 
+                            <h2>{post.attributes.Author}</h2>
                             <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
                         </div>
                         <Image className='slug-page-image'
