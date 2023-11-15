@@ -80,10 +80,10 @@
 
 .slug-page {
   display: block;
-  width: 50vw;
+  width: 40vw;
   margin-top: 5rem;
-  margin-left: 25vw;
-  margin-right: 25vw;
+  margin-left: 30vw;
+  margin-right: 30vw;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
@@ -132,14 +132,11 @@
     margin: 25px 0;
     max-width: 100%;
     white-space: pre-wrap;
-
-    .img {
-      justify-self: center;
-    }
   }
 
   .slug-page-body img {
     max-width: 75%;
+    justify-self: center;
     height: auto;
   }
 }
