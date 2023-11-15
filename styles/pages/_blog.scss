@@ -128,13 +128,14 @@
     font-weight: 200;
     color: $black;
     text-align: left;
+    justify-content: center;
     margin: 25px 0;
     max-width: 100%;
     white-space: pre-wrap;
   }
 
   .slug-page-body img {
-    max-width: 100%;
+    max-width: 75%;
     height: auto;
   }
 }
