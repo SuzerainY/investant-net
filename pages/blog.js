@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const fetchParams = {
     method: "post",
     headers: {
