@@ -80,10 +80,10 @@
 
 .slug-page {
   display: block;
-  width: 40vw;
+  width: 35vw;
   margin-top: 5rem;
-  margin-left: 30vw;
-  margin-right: 30vw;
+  margin-left: 32.5vw;
+  margin-right: 32.5vw;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
@@ -127,19 +127,26 @@
   .slug-page-body {
     font-weight: 200;
     color: $black;
-    text-align: left;
+    text-align: center;
     justify-content: center;
     margin: 25px 0;
     max-width: 100%;
     white-space: pre-wrap;
   }
 
+  .slug-page-body p {
+    text-align: left;
+    font-size: 1.8rem;
+    text-align: justify;
+  }
+
+  .slug-page-body p img {
+    display: block;
+    margin: 2rem auto;
+  }
+
   .slug-page-body img {
     max-width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-    justify-self: center;
-    justify-content: center;
     height: auto;
   }
 }
