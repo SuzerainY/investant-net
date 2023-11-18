@@ -21,8 +21,8 @@ export default function Header() {
     };
 
     // Make sure we load into the page with the menu tab closed by setting max height to just the header's height
-    mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
     mobileMenuToggle.style.display = 'flex';
+    mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
     mobileMenuH3Toggle.addEventListener('click', handleMenuToggle);
 
     return () => {
