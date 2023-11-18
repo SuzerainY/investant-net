@@ -61,9 +61,6 @@
         transform: scale(1.02);
         transition-duration: 0.1s;
       }
-      &.open {
-        height: fit-content;
-      }
     }
 
     ul {
@@ -110,7 +107,7 @@
     }
 
     .mobile-menu {
-      display: flex;
+      display: none;
       flex-direction: column;
     }
   }

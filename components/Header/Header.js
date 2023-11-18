@@ -8,7 +8,6 @@ export default function Header() {
     const mobileMenuToggle = document.querySelector('.header .mobile-menu');
     const mobileMenuH3Toggle = document.querySelector('.header .mobile-menu h3');
     const mobileMenuListToggle = document.querySelector('.header .mobile-menu ul');
-    const mobileMenuList2Toggle = document.querySelector('.header .mobile-menu li');
 
     const handleMenuToggle = () => {
       mobileMenuH3Toggle.classList.toggle('open');
@@ -21,6 +20,9 @@ export default function Header() {
       }
     };
 
+    // Make sure we load into the page with the menu tab closed by setting max height to just the header's height
+    mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
+    mobileMenuToggle.style.display = 'flex';
     mobileMenuH3Toggle.addEventListener('click', handleMenuToggle);
 
     return () => {
