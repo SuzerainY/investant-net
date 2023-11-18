@@ -53,6 +53,7 @@ export default function Header() {
     return () => {
       // Clean up the event listener when the component unmounts
       mobileMenuH3Toggle.removeEventListener('click', handleMenuToggle);
+      window.removeEventListener('resize', handleResize);
     };
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
