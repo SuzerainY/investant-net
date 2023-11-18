@@ -135,7 +135,6 @@
   }
 
   .slug-page-body p {
-    text-align: left;
     font-size: 1.8rem;
     text-align: justify;
   }
@@ -173,10 +172,10 @@
     width: 80vw;
     margin-left: 10vw;
     margin-right: 10vw;
-  }
 
-  .slug-page-body p {
-    text-align: left;
-    font-size: 1.6rem;
+    .slug-page-body p {
+      text-align: left;
+      font-size: 1.6rem;
+    }
   }
 }
