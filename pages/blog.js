@@ -74,7 +74,7 @@ export default function Blog(props) {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div className="homepage">
+      <div className="blogpage">
         <DefaultLayout>
           {/* Display the most recent post outside the mapping */}
           <div className="featured-post">

@@ -4,12 +4,27 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 export default function Header() {
-  useEffect(() => {
 
+  // Call method on any screen resizing and initial loading of page to decide whether we display mobile nav bar or not
+  const toggleMobileMenu = () => {
+    const screenWidth = window.innerWidth;
+    const mobileMenuToggle = document.querySelector('.header .mobile-menu');
+
+    // We are currently considering anything less than 1080px screen width as mobile display
+    if (screenWidth > 1079) {
+      mobileMenuToggle.style.display = 'none';
+    } else {
+      mobileMenuToggle.style.display = 'flex';
+    }
+
+    // If the screen is ever resized, collapse the mobile navigation menu | Also ensures mobile navigation menu loads in collapsed
+    mobileMenuToggle.style.maxHeight = `${mobileMenuToggle.querySelector('h3').scrollHeight}px`;
+  };
+
+  useEffect(() => {
     // The Styles Classes that we would like to edit on event
     const mobileMenuToggle = document.querySelector('.header .mobile-menu');
     const mobileMenuH3Toggle = document.querySelector('.header .mobile-menu h3');
-    const mobileMenuListToggle = document.querySelector('.header .mobile-menu ul');
 
     // Extended events to SCSS that should occur when mobile drop down navigation menu is selected
     const handleMenuToggle = () => {
@@ -17,7 +32,6 @@ export default function Header() {
 
       // When we add the 'open' class of the menu, display the list items and adjust container height to fit all content
       if (mobileMenuH3Toggle.classList.contains('open')) {
-        mobileMenuListToggle.style.display = 'flex';
         mobileMenuToggle.style.maxHeight = mobileMenuToggle.scrollHeight + 'px';
       } else {
         mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
@@ -26,19 +40,11 @@ export default function Header() {
 
     // Extended events to SCSS that should occur on screen resizing
     const handleResize = () => {
-      const screenWidth = window.innerWidth;
-
-      // We are currently considering anything less than 1080px screen width as mobile display
-      if (screenWidth > 1079) {
-        mobileMenuToggle.style.display = 'none';
-      } else {
-        mobileMenuToggle.style.display = 'flex';
-      }
+      toggleMobileMenu();
     };
 
-    // Make sure we load into the page with the menu tab closed by setting max height to just the header's height
-    mobileMenuToggle.style.display = 'flex';
-    mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
+    // Run method on initial load of page
+    toggleMobileMenu();
 
     // Add our event listeners
     mobileMenuH3Toggle.addEventListener('click', handleMenuToggle);
