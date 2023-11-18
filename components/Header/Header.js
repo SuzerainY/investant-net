@@ -5,13 +5,17 @@ import { useEffect } from "react";
 
 export default function Header() {
   useEffect(() => {
+
+    // The Styles Classes that we would like to edit on event
     const mobileMenuToggle = document.querySelector('.header .mobile-menu');
     const mobileMenuH3Toggle = document.querySelector('.header .mobile-menu h3');
     const mobileMenuListToggle = document.querySelector('.header .mobile-menu ul');
 
+    // Extended events to SCSS that should occur when mobile drop down navigation menu is selected
     const handleMenuToggle = () => {
       mobileMenuH3Toggle.classList.toggle('open');
 
+      // When we add the 'open' class of the menu, display the list items and adjust container height to fit all content
       if (mobileMenuH3Toggle.classList.contains('open')) {
         mobileMenuListToggle.style.display = 'flex';
         mobileMenuToggle.style.maxHeight = mobileMenuToggle.scrollHeight + 'px';
@@ -19,14 +23,18 @@ export default function Header() {
         mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
       }
     };
-      const handleResize = () => {
-        const screenWidth = window.innerWidth;
-        if (screenWidth > 1079) {
-          mobileMenuToggle.style.display = 'none';
-        } else {
-          mobileMenuToggle.style.display = 'flex';
-        }
-      };
+
+    // Extended events to SCSS that should occur on screen resizing
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+
+      // We are currently considering anything less than 1080px screen width as mobile display
+      if (screenWidth > 1079) {
+        mobileMenuToggle.style.display = 'none';
+      } else {
+        mobileMenuToggle.style.display = 'flex';
+      }
+    };
 
     // Make sure we load into the page with the menu tab closed by setting max height to just the header's height
     mobileMenuToggle.style.display = 'flex';
