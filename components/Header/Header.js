@@ -19,11 +19,22 @@ export default function Header() {
         mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
       }
     };
+      const handleResize = () => {
+        const screenWidth = window.innerWidth;
+        if (screenWidth > 1079) {
+          mobileMenuToggle.style.display = 'none';
+        } else {
+          mobileMenuToggle.style.display = 'flex';
+        }
+      };
 
     // Make sure we load into the page with the menu tab closed by setting max height to just the header's height
     mobileMenuToggle.style.display = 'flex';
     mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
+
+    // Add our event listeners
     mobileMenuH3Toggle.addEventListener('click', handleMenuToggle);
+    window.addEventListener('resize', handleResize)
 
     return () => {
       // Clean up the event listener when the component unmounts
