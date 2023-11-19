@@ -18,6 +18,10 @@ export default function Header() {
     }
 
     // If the screen is ever resized, collapse the mobile navigation menu | Also ensures mobile navigation menu loads in collapsed
+    // Check if mobile menu is currently opened too, so we can remove the 'open' class if necessary
+    if (mobileMenuToggle.querySelector('h3').classList.contains('open')) {
+      mobileMenuToggle.querySelector('h3').classList.toggle('open');
+    }
     mobileMenuToggle.style.maxHeight = `${mobileMenuToggle.querySelector('h3').scrollHeight}px`;
   };
 
@@ -58,89 +62,10 @@ export default function Header() {
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
   return (
-    <nav className="header">
-
-      <div className="mobile-menu">
-        <h3>MENU</h3>
-        <ul>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/papertrade">PaperTrade</Link>
-          </li>
-          <li>
-            <Link href="/about-us">About Us</Link>
-          </li>
-          <li>
-            <Link href="/blog">Blog</Link>
-          </li>
-        </ul>
-
-        <ul>        
-          <li>
-            <Link
-              href="https://discord.gg/SFUKKjWEjH"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/images/socialmedia/discord-investant.png"
-                alt="Discord Icon"
-                width={40}
-                height={35}
-                priority
-              />
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://twitter.com/InvestantGroup?s=20"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/images/socialmedia/twitter-investant.png"
-                alt="Twitter Icon"
-                width={40}
-                height={35}
-                priority
-              />
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="https://www.instagram.com/investantgroup/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/images/socialmedia/insta-investant.png"
-                alt="Instagram Icon"
-                width={38}
-                height={38}
-                priority
-              />
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      <div className="desktop-menu">
-          <ul>
-            <li>
-              <Link href="/">
-                <Image
-                  src={"/images/branding/TransparentLogoHeader.png"}
-                  alt="Investant Logo"
-                  width={300}
-                  height={60}
-                  priority
-                />
-              </Link>
-            </li>
-          </ul>
-      
+    <>
+      <nav className="header">
+        <div className="mobile-menu">
+          <h3>MENU</h3>
           <ul>
             <li>
               <Link href="/">Home</Link>
@@ -203,7 +128,87 @@ export default function Header() {
               </Link>
             </li>
           </ul>
-      </div>
-    </nav>
+        </div>
+
+        <div className="desktop-menu">
+            <ul>
+              <li>
+                <Link href="/">
+                  <Image
+                    src={"/images/branding/TransparentLogoHeader.png"}
+                    alt="Investant Logo"
+                    width={300}
+                    height={60}
+                    priority
+                  />
+                </Link>
+              </li>
+            </ul>
+        
+            <ul>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/papertrade">PaperTrade</Link>
+              </li>
+              <li>
+                <Link href="/about-us">About Us</Link>
+              </li>
+              <li>
+                <Link href="/blog">Blog</Link>
+              </li>
+            </ul>
+
+            <ul>        
+              <li>
+                <Link
+                  href="https://discord.gg/SFUKKjWEjH"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/discord-investant.png"
+                    alt="Discord Icon"
+                    width={40}
+                    height={35}
+                    priority
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://twitter.com/InvestantGroup?s=20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/twitter-investant.png"
+                    alt="Twitter Icon"
+                    width={40}
+                    height={35}
+                    priority
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://www.instagram.com/investantgroup/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/insta-investant.png"
+                    alt="Instagram Icon"
+                    width={38}
+                    height={38}
+                    priority
+                  />
+                </Link>
+              </li>
+            </ul>
+        </div>
+      </nav>
+    </>
   );
 };

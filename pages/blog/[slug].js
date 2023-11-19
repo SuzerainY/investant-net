@@ -146,9 +146,8 @@ export default function BlogPost(props) {
                 {/* Favicon */}
                 <link rel="icon" href="/images/branding/FaviconTransparent.png" />
             </Head>
-
-            <DefaultLayout>
-                <div className='default-layout'>
+            <div className='slug-page-background-color'>
+                <DefaultLayout>
                     <main className='slug-page'>
                         <h1 className='slug-page-title'>{post.attributes.Title}</h1>
                         <div className='slug-page-author-date'>
@@ -165,8 +164,8 @@ export default function BlogPost(props) {
                             <ReactMarkdown className='html'>{BlogPostBodyMarkdown}</ReactMarkdown>
                         </div>
                     </main>
-                </div>
-            </DefaultLayout>
+                </DefaultLayout>
+            </div>
         </>
     );
 }
