@@ -12,27 +12,29 @@ export async function getServerSideProps(context) {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      query: `{
-        blogPosts {
-          data {
-            attributes {
-              Title
-              BlogPostBody
-              BlogPostDescription
-              SLUG
-              Author
-              PublishDate
-              SPLASH {
-                data {
-                  attributes {
-                    url
+      query: `
+        {
+          blogPosts {
+            data {
+              attributes {
+                Title
+                BlogPostBody
+                BlogPostDescription
+                SLUG
+                Author
+                PublishDate
+                SPLASH {
+                  data {
+                    attributes {
+                      url
+                    }
                   }
                 }
               }
             }
           }
         }
-      }`
+      `
     })
   }
 

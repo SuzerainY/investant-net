@@ -9,7 +9,8 @@ const nextConfig = {
         port: '',
         pathname: '/uploads/**'
       }
-    ]
+    ],
+    domains: ["res.cloudinary.com"]
   }
 }
 
