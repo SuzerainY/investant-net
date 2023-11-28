@@ -83,7 +83,7 @@ export default function Blog(props) {
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
               <Image
                 className="slug-page-image"
-                src={`${STRAPIurl}${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                 alt={mostRecentPost.attributes.Title}
                 width={600}
                 height={300}
@@ -99,7 +99,7 @@ export default function Blog(props) {
                 <Link href={`/blog/${post.attributes.SLUG}`}>
                   <Image
                     className="slug-page-image"
-                    src={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`}
+                    src={`${post.attributes.SPLASH.data.attributes.url}`}
                     alt={post.attributes.Title}
                     width={600}
                     height={300}

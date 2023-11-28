@@ -65,6 +65,7 @@ export async function getServerSideProps({ params }) {
     }
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const data = await res.json();
+    console.log(data);
     return {
         props: data
     };
@@ -73,6 +74,7 @@ export async function getServerSideProps({ params }) {
 export default function BlogPost(props) {
     const post = props.data.blogPosts.data[0];
 
+    /*
     // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
     // This method will adjust them to: (`${STRAPIurl}/uploads/ImageNamehere.png`) so that we properly fetch the image and display on site
     function ParseImageURL(post) {
@@ -109,6 +111,7 @@ export default function BlogPost(props) {
         return recursiveParse(BlogPostBody);
     }
     var BlogPostBodyMarkdown = ParseImageURL(post);
+    */
 
     // Return a Date() object as yyyy-mm-dd
     function formatDate(date) {
@@ -133,12 +136,12 @@ export default function BlogPost(props) {
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content={`Investant | ${post.attributes.Title}`} />
                 <meta name="twitter:description" content={post.attributes.BlogPostDescription} />
-                <meta name="twitter:image" content={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`} />
+                <meta name="twitter:image" content={`${post.attributes.SPLASH.data.attributes.url}`} />
 
                 {/* Open Graph Meta Tags (for platforms like Facebook) */}
                 <meta property="og:title" content={`Investant | ${post.attributes.Title}`} />
                 <meta property="og:description" content={post.attributes.BlogPostDescription} />
-                <meta property="og:image" content={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`} />
+                <meta property="og:image" content={`${post.attributes.SPLASH.data.attributes.url}`} />
                 <meta property="og:url" content="https://investant.net" />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="Investant" />
@@ -155,13 +158,13 @@ export default function BlogPost(props) {
                             <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
                         </div>
                         <Image className='slug-page-image'
-                            src={`${STRAPIurl}${post.attributes.SPLASH.data.attributes.url}`}
+                            src={`${post.attributes.SPLASH.data.attributes.url}`}
                             alt={post.attributes.Title}
                             width={800}
                             height={600}
                         />
                         <div className='slug-page-body'>
-                            <ReactMarkdown className='html'>{BlogPostBodyMarkdown}</ReactMarkdown>
+                            <ReactMarkdown className='html'>{post.attributes.BlogPostBody}</ReactMarkdown>
                         </div>
                     </main>
                 </DefaultLayout>
