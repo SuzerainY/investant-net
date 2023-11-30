@@ -49,8 +49,17 @@ export async function getServerSideProps(context) {
 
 export default function Blog(props) {
   const data = props.data.blogPosts.data;
-  const mostRecentPost = data[data.length - 1]; // Get the last post
+  const mostRecentPost = data[data.length - 1]; // Get the most recent post
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
+  const readWPM = 200 // Assumption for how many words per minute the average reader can read
+
+  const mostRecentPostTimeToRead = Math.ceil(String(mostRecentPost.attributes.BlogPostBody).split(' ').length / readWPM)
+  if (mostRecentPostTimeToRead === 1) {
+    var mostRecentPostTimeText = '~ 1 minute'
+  }
+  else {
+    var mostRecentPostTimeText = `~ ${mostRecentPostTimeToRead} minutes`
+  }
 
   return (
     <>
@@ -99,6 +108,10 @@ export default function Blog(props) {
                 />
                 <p>{mostRecentPost.attributes.BlogPostDescription}</p>
               </div>
+              <div className="blog-post-read-length">
+                {/* Calculate approximate minutes to read. Counting number of words by number of spaces in essay. */}
+                <p>{mostRecentPostTimeText}</p>
+              </div>
             </Link>
           </div>
           <div className="divider-1"></div>
@@ -123,6 +136,10 @@ export default function Blog(props) {
                     height={100}
                     />
                     <p>{post.attributes.BlogPostDescription}</p>
+                  </div>
+                  <div className="blog-post-read-length">
+                    {/* Calculate approximate minutes to read. Counting number of words by number of spaces in essay. */}
+                    <p>{Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM) === 1? '~ 1 minute' : `~ ${Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM)} minutes`}</p>
                   </div>
                 </Link>
               </div>

@@ -107,6 +107,13 @@
   }
 }
 
+.blog-post-read-length {
+  p {
+    font-style: italic;
+    color: $grey;
+  }
+}
+
 // CSS Below is for the page of an individual blog post after being routed to from user selection
 .slug-page-background-color {  
   background-color: $white;
