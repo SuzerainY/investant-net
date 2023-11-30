@@ -4,8 +4,10 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 
+// The URL for our STRAPI app backend stored in environment variables
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
+// Fetch the SLUG for the selected BlogPost in order to route the new URL properly
 export async function getServerSidePaths() {
     const fetchParams = {
         method: 'POST',
@@ -30,6 +32,7 @@ export async function getServerSidePaths() {
     return { paths, fallback: true };
 }
 
+// Fetch the selected blog from the server via graphql
 export async function getServerSideProps({ params }) {
     const slug = params.slug;
 
@@ -60,12 +63,11 @@ export async function getServerSideProps({ params }) {
                     }
                 }
             `,
-            variables: {"slug": slug}
+            variables: {"slug": slug} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
         })
     }
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const data = await res.json();
-    console.log(data);
     return {
         props: data
     };

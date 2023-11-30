@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import Image from 'next/image'
+import Image from 'next/image';
+import WritingSignatureIcon from '/public/images/icons/WritingSignature.png';
 
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
@@ -89,9 +90,18 @@ export default function Blog(props) {
                 height={300}
               />
               <h1>{mostRecentPost.attributes.Title}</h1>
-              <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+              <div className="blog-post-image-description">
+                <Image
+                  src={WritingSignatureIcon}
+                  alt={"Essay"}
+                  width={100}
+                  height={100}
+                />
+                <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+              </div>
             </Link>
           </div>
+          <div className="divider-1"></div>
           <div className="blog-post-list">
             {/* Loop through other blog posts */}
             {blogPosts.map((post) => (
@@ -105,7 +115,15 @@ export default function Blog(props) {
                     height={300}
                   />
                   <h2>{post.attributes.Title}</h2>
-                  <p>{post.attributes.BlogPostDescription}</p>
+                  <div className="blog-post-image-description">
+                    <Image
+                    src={WritingSignatureIcon}
+                    alt={"Essay"}
+                    width={100}
+                    height={100}
+                    />
+                    <p>{post.attributes.BlogPostDescription}</p>
+                  </div>
                 </Link>
               </div>
             ))}

@@ -1,9 +1,10 @@
 .blogpage {
-  background: $black;
+  background: $white;
   min-height: 100vh;
   height: fit-content;
 }
 
+// The featured post displayed front and center at top of page
 .featured-post {
   margin-top: 5rem;
   margin-left: auto;
@@ -12,18 +13,16 @@
   display: flex;
   margin-bottom: 20px;
   overflow: hidden;
-  text-align: center;
+  text-align: left;
   justify-content: center;
-  border: 1px solid $white;
-  background: $black;
 
   img {
     width: 100%;
-    height: auto; /* Adjust the height as needed */
+    height: auto;
     object-fit: cover;
   }
   h1 {
-    font-size: 75px;
+    font-size: 50px;
     font-weight: 600;
   }
   p {
@@ -34,7 +33,7 @@
     display: inline-block;
     margin-top: 10px;
     padding: 10px 20px;
-    color: white;
+    color: $black;
     text-decoration: none;
     border-radius: 5px;
   }
@@ -44,6 +43,16 @@
   }
 }
 
+// Divider between featured post and rest of page below
+.divider-1 {
+  margin-left: 18%;
+  margin-right: 18%;
+  display: flex;
+  background-color: $black;
+  padding: 10px;
+  border-radius: 0 25px 0 25px;
+}
+
 .blog-post-list {
   margin-left: 18%;
   margin-right: 18%;
@@ -51,19 +60,17 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  background-color: $black;
-  box-shadow: 4px 4px 8px 4px $white;
   padding: 20px;
-  border-radius: 0 50px 0 50px;
 
   .blog-post {
     width: 33.333%;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
     overflow: hidden;
+
     img {
       width: 100%;
-      height: auto; /* Adjust the height as needed */
+      height: auto;
       object-fit: cover;
     }
     h2 {
@@ -88,6 +95,19 @@
   }
 }
 
+.blog-post-image-description {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  img {
+    width: 3rem;
+    height: auto;
+    margin-right: 0.5rem;
+  }
+}
+
+// CSS Below is for the page of an individual blog post after being routed to from user selection
 .slug-page-background-color {  
   background-color: $white;
   width: 100%;
@@ -123,16 +143,14 @@
 
     h2, h4 {
       font-style: italic;
-      text-align: center; /* Center text within each heading */
+      text-align: center;
       align-items: center;
     }
-
     h4 {
       padding-top: 0.25rem;
     }
-
     h2::after {
-      content: '\00a0|\00a0'; /* Add the pipe symbol with spacing around it */
+      content: '\00a0|\00a0'; // Add the pipe symbol with spacing around it
     }
   }
 
@@ -171,18 +189,38 @@
 @media screen and (max-width: 1079px) {
   .featured-post {
     width: 90%;
+
+    h1 {
+      font-size: 25px;
+    }
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .divider-1 {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 
   .blog-post-list {
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    width: 90%;
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
 
     .blog-post {
       width: 100%;
+
+      h2 {
+        font-size: 25px;
+      }
+      p {
+        font-size: 18px;
+      }
     }
   }
     
