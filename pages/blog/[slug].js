@@ -68,9 +68,7 @@ export async function getServerSideProps({ params }) {
     }
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const data = await res.json();
-    return {
-        props: data
-    };
+    return { props: data };
 }
 
 export default function BlogPost(props) {
