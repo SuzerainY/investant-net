@@ -68,6 +68,18 @@
     text-align: left;
     overflow: hidden;
 
+    .blog-post-image-description {
+      display: flex;
+      flex-direction: row;
+      align-items: last baseline;
+    
+      img {
+        width: 3rem;
+        height: auto;
+        margin-right: 0.5rem;
+      }
+    }
+
     img {
       width: 100%;
       height: auto;
@@ -84,7 +96,7 @@
       display: inline-block;
       margin-top: 10px;
       padding: 10px 20px;
-      color: white;
+      color: $black;
       text-decoration: none;
       border-radius: 5px;
     }
@@ -98,7 +110,7 @@
 .blog-post-image-description {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: last baseline;
 
   img {
     width: 3rem;

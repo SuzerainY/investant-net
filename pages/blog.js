@@ -117,7 +117,7 @@ export default function Blog(props) {
             {/* Loop through other blog posts */}
             {blogPosts.map((post) => (
               <div className="blog-post" key={post.attributes.SLUG}>
-                <Link href={`/blog/${post.attributes.SLUG}`}>
+                <Link key={post.attributes.SLUG} href={`/blog/${post.attributes.SLUG}`}>
                   <Image
                     className="slug-page-image"
                     src={`${post.attributes.SPLASH.data.attributes.url}`}
@@ -128,10 +128,10 @@ export default function Blog(props) {
                   <h2>{post.attributes.Title}</h2>
                   <div className="blog-post-image-description">
                     <Image
-                    src={WritingSignatureIcon}
-                    alt={"Essay"}
-                    width={100}
-                    height={100}
+                      src={WritingSignatureIcon}
+                      alt={"Essay"}
+                      width={100}
+                      height={100}
                     />
                     <p>{post.attributes.BlogPostDescription}</p>
                   </div>
