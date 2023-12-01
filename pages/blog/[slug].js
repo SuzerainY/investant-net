@@ -73,6 +73,16 @@ export async function getServerSideProps({ params }) {
 
 export default function BlogPost(props) {
     const post = props.data.blogPosts.data[0];
+    const readWPM = 200; // Assumption for how many words per minute the average reader can read
+
+    // If it takes 1 minute to read post, display "minute", else "minutes"
+    const postTimeToRead = Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM);
+    if (postTimeToRead === 1) {
+      var postTimeText = '~ 1 minute'
+    }
+    else {
+      var postTimeText = `~ ${postTimeToRead} minutes`
+    }
 
     /*
     // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
@@ -156,6 +166,9 @@ export default function BlogPost(props) {
                         <div className='slug-page-author-date'>
                             <h2>{post.attributes.Author}</h2>
                             <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
+                        </div>
+                        <div className='slug-page-time-text'>
+                            <p>{postTimeText}</p>
                         </div>
                         <Image className='slug-page-image'
                             src={`${post.attributes.SPLASH.data.attributes.url}`}
