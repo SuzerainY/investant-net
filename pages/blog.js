@@ -118,18 +118,20 @@ export default function Blog(props) {
             {blogPosts.map((post) => (
               <div className="blog-post" key={post.attributes.SLUG}>
                 <Link key={post.attributes.SLUG} href={`/blog/${post.attributes.SLUG}`}>
-                  <Image
-                    className="slug-page-image"
-                    src={`${post.attributes.SPLASH.data.attributes.url}`}
-                    alt={post.attributes.Title}
-                    width={600}
-                    height={300}
-                  />
+                  <div className="blog-post-image-container">
+                    <Image
+                      className="slug-page-image"
+                      src={`${post.attributes.SPLASH.data.attributes.url}`}
+                      alt={post.attributes.Title}
+                      width={600}
+                      height={300}
+                    />
+                  </div>
                   <h2>{post.attributes.Title}</h2>
                   <div className="blog-post-image-description">
                     <Image
                       src={WritingSignatureIcon}
-                      alt={"Essay"}
+                      alt={"Essay Icon"}
                       width={100}
                       height={100}
                     />
