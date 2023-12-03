@@ -165,7 +165,7 @@ export default function BlogPost(props) {
                         <h1 className='slug-page-title'>{post.attributes.Title}</h1>
                         <div className='slug-page-author-date'>
                             <h2>{post.attributes.Author}</h2>
-                            <h4>{formatDate(Date(post.attributes.PublishDate))}</h4>
+                            <h4>{formatDate(new Date(post.attributes.PublishDate))}</h4>
                         </div>
                         <div className='slug-page-time-text'>
                             <p>{postTimeText}</p>
