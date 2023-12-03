@@ -146,6 +146,7 @@
   .slug-page-title {
     display: flex;
     font-weight: 700;
+    font-size: 4rem;
     justify-content: left;
     color: $black;
     text-align: left;
@@ -194,6 +195,10 @@
     margin: 25px 0;
     max-width: 100%;
     white-space: pre-wrap;
+  }
+
+  .slug-page-body a {
+    color: $magenta;
   }
 
   .slug-page-body p {

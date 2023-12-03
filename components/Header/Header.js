@@ -64,6 +64,17 @@ export default function Header() {
   return (
     <>
       <nav className="header">
+        <div className="mobile-top-banner">
+          <Link href="/">
+            <Image
+              src={"/images/branding/FaviconTransparent.png"}
+              alt="Investant Favicon"
+              width={100}
+              height={100}
+              priority
+            />
+          </Link>
+        </div>
         <div className="mobile-menu">
           <h3>MENU</h3>
           <ul>
@@ -80,8 +91,7 @@ export default function Header() {
               <Link href="/blog">Blog</Link>
             </li>
           </ul>
-
-          <ul>        
+          <div className="mobile-media-links">
             <li>
               <Link
                 href="https://discord.gg/SFUKKjWEjH"
@@ -127,10 +137,11 @@ export default function Header() {
                 />
               </Link>
             </li>
-          </ul>
+          </div>
         </div>
 
         <div className="desktop-menu">
+          <div className="NavBar-Investant-Logo">
             <ul>
               <li>
                 <Link href="/">
@@ -144,7 +155,8 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
-        
+          </div>
+          <div className="NavBar-Navigation-Links">
             <ul>
               <li>
                 <Link href="/">Home</Link>
@@ -159,7 +171,8 @@ export default function Header() {
                 <Link href="/blog">Blog</Link>
               </li>
             </ul>
-
+          </div>
+          <div className="NavBar-Media-Links">
             <ul>        
               <li>
                 <Link
@@ -207,6 +220,7 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
+          </div>
         </div>
       </nav>
     </>

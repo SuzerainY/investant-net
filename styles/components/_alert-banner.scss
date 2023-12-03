@@ -1,13 +1,16 @@
 .alert-banner {
     position: static;
-    width: 100%;
-    padding: 2rem;
+    display: table-cell;
+    width: 100vw;
+    height: fit-content;
+    padding: 5px;
     text-align: center;
-    background-color: rgba(64, 201, 255, 1.0);
+    vertical-align: middle;
+    background-color: $light-blue;
     z-index: 100; /* Ensure the banner is above other content */
 }
 .alert-banner a {
-    color: rgba(232, 28, 255, 1.0);
+    color: $magenta;
 }
 
 @media screen and (max-width: 1079px) {
