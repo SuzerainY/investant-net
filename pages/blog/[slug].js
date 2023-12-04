@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw'
 import Image from 'next/image';
 
 // The URL for our STRAPI app backend stored in environment variables
@@ -186,7 +187,7 @@ export default function BlogPost(props) {
                             height={600}
                         />
                         <div className='slug-page-body'>
-                            <ReactMarkdown className='html'>{post.attributes.BlogPostBody}</ReactMarkdown>
+                            <Markdown className='html' rehypePlugins={[rehypeRaw]}>{post.attributes.BlogPostBody}</Markdown>
                         </div>
                     </main>
                 </DefaultLayout>

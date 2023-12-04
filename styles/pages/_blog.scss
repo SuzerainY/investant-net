@@ -201,32 +201,36 @@
   }
 
   .slug-page-body {
+    display: flex;
     font-weight: 200;
     color: $black;
     text-align: center;
     justify-content: center;
+    align-items: center;
     margin: 25px 0;
     max-width: 100%;
     white-space: pre-wrap;
-  }
 
-  .slug-page-body a {
-    color: $magenta;
-  }
-
-  .slug-page-body p {
-    font-size: 1.8rem;
-    text-align: justify;
-  }
-
-  .slug-page-body p img {
-    display: block;
-    margin: 2rem auto;
-  }
-
-  .slug-page-body img {
-    max-width: 75%;
-    height: auto;
+    iframe {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    a {
+      color: $magenta;
+    }
+    p {
+      font-size: 1.8rem;
+      text-align: justify;
+    }
+    p img {
+      display: block;
+      margin: 2rem auto;
+    }
+    img {
+      max-width: 75%;
+      height: auto;
+    }
   }
 }
 
