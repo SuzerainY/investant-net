@@ -75,14 +75,23 @@ export default function BlogPost(props) {
     const post = props.data.blogPosts.data[0];
     const readWPM = 200; // Assumption for how many words per minute the average reader can read
 
-    // If it takes 1 minute to read post, display "minute", else "minutes"
-    const postTimeToRead = Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM);
-    if (postTimeToRead === 1) {
-      var postTimeText = '~ 1 minute'
-    }
-    else {
-      var postTimeText = `~ ${postTimeToRead} minutes`
-    }
+    // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
+    function blogPostReadLengthText(post, readWPM) {
+        var spaceCount = 0;
+        var blogPostBody = post.attributes.BlogPostBody;
+        for (let i = 0; i < blogPostBody.length; i++) {
+        if (blogPostBody[i] === " ") {
+            spaceCount++;
+        }
+        }
+        const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
+        // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below
+        if (blogPostTimeToRead === 1) {
+        return '~ 1 minute'
+        } else {
+        return `~ ${blogPostTimeToRead} minutes`
+        }
+    };
 
     /*
     // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
@@ -168,7 +177,7 @@ export default function BlogPost(props) {
                             <h4>{formatDate(new Date(post.attributes.PublishDate))}</h4>
                         </div>
                         <div className='slug-page-time-text'>
-                            <p>{postTimeText}</p>
+                            <p>{blogPostReadLengthText(post, readWPM)}</p>
                         </div>
                         <Image className='slug-page-image'
                             src={`${post.attributes.SPLASH.data.attributes.url}`}

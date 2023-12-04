@@ -50,14 +50,23 @@ export default function Blog(props) {
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
   const readWPM = 200; // Assumption for how many words per minute the average reader can read
 
-  // If it takes 1 minute to read post, display "minute", else "minutes"
-  const mostRecentPostTimeToRead = Math.ceil(String(mostRecentPost.attributes.BlogPostBody).split(' ').length / readWPM);
-  if (mostRecentPostTimeToRead === 1) {
-    var mostRecentPostTimeText = '~ 1 minute'
-  }
-  else {
-    var mostRecentPostTimeText = `~ ${mostRecentPostTimeToRead} minutes`
-  }
+  // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
+  function blogPostReadLengthText(post, readWPM) {
+    var spaceCount = 0;
+    var blogPostBody = post.attributes.BlogPostBody;
+    for (let i = 0; i < blogPostBody.length; i++) {
+      if (blogPostBody[i] === " ") {
+        spaceCount++;
+      }
+    }
+    const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
+    // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below
+    if (blogPostTimeToRead === 1) {
+      return '~ 1 minute'
+    } else {
+      return `~ ${blogPostTimeToRead} minutes`
+    }
+  };
 
   return (
     <>
@@ -107,8 +116,8 @@ export default function Blog(props) {
                 <p>{mostRecentPost.attributes.BlogPostDescription}</p>
               </div>
               <div className="blog-post-read-length">
-                {/* Calculate approximate minutes to read. Counting number of words by number of spaces in essay. */}
-                <p>{mostRecentPostTimeText}</p>
+                {/* Calculate approximate minutes to read.*/}
+                <p>{blogPostReadLengthText(mostRecentPost, readWPM)}</p>
               </div>
             </Link>
           </div>
@@ -138,8 +147,8 @@ export default function Blog(props) {
                     <p>{post.attributes.BlogPostDescription}</p>
                   </div>
                   <div className="blog-post-read-length">
-                    {/* Calculate approximate minutes to read. Counting number of words by number of spaces in essay. */}
-                    <p>{Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM) === 1 ? '~ 1 minute' : `~ ${Math.ceil(String(post.attributes.BlogPostBody).split(' ').length / readWPM)} minutes`}</p>
+                    {/* Calculate approximate minutes to read. */}
+                    <p>{blogPostReadLengthText(post, readWPM)}</p>
                   </div>
                 </Link>
               </div>
