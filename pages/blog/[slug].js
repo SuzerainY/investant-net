@@ -4,6 +4,7 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw'
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 // The URL for our STRAPI app backend stored in environment variables
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
@@ -94,44 +95,75 @@ export default function BlogPost(props) {
         }
     };
 
-    /*
-    // Image URIs from our STRAPI Media Content Folders appear in the body as: (/uploads/ImageNamehere.png)
-    // This method will adjust them to: (`${STRAPIurl}/uploads/ImageNamehere.png`) so that we properly fetch the image and display on site
-    function ParseImageURL(post) {
+    // We need to parse the HTML and handle for edge cases:
+    // - From outputted HTML via <Markdown></Markdown>, replace all <img/> tags with <Image/> tags so that Nextjs can optimize the delivery to client from cloudinary
+    // - Parse the original Markdown text for a youtube embedded <iframe></iframe> and wrap in a <div classname="youtube-embed-container"></div>
+    // - Parse the original Markdown text for a twitter embedded <blockquote class="twitter-tweet"> and replace with <blockquote class="twitter-tweet tw-align-center">
+    function ParseMarkdownHTML(post) {
         var BlogPostBody = String(post.attributes.BlogPostBody);
-        var BlogPostBodyMarkdown = "";
+        var embeddedTweetExists = false;
 
-        function recursiveParse(BlogPostBody) {
-            let openUriIndex = 0;
-            let closeUriIndex = 0;
-            // Iterate through each instance of "(" searching for "/uploads" afterwards
-            for (let i = 0; i < BlogPostBody.length; i++) {
-                
-                if (BlogPostBody[i] === "(" && i + 9 < BlogPostBody.length && BlogPostBody.substring(i + 1, i + 9) === "/uploads") {
-                    // i must be the opening parenthesis of this URI
-                    openUriIndex = i
-    
-                    // Fetch the closing parenthesis of this URI
-                    for (let j = openUriIndex; j < BlogPostBody.length; j++) {
-                        if (BlogPostBody[j] === ")") {
-                            closeUriIndex = j;
-                            break;
+        function recursiveParse(BlogPostBody, embeddedTweetExists) {
+            let BodyLength = BlogPostBody.length
+            let openIndex = 0;
+            let closeIndex = 0;
+            let modified = false;
+
+            // Iterate through each character searching for < tags. We will recursively solve for each edge case
+            while (!modified) {
+
+                for (let i = 0; i < BodyLength; i++) {
+                    
+                    // Case: Twitter Embedded Tweet
+                    if (BlogPostBody[i] === "<" && i + 34 < BodyLength && BlogPostBody.substring(i, i + 34) === `<blockquote class="twitter-tweet">`) {
+                        // Let's flag that we've found an embedded tweet so we can preload the twitter widget
+                        if (!embeddedTweetExists) {
+                            embeddedTweetExists = true;
+                        }
+                        openIndex = i; // i must be the opening of a twitter embedded <blockquote></blockquote> tag
+                        closeIndex = i + 34;
+
+                        // Apply the tw-align-center class to the embedded tweet
+                        BlogPostBody = BlogPostBody.substring(0, openIndex) + `<blockquote class="twitter-tweet tw-align-center">` + BlogPostBody.substring(closeIndex);
+                        modified = true;
+                    }
+                    // Case: Youtube Embedded Video
+                    if (BlogPostBody[i] === "<" && i + 7 < BodyLength && BlogPostBody.substring(i, i + 7) === "<iframe" && BlogPostBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
+                        openIndex = i; // i must be the opening of an <iframe></iframe> tag
+                        i += 7; // Skip forwards
+                        // Check to find either closing > or 'youtube.com' | 
+                        while (BlogPostBody[i] != ">" && i + 1 < BodyLength) {
+                            i++;
+                            // If 'youtube.com' in <iframe> tag, then fetch close of iframe
+                            if (BlogPostBody[i] === "y" && i + 17 < BodyLength && BlogPostBody.substring(i, i + 17) === "youtube.com/embed") {
+                                j = i + 17; // Skip forwards
+                                while (j + 1 < BodyLength && BlogPostBody.substring(j - 9, j + 1) != "></iframe>") {
+                                    j++;
+                                }
+                                // We've exited while loop, check if we found found closing </iframe> tag and apply <div classname="youtube-embed-container"></div>
+                                if (BlogPostBody.substring(j - 9, j + 1) === "></iframe>") {
+                                    closeIndex = j + 1;
+                                    BlogPostBody = BlogPostBody.substring(0, openIndex) + `<div classname="youtube-embed-container">${BlogPostBody.substring(openIndex, closeIndex)}</div>` + BlogPostBody.substring(closeIndex);
+                                    console.log(BlogPostBody);
+                                    modified = true;
+                                }
+                            }
                         }
                     }
-    
-                    // Insert the correct URI address to the image
-                    // let NewUri = `http://localhost:1337${BlogPostBody.substring(openUriIndex + 1, closeUriIndex + 1)}`;
-                    let NewUri = `${STRAPIurl}${BlogPostBody.substring(openUriIndex + 1, closeUriIndex + 1)}`;
-                    BlogPostBodyMarkdown = BlogPostBody.substring(0, openUriIndex + 1) + NewUri + BlogPostBody.substring(closeUriIndex + 1);
-                    recursiveParse(BlogPostBodyMarkdown);
                 }
+                break;
             }
-            return BlogPostBodyMarkdown
+            // If changes were made, reiterate with new changes
+            if (modified) {
+                return recursiveParse(BlogPostBody, embeddedTweetExists);
+            }
+            return { BlogPostBody, embeddedTweetExists }; // If no changes made, return original content
         }
-        return recursiveParse(BlogPostBody);
+        // var BlogPostBodyHTML = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{recursiveParse(BlogPostBody)}</Markdown>;
+        return recursiveParse(BlogPostBody, embeddedTweetExists);
     }
-    var BlogPostBodyMarkdown = ParseImageURL(post);
-    */
+    const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
+    let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{BlogPostBody}</Markdown>;
 
     // Return a Date() object as yyyy-mm-dd
     function formatDate(date) {
@@ -144,6 +176,36 @@ export default function BlogPost(props) {
     if (router.isFallback) {
         return <div>Loading...</div>;
     }
+
+    useEffect(() => {
+        const loadTwitterWidgetScript = () => {
+            const script = document.createElement('script');
+            script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+            script.setAttribute('async', 'true');
+            document.head.appendChild(script);
+        };
+
+        const checkAndLoadTwitterWidget = () => {
+            if (embeddedTweetExists) {
+                // Load Twitter widget script if there are elements with '.twitter-tweet' class
+                if (!window.twttr) {
+                    loadTwitterWidgetScript();
+                }
+                window.twttr?.widgets.load();
+            }
+        };
+
+        // Check and load Twitter widget script on route change
+        router.events.on('routeChangeComplete', checkAndLoadTwitterWidget);
+
+        // Check and load Twitter widget script on initial component mount
+        checkAndLoadTwitterWidget();
+
+        // Clean up: Remove event listener when component unmounts
+        return () => {
+            router.events.off('routeChangeComplete', checkAndLoadTwitterWidget);
+        };
+    }, [post, router.events]);
 
     return (
         <>
@@ -187,7 +249,7 @@ export default function BlogPost(props) {
                             height={600}
                         />
                         <div className='slug-page-body'>
-                            <Markdown className='html' rehypePlugins={[rehypeRaw]}>{post.attributes.BlogPostBody}</Markdown>
+                            {BlogPostBodyComponent}
                         </div>
                     </main>
                 </DefaultLayout>
