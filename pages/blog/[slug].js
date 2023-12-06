@@ -74,6 +74,12 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function BlogPost(props) {
+    const router = useRouter();
+    // Render a loading state while data is being fetched
+    if (router.isFallback) {
+        return <div>Loading...</div>;
+    }
+
     const post = props.data.blogPosts.data[0];
     const readWPM = 200; // Assumption for how many words per minute the average reader can read
 
@@ -165,6 +171,12 @@ export default function BlogPost(props) {
     const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
     let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{BlogPostBody}</Markdown>;
     
+    // Return a Date() object as yyyy-mm-dd
+    function formatDate(date) {
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
+
     useEffect(() => {
         // Preload Twitter Widget for embedded tweets
         const loadTwitterWidgetScript = () => {
@@ -195,19 +207,6 @@ export default function BlogPost(props) {
             router.events.off('routeChangeComplete', checkAndLoadTwitterWidget);
         };
     }, [embeddedTweetExists, router.events]);
-
-    // Return a Date() object as yyyy-mm-dd
-    function formatDate(date) {
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
-        return new Date(date).toLocaleDateString('en-US', options);
-    }
-
-    const router = useRouter();
-    // Render a loading state while data is being fetched
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
-
 
     return (
         <>
