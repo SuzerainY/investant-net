@@ -164,27 +164,16 @@ export default function BlogPost(props) {
     }
     const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
     let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{BlogPostBody}</Markdown>;
-
-    // Return a Date() object as yyyy-mm-dd
-    function formatDate(date) {
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
-        return new Date(date).toLocaleDateString('en-US', options);
-    }
-
-    const router = useRouter();
-    // Render a loading state while data is being fetched
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
-
+    
     useEffect(() => {
+        // Preload Twitter Widget for embedded tweets
         const loadTwitterWidgetScript = () => {
             const script = document.createElement('script');
             script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
             script.setAttribute('async', 'true');
             document.head.appendChild(script);
         };
-
+        // Only call the preload of the twitter widget if the blog post contains an embedded tweet
         const checkAndLoadTwitterWidget = () => {
             if (embeddedTweetExists) {
                 // Load Twitter widget script if there are elements with '.twitter-tweet' class
@@ -205,7 +194,20 @@ export default function BlogPost(props) {
         return () => {
             router.events.off('routeChangeComplete', checkAndLoadTwitterWidget);
         };
-    }, [post, router.events]);
+    }, [embeddedTweetExists, router.events]);
+
+    // Return a Date() object as yyyy-mm-dd
+    function formatDate(date) {
+        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
+
+    const router = useRouter();
+    // Render a loading state while data is being fetched
+    if (router.isFallback) {
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <>
