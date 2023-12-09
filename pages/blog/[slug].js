@@ -98,12 +98,12 @@ export default function BlogPost(props) {
 
     // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
     function blogPostReadLengthText(post, readWPM) {
-        var spaceCount = 0;
-        var blogPostBody = post.attributes.BlogPostBody;
+        let spaceCount = 0;
+        let blogPostBody = post.attributes.BlogPostBody;
         for (let i = 0; i < blogPostBody.length; i++) {
-        if (blogPostBody[i] === " ") {
-            spaceCount++;
-        }
+            if (blogPostBody[i] === " ") {
+                spaceCount++;
+            }
         }
         const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
         // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below
