@@ -73,6 +73,24 @@ export async function getServerSideProps({ params }) {
     return { props: data };
 }
 
+// Custom component to conditionally render Cloudinary images as Next.js Image components
+const CustomImage = ({ alt, src }) => {
+    // Check if the image src contains 'https://res.cloudinary.com'  
+    if (src.includes('https://res.cloudinary.com')) {
+        return (
+            <Image
+                alt={alt || ''}
+                src={src}
+                width={800}
+                height={600}
+            />
+        );
+    } else {
+        // Return the original <img> tag for non-Cloudinary images
+        return <img alt={alt || ''} src={src}/>;
+    }
+};
+
 export default function BlogPost(props) {
     const router = useRouter();
     const post = props.data.blogPosts.data[0];
@@ -127,9 +145,10 @@ export default function BlogPost(props) {
                         // Apply the tw-align-center class to the embedded tweet
                         BlogPostBody = BlogPostBody.substring(0, openIndex) + `<blockquote class="twitter-tweet tw-align-center">` + BlogPostBody.substring(closeIndex);
                         modified = true;
+                        break;
                     }
                     // Case: Youtube Embedded Video
-                    if (BlogPostBody[i] === "<" && i + 7 < BodyLength && BlogPostBody.substring(i, i + 7) === "<iframe" && BlogPostBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
+                    else if (BlogPostBody[i] === "<" && i + 7 < BodyLength && BlogPostBody.substring(i, i + 7) === "<iframe" && BlogPostBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
                         openIndex = i; // i must be the opening of an <iframe></iframe> tag
                         i += 7; // Skip forwards
                         // Check to find either closing > or 'youtube.com' | 
@@ -137,7 +156,7 @@ export default function BlogPost(props) {
                             i++;
                             // If 'youtube.com' in <iframe> tag, then fetch close of iframe
                             if (BlogPostBody[i] === "y" && i + 17 < BodyLength && BlogPostBody.substring(i, i + 17) === "youtube.com/embed") {
-                                j = i + 17; // Skip forwards
+                                let j = i + 17; // Skip forwards
                                 while (j + 1 < BodyLength && BlogPostBody.substring(j - 9, j + 1) != "></iframe>") {
                                     j++;
                                 }
@@ -145,8 +164,8 @@ export default function BlogPost(props) {
                                 if (BlogPostBody.substring(j - 9, j + 1) === "></iframe>") {
                                     closeIndex = j + 1;
                                     BlogPostBody = BlogPostBody.substring(0, openIndex) + `<div classname="youtube-embed-container">${BlogPostBody.substring(openIndex, closeIndex)}</div>` + BlogPostBody.substring(closeIndex);
-                                    console.log(BlogPostBody);
                                     modified = true;
+                                    break;
                                 }
                             }
                         }
@@ -160,11 +179,10 @@ export default function BlogPost(props) {
             }
             return { BlogPostBody, embeddedTweetExists }; // If no changes made, return original content
         }
-        // var BlogPostBodyHTML = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{recursiveParse(BlogPostBody)}</Markdown>;
         return recursiveParse(BlogPostBody, embeddedTweetExists);
     }
     const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
-    let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]}>{BlogPostBody}</Markdown>;
+    let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
     
     // Return a Date() object as yyyy-mm-dd
     function formatDate(date) {
