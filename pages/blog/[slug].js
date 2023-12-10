@@ -37,7 +37,6 @@ export async function getServerSidePaths() {
 // Fetch the selected blog from the server via graphql
 export async function getServerSideProps({ params }) {
     const slug = params.slug;
-
     const fetchParams = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -115,73 +114,66 @@ export default function BlogPost(props) {
     };
 
     // We need to parse the HTML and handle for edge cases:
-    // - From outputted HTML via <Markdown></Markdown>, replace all <img/> tags with <Image/> tags so that Nextjs can optimize the delivery to client from cloudinary
     // - Parse the original Markdown text for a youtube embedded <iframe></iframe> and wrap in a <div classname="youtube-embed-container"></div>
     // - Parse the original Markdown text for a twitter embedded <blockquote class="twitter-tweet"> and replace with <blockquote class="twitter-tweet tw-align-center">
     function ParseMarkdownHTML(post) {
-        var BlogPostBody = String(post.attributes.BlogPostBody);
-        var embeddedTweetExists = false;
+        let BlogPostBody = String(post.attributes.BlogPostBody);
+        let embeddedTweetExists = false;
+        let openIndex = 0;
+        let closeIndex = 0;
+        let stringInsert = ``;
 
-        function recursiveParse(BlogPostBody, embeddedTweetExists) {
-            let BodyLength = BlogPostBody.length
-            let openIndex = 0;
-            let closeIndex = 0;
-            let modified = false;
+        // Iterate through each character searching for < tags. Solve each edge case
+        for (let i = 0; i < BlogPostBody.length; i++) {
+            
+            // Case: Twitter Embedded Tweet
+            if (BlogPostBody[i] === "<" && i + 34 < BlogPostBody.length && BlogPostBody.substring(i, i + 34) === `<blockquote class="twitter-tweet">`) {
+                // Let's flag that we've found an embedded tweet so we can preload the twitter widget
+                if (!embeddedTweetExists) {
+                    embeddedTweetExists = true;
+                }
+                openIndex = i; // i must be the opening of a twitter embedded <blockquote></blockquote> tag
+                closeIndex = i + 34;
+                stringInsert = `<blockquote class="twitter-tweet tw-align-center">`;
 
-            // Iterate through each character searching for < tags. We will recursively solve for each edge case
-            while (!modified) {
+                // Apply the tw-align-center class to the embedded tweet
+                BlogPostBody = BlogPostBody.substring(0, openIndex) + stringInsert + BlogPostBody.substring(closeIndex);
+                i = openIndex + stringInsert.length - 1; // Go to end of our string insertion and continue iterating
+                continue;
+            }
 
-                for (let i = 0; i < BodyLength; i++) {
-                    
-                    // Case: Twitter Embedded Tweet
-                    if (BlogPostBody[i] === "<" && i + 34 < BodyLength && BlogPostBody.substring(i, i + 34) === `<blockquote class="twitter-tweet">`) {
-                        // Let's flag that we've found an embedded tweet so we can preload the twitter widget
-                        if (!embeddedTweetExists) {
-                            embeddedTweetExists = true;
+            // Case: Youtube Embedded Video
+            else if (BlogPostBody[i] === "<" && i + 7 < BlogPostBody.length && BlogPostBody.substring(i, i + 7) === "<iframe" && BlogPostBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
+                openIndex = i; // i must be the opening of an <iframe></iframe> tag
+                i += 7; // Skip forwards
+                // Check to find either closing > or 'youtube.com' | 
+                while (BlogPostBody[i] != ">" && i + 1 < BlogPostBody.length) {
+                    i++;
+                    // If 'youtube.com' in <iframe> tag, then fetch close of iframe
+                    if (BlogPostBody[i] === "y" && i + 17 < BlogPostBody.length && BlogPostBody.substring(i, i + 17) === "youtube.com/embed") {
+                        let j = i + 17; // Skip forwards
+                        while (j + 1 < BlogPostBody.length && BlogPostBody.substring(j - 9, j + 1) != "></iframe>") {
+                            j++;
                         }
-                        openIndex = i; // i must be the opening of a twitter embedded <blockquote></blockquote> tag
-                        closeIndex = i + 34;
-
-                        // Apply the tw-align-center class to the embedded tweet
-                        BlogPostBody = BlogPostBody.substring(0, openIndex) + `<blockquote class="twitter-tweet tw-align-center">` + BlogPostBody.substring(closeIndex);
-                        modified = true;
-                        break;
-                    }
-                    // Case: Youtube Embedded Video
-                    else if (BlogPostBody[i] === "<" && i + 7 < BodyLength && BlogPostBody.substring(i, i + 7) === "<iframe" && BlogPostBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
-                        openIndex = i; // i must be the opening of an <iframe></iframe> tag
-                        i += 7; // Skip forwards
-                        // Check to find either closing > or 'youtube.com' | 
-                        while (BlogPostBody[i] != ">" && i + 1 < BodyLength) {
-                            i++;
-                            // If 'youtube.com' in <iframe> tag, then fetch close of iframe
-                            if (BlogPostBody[i] === "y" && i + 17 < BodyLength && BlogPostBody.substring(i, i + 17) === "youtube.com/embed") {
-                                let j = i + 17; // Skip forwards
-                                while (j + 1 < BodyLength && BlogPostBody.substring(j - 9, j + 1) != "></iframe>") {
-                                    j++;
-                                }
-                                // We've exited while loop, check if we found found closing </iframe> tag and apply <div classname="youtube-embed-container"></div>
-                                if (BlogPostBody.substring(j - 9, j + 1) === "></iframe>") {
-                                    closeIndex = j + 1;
-                                    BlogPostBody = BlogPostBody.substring(0, openIndex) + `<div classname="youtube-embed-container">${BlogPostBody.substring(openIndex, closeIndex)}</div>` + BlogPostBody.substring(closeIndex);
-                                    modified = true;
-                                    break;
-                                }
-                            }
+                        // We've exited while loop, check if we found found closing </iframe> tag and apply <div classname="youtube-embed-container"></div>
+                        if (BlogPostBody.substring(j - 9, j + 1) === "></iframe>") {
+                            closeIndex = j + 1;
+                            stringInsert = `<div classname="youtube-embed-container">${BlogPostBody.substring(openIndex, closeIndex)}</div>`;
+                            BlogPostBody = BlogPostBody.substring(0, openIndex) + stringInsert + BlogPostBody.substring(closeIndex);
+                            i = openIndex + stringInsert.length - 1; // Go to end of our string insertion and continue iterating
+                            break;
                         }
                     }
                 }
-                break;
+                continue;
             }
-            // If changes were made, reiterate with new changes
-            if (modified) {
-                return recursiveParse(BlogPostBody, embeddedTweetExists);
-            }
-            return { BlogPostBody, embeddedTweetExists }; // If no changes made, return original content
         }
-        return recursiveParse(BlogPostBody, embeddedTweetExists);
+        // Return original or new BlogPostBody and if an embedded tweet exists to handle twitter widget script
+        return { BlogPostBody, embeddedTweetExists };
     }
     const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
+
+    // Generate HTML component with React Markdown library | rehypeRaw allows the use of Raw HTML in the Markdown text, and CustomImage will optimize Cloudinary Images with Next <Image/> tags
     let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
     
     // Return a Date() object as yyyy-mm-dd

@@ -8,7 +8,7 @@ const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
 export async function getServerSideProps(context) {
   const fetchParams = {
-    method: "post",
+    method: "POST",
     headers: {
       "content-type": "application/json"
     },
@@ -38,7 +38,6 @@ export async function getServerSideProps(context) {
       `
     })
   }
-
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
