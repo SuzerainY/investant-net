@@ -44,7 +44,12 @@ export async function getServerSideProps(context) {
 }
 
 export default function Blog(props) {
-  const data = props.data.blogPosts.data;
+  // Sort the blog posts by their PublishDate so we can grab the most recent post and display up top appropriately
+  const data = props.data.blogPosts.data.sort((a, b) => {
+    const publishDate1 = new Date(a.attributes.PublishDate);
+    const publishDate2 = new Date(b.attributes.PublishDate);
+    return publishDate1 - publishDate2;
+  });
   const mostRecentPost = data[data.length - 1]; // Get the most recent post
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
   const readWPM = 200; // Assumption for how many words per minute the average reader can read
@@ -52,7 +57,7 @@ export default function Blog(props) {
   // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
   function blogPostReadLengthText(post, readWPM) {
     let spaceCount = 0;
-    let blogPostBody = post.attributes.BlogPostBody;
+    const blogPostBody = post.attributes.BlogPostBody;
     for (let i = 0; i < blogPostBody.length; i++) {
       if (blogPostBody[i] === " ") {
         spaceCount++;
@@ -60,7 +65,7 @@ export default function Blog(props) {
     }
     const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
     // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below
-    if (blogPostTimeToRead === 1) {
+    if (blogPostTimeToRead === 1 || blogPostTimeToRead === 0) {
       return '~ 1 minute'
     } else {
       return `~ ${blogPostTimeToRead} minutes`
