@@ -1,0 +1,21 @@
+.footer {
+    background-color: $trans-purple;
+    z-index: 99; // Ensure the header is above other content
+
+    .footer-logo {
+        width: fit-content;
+        height: 80px;
+        margin: auto;
+
+        img {
+            display: block;
+            height: 95%;
+            width: auto;
+            margin: auto;
+        }
+        &:hover {
+            transform: scale(1.04);
+            transition-duration: 0.2s;
+        }
+    }
+}
