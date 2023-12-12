@@ -82,7 +82,7 @@ export default function Header() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/papertrade">PaperTrade</Link>
+              <Link href="/products">Products</Link>
             </li>
             <li>
               <Link href="/about-us">About Us</Link>
@@ -162,7 +162,7 @@ export default function Header() {
                 <Link href="/">Home</Link>
               </li>
               <li>
-                <Link href="/papertrade">PaperTrade</Link>
+                <Link href="/products">Products</Link>
               </li>
               <li>
                 <Link href="/about-us">About Us</Link>

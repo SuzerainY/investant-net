@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Investant | PaperTrade</title>
+        <title>Investant | Our Products</title>
         <meta name="description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
