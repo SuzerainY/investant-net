@@ -7,6 +7,9 @@ import WritingSignatureIcon from '/public/images/icons/WritingSignature.png';
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
 export async function getServerSideProps(context) {
+  // For now, fetch all posts. We will need to adjust to ensure we only grab the 15 greatest ID's (latest 15 posts) on the first fetch
+  let varID = 0
+
   const fetchParams = {
     method: "POST",
     headers: {
@@ -14,9 +17,10 @@ export async function getServerSideProps(context) {
     },
     body: JSON.stringify({
       query: `
-        {
-          blogPosts {
+        query getBlogPosts($varID: ID) {
+          blogPosts(pagination:{pageSize: 15}, filters: {id: {gte: $varID}}, sort: "id:asc") {
             data {
+              id
               attributes {
                 Title
                 BlogPostBody
@@ -35,7 +39,8 @@ export async function getServerSideProps(context) {
             }
           }
         }
-      `
+      `,
+      variables: {"varID": varID} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
     })
   }
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
@@ -44,12 +49,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Blog(props) {
-  // Sort the blog posts by their PublishDate so we can grab the most recent post and display up top appropriately
-  const data = props.data.blogPosts.data.sort((a, b) => {
-    const publishDate1 = new Date(a.attributes.PublishDate);
-    const publishDate2 = new Date(b.attributes.PublishDate);
-    return publishDate1 - publishDate2;
-  });
+  const data = props.data.blogPosts.data
   const mostRecentPost = data[data.length - 1]; // Get the most recent post
   const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
   const readWPM = 200; // Assumption for how many words per minute the average reader can read

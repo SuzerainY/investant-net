@@ -42,7 +42,7 @@ export async function getServerSideProps({ params }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: `
-                query getBlogPost($slug: String!){
+                query getBlogPost($slug: String!) {
                     blogPosts(filters: {SLUG: {eq: $slug}}) {
                         data {
                             attributes {
