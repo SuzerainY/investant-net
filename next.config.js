@@ -8,9 +8,14 @@ const nextConfig = {
         hostname: 'investantcms.net',
         port: '',
         pathname: '/uploads/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**'
       }
-    ],
-    domains: ["res.cloudinary.com"]
+    ]
   }
 }
 

@@ -7,9 +7,7 @@ import WritingSignatureIcon from '/public/images/icons/WritingSignature.png';
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
 export async function getServerSideProps(context) {
-  // For now, fetch all posts. We will need to adjust to ensure we only grab the 15 greatest ID's (latest 15 posts) on the first fetch
-  let varID = 0
-
+  // Fetch 15 most recent posts for inital page render
   const fetchParams = {
     method: "POST",
     headers: {
@@ -17,8 +15,8 @@ export async function getServerSideProps(context) {
     },
     body: JSON.stringify({
       query: `
-        query getBlogPosts($varID: ID) {
-          blogPosts(pagination:{pageSize: 15}, filters: {id: {gte: $varID}}, sort: "id:asc") {
+        query GetBlogPosts {
+          blogPosts(pagination: { pageSize: 15 }, sort: "id:desc") {
             data {
               id
               attributes {
@@ -39,8 +37,7 @@ export async function getServerSideProps(context) {
             }
           }
         }
-      `,
-      variables: {"varID": varID} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
+      `
     })
   }
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
@@ -49,9 +46,13 @@ export async function getServerSideProps(context) {
 }
 
 export default function Blog(props) {
-  const data = props.data.blogPosts.data
-  const mostRecentPost = data[data.length - 1]; // Get the most recent post
-  const blogPosts = data.slice(0, -1).reverse(); // Create a new array with the rest of the posts in reverse order such that most recently posted come last
+
+  // Arrange blog post data and variables
+  const data = props.data.blogPosts.data;
+  const mostRecentPost = data[0]; // Get the most recent post
+  const blogPosts = data.slice(1); // The rest of the blog posts with the mostRecentPost removed
+  let earliestPostId = blogPosts[blogPosts.length - 1].id; // When we fetch more posts, we will use this ID in a 'lt' (less than) filter clause to ensure we grab the next 15 earliest posts
+
   const readWPM = 200; // Assumption for how many words per minute the average reader can read
 
   // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post

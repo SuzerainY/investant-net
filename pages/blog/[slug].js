@@ -188,30 +188,35 @@ export default function BlogPost(props) {
             const script = document.createElement('script');
             script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
             script.setAttribute('async', 'true');
+
+            // Wait for the script to be fully loaded, then append it to the document head
+            script.onload = () => {
+                // Ensure the DOM is ready before calling load()
+                document.addEventListener('DOMContentLoaded', () => {
+                    window.twttr.widgets.load(document.getElementById("slug-body"));
+                });
+            };
             document.head.appendChild(script);
         };
-        // Only call the preload of the twitter widget if the blog post contains an embedded tweet
+        // Check if we need to preload the twitter widget and handle accordingly
         const checkAndLoadTwitterWidget = () => {
-            if (embeddedTweetExists) {
-                // Load Twitter widget script if there are elements with '.twitter-tweet' class
+            // Load Twitter widget script only if we found an embedded tweet in the body of this blog post
+            if (embeddedTweetExists === true) {
+                // If we don't have the twitter widget defined, then preload the widget
                 if (!window.twttr) {
                     loadTwitterWidgetScript();
+                } else { // We do have the twitter widget defined, run it
+                    window.twttr.widgets.load(document.getElementById("slug-body"));
                 }
-                window.twttr?.widgets.load();
             }
         };
-
-        // Check and load Twitter widget script on route change
-        router.events.on('routeChangeComplete', checkAndLoadTwitterWidget);
 
         // Check and load Twitter widget script on initial component mount
         checkAndLoadTwitterWidget();
 
-        // Clean up: Remove event listener when component unmounts
-        return () => {
-            router.events.off('routeChangeComplete', checkAndLoadTwitterWidget);
-        };
-    }, [embeddedTweetExists, router.events]);
+        // Clean up: Remove any event listeners when component unmounts
+        return () => {};
+    }, [embeddedTweetExists]);
 
     // Render a loading state while data is being fetched
     if (router.isFallback) {
@@ -259,7 +264,7 @@ export default function BlogPost(props) {
                             width={800}
                             height={600}
                         />
-                        <div className='slug-page-body'>
+                        <div id='slug-body' className='slug-page-body'>
                             {BlogPostBodyComponent}
                         </div>
                     </main>
