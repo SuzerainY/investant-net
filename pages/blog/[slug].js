@@ -15,15 +15,17 @@ export async function getServerSidePaths() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            query: `{
-                blogPosts {
-                    data {
-                        attributes {
-                            SLUG
+            query: `
+                {
+                    blogPosts {
+                        data {
+                            attributes {
+                                SLUG
+                            }
                         }
                     }
                 }
-            }`
+            `
         })
     }
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
@@ -96,7 +98,7 @@ export default function BlogPost(props) {
     const readWPM = 200; // Assumption for how many words per minute the average reader can read
 
     // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
-    function blogPostReadLengthText(post, readWPM) {
+    const blogPostReadLengthText = (post, readWPM) => {
         let spaceCount = 0;
         const blogPostBody = post.attributes.BlogPostBody;
         for (let i = 0; i < blogPostBody.length; i++) {
@@ -171,13 +173,13 @@ export default function BlogPost(props) {
         // Return original or new BlogPostBody and if an embedded tweet exists to handle twitter widget script
         return { BlogPostBody, embeddedTweetExists };
     }
-    const { BlogPostBody: BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
+    const { BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
 
     // Generate HTML component with React Markdown library | rehypeRaw allows the use of Raw HTML in the Markdown text, and CustomImage will optimize Cloudinary Images with Next <Image/> tags
     let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
     
     // Return a Date() object as yyyy-mm-dd
-    function formatDate(date) {
+    const formatDate = (date) => {
         const options = { month: 'long', day: 'numeric', year: 'numeric' };
         return new Date(date).toLocaleDateString('en-US', options);
     }
@@ -201,7 +203,7 @@ export default function BlogPost(props) {
         // Check if we need to preload the twitter widget and handle accordingly
         const checkAndLoadTwitterWidget = () => {
             // Load Twitter widget script only if we found an embedded tweet in the body of this blog post
-            if (embeddedTweetExists === true) {
+            if (embeddedTweetExists) {
                 // If we don't have the twitter widget defined, then preload the widget
                 if (!window.twttr) {
                     loadTwitterWidgetScript();
