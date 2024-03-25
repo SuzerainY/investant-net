@@ -101,32 +101,29 @@ export default function Blog(props) {
       <div className="blogpage">
         <DefaultLayout>
           {/* Display the most recent post outside the mapping */}
-          <div className="featured-post">
+          <div class="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-              <Image
-                className="slug-page-image"
-                src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
-                alt={mostRecentPost.attributes.Title}
-                width={600}
-                height={300}
-              />
-              <h1>{mostRecentPost.attributes.Title}</h1>
-              <div className="blog-post-image-description">
+              <div class="featured-post-image-container">
                 <Image
-                  src={WritingSignatureIcon}
-                  alt={"Essay"}
-                  width={100}
-                  height={100}
+                  className="img"
+                  src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                  alt={mostRecentPost.attributes.Title}
+                  width={1200}
+                  height={600}
                 />
-                <p>{mostRecentPost.attributes.BlogPostDescription}</p>
               </div>
-              <div className="blog-post-read-length">
-                {/* Calculate approximate minutes to read.*/}
-                <p>{blogPostReadLengthText(mostRecentPost, readWPM)}</p>
+              <div class="featured-post-text-container">
+                <h1>{mostRecentPost.attributes.Title}</h1>
+                <div class="blog-post-image-description">
+                  <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+                </div>
+                <div class="blog-post-read-length">
+                  {/* Calculate approximate minutes to read.*/}
+                  <p>{blogPostReadLengthText(mostRecentPost, readWPM)}</p>
+                </div>
               </div>
             </Link>
           </div>
-          <div className="divider-1"></div>
           <div className="blog-post-list">
             {/* Loop through other blog posts */}
             {blogPosts.map((post) => (
@@ -141,19 +138,11 @@ export default function Blog(props) {
                       height={300}
                     />
                   </div>
-                  <h2>{post.attributes.Title}</h2>
-                  <div className="blog-post-image-description">
-                    <Image
-                      src={WritingSignatureIcon}
-                      alt={"Essay Icon"}
-                      width={100}
-                      height={100}
-                    />
-                    <p>{post.attributes.BlogPostDescription}</p>
-                  </div>
-                  <div className="blog-post-read-length">
-                    {/* Calculate approximate minutes to read. */}
-                    <p>{blogPostReadLengthText(post, readWPM)}</p>
+                  <div className="blog-post-text-container">
+                    <h2>{post.attributes.Title}</h2>
+                    <p className="blog-post-description">{post.attributes.BlogPostDescription}</p>
+                    {/* Calculate approximate minutes to read.*/}                    
+                    <p className="blog-post-read-length">{blogPostReadLengthText(post, readWPM)}</p>
                   </div>
                 </Link>
               </div>
