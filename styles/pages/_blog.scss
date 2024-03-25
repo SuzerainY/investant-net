@@ -83,7 +83,7 @@
   padding: 5px;
 
   .blog-post {
-    width: calc(33.333% - 10px);
+    width: calc(50% - 10px);
     margin-bottom: 20px;
     position: relative;
 
@@ -135,11 +135,7 @@
 }
 
 @media screen and (max-width: 1399px) and (min-width: 1080px) {
-  .blog-post-list {
-    .blog-post {
-      width: calc(50% - 10px);
-    }
-  }
+
 }
 
 @media screen and (max-width: 1079px) {
