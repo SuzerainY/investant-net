@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import Image from 'next/image';
-import WritingSignatureIcon from '/public/images/icons/WritingSignature.png';
 
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
