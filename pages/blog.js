@@ -100,7 +100,10 @@ export default function Blog(props) {
 
       <div className="blogpage">
         <DefaultLayout>
-          {/* Display the most recent post outside the mapping */}
+          <div className="blogpage-title">
+            <h1>Explore Our Latest Blog Posts</h1>
+          </div>
+          {/* Display the most recent post front and center */}
           <div class="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
               <div class="featured-post-image-container">
