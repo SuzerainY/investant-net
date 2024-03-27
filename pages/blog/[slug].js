@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import Markdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw'
+import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
@@ -176,7 +176,7 @@ export default function BlogPost(props) {
     const { BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
 
     // Generate HTML component with React Markdown library | rehypeRaw allows the use of Raw HTML in the Markdown text, and CustomImage will optimize Cloudinary Images with Next <Image/> tags
-    let BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
+    const BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
     
     // Return a Date() object as yyyy-mm-dd
     const formatDate = (date) => {

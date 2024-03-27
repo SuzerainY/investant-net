@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import OfficeWorker from "/public/images/clipart/ClipArtOfficeWorker.svg";
+
 export default function Home() {
   return (
     <>

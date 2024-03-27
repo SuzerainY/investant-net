@@ -103,7 +103,7 @@ export default function Blog(props) {
             <h1>Explore Our Latest Blog Posts</h1>
           </div>
           {/* Display the most recent post front and center */}
-          <div class="featured-post">
+          <div className="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
               <div class="featured-post-image-container">
                 <Image
@@ -114,12 +114,12 @@ export default function Blog(props) {
                   height={600}
                 />
               </div>
-              <div class="featured-post-text-container">
+              <div className="featured-post-text-container">
                 <h1>{mostRecentPost.attributes.Title}</h1>
-                <div class="blog-post-image-description">
+                <div className="blog-post-image-description">
                   <p>{mostRecentPost.attributes.BlogPostDescription}</p>
                 </div>
-                <div class="blog-post-read-length">
+                <div className="blog-post-read-length">
                   {/* Calculate approximate minutes to read.*/}
                   <p>{blogPostReadLengthText(mostRecentPost, readWPM)}</p>
                 </div>
