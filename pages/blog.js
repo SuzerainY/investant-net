@@ -49,8 +49,8 @@ export default function Blog(props) {
   // Arrange blog post data and variables
   const data = props.data.blogPosts.data;
   const mostRecentPost = data[0]; // Get the most recent post
+  // let filterPostId = mostRecentPost.id; // When we fetch more posts, we will use this ID in a 'lt' (less than) filter clause to ensure we grab the next 15 earliest posts
   const blogPosts = data.slice(1); // The rest of the blog posts with the mostRecentPost removed
-  // let earliestPostId = blogPosts[blogPosts.length - 1].id; // When we fetch more posts, we will use this ID in a 'lt' (less than) filter clause to ensure we grab the next 15 earliest posts
 
   const readWPM = 200; // Assumption for how many words per minute the average reader can read
 

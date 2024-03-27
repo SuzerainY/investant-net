@@ -1,5 +1,6 @@
 .header {
   align-items: center;
+  width: 100vw;
   background-color: $trans-purple;
   z-index: 99; // Ensure the header is above other content
 
@@ -47,20 +48,18 @@
         list-style: none;
       }
     }
-
     li {
       &:hover {
         transform: scale(1.04);
         transition-duration: 0.2s;
       }
     }
-
     a {
       text-decoration: none;
       align-items: center;
       font-size: 2rem;
       margin: 1.5rem;
-      color: white;
+      color: $white;
       white-space: nowrap;
     }
   }
@@ -85,11 +84,14 @@
   .mobile-menu {
     display: none;
     flex-direction: column;
-    width: 50%;
+    width: 175px;
+    position: relative;
+    margin-left: auto;
+    margin-right: 2px;
     align-items: center;
     overflow: hidden;
-    border: 2px solid white;
-    border-radius: 12px;
+    border: 2px solid $white;
+    border-radius: 12px 0px 12px 12px;
     background-color: $trans-purple;
     transition: max-height 0.3s ease-in-out;
 
@@ -109,17 +111,17 @@
     }
 
     h3 {
-      font-size: 50px;
+      font-size: 35px;
       height: fit-content;
       text-align: center;
       justify-content: center;
+      padding-bottom: 7px;
       cursor: pointer;
       &:hover {
         transform: scale(1.02);
         transition-duration: 0.1s;
       }
     }
-
     ul {
       display: flex;
       flex-direction: column;
@@ -130,7 +132,6 @@
       align-items: center;
       margin-bottom: 0.3rem;
     }
-
     li {
       display: flex;
       flex-direction: column;
@@ -141,12 +142,11 @@
         transition-duration: 0.2s;
       }
     }
-
     a {
       text-decoration: none;
       align-items: center;
       font-size: 2rem;
-      color: white;
+      color: $white;
       white-space: nowrap;
     }
   }
