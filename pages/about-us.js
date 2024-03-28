@@ -92,7 +92,7 @@ export default function AboutUs(props) {
       <div class="aboutuspage">
         <DefaultLayout>
           <div className="about-us-page-title">
-            <h1>Our Creators</h1>
+            <h1>Meet Our Creators</h1>
           </div>
           <div className="about-us-profile-container">
           {havenDescription && (
