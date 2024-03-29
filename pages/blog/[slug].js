@@ -4,7 +4,7 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // The URL for our STRAPI app backend stored in environment variables
 const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
@@ -173,16 +173,25 @@ export default function BlogPost(props) {
         // Return original or new BlogPostBody and if an embedded tweet exists to handle twitter widget script
         return { BlogPostBody, embeddedTweetExists };
     }
-    const { BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
-
-    // Generate HTML component with React Markdown library | rehypeRaw allows the use of Raw HTML in the Markdown text, and CustomImage will optimize Cloudinary Images with Next <Image/> tags
-    const BlogPostBodyComponent = <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>;
     
-    // Return a Date() object as yyyy-mm-dd
+    // Return a Date() object as 'February 30, 2023'
     const formatDate = (date) => {
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
-        return new Date(date).toLocaleDateString('en-US', options);
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const year = date.getUTCFullYear();
+        const month = months[date.getUTCMonth()];
+        const day = date.getUTCDate();
+        
+        return `${month} ${day}, ${year}`;
     }
+
+    const [BlogPostBody, setBlogPostBody] = useState(null);
+    const [embeddedTweetExists, setEmbeddedTweetExists] = useState(false);
+
+    useEffect(() => {
+        const { BlogPostBody, embeddedTweetExists } = ParseMarkdownHTML(post);
+        setBlogPostBody(BlogPostBody);
+        setEmbeddedTweetExists(embeddedTweetExists);
+    }, [post]);
 
     useEffect(() => {
         // Preload Twitter Widget for embedded tweets
@@ -263,12 +272,15 @@ export default function BlogPost(props) {
                         <Image className='slug-page-image'
                             src={`${post.attributes.SPLASH.data.attributes.url}`}
                             alt={post.attributes.Title}
+                            priority={true}
                             width={800}
                             height={600}
                         />
-                        <div id='slug-body' className='slug-page-body'>
-                            {BlogPostBodyComponent}
-                        </div>
+                        {BlogPostBody && (
+                            <div id='slug-body' className='slug-page-body'>
+                                <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{BlogPostBody}</Markdown>
+                            </div>
+                        )}
                     </main>
                 </DefaultLayout>
             </div>
