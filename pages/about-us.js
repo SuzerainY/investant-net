@@ -2,6 +2,7 @@ import { STRAPIurl, customImage } from '@/my_modules/bloghelp';
 
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -80,13 +81,15 @@ export default function AboutUs(props) {
           {(havenDescription != null) && (
               <div className="about-us-profile">
                 <div className="about-us-profile-image">
-                  <Image
-                    src={"/images/profilepictures/havenProfile.jpg"}
-                    alt={"havenProfilePicture"}
-                    priority={true}
-                    width={200}
-                    height={200}
-                  />
+                  <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={"/images/profilepictures/havenProfile.jpg"}
+                      alt={"havenProfilePicture"}
+                      priority={true}
+                      width={200}
+                      height={200}
+                    />
+                  </Link>
                 </div>
                 <div className="about-us-profile-description">
                   <h2>Haven Smith</h2>
@@ -97,14 +100,16 @@ export default function AboutUs(props) {
             {(ryanDescription != null) && (
               <div className="about-us-profile">
                 <div className="about-us-profile-image">
-                  <Image
-                    className="about-us-profile-image"
-                    src={"/images/profilepictures/ryanProfile.jpg"}
-                    alt={"ryanProfilePicture"}
-                    priority={true}
-                    width={200}
-                    height={200}
-                  />
+                  <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
+                    <Image
+                      className="about-us-profile-image"
+                      src={"/images/profilepictures/ryanProfile.jpg"}
+                      alt={"ryanProfilePicture"}
+                      priority={true}
+                      width={200}
+                      height={200}
+                    />
+                  </Link>
                 </div>
                 <div className="about-us-profile-description">
                   <h2>Ryan White</h2>
