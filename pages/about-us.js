@@ -1,11 +1,11 @@
+import { STRAPIurl, customImage } from '@/my_modules/bloghelp';
+
 import Head from 'next/head';
-import DefaultLayout from '@/layouts/DefaultLayout';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import { useState, useEffect } from 'react';
-
-const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
+import DefaultLayout from '@/layouts/DefaultLayout';
 
 export async function getServerSideProps(context) {
   // Fetch 15 most recent posts for inital page render
@@ -34,24 +34,6 @@ export async function getServerSideProps(context) {
   const data = await res.json();
   return { props: data };
 }
-
-// Custom component to conditionally render Cloudinary images as Next.js Image components
-const CustomImage = ({ alt, src }) => {
-  // Check if the image src contains 'https://res.cloudinary.com'  
-  if (src.includes('https://res.cloudinary.com')) {
-      return (
-          <Image
-              alt={alt || ''}
-              src={src}
-              width={800}
-              height={600}
-          />
-      );
-  } else {
-      // Return the original <img> tag for non-Cloudinary images
-      return <img alt={alt || ''} src={src}/>;
-  }
-};
 
 export default function AboutUs(props) {
 
@@ -89,42 +71,44 @@ export default function AboutUs(props) {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div class="aboutuspage">
+      <div className="aboutuspage">
         <DefaultLayout>
           <div className="about-us-page-title">
             <h1>Meet Our Creators</h1>
           </div>
           <div className="about-us-profile-container">
-          {havenDescription && (
+          {(havenDescription != null) && (
               <div className="about-us-profile">
                 <div className="about-us-profile-image">
                   <Image
                     src={"/images/profilepictures/havenProfile.jpg"}
                     alt={"havenProfilePicture"}
+                    priority={true}
                     width={200}
                     height={200}
                   />
                 </div>
                 <div className="about-us-profile-description">
                   <h2>Haven Smith</h2>
-                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{havenDescription}</Markdown>
+                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
                 </div>
               </div>
             )}
-            {ryanDescription && (
+            {(ryanDescription != null) && (
               <div className="about-us-profile">
                 <div className="about-us-profile-image">
                   <Image
                     className="about-us-profile-image"
                     src={"/images/profilepictures/ryanProfile.jpg"}
                     alt={"ryanProfilePicture"}
+                    priority={true}
                     width={200}
                     height={200}
                   />
                 </div>
                 <div className="about-us-profile-description">
                   <h2>Ryan White</h2>
-                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: CustomImage}}>{ryanDescription}</Markdown>
+                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
                 </div>
               </div>
             )}

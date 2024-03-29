@@ -1,9 +1,9 @@
+import { STRAPIurl, blogPostReadLengthText } from '@/my_modules/bloghelp';
+
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import Image from 'next/image';
-
-const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
 
 export async function getServerSideProps(context) {
   // Fetch 15 most recent posts for inital page render
@@ -52,26 +52,6 @@ export default function Blog(props) {
   // let filterPostId = mostRecentPost.id; // When we fetch more posts, we will use this ID in a 'lt' (less than) filter clause to ensure we grab the next 15 earliest posts
   const blogPosts = data.slice(1); // The rest of the blog posts with the mostRecentPost removed
 
-  const readWPM = 200; // Assumption for how many words per minute the average reader can read
-
-  // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post
-  const blogPostReadLengthText = (post, readWPM) => {
-    let spaceCount = 0;
-    const blogPostBody = post.attributes.BlogPostBody;
-    for (let i = 0; i < blogPostBody.length; i++) {
-      if (blogPostBody[i] === " ") {
-        spaceCount++;
-      }
-    }
-    const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
-    // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below
-    if (blogPostTimeToRead === 1 || blogPostTimeToRead === 0) {
-      return '~ 1 minute'
-    } else {
-      return `~ ${blogPostTimeToRead} minutes`
-    }
-  };
-
   return (
     <>
       <Head>
@@ -105,11 +85,12 @@ export default function Blog(props) {
           {/* Display the most recent post front and center */}
           <div className="featured-post">
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-              <div class="featured-post-image-container">
+              <div className="featured-post-image-container">
                 <Image
                   className="img"
                   src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                   alt={mostRecentPost.attributes.Title}
+                  priority={true}
                   width={1200}
                   height={600}
                 />
@@ -121,7 +102,7 @@ export default function Blog(props) {
                 </div>
                 <div className="blog-post-read-length">
                   {/* Calculate approximate minutes to read.*/}
-                  <p>{blogPostReadLengthText(mostRecentPost, readWPM)}</p>
+                  <p>{blogPostReadLengthText(mostRecentPost)}</p>
                 </div>
               </div>
             </Link>
@@ -144,7 +125,7 @@ export default function Blog(props) {
                     <h2>{post.attributes.Title}</h2>
                     <p className="blog-post-description">{post.attributes.BlogPostDescription}</p>
                     {/* Calculate approximate minutes to read.*/}                    
-                    <p className="blog-post-read-length">{blogPostReadLengthText(post, readWPM)}</p>
+                    <p className="blog-post-read-length">{blogPostReadLengthText(post)}</p>
                   </div>
                 </Link>
               </div>

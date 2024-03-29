@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
-import OfficeWorker from "/public/images/clipart/ClipArtOfficeWorker.svg";
 
 export default function Home() {
   return (
@@ -41,13 +40,17 @@ export default function Home() {
                 <span className="hero-text--span">made for you.</span>
               </h1>
             </div>
-
             <div className="hero-image-container">
-              <Image src={OfficeWorker} alt="Office Worker ClipArt" fill />
+              <Image
+                src={"/images/clipart/ClipArtOfficeWorker.svg"}
+                alt="Office Worker ClipArt"
+                priority={true}
+                fill
+              />
             </div>
           </section>
         </DefaultLayout>
       </div>
     </>
-  );
+  )
 }
