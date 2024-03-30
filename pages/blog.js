@@ -97,7 +97,7 @@ export default function Blog(props) {
               </div>
               <div className="featured-post-text-container">
                 <h1>{mostRecentPost.attributes.Title}</h1>
-                <div className="blog-post-image-description">
+                <div className="featured-post-description-container">
                   <p>{mostRecentPost.attributes.BlogPostDescription}</p>
                 </div>
                 <div className="blog-post-read-length">
@@ -111,7 +111,7 @@ export default function Blog(props) {
             {/* Loop through other blog posts */}
             {blogPosts.map((post) => (
               <div className="blog-post" key={post.attributes.SLUG}>
-                <Link key={post.attributes.SLUG} href={`/blog/${post.attributes.SLUG}`}>
+                <Link href={`/blog/${post.attributes.SLUG}`}>
                   <div className="blog-post-image-container">
                     <Image
                       className="slug-page-image"
@@ -123,8 +123,10 @@ export default function Blog(props) {
                   </div>
                   <div className="blog-post-text-container">
                     <h2>{post.attributes.Title}</h2>
-                    <p className="blog-post-description">{post.attributes.BlogPostDescription}</p>
-                    {/* Calculate approximate minutes to read.*/}                    
+                    <div className="blog-post-description-container">
+                      <p>{post.attributes.BlogPostDescription}</p>
+                    </div>
+                    {/* Calculate approximate minutes to read.*/}
                     <p className="blog-post-read-length">{blogPostReadLengthText(post)}</p>
                   </div>
                 </Link>
