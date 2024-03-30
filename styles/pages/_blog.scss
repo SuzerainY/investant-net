@@ -252,13 +252,14 @@
 
   .slug-page-body {
     display: flex;
-    font-weight: 200;
-    color: $black;
-    text-align: center;
+    max-width: 100%;
     justify-content: center;
     align-items: center;
+    text-align: center;
     margin: 25px 0;
-    max-width: 100%;
+    font-weight: 200;
+    color: $black;
+    line-height: 1.7;
     white-space: pre-wrap;
 
     .youtube-embed-container {
