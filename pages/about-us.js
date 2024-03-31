@@ -74,54 +74,56 @@ export default function AboutUs(props) {
 
       <div className="aboutuspage">
         <DefaultLayout>
-          <div className="about-us-page-title-container">
-            <div className="about-us-page-title">
-              <h1>The Investant Team</h1>
-              <div className="about-us-page-title-divider">
-                <h3>{"Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy."}</h3>
+          <div className="about-us-page-wrapper">
+            <div className="about-us-page-title-container">
+              <div className="about-us-page-title">
+                <h1>The Investant Team</h1>
+                <div className="about-us-page-title-divider">
+                  <h3>{"Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy."}</h3>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="about-us-profile-container">
-          {(havenDescription != null) && (
-              <div className="about-us-profile">
-                <div className="about-us-profile-image">
-                  <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={"/images/profilepictures/havenProfile.jpg"}
-                      alt={"havenProfilePicture"}
-                      priority={true}
-                      width={200}
-                      height={200}
-                    />
-                  </Link>
+            <div className="about-us-profile-container">
+              {(havenDescription != null) && (
+                <div className="about-us-profile">
+                  <div className="about-us-profile-image">
+                    <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={"/images/profilepictures/havenProfile.jpg"}
+                        alt={"havenProfilePicture"}
+                        priority={true}
+                        width={200}
+                        height={200}
+                      />
+                    </Link>
+                  </div>
+                  <div className="about-us-profile-description">
+                    <h2>Haven Smith</h2>
+                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
+                  </div>
                 </div>
-                <div className="about-us-profile-description">
-                  <h2>Haven Smith</h2>
-                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
+              )}
+              {(ryanDescription != null) && (
+                <div className="about-us-profile">
+                  <div className="about-us-profile-image">
+                    <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
+                      <Image
+                        className="about-us-profile-image"
+                        src={"/images/profilepictures/ryanProfile.jpg"}
+                        alt={"ryanProfilePicture"}
+                        priority={true}
+                        width={200}
+                        height={200}
+                      />
+                    </Link>
+                  </div>
+                  <div className="about-us-profile-description">
+                    <h2>Ryan White</h2>
+                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
+                  </div>
                 </div>
-              </div>
-            )}
-            {(ryanDescription != null) && (
-              <div className="about-us-profile">
-                <div className="about-us-profile-image">
-                  <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
-                    <Image
-                      className="about-us-profile-image"
-                      src={"/images/profilepictures/ryanProfile.jpg"}
-                      alt={"ryanProfilePicture"}
-                      priority={true}
-                      width={200}
-                      height={200}
-                    />
-                  </Link>
-                </div>
-                <div className="about-us-profile-description">
-                  <h2>Ryan White</h2>
-                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </DefaultLayout>
       </div>

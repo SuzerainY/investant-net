@@ -1,5 +1,6 @@
 .footer {
     background-color: $trans-purple;
+    backdrop-filter: blur(20px);
     z-index: 99; // Ensure the header is above other content
 
     .footer-logo {

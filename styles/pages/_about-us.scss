@@ -1,98 +1,101 @@
 .aboutuspage {
-    background: $very-light-grey;
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
+    background-image: url("https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_man_plays_chess_with_robot_16882f0e0d");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
 
-    .about-us-page-title-container {
-        position: relative;
-        z-index: 1;
-        display: flex;
+    .about-us-page-wrapper {
         width: 100%;
-        height: 100vh;
-        background-image: linear-gradient(to bottom, transparent 0%, $very-light-grey 100%), url("https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_man_plays_chess_with_robot_16882f0e0d");
-        background-size: 100% auto;
-        background-repeat: no-repeat;
+        height: 100%;
+        backdrop-filter: blur(14px);
 
-        .about-us-page-title {
+        .about-us-page-title-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
             width: 100%;
-            height: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            backdrop-filter: blur(5px);
+            height: auto;
     
-            h1 {
-                margin-top: 20px;
-                font-size: 60px;
-                font-weight: 600;
-                color: $white;
-            }
-            .about-us-page-title-divider {
+            .about-us-page-title {
+                width: 100%;
+                height: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                max-width: 800px;
-                margin-top: 10px;
-                border-top: 2px solid $white;
-                padding-top: 10px;
-                padding-left: 25px;
-                padding-right: 25px;
-
-                h3 {
-                    font-size: 24px;
-                    font-weight: 100;
-                    color: $white;
+                text-align: center;
+                color: $white;
+        
+                h1 {
+                    margin-top: 20px;
+                    font-size: 60px;
+                    font-weight: 600;
                 }
-            }
-        }
-    }
-  
-    .about-us-profile-container {
-        position: relative;
-        z-index: 2;
-        margin-top: calc(-100vh / 1.5);
-        margin-bottom: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 800px;
-        background-color: transparent;
-  
-        .about-us-profile {
-            display: flex;
-            align-items: flex-start;
-            padding-top: 20px;
-            padding-bottom: 20px;
-
-            .about-us-profile-image {
-                img {
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;
-                    margin-right: 30px;
-                    backdrop-filter: blur(5px);
-                    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-                    transition: transform 0.3s ease;
-                    &:hover {
-                        transform: scale(1.05);
+                .about-us-page-title-divider {
+                    margin-left: auto;
+                    margin-right: auto;
+                    max-width: 800px;
+                    margin-top: 10px;
+                    border-top: 2px solid $white;
+                    padding-top: 10px;
+                    padding-left: 25px;
+                    padding-right: 25px;
+    
+                    h3 {
+                        font-size: 24px;
+                        font-weight: 100;
                     }
                 }
             }
+        }
+      
+        .about-us-profile-container {
+            position: relative;
+            z-index: 2;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 800px;
+            background-color: transparent;
+      
+            .about-us-profile {
+                display: flex;
+                align-items: flex-start;
+                padding-top: 20px;
+                padding-bottom: 20px;
     
-            .about-us-profile-description {
-                background-color: rgba($color: $white, $alpha: 0.3);
-                backdrop-filter: blur(5px);
-                padding: 20px;
-              
-                h2 {
-                  font-size: 24px;
-                  font-weight: 600;
-                  margin-bottom: 20px;
-                  color: $trans-purple;
+                .about-us-profile-image {
+                    img {
+                        width: 200px;
+                        height: 200px;
+                        border-radius: 50%;
+                        margin-right: 30px;
+                        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+                        transition: transform 0.3s ease;
+                        &:hover {
+                            transform: scale(1.05);
+                        }
+                    }
                 }
-              
-                p {
-                  font-size: 16px;
-                  line-height: 1.5;
-                  color: $black;
+        
+                .about-us-profile-description {
+                    background-color: rgba($color: $white, $alpha: 0.4);
+                    padding: 20px;
+                  
+                    h2 {
+                      font-size: 24px;
+                      font-weight: 600;
+                      margin-bottom: 20px;
+                      color: $trans-purple;
+                    }
+                  
+                    p {
+                      font-size: 16px;
+                      line-height: 1.5;
+                      color: $black;
+                    }
                 }
             }
         }
@@ -103,34 +106,30 @@
 @media screen and (max-width: 1079px) {
 
     .aboutuspage {
-        .about-us-page-title-container {
-            margin-top: -70px;
-            height: 100vh;
-            background-size: 150% auto;
-
-            .about-us-page-title {
-                padding-top: 70px;
-
-                h1 {
-                    font-size: 32px;
-                }
-                .about-us-page-title-divider h3 {
-                    font-size: 18px;
+        .about-us-page-wrapper {
+            .about-us-page-title-container {
+                .about-us-page-title {
+    
+                    h1 {
+                        font-size: 32px;
+                    }
+                    .about-us-page-title-divider h3 {
+                        font-size: 18px;
+                    }
                 }
             }
-        }
-
-        .about-us-profile-container {
-            max-width: 90%;
-            margin-top: calc(-100vh / 2);
     
-            .about-us-profile {
-                flex-direction: column;
-                align-items: center;
-                text-align: left;
-    
-                .about-us-profile-description {
-                    margin-top: 20px;
+            .about-us-profile-container {
+                max-width: 90%;
+        
+                .about-us-profile {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: left;
+        
+                    .about-us-profile-description {
+                        margin-top: 20px;
+                    }
                 }
             }
         }
