@@ -78,7 +78,7 @@ export default function AboutUs(props) {
             <div className="about-us-page-title">
               <h1>The Investant Team</h1>
               <div className="about-us-page-title-divider">
-                <h3>Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy.</h3>
+                <h3>{"Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy."}</h3>
               </div>
             </div>
           </div>
