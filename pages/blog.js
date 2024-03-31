@@ -87,7 +87,6 @@ export default function Blog(props) {
             <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
               <div className="featured-post-image-container">
                 <Image
-                  className="img"
                   src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                   alt={mostRecentPost.attributes.Title}
                   priority={true}
@@ -114,7 +113,6 @@ export default function Blog(props) {
                 <Link href={`/blog/${post.attributes.SLUG}`}>
                   <div className="blog-post-image-container">
                     <Image
-                      className="slug-page-image"
                       src={`${post.attributes.SPLASH.data.attributes.url}`}
                       alt={post.attributes.Title}
                       width={600}
