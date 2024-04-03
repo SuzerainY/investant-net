@@ -37,7 +37,7 @@ export default function Home() {
                 <br />
                 community
                 <br />
-                <span className="hero-text--span">made for you.</span>
+                <span className="hero-text-span">made for you.</span>
               </h1>
             </div>
             <div className="hero-image-container">

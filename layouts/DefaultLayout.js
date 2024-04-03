@@ -2,8 +2,8 @@ import React from "react";
 import Header from "@/components/Header/Header.js";
 import Footer from "@/components/Footer/Footer.js";
 import AlertBanner from "@/components/AlertBanner/AlertBanner";
-import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function DefaultLayout({ children }) {
   return (

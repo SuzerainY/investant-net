@@ -87,6 +87,7 @@
     display: none;
     flex-direction: column;
     width: 175px;
+    max-height: 0px;
     position: absolute;
     top: 0;
     right: 0;
@@ -111,19 +112,24 @@
         }
       }
     }
-
-    h3 {
-      font-size: 35px;
+    
+    .mobile-menu-button {
       height: fit-content;
       text-align: center;
       justify-content: center;
+      align-items: center;
       padding-bottom: 7px;
+
+      h3 {
+        font-size: 35px;
+      }
       cursor: pointer;
       &:hover {
         transform: scale(1.02);
         transition-duration: 0.1s;
       }
     }
+
     ul {
       display: flex;
       flex-direction: column;

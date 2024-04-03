@@ -1,15 +1,17 @@
 .alert-banner {
-    position: static;
-    display: table-cell;
-    width: 100vw;
+    position: relative;
+    display: inline-block;
+    width: 100%;
     height: fit-content;
     padding: 5px;
     text-align: center;
-    vertical-align: middle;
     background-color: $light-blue;
     backdrop-filter: blur(20px);
     z-index: 100;
 
+    h3 {
+        font-size: larger;
+    }
     a {
         color: $magenta;
     }

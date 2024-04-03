@@ -5,59 +5,61 @@ import { useEffect } from "react";
 
 export default function Header() {
 
-  // Call method on any screen resizing and initial loading of page to decide whether we display mobile nav bar or not
-  const toggleMobileMenu = () => {
-    const screenWidth = window.innerWidth;
-    const mobileMenuToggle = document.querySelector('.header .mobile-menu');
-
-    // We are currently considering anything less than 1080px screen width as mobile display
-    if (screenWidth > 1079) {
-      mobileMenuToggle.style.display = 'none';
-    } else {
-      mobileMenuToggle.style.display = 'flex';
-    }
-
-    // If the screen is ever resized, collapse the mobile navigation menu | Also ensures mobile navigation menu loads in collapsed
-    // Check if mobile menu is currently opened too, so we can remove the 'open' class if necessary
-    if (mobileMenuToggle.querySelector('h3').classList.contains('open')) {
-      mobileMenuToggle.querySelector('h3').classList.toggle('open');
-    }
-    mobileMenuToggle.style.maxHeight = `${mobileMenuToggle.querySelector('h3').scrollHeight}px`;
-  };
-
   useEffect(() => {
     // The Styles Classes that we would like to edit on event
     const mobileMenuToggle = document.querySelector('.header .mobile-menu');
-    const mobileMenuH3Toggle = document.querySelector('.header .mobile-menu h3');
+    const mobileMenuButtonToggle = document.querySelector('.header .mobile-menu .mobile-menu-button');
+  
+    // Call method on any screen resizing and initial loading of page to decide whether we display mobile nav bar or not
+    const handleMobileMenuOnResize = () => {
+      const screenWidth = window.innerWidth;
 
-    // Extended events to SCSS that should occur when mobile drop down navigation menu is selected
-    const handleMenuToggle = () => {
-      mobileMenuH3Toggle.classList.toggle('open');
-
-      // When we add the 'open' class of the menu, display the list items and adjust container height to fit all content
-      if (mobileMenuH3Toggle.classList.contains('open')) {
-        mobileMenuToggle.style.maxHeight = mobileMenuToggle.scrollHeight + 'px';
+      // We are currently considering anything less than 1080px screen width as mobile display
+      if (screenWidth > 1079) {
+        if (mobileMenuToggle.style.display != 'none') {
+          mobileMenuToggle.style.display = 'none';
+        }
       } else {
-        mobileMenuToggle.style.maxHeight = mobileMenuH3Toggle.scrollHeight + 'px';
+        if (mobileMenuToggle.style.display != 'flex') {
+          mobileMenuToggle.style.display = 'flex';
+        }
+      }
+
+      // If the screen is ever resized, collapse the mobile navigation menu
+      if (mobileMenuButtonToggle.classList.contains('open')) {
+        mobileMenuButtonToggle.classList.toggle('open');
+        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
+      }
+
+      // If the height is not properly set already, then set the height to closed height
+      if (mobileMenuToggle.style.maxHeight != mobileMenuButtonToggle.scrollHeight + 'px') {
+        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
       }
     };
 
-    // Extended events to SCSS that should occur on screen resizing
-    const handleResize = () => {
-      toggleMobileMenu();
+    // Extended events to SCSS that should occur when mobile drop down navigation menu is selected
+    const handleMobileMenuOnClick = () => {
+      mobileMenuButtonToggle.classList.toggle('open');
+
+      // When we add the 'open' class of the menu, adjust container height to fit all content
+      if (mobileMenuButtonToggle.classList.contains('open')) {
+        mobileMenuToggle.style.maxHeight = mobileMenuToggle.scrollHeight + 'px';
+      } else {
+        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
+      }
     };
 
     // Run method on initial load of page
-    toggleMobileMenu();
+    handleMobileMenuOnResize();
 
     // Add our event listeners
-    mobileMenuH3Toggle.addEventListener('click', handleMenuToggle);
-    window.addEventListener('resize', handleResize)
+    mobileMenuButtonToggle.addEventListener('click', handleMobileMenuOnClick);
+    window.addEventListener('resize', handleMobileMenuOnResize)
 
     return () => {
       // Clean up the event listener when the component unmounts
-      mobileMenuH3Toggle.removeEventListener('click', handleMenuToggle);
-      window.removeEventListener('resize', handleResize);
+      mobileMenuButtonToggle.removeEventListener('click', handleMobileMenuOnClick);
+      window.removeEventListener('resize', handleMobileMenuOnResize);
     };
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
@@ -76,7 +78,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="mobile-menu">
-          <h3>MENU</h3>
+          <div className="mobile-menu-button"><h3>MENU</h3></div>
           <ul>
             <li>
               <Link href="/">Home</Link>
