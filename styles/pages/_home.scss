@@ -1,11 +1,6 @@
 .homepage {
-  background: linear-gradient(
-    to bottom left,
-    $black 0%,
-    $soft-purple 50%,
-    $light-blue 100%
-  );
-
+  background-image: url("/images/styling/layered-peaks1-haikei.svg");
+  background-size: cover;
   min-height: 100vh;
   height: fit-content;
 

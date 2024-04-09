@@ -79,57 +79,59 @@ export default function Blog(props) {
 
       <div className="blogpage">
         <DefaultLayout>
-          <div className="blogpage-title">
-            <h1>Explore Our Latest Blog Posts</h1>
-          </div>
-          {/* Display the most recent post front and center */}
-          <div className="featured-post">
-            <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-              <div className="featured-post-image-container">
-                <Image
-                  src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
-                  alt={mostRecentPost.attributes.Title}
-                  priority={true}
-                  width={1200}
-                  height={600}
-                />
-              </div>
-              <div className="featured-post-text-container">
-                <h1>{mostRecentPost.attributes.Title}</h1>
-                <div className="featured-post-description-container">
-                  <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+          <div className="blogpage-wrapper">
+            <div className="blogpage-title">
+              <h1>Explore Our Latest Blog Posts</h1>
+            </div>
+            {/* Display the most recent post front and center */}
+            <div className="featured-post">
+              <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
+                <div className="featured-post-image-container">
+                  <Image
+                    src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                    alt={mostRecentPost.attributes.Title}
+                    priority={true}
+                    width={1200}
+                    height={600}
+                  />
                 </div>
-                <div className="blog-post-read-length">
-                  {/* Calculate approximate minutes to read.*/}
-                  <p>{blogPostReadLengthText(mostRecentPost)}</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-          <div className="blog-post-list">
-            {/* Loop through other blog posts */}
-            {blogPosts.map((post) => (
-              <div className="blog-post" key={post.attributes.SLUG}>
-                <Link href={`/blog/${post.attributes.SLUG}`}>
-                  <div className="blog-post-image-container">
-                    <Image
-                      src={`${post.attributes.SPLASH.data.attributes.url}`}
-                      alt={post.attributes.Title}
-                      width={600}
-                      height={300}
-                    />
+                <div className="featured-post-text-container">
+                  <h1>{mostRecentPost.attributes.Title}</h1>
+                  <div className="featured-post-description-container">
+                    <p>{mostRecentPost.attributes.BlogPostDescription}</p>
                   </div>
-                  <div className="blog-post-text-container">
-                    <h2>{post.attributes.Title}</h2>
-                    <div className="blog-post-description-container">
-                      <p>{post.attributes.BlogPostDescription}</p>
-                    </div>
+                  <div className="blog-post-read-length">
                     {/* Calculate approximate minutes to read.*/}
-                    <p className="blog-post-read-length">{blogPostReadLengthText(post)}</p>
+                    <p>{blogPostReadLengthText(mostRecentPost)}</p>
                   </div>
-                </Link>
-              </div>
-            ))}
+                </div>
+              </Link>
+            </div>
+            <div className="blog-post-list">
+              {/* Loop through other blog posts */}
+              {blogPosts.map((post) => (
+                <div className="blog-post" key={post.attributes.SLUG}>
+                  <Link href={`/blog/${post.attributes.SLUG}`}>
+                    <div className="blog-post-image-container">
+                      <Image
+                        src={`${post.attributes.SPLASH.data.attributes.url}`}
+                        alt={post.attributes.Title}
+                        width={600}
+                        height={300}
+                      />
+                    </div>
+                    <div className="blog-post-text-container">
+                      <h2>{post.attributes.Title}</h2>
+                      <div className="blog-post-description-container">
+                        <p>{post.attributes.BlogPostDescription}</p>
+                      </div>
+                      {/* Calculate approximate minutes to read.*/}
+                      <p className="blog-post-read-length">{blogPostReadLengthText(post)}</p>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </DefaultLayout>
       </div>
