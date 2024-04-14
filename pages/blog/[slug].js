@@ -154,15 +154,19 @@ export default function BlogPost(props) {
 
             <DefaultLayout>
                 <div className='slug-page-background-color'>
-                    <main className='slug-page'>
-                        <h1 className='slug-page-title'>{post.attributes.Title}</h1>
-                        <div className='slug-page-author-date'>
-                            <h2>{post.attributes.Author}</h2>
-                            <h4>{formatDate(new Date(post.attributes.PublishDate))}</h4>
+                    <div className='slug-page-title-background'>
+                        <div className='slug-page-title-wrapper'>
+                            <h1 className='slug-page-title'>{post.attributes.Title}</h1>
+                            <div className='slug-page-author-date'>
+                                <h2>{post.attributes.Author}</h2>
+                                <h4>{formatDate(new Date(post.attributes.PublishDate))}</h4>
+                            </div>
+                            <div className='slug-page-time-text'>
+                                <p>{blogPostReadLengthText(post)}</p>
+                            </div>
                         </div>
-                        <div className='slug-page-time-text'>
-                            <p>{blogPostReadLengthText(post)}</p>
-                        </div>
+                    </div>
+                    <main className='slug-page-main-wrapper'>
                         <Image className='slug-page-image'
                             src={`${post.attributes.SPLASH.data.attributes.url}`}
                             alt={post.attributes.Title}

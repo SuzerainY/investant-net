@@ -204,6 +204,7 @@
       .blogpage-title-wrapper {
         grid-template-columns: 100%;
         width: 90%;
+        padding-bottom: 0px;
   
         .blogpage-title {
           padding-right: 0px;
@@ -269,153 +270,191 @@
 // ########################################################################################################################
 // CSS Below is for the page of an individual blog post after being routed to from user selection
 // ########################################################################################################################
-.slug-page-background-color {  
-  background-color: $white;
+.slug-page-background-color { 
+  position: relative;
+  background-color: $chrome;
   width: 100%;
-  height: 100%;
-}
-
-.slug-page {
-  display: block;
-  width: 50vw;
-  margin-top: 2rem;
-  margin-left: 25vw;
-  margin-right: 25vw;
   min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-
-  .slug-page-title {
-    display: flex;
-    font-weight: 700;
-    font-size: 4rem;
-    justify-content: left;
-    color: $black;
-    text-align: left;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .slug-page-author-date {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: left;
-    margin-bottom: 0.5rem;
-    color: $black;
-    white-space: nowrap;
-
-    h2, h4 {
-      font-style: italic;
-      text-align: center;
-      align-items: center;
-    }
-    h4 {
-      padding-top: 0.25rem;
-    }
-    h2::after {
-      content: '\00a0|\00a0'; // Add the pipe symbol with spacing around it
-    }
-  }
-
-  .slug-page-time-text {
-    text-align: left;
-    color: $black;
-    margin-bottom: 0.5rem;
-  }
-
-  .slug-page-image {
+  
+  .slug-page-title-background {
     width: 100%;
-    height: auto;
+    height: 300px;
+    background-image: url("/images/styling/stacked-waves1-haikei.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    .slug-page-title-wrapper {
+      display: block;
+      width: 50%;
+      margin-left: 25%;
+      margin-right: 25%;
+      justify-content: center;
+      align-items: center;
+
+      .slug-page-title {
+        display: flex;
+        font-weight: 700;
+        font-size: 4rem;
+        justify-content: left;
+        text-align: left;
+        margin-bottom: 1rem;
+        padding-left: 10px;
+        color: $white;
+      }
+    
+      .slug-page-author-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        padding-left: 10px;
+        color: $white;
+        white-space: nowrap;
+    
+        h2, h4 {
+          font-style: italic;
+          text-align: center;
+          align-items: center;
+        }
+        h2::after {
+          content: '\00a0|\00a0'; // Add the pipe symbol with spacing around it
+        }
+      }
+    
+      .slug-page-time-text {
+        text-align: left;
+        color: $grey;
+        padding-left: 10px;
+
+        p {
+          font-size: 22px;
+        }
+      }
+    }
   }
 
-  .slug-page-body {
-    display: flex;
-    max-width: 100%;
+  .slug-page-main-wrapper {
+    display: block;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    margin: 25px 0;
-    font-weight: 200;
-    color: $black;
-    line-height: 1.7;
-    white-space: pre-wrap;
 
-    .youtube-embed-container {
-      position: relative;
+    .slug-page-image {
       width: 100%;
-      aspect-ratio: 16 / 9;
       height: auto;
-      overflow: hidden;
-      
-      iframe {
-        max-width: 100%;
-        max-height: 100%;
-      }
     }
 
-    iframe {
-      position: relative;
+    .slug-page-body {
+      display: flex;
       max-width: 100%;
-      overflow: hidden;
-    }
-    a {
-      color: $magenta;
-    }
-    p {
-      font-size: 1.8rem;
-      text-align: justify;
-    }
-    p img {
-      display: block;
-      margin: 2rem auto;
-    }
-    img {
-      max-width: 75%;
-      height: auto;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px 0;
+      font-weight: 200;
+      color: $black;
+      line-height: 1.7;
+      white-space: pre-wrap;
+  
+      .youtube-embed-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        overflow: hidden;
+        
+        iframe {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+  
+      iframe {
+        position: relative;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      a {
+        color: $magenta;
+      }
+      p {
+        font-size: 1.8rem;
+        text-align: justify;
+      }
+      p img {
+        display: block;
+        margin: 2rem auto;
+      }
+      img {
+        max-width: 75%;
+        height: auto;
+      }
     }
   }
 }
 
-@media screen and (max-width: 1079px) { 
-  .slug-page {
-    width: 96%;
-    margin-left: 2%;
-    margin-right: 2%;
-    text-align: left;
-    justify-content: left;
 
-    .slug-page-title {
-      font-size: 28px;
-      text-align: left;
+@media screen and (max-width: 1079px) {
+  .slug-page-background-color {
+    .slug-page-title-background {
+      height: 250px;
+      
+      .slug-page-title-wrapper {
+        width: 100%;
+        margin: 0;
+
+        .slug-page-title {
+          font-size: 28px;
+          text-align: left;
+        }
+      
+        .slug-page-author-date {
+          justify-content: left;
+    
+          h2 {
+            font-size: 2rem;
+            text-align: left;
+          }
+          h4 {
+            font-size: 1.6rem;
+            text-align: left;
+          }
+        }
+
+        .slug-page-time-text p {
+          font-size: 18px;
+        }
+      }
     }
-  
-    .slug-page-author-date {
+
+    .slug-page-main-wrapper {
+      position: relative;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left;
       justify-content: left;
 
-      h2 {
-        font-size: 2rem;
+      .slug-page-body p {
+        padding: 10px;
         text-align: left;
-      }
-      h4 {
         font-size: 1.6rem;
-        text-align: left;
       }
-
-    }
-    .slug-page-body p {
-      text-align: left;
-      font-size: 1.6rem;
-    }
-  
-    .slug-page-body p img {
-      display: block;
-      margin: 2rem auto;
-    }
-  
-    .slug-page-body img {
-      max-width: 100%;
-      height: auto;
+    
+      .slug-page-body p img {
+        display: block;
+        margin: 2rem auto;
+      }
+    
+      .slug-page-body img {
+        max-width: 100%;
+        height: auto;
+      }
     }
   }
 }
