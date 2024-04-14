@@ -11,32 +11,33 @@
 
     .blogpage-title-wrapper {
       display: grid;
-      grid-template-columns: 35% 65%;
+      grid-template-columns: 40% 60%;
       margin-left: auto;
       margin-right: auto;
       width: 70%;
       max-width: 1200px;
       height: fit-content;
-      padding-top: 25px;
-      padding-bottom: 25px;
+      padding: 25px 0;
   
       .blogpage-title {
-        padding-right: 15px;
+        border-radius: 20px 0 0 20px;
         text-align: left;
+        background-color: rgba(0, 0, 0, 0.5);
 
         .blogpage-title-span {
           font-weight: 800;
         }
 
         h1 {
+          padding: 12.5px;
           font-size: 40px;
           font-weight: 600;
           color: $white;
         }
         h3 {
-          padding-top: 12.5px;
+          padding: 12.5px;
           font-weight: 500;
-          font-size: 25px;
+          font-size: 24px;
           color: $white;
         }
       }
@@ -47,11 +48,10 @@
         width: 100%;
         height: auto;
         max-width: 1200px;
+        border-radius: 0 20px 20px 0;
         overflow: hidden;
         text-align: left;
         justify-content: center;
-        margin-left: auto;
-        margin-right: auto;
   
         &:hover {
           transform: scale(1.015);
@@ -91,7 +91,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
           }
-          
+
           .blog-post-read-length {
             font-style: italic;
           }
@@ -136,6 +136,8 @@
       .blog-post {
         position: relative;
         width: calc(50% - 10px);
+        border-radius: 20px;
+        overflow: hidden;
         margin-bottom: 25px;
   
         &:hover {
@@ -208,8 +210,10 @@
         padding-bottom: 0px;
   
         .blogpage-title {
+          border-radius: 20px;
           padding-right: 0px;
           margin-bottom: 20px;
+          background-color: transparent;
   
           h1 {
             font-size: 30px;
@@ -220,6 +224,8 @@
         }
       
         .featured-post {
+          border-radius: 20px;
+
           .featured-post-text-container {
             h1 {
               font-size: 25px;
