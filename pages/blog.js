@@ -77,8 +77,8 @@ export default function Blog(props) {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div className="blogpage">
-        <DefaultLayout>
+      <DefaultLayout>
+        <div className="blogpage">
           <div className="blogpage-wrapper">
             <div className="blogpage-title">
               <h1>Explore Our Latest Blog Posts</h1>
@@ -133,8 +133,8 @@ export default function Blog(props) {
               ))}
             </div>
           </div>
-        </DefaultLayout>
-      </div>
+        </div>
+      </DefaultLayout>
     </>
   )
 }

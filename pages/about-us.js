@@ -72,8 +72,8 @@ export default function AboutUs(props) {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div className="aboutuspage">
-        <DefaultLayout>
+      <DefaultLayout>
+        <div className="aboutuspage">
           <div className="about-us-page-wrapper">
             <div className="about-us-page-title-container">
               <div className="about-us-page-title">
@@ -125,8 +125,8 @@ export default function AboutUs(props) {
               )}
             </div>
           </div>
-        </DefaultLayout>
-      </div>
+        </div>
+      </DefaultLayout>
     </>
   )
 }

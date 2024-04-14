@@ -152,8 +152,8 @@ export default function BlogPost(props) {
                 <link rel="icon" href="/images/branding/FaviconTransparent.png" />
             </Head>
 
-            <div className='slug-page-background-color'>
-                <DefaultLayout>
+            <DefaultLayout>
+                <div className='slug-page-background-color'>
                     <main className='slug-page'>
                         <h1 className='slug-page-title'>{post.attributes.Title}</h1>
                         <div className='slug-page-author-date'>
@@ -176,8 +176,8 @@ export default function BlogPost(props) {
                             </div>
                         )}
                     </main>
-                </DefaultLayout>
-            </div>
+                </div>
+            </DefaultLayout>
         </>
     )
 }

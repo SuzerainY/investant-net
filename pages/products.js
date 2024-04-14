@@ -27,10 +27,10 @@ export default function Home() {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div className="homepage">
-        <DefaultLayout>
-        </DefaultLayout>
-      </div>
+      <DefaultLayout>
+        <div className="homepage">
+        </div>
+      </DefaultLayout>
     </>
   )
 }

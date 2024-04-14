@@ -28,8 +28,8 @@ export default function Home() {
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
       </Head>
 
-      <div className="homepage">
-        <DefaultLayout>
+      <DefaultLayout>
+        <div className="homepage">
           <section className="hero-section">
             <div className="hero-text-container">
               <h1>
@@ -49,8 +49,8 @@ export default function Home() {
               />
             </div>
           </section>
-        </DefaultLayout>
-      </div>
+        </div>
+      </DefaultLayout>
     </>
   )
 }
