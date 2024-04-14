@@ -83,7 +83,7 @@ export default function Blog(props) {
             <div className="blogpage-title-wrapper">
               <div className="blogpage-title">
                 <h1>Explore Our Latest Blog Posts</h1>
-                <h3>At <span className="blogpage-title-span">investant.net</span>, we aim to provide independent financial research and tools for <span className="blogpage-title-span">your</span> financial literacy and education in today's economy.</h3>
+                <h3>At <span className="blogpage-title-span">investant.net</span>, we aim to provide independent financial research and tools for <span className="blogpage-title-span">your</span>{" financial literacy and education in today's economy."}</h3>
               </div>
               {/* Display the most recent post front and center */}
               <div className="featured-post">
