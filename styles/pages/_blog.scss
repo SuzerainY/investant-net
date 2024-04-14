@@ -91,6 +91,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
           }
+          
+          .blog-post-read-length {
+            font-style: italic;
+          }
   
           h1 {
             font-size: 36px;
@@ -107,9 +111,6 @@
             text-decoration: none;
             border-radius: 5px;
             background-color: $grey;
-          }
-          .blog-post-read-length {
-            font-style: italic;
           }
         }
       }
@@ -258,11 +259,11 @@
 }
 
 @media screen and (max-width: 767px) {
-  .blogpage .blogpage-wrapper .featured-post .featured-post-text-container .featured-post-description-container {
+  .blogpage .blogpage-title-background .blogpage-title-wrapper .featured-post .featured-post-text-container .featured-post-description-container {
     display: none;
   }
 
-  .blogpage .blogpage-wrapper .blog-post-list .blog-post .blog-post-text-container .blog-post-description-container {
+  .blogpage .blogpage-posts-wrapper .blog-post-list .blog-post .blog-post-text-container .blog-post-description-container {
     display: none;
   }
 }
@@ -398,12 +399,11 @@
   }
 }
 
-
 @media screen and (max-width: 1079px) {
   .slug-page-background-color {
     .slug-page-title-background {
       height: 250px;
-      
+
       .slug-page-title-wrapper {
         width: 100%;
         margin: 0;
