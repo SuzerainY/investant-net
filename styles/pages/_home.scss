@@ -14,15 +14,18 @@
       text-align: left;
       align-items: center;
       justify-content: flex-end;
+      animation: fadeIn 0.5s ease-in;
     
       .hero-text-span {
         font-weight: 700;
+        animation: fadeIn 2.5s ease-in;
       }
     }
 
     .hero-image-container {
       position: relative;
       object-fit: contain;
+      animation: fadeIn 0.5s ease-in;
     }
   }
 }
@@ -46,5 +49,14 @@
         min-height: 35vh;
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
