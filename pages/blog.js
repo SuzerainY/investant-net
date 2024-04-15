@@ -93,8 +93,8 @@ export default function Blog(props) {
                       src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                       alt={mostRecentPost.attributes.Title}
                       priority={true}
-                      width={1200}
-                      height={600}
+                      width={1000}
+                      height={500}
                     />
                   </div>
                   <div className="featured-post-text-container">
@@ -121,8 +121,8 @@ export default function Blog(props) {
                       <Image
                         src={`${post.attributes.SPLASH.data.attributes.url}`}
                         alt={post.attributes.Title}
-                        width={600}
-                        height={300}
+                        width={1000}
+                        height={500}
                       />
                     </div>
                     <div className="blog-post-text-container">
