@@ -51,9 +51,9 @@
       }
     }
     li {
+      transition: transform 0.2s ease-in-out;
       &:hover {
         transform: scale(1.04);
-        transition-duration: 0.2s;
       }
     }
     a {
@@ -75,9 +75,9 @@
     img {
       width: auto;
       height: 50px;
+      transition: transform 0.2s ease-in-out;
       &:hover {
-        transform: scale(1.04);
-        transition-duration: 0.2s;
+        transform: scale(1.05);
       }
     }
   }
@@ -105,9 +105,9 @@
       align-items: center;
 
       li {
+        transition: transform 0.2s ease-in-out;
         &:hover {
           transform: scale(1.04);
-          transition-duration: 0.2s;
         }
       }
     }
@@ -118,6 +118,7 @@
       justify-content: center;
       align-items: center;
       padding-bottom: 7px;
+      transition: 0.15s ease-in-out;
 
       h3 {
         font-size: 35px;
@@ -125,7 +126,6 @@
       cursor: pointer;
       &:hover {
         transform: scale(1.02);
-        transition-duration: 0.1s;
       }
     }
 
@@ -144,9 +144,9 @@
       flex-direction: column;
       align-items: center;
       margin: 0.5rem;
+      transition: transform 0.2s ease-in-out;
       &:hover {
         transform: scale(1.04);
-        transition-duration: 0.2s;
       }
     }
     a {

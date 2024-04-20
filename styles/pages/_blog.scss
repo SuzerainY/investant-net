@@ -1,6 +1,5 @@
 .blogpage {
   background: $white;
-  width: 100%;
   min-height: 100vh;
   height: fit-content;
 
@@ -24,6 +23,7 @@
         border-radius: 20px 0 0 20px;
         text-align: left;
         background-color: rgba(0, 0, 0, 0.5);
+        color: $white;
 
         .blogpage-title-span {
           font-weight: 800;
@@ -33,37 +33,29 @@
           padding: 12.5px;
           font-size: 40px;
           font-weight: 600;
-          color: $white;
         }
         h3 {
           padding: 12.5px;
           font-weight: 500;
           font-size: 24px;
-          color: $white;
         }
       }
   
       .featured-post {
         position: relative;
         display: flex;
-        width: 100%;
-        height: 100%;
         max-width: 1200px;
         border-radius: 0 20px 20px 0;
         overflow: hidden;
         text-align: left;
         justify-content: center;
   
-        &:hover {
-          transform: scale(1.015);
-          transition-duration: 0.2s;
-        }
-  
         .featured-post-image-container {
           aspect-ratio: 16 / 9;
           width: 100%;
           height: 100%;
           overflow: hidden;
+          transition: transform 0.25s ease-in-out;
           
           img {
             object-fit: cover;
@@ -85,7 +77,6 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            width: 100%;
             height: fit-content;
             line-height: 1.25;
             overflow: hidden;
@@ -104,6 +95,10 @@
             font-size: 20px;
             line-height: inherit;
           }
+        }
+        &:hover .featured-post-image-container,
+        .featured-post-text-container:hover + .featured-post-image-container {
+          transform: scale(1.05);
         }
       }
     }
@@ -136,15 +131,11 @@
         justify-content: center;
         margin-bottom: 25px;
 
-        &:hover {
-          transform: scale(1.015);
-          transition-duration: 0.2s;
-        }
-
         .blog-post-image-container {
           width: 100%;
           height: 100%;
           overflow: hidden;
+          transition: transform 0.25s ease-in-out;
 
           img {
             object-fit: cover;
@@ -166,7 +157,6 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            width: 100%;
             height: fit-content;
             line-height: 1.25;
             overflow: hidden;
@@ -185,6 +175,10 @@
             font-size: 24px;
             font-weight: 600;
           }
+        }
+        &:hover .blog-post-image-container,
+        .blog-post-text-container:hover + .blog-post-image-container {
+          transform: scale(1.05);
         }
       }
     }
@@ -269,11 +263,9 @@
 .slug-page-background-color { 
   position: relative;
   background-color: $white;
-  width: 100%;
   min-height: 100vh;
   
   .slug-page-title-background {
-    width: 100%;
     height: 300px;
     background-image: url("/images/styling/layered-waves1-haikei.svg");
     background-repeat: no-repeat;
