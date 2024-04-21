@@ -6,13 +6,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
 export default function DefaultLayout({ children }) {
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertBanner, setShowAlertBanner] = useState(false);
 
   useEffect(() => {
     const isAlertBannerClosed = localStorage.getItem("investantNetAlertBannerClosed");
-    if (!isAlertBannerClosed) {
-      setShowAlert(true);
-    }
+    if (!isAlertBannerClosed) {setShowAlertBanner(true);}
   }, []);
 
   useEffect(() => {
@@ -28,13 +26,13 @@ export default function DefaultLayout({ children }) {
   }, []);
 
   const handleCloseAlertBanner = () => {
-    setShowAlert(false);
+    setShowAlertBanner(false);
     localStorage.setItem("investantNetAlertBannerClosed", "true");
   };
 
   return (
     <div className="default-layout">
-      {(showAlert === true) && (
+      {(showAlertBanner === true) && (
         <AlertBanner
           message={"PaperTrade Available NOW in the Investant Discord Server! "}
           link={"https://discord.gg/SFUKKjWEjH"}

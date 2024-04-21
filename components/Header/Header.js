@@ -111,13 +111,13 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="https://twitter.com/InvestantGroup?s=20"
+                href="https://twitter.com/InvestantGroup"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Image
-                  src="/images/socialmedia/twitter-investant.png"
-                  alt="Twitter Icon"
+                  src="/images/socialmedia/x-investant.png"
+                  alt="X Icon"
                   width={40}
                   height={35}
                   priority
@@ -193,13 +193,13 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  href="https://twitter.com/InvestantGroup?s=20"
+                  href="https://twitter.com/InvestantGroup"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Image
-                    src="/images/socialmedia/twitter-investant.png"
-                    alt="Twitter Icon"
+                    src="/images/socialmedia/x-investant.png"
+                    alt="X Icon"
                     width={40}
                     height={35}
                     priority
