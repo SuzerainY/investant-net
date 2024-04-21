@@ -84,11 +84,14 @@
     height: fit-content;
 
     img {
+      margin: 3px 0px 0px 3px;
       width: auto;
       height: 50px;
-      transition: transform 0.2s ease-in-out;
       &:hover {
-        transform: scale(1.05);
+        animation: spin 1s ease;
+      }
+      &:not(:hover) {
+        animation: spin-back 1s ease;
       }
     }
   }
