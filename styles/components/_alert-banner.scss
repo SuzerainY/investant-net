@@ -1,19 +1,43 @@
 .alert-banner {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: fit-content;
     padding: 5px;
-    text-align: center;
     background-color: $light-blue;
-    backdrop-filter: blur(20px);
     z-index: 100;
+    transform: 0.3s ease;
 
-    h3 {
-        font-size: larger;
+    .hidden {
+        transform: translateY(-100%);
     }
-    a {
-        color: $magenta;
+
+    .alert-banner-text {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        
+        h3 {
+            font-size: larger;
+        }
+        a {
+            color: $magenta;
+        }
+    }
+
+    .alert-banner-exit {
+        position: absolute;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 

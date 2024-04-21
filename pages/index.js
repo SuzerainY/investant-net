@@ -33,11 +33,9 @@ export default function Home() {
           <section className="hero-section">
             <div className="hero-text-container">
               <h1>
-                An investment
+                Personal Finance
                 <br />
-                community
-                <br />
-                <span className="hero-text-span">made for you.</span>
+                <span className="hero-text-span">Made Simple.</span>
               </h1>
             </div>
             <div className="hero-image-container">
