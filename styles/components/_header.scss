@@ -43,6 +43,17 @@
       right: 0px;
       width: auto;
 
+      .NavBar-Media-Links-XLogo {
+        transform-origin: 35px 17.5px;
+        &:hover {
+          animation: spin 1s ease;
+          transform: scale(1);
+        }
+        &:not(:hover) {
+          animation: spin-back 1s ease;
+        }
+      }
+
       ul {
         display: flex;
         flex-direction: row;
@@ -174,5 +185,22 @@
     .mobile-top-banner {
       display: flex;
     }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-back {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }

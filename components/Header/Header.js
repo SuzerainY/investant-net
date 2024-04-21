@@ -186,7 +186,7 @@ export default function Header() {
                   />
                 </Link>
               </li>
-              <li>
+              <li className="NavBar-Media-Links-XLogo">
                 <Link
                   href="https://twitter.com/InvestantGroup"
                   target="_blank"
@@ -195,7 +195,7 @@ export default function Header() {
                   <Image
                     src="/images/socialmedia/x-investant.png"
                     alt="X Icon"
-                    width={40}
+                    width={35}
                     height={35}
                     priority
                   />
