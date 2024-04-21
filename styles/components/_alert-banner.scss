@@ -7,12 +7,6 @@
     width: 100%;
     padding: 5px;
     background-color: $light-blue;
-    z-index: 100;
-    transform: 0.3s ease;
-
-    .hidden {
-        transform: translateY(-100%);
-    }
 
     .alert-banner-text {
         position: relative;
@@ -33,6 +27,13 @@
         width: 20px;
         height: 20px;
         cursor: pointer;
+        
+        &:hover {
+            animation: spin 1s ease;
+        }
+        &:not(:hover) {
+            animation: spin-back 1s ease;
+        }
     
         img {
             width: 100%;
@@ -45,5 +46,22 @@
 
     .alert-banner {
         display: none;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin-back {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
     }
 }

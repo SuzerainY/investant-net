@@ -29,7 +29,7 @@ export default function DefaultLayout({ children }) {
     <div className="default-layout">
       {(showAlertBanner === true) && (
         <AlertBanner
-          message={"PaperTrade Available NOW in the Investant Discord Server! "}
+          message={"PaperTrade Available NOW in the Investant Discord Server!"}
           link={"https://discord.gg/SFUKKjWEjH"}
           linkMessage={"Click here to join!"}
           onClose={handleCloseAlertBanner} // Passing in the close alert banner handler

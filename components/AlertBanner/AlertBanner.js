@@ -16,7 +16,7 @@ export default function AlertBanner({ message, link, linkMessage, onClose }) {
     <div className="alert-banner">
       <div className="alert-banner-text">
         <h3>
-          {message}{" "}
+          {message + " "}
           <Link href={link} target="_blank" rel="noopener noreferrer">
             {linkMessage}
           </Link>
