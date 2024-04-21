@@ -1,5 +1,4 @@
 import { STRAPIurl, customImage, blogPostReadLengthText, formatDate, parseMarkdownHTML } from '@/my_modules/bloghelp';
-
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';

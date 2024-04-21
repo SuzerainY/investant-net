@@ -5,16 +5,11 @@ import Image from 'next/image';
 export default function AlertBanner({ message, link, linkMessage, onClose }) {
 
   useEffect(() => {
-    const handleAlertBannerExitClick = () => {
-      onClose();
-    };
-    
     const alertBannerExit = document.querySelector('.alert-banner .alert-banner-exit');
+    const handleAlertBannerExitClick = () => {onClose();};
     alertBannerExit.addEventListener('click', handleAlertBannerExitClick);
 
-    return () => {
-      alertBannerExit.removeEventListener('click', handleAlertBannerExitClick);
-    };
+    return () => {alertBannerExit.removeEventListener('click', handleAlertBannerExitClick);};
   }, []);
 
   return (

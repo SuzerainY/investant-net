@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
 
 export default function Header() {
 
@@ -16,13 +15,9 @@ export default function Header() {
 
       // We are currently considering anything less than 1080px screen width as mobile display
       if (screenWidth > 1079) {
-        if (mobileMenuToggle.style.display != 'none') {
-          mobileMenuToggle.style.display = 'none';
-        }
+        if (mobileMenuToggle.style.display != 'none') {mobileMenuToggle.style.display = 'none';}
       } else {
-        if (mobileMenuToggle.style.display != 'flex') {
-          mobileMenuToggle.style.display = 'flex';
-        }
+        if (mobileMenuToggle.style.display != 'flex') {mobileMenuToggle.style.display = 'flex';}
       }
 
       // If the screen is ever resized, collapse the mobile navigation menu

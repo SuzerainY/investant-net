@@ -14,15 +14,10 @@ export default function DefaultLayout({ children }) {
   }, []);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      localStorage.removeItem("investantNetAlertBannerClosed");
-    };
-
+    const handleBeforeUnload = () => {localStorage.removeItem("investantNetAlertBannerClosed");};
     window.addEventListener("beforeunload", handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
+    return () => {window.removeEventListener("beforeunload", handleBeforeUnload);};
   }, []);
 
   const handleCloseAlertBanner = () => {

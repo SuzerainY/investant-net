@@ -34,7 +34,7 @@ export default function Home() {
             <div className="hero-text-container">
               <h1>
                 Personal Finance
-                <br />
+                <br/>
                 <span className="hero-text-span">Made Simple.</span>
               </h1>
             </div>
