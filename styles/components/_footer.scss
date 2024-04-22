@@ -1,10 +1,12 @@
 .footer {
     background-color: $soft-purple;
+    height: 80px;
 
     .footer-logo {
         width: fit-content;
         height: 80px;
         margin: auto;
+        overflow: hidden;
         
         img {
             display: block;
