@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,7 +16,10 @@ export default function Footer() {
                         />
                     </Link>
                 </div>
+                <div className="footer-copyright">
+                    &copy; 2023-{new Date().getFullYear()} investant.net
+                </div>
             </div>
         </>
     );
-};
+}

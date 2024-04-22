@@ -1,28 +1,40 @@
 .footer {
+    position: relative;
+    display: flex;
     background-color: $soft-purple;
+    justify-content: center;
+    align-items: center;
     height: 80px;
+    padding: 0 20px;
 
     .footer-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: fit-content;
-        height: 80px;
-        margin: auto;
+        height: 100%;
         overflow: hidden;
-        
+
         img {
-            display: block;
-            height: 95%;
+            height: 65px;
             width: auto;
-            margin: auto;
             animation: spin 15s linear infinite;
         }
+    }
+
+    .footer-copyright {
+        font-size: 14px;
+        color: $white;
+        position: absolute;
+        right: 20px;
     }
 }
 
 @keyframes spin {
-    0% {
+    from {
         transform: rotate(0deg);
     }
-    100% {
+    to {
         transform: rotate(360deg);
     }
 }
