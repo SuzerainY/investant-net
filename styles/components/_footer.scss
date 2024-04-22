@@ -30,6 +30,17 @@
     }
 }
 
+@media screen and (max-width: 1079px) {
+    .footer {
+        justify-content: space-between;
+        padding: 0px 5px;
+
+        .footer-copyright {
+            right: 10px;
+        }
+    }
+}
+
 @keyframes spin {
     from {
         transform: rotate(0deg);
