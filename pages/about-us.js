@@ -23,7 +23,21 @@ export async function getServerSideProps(context) {
               id
               attributes {
                 HavenDescription
+                HavenProfilePicture {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
                 RyanDescription
+                RyanProfilePicture {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
               }
             }
           }
@@ -40,11 +54,20 @@ export default function AboutUs(props) {
 
   const [havenDescription, setHavenDescription] = useState(null);
   const [ryanDescription, setRyanDescription] = useState(null);
+  const [havenProfilePictureURL, setHavenProfilePictureURL] = useState(null);
+  const [ryanProfilePictureURL, setRyanProfilePictureURL] = useState(null);
 
   useEffect(() => {
     setHavenDescription(props.data.aboutUsPage.data.attributes.HavenDescription);
     setRyanDescription(props.data.aboutUsPage.data.attributes.RyanDescription);
-  }, [props.data.aboutUsPage.data.attributes.HavenDescription, props.data.aboutUsPage.data.attributes.RyanDescription]);
+    setHavenProfilePictureURL(props.data.aboutUsPage.data.attributes.HavenProfilePicture.data.attributes.url);
+    setRyanProfilePictureURL(props.data.aboutUsPage.data.attributes.RyanProfilePicture.data.attributes.url);
+  }, [
+    props.data.aboutUsPage.data.attributes.HavenDescription,
+    props.data.aboutUsPage.data.attributes.RyanDescription,
+    props.data.aboutUsPage.data.attributes.HavenProfilePicture,
+    props.data.aboutUsPage.data.attributes.RyanProfilePicture
+  ]);
 
 
   return (
@@ -89,7 +112,7 @@ export default function AboutUs(props) {
                   <div className="about-us-profile-image">
                     <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
                       <Image
-                        src={"/images/profilepictures/havenProfile.jpg"}
+                        src={havenProfilePictureURL}
                         alt={"havenProfilePicture"}
                         priority={true}
                         width={200}
@@ -109,7 +132,7 @@ export default function AboutUs(props) {
                     <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
                       <Image
                         className="about-us-profile-image"
-                        src={"/images/profilepictures/ryanProfile.jpg"}
+                        src={ryanProfilePictureURL}
                         alt={"ryanProfilePicture"}
                         priority={true}
                         width={200}
