@@ -328,7 +328,7 @@
       max-width: 100%;
       justify-content: center;
       align-items: center;
-      text-align: center;
+      text-align: left;
       padding: 25px 0;
       font-weight: 200;
       color: $black;
@@ -365,6 +365,15 @@
         height: auto;
         display: block;
         margin: 0 auto;
+      }
+      ul, ol {
+        list-style-position: outside;
+        padding-left: 25px;
+        li {
+          strong {
+            font-weight: bold;
+          }
+        }
       }
     }
   }
