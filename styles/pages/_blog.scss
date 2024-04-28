@@ -1,7 +1,6 @@
 .blogpage {
   background: $white;
-  min-height: 100vh;
-  height: fit-content;
+  min-height: calc(100vh - 160px);
 
   .blogpage-title-background {
     background: url("/images/styling/layered-waves1-haikei.svg");
@@ -104,7 +103,6 @@
 
   // Here for the individual blog posts mapped beneath the featured post
   .blogpage-posts-wrapper {
-    height: fit-content;
     padding-top: 25px;
     padding-bottom: 25px;
 
@@ -261,7 +259,6 @@
 .slug-page-background-color { 
   position: relative;
   background-color: $white;
-  min-height: 100vh;
   
   .slug-page-title-background {
     height: 300px;

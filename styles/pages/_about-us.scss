@@ -1,6 +1,7 @@
 .aboutuspage {
     position: relative;
     background: $soft-purple;
+    min-height: calc(100vh - 160px);
 
     .about-us-page-wrapper {
         background-image: url("/images/styling/layered-waves1-haikei.svg");

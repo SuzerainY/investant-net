@@ -1,13 +1,13 @@
 .homepage {
+  position: relative;
+  min-height: calc(100vh - 160px);
   background-image: url("/images/styling/layered-peaks1-haikei.svg");
   background-size: cover;
-  min-height: 100vh;
-  height: fit-content;
 
   .hero-section {
     display: grid;
     grid-template-columns: 500px calc(100% - 500px);
-    min-height: 90vh;
+    min-height: 85vh;
 
     .hero-text-container {
       display: flex;
