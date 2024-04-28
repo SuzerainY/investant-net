@@ -84,7 +84,6 @@ export default function Blog(props) {
                 <h1>Explore Our Latest Blog Posts</h1>
                 <h3>At <span className="blogpage-title-span">investant.net</span>, we aim to provide independent financial research and tools for <span className="blogpage-title-span">your</span>{" financial literacy and education in today's economy."}</h3>
               </div>
-              {/* Display the most recent post front and center */}
               <div className="featured-post">
                 <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
                   <div className="featured-post-image-container">
@@ -112,7 +111,6 @@ export default function Blog(props) {
           </div>
           <div className="blogpage-posts-wrapper">
             <div className="blog-post-list">
-              {/* Loop through other blog posts */}
               {blogPosts.map((post) => (
                 <div className="blog-post" key={post.attributes.SLUG}>
                   <Link href={`/blog/${post.attributes.SLUG}`}>

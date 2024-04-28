@@ -1,8 +1,75 @@
+import { STRAPIurl, blogPostReadLengthText } from '@/my_modules/bloghelp';
+import { useState } from 'react';
+import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
 
-export default function Home() {
+export async function getServerSideProps(context) {
+  const fetchParams = {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        query GetBlogPosts {
+          northStarPost: blogPosts(filters: { id: { eq: 1 } }) {
+            data {
+              id
+              attributes {
+                Title
+                BlogPostBody
+                BlogPostDescription
+                SLUG
+                SPLASH {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          latestTenPosts: blogPosts(
+            pagination: { pageSize: 8 }
+            sort: "id:desc"
+          ) {
+            data {
+              id
+              attributes {
+                Title
+                BlogPostDescription
+                SLUG
+                SPLASH {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+    }),
+  };
+  const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+  const data = await res.json();
+  return { props: data };
+}
+
+export default function Home(props) {
+
+  // Arrange blog post data and variables
+  const northStarPost = props.data.northStarPost.data[0]; // Get the most recent post
+  const latestTenPosts = props.data.latestTenPosts.data; // The rest of the blog posts with the mostRecentPost removed
+
+  const [openCardIndex, setOpenCardIndex] = useState(0);
+  const handleCardHover = (index) => {setOpenCardIndex(index);}
+
   return (
     <>
       <Head>
@@ -45,6 +112,69 @@ export default function Home() {
                 priority={true}
                 fill
               />
+            </div>
+          </section>
+          <section className="homepage-divider-1">
+            <div className="homepage-divider-1-text-container">
+              <h2>Your Roadmap to Financial Freedom</h2>
+            </div>
+          </section>
+          <section className="homepage-featured-blog-post-container">
+            <div className="homepage-featured-blog-post-card">
+              <Link key={northStarPost.attributes.SLUG} href={`/blog/${northStarPost.attributes.SLUG}`}>
+                <div className="homepage-featured-post-image-container">
+                  <Image
+                    src={`${northStarPost.attributes.SPLASH.data.attributes.url}`}
+                    alt={northStarPost.attributes.Title}
+                    priority={true}
+                    width={1000}
+                    height={500}
+                  />
+                </div>
+                <div className="homepage-featured-post-text-container">
+                  <h1>{northStarPost.attributes.Title}</h1>
+                  <div className="homepage-featured-post-description-container">
+                    <p>{northStarPost.attributes.BlogPostDescription}</p>
+                  </div>
+                  <div className="homepage-blog-post-read-length">
+                    {/* Calculate approximate minutes to read.*/}
+                    <p>{blogPostReadLengthText(northStarPost)}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="homepage-blog-post-memo">
+              <h2>
+                {`"Welcome to `}<span className="homepage-blog-post-memo-span">investant.net</span>{`, where financial literacy isn't a privilege, but a practical pursuit for everyone."`}
+              </h2>
+            </div>
+          </section>
+          <section className="homepage-divider-2">
+            <div className="homepage-divider-2-text-container">
+              <h2>Explore Our Latest Blog Posts</h2>
+            </div>
+          </section>
+          <section className="homepage-blog-post-cards-wrapper">
+            <div className="homepage-blog-post-cards-container">
+              {latestTenPosts.map((post, index) => (
+                <Link
+                  href={`/blog/${post.attributes.SLUG}`}
+                  key={post.id}
+                  className={`homepage-blog-post-card ${openCardIndex === index ? 'open' : ''}`}
+                  style={{ backgroundImage: `url(${post.attributes.SPLASH.data.attributes.url})` }}
+                  onMouseEnter={() => handleCardHover(index)}
+                >
+                  <div className="homepage-blog-post-card-row">
+                    <div className="homepage-blog-post-card-icon" style={{ background: ["#1B0053", "#40C9FF", "#E81CFF"][index % 3] }}>
+                      {index + 1}
+                    </div>
+                    <div className="homepage-blog-post-card-description">
+                      <h4>{post.attributes.Title}</h4>
+                      <p>{post.attributes.BlogPostDescription}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
         </div>
