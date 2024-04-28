@@ -28,8 +28,8 @@ export default function Home() {
       </Head>
 
       <DefaultLayout>
-        <div className="homepage">
-        </div>
+        <main className="homepage">
+        </main>
       </DefaultLayout>
     </>
   )

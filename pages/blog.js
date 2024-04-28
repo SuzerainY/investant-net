@@ -77,16 +77,16 @@ export default function Blog(props) {
       </Head>
 
       <DefaultLayout>
-        <div className="blogpage">
-          <div className="blogpage-title-background">
+        <main className="blogpage">
+          <section className="blogpage-title-background">
             <div className="blogpage-title-wrapper">
               <div className="blogpage-title">
                 <h1>Explore Our Latest Blog Posts</h1>
                 <h3>At <span className="blogpage-title-span">investant.net</span>, we aim to provide independent financial research and tools for <span className="blogpage-title-span">your</span>{" financial literacy and education in today's economy."}</h3>
               </div>
-              <div className="featured-post">
+              <div className="blogpage-featured-post">
                 <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-                  <div className="featured-post-image-container">
+                  <div className="blogpage-featured-post-image-container">
                     <Image
                       src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
                       alt={mostRecentPost.attributes.Title}
@@ -95,12 +95,12 @@ export default function Blog(props) {
                       height={500}
                     />
                   </div>
-                  <div className="featured-post-text-container">
-                    <h1>{mostRecentPost.attributes.Title}</h1>
-                    <div className="featured-post-description-container">
+                  <div className="blogpage-featured-post-text-container">
+                    <h2>{mostRecentPost.attributes.Title}</h2>
+                    <div className="blogpage-featured-post-description-container">
                       <p>{mostRecentPost.attributes.BlogPostDescription}</p>
                     </div>
-                    <div className="blog-post-read-length">
+                    <div className="blogpage-blog-post-read-length">
                       {/* Calculate approximate minutes to read.*/}
                       <p>{blogPostReadLengthText(mostRecentPost)}</p>
                     </div>
@@ -108,13 +108,13 @@ export default function Blog(props) {
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="blogpage-posts-wrapper">
-            <div className="blog-post-list">
+          </section>
+          <section className="blogpage-blog-posts-wrapper">
+            <div className="blogpage-blog-post-list">
               {blogPosts.map((post) => (
-                <div className="blog-post" key={post.attributes.SLUG}>
+                <div className="blogpage-blog-post" key={post.attributes.SLUG}>
                   <Link href={`/blog/${post.attributes.SLUG}`}>
-                    <div className="blog-post-image-container">
+                    <div className="blogpage-blog-post-image-container">
                       <Image
                         src={`${post.attributes.SPLASH.data.attributes.url}`}
                         alt={post.attributes.Title}
@@ -122,20 +122,20 @@ export default function Blog(props) {
                         height={500}
                       />
                     </div>
-                    <div className="blog-post-text-container">
+                    <div className="blogpage-blog-post-text-container">
                       <h2>{post.attributes.Title}</h2>
-                      <div className="blog-post-description-container">
+                      <div className="blogpage-blog-post-description-container">
                         <p>{post.attributes.BlogPostDescription}</p>
                       </div>
                       {/* Calculate approximate minutes to read.*/}
-                      <p className="blog-post-read-length">{blogPostReadLengthText(post)}</p>
+                      <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post)}</p>
                     </div>
                   </Link>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </section>
+        </main>
       </DefaultLayout>
     </>
   )

@@ -96,20 +96,20 @@ export default function AboutUs(props) {
       </Head>
 
       <DefaultLayout>
-        <div className="aboutuspage">
+        <main className="about-us-page">
           <div className="about-us-page-wrapper">
-            <div className="about-us-page-title-container">
+            <section className="about-us-page-title-container">
               <div className="about-us-page-title">
                 <h1>The Investant Team</h1>
                 <div className="about-us-page-title-divider">
                   <h3>{"Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy."}</h3>
                 </div>
               </div>
-            </div>
-            <div className="about-us-profile-container">
+            </section>
+            <article className="about-us-page-profile-container">
               {(havenDescription != null) && (
-                <div className="about-us-profile">
-                  <div className="about-us-profile-image">
+                <section className="about-us-page-profile">
+                  <div className="about-us-page-profile-image">
                     <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
                       <Image
                         src={havenProfilePictureURL}
@@ -120,18 +120,18 @@ export default function AboutUs(props) {
                       />
                     </Link>
                   </div>
-                  <div className="about-us-profile-description">
+                  <div className="about-us-page-profile-description">
                     <h2>Haven Smith</h2>
                     <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
                   </div>
-                </div>
+                </section>
               )}
               {(ryanDescription != null) && (
-                <div className="about-us-profile">
-                  <div className="about-us-profile-image">
+                <section className="about-us-page-profile">
+                  <div className="about-us-page-profile-image">
                     <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
                       <Image
-                        className="about-us-profile-image"
+                        className="about-us-page-profile-image"
                         src={ryanProfilePictureURL}
                         alt={"ryanProfilePicture"}
                         priority={true}
@@ -140,15 +140,15 @@ export default function AboutUs(props) {
                       />
                     </Link>
                   </div>
-                  <div className="about-us-profile-description">
+                  <div className="about-us-page-profile-description">
                     <h2>Ryan White</h2>
                     <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
                   </div>
-                </div>
+                </section>
               )}
-            </div>
+            </article>
           </div>
-        </div>
+        </main>
       </DefaultLayout>
     </>
   )

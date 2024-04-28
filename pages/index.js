@@ -32,10 +32,7 @@ export async function getServerSideProps(context) {
               }
             }
           }
-          latestTenPosts: blogPosts(
-            pagination: { pageSize: 8 }
-            sort: "id:desc"
-          ) {
+          latestTenPosts: blogPosts(pagination: { pageSize: 8 } sort: "id:desc") {
             data {
               id
               attributes {
@@ -96,16 +93,16 @@ export default function Home(props) {
       </Head>
 
       <DefaultLayout>
-        <div className="homepage">
-          <section className="hero-section">
-            <div className="hero-text-container">
+        <main className="homepage">
+          <section className="homepage-hero-section">
+            <div className="homepage-hero-section-text-container">
               <h1>
                 Personal Finance
                 <br/>
-                <span className="hero-text-span">Made Simple.</span>
+                <span className="homepage-hero-section-text-span">Made Simple.</span>
               </h1>
             </div>
-            <div className="hero-image-container">
+            <div className="homepage-hero-section-image-container">
               <Image
                 src={"/images/clipart/ClipArtOfficeWorker.svg"}
                 alt="Office Worker ClipArt"
@@ -122,36 +119,36 @@ export default function Home(props) {
           <section className="homepage-featured-blog-post-container">
             <div className="homepage-featured-blog-post-card">
               <Link key={northStarPost.attributes.SLUG} href={`/blog/${northStarPost.attributes.SLUG}`}>
-                <div className="homepage-featured-post-image-container">
+                <div className="homepage-featured-blog-post-image-container">
                   <Image
                     src={`${northStarPost.attributes.SPLASH.data.attributes.url}`}
                     alt={northStarPost.attributes.Title}
                     priority={true}
-                    width={1000}
-                    height={500}
+                    width={1200}
+                    height={600}
                   />
                 </div>
-                <div className="homepage-featured-post-text-container">
+                <div className="homepage-featured-blog-post-text-container">
                   <h1>{northStarPost.attributes.Title}</h1>
-                  <div className="homepage-featured-post-description-container">
+                  <div className="homepage-featured-blog-post-description-container">
                     <p>{northStarPost.attributes.BlogPostDescription}</p>
                   </div>
-                  <div className="homepage-blog-post-read-length">
+                  <div className="homepage-featured-blog-post-read-length">
                     {/* Calculate approximate minutes to read.*/}
                     <p>{blogPostReadLengthText(northStarPost)}</p>
                   </div>
                 </div>
               </Link>
             </div>
-            <div className="homepage-blog-post-memo">
+            <div className="homepage-featured-blog-post-memo">
               <h2>
-                {`"Welcome to `}<span className="homepage-blog-post-memo-span">investant.net</span>{`, where financial literacy isn't a privilege, but a practical pursuit for everyone."`}
+                {`"Welcome to `}<span className="homepage-featured-blog-post-memo-span">investant.net</span>{`, where financial literacy isn't a privilege, but a practical pursuit for everyone."`}
               </h2>
             </div>
           </section>
           <section className="homepage-divider-2">
             <div className="homepage-divider-2-text-container">
-              <h2>Explore Our Latest Blog Posts</h2>
+              <h2>Delivering Content For The Young Professional</h2>
             </div>
           </section>
           <section className="homepage-blog-post-cards-wrapper">
@@ -177,7 +174,7 @@ export default function Home(props) {
               ))}
             </div>
           </section>
-        </div>
+        </main>
       </DefaultLayout>
     </>
   )

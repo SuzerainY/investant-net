@@ -4,12 +4,12 @@
   background-image: url("/images/styling/layered-peaks1-haikei.svg");
   background-size: cover;
 
-  .hero-section {
+  .homepage-hero-section {
     display: grid;
     grid-template-columns: 500px calc(100% - 500px);
     min-height: 70vh;
 
-    .hero-text-container {
+    .homepage-hero-section-text-container {
       position: relative;
       display: flex;
       text-align: left;
@@ -17,7 +17,7 @@
       justify-content: flex-end;
       animation: fadeIn 0.5s ease-in;
     
-      .hero-text-span {
+      .homepage-hero-section-text-span {
         font-weight: 700;
         animation: fadeIn 2.5s ease-in;
       }
@@ -27,7 +27,7 @@
       }
     }
 
-    .hero-image-container {
+    .homepage-hero-section-image-container {
       position: relative;
       margin-top: auto;
       margin-bottom: 0;
@@ -69,12 +69,14 @@
       display: flex;
       margin-left: auto;
       margin-right: auto;
-      width: 90%;
       aspect-ratio: 16 / 9;
+      width: 90%;
+      max-width: 1000px;
+      height: auto;
       border-radius: 20px;
       overflow: hidden;
   
-      .homepage-featured-post-image-container {
+      .homepage-featured-blog-post-image-container {
         width: inherit;
         height: inherit;
         transition: transform 0.25s ease-in-out;
@@ -86,7 +88,7 @@
         }
       }
 
-      .homepage-featured-post-text-container {
+      .homepage-featured-blog-post-text-container {
         position: absolute;
         bottom: 0;
         width: 100%;
@@ -95,7 +97,7 @@
         text-align: left;
         color: $white;
 
-        .homepage-featured-post-description-container {
+        .homepage-featured-blog-post-description-container {
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
@@ -106,7 +108,7 @@
           text-overflow: ellipsis;
         }
 
-        .homepage-blog-post-read-length {
+        .homepage-featured-blog-post-read-length {
           font-style: italic;
         }
 
@@ -119,13 +121,13 @@
           line-height: inherit;
         }
       }
-      &:hover .homepage-featured-post-image-container,
-      .homepage-featured-post-text-container:hover + .homepage-featured-post-image-container {
+      &:hover .homepage-featured-blog-post-image-container,
+      .homepage-featured-blog-post-text-container:hover + .homepage-featured-blog-post-image-container {
         transform: scale(1.05);
       }
     }
 
-    .homepage-blog-post-memo {
+    .homepage-featured-blog-post-memo {
       display: flex;
       width: 100%;
       height: 100%;
@@ -134,7 +136,7 @@
       align-items: center;
       text-align: center;
 
-      .homepage-blog-post-memo-span {
+      .homepage-featured-blog-post-memo-span {
         font-weight: bold;
       }
 
@@ -253,12 +255,12 @@
 
 @media screen and (max-width: 1079px) {
   .homepage {
-    .hero-section {
+    .homepage-hero-section {
       min-height: 70vh;
       grid-template-columns: 100%;
       grid-template-rows: 50% 50%;
 
-      .hero-text-container {
+      .homepage-hero-section-text-container {
         height: fit-content;
         padding: 40px 0 0 10%;
         justify-content: left;
@@ -273,7 +275,7 @@
       grid-template-columns: 100%;
 
       .homepage-featured-blog-post-card {
-        .homepage-featured-post-text-container {
+        .homepage-featured-blog-post-text-container {
           h1 {
             font-size: 28px;
           }
@@ -283,7 +285,7 @@
         }
       }
 
-      .homepage-blog-post-memo {
+      .homepage-featured-blog-post-memo {
         padding: 20px 20px 0 20px;
         h2 {
           font-size: 28px;
@@ -293,18 +295,21 @@
 
     .homepage-blog-post-cards-wrapper {
       height: 450px;
+      padding: 20px 0px;
 
       .homepage-blog-post-cards-container {
+        overflow: visible;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
+        margin: 0px;
 
         .homepage-blog-post-card {
           width: 80%;
           min-width: 300px;
           flex-direction: column;
           align-items: flex-start;
-          scroll-snap-align: start;
+          scroll-snap-align: center;
 
           .homepage-blog-post-card-row {
             flex-direction: column;
@@ -321,7 +326,7 @@
               transform: translateY(0px);
               width: 100%;
               height: auto;
-              padding: 10px 5px;
+              padding: 10px;
 
               p {
                 white-space: normal;

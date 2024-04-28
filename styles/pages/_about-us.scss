@@ -1,4 +1,4 @@
-.aboutuspage {
+.about-us-page {
     position: relative;
     background: $soft-purple;
     min-height: calc(100vh - 160px);
@@ -36,13 +36,13 @@
                 
                 h1 {
                     margin-top: 20px;
-                    font-size: 60px;
+                    font-size: 50px;
                     font-weight: 600;
                 }
             }
         }
       
-        .about-us-profile-container {
+        .about-us-page-profile-container {
             padding-top: 20px;
             padding-bottom: 20px;
             margin-left: auto;
@@ -51,13 +51,13 @@
             background-color: transparent;
             animation: fadeIn 1s ease-in;
       
-            .about-us-profile {
+            .about-us-page-profile {
                 display: grid;
                 grid-template-columns: 230px auto;
                 padding-top: 20px;
                 padding-bottom: 20px;
     
-                .about-us-profile-image {
+                .about-us-page-profile-image {
                     width: 200px;
                     height: 200px;
                     border-radius: 50%;
@@ -74,7 +74,7 @@
                     }
                 }
         
-                .about-us-profile-description {
+                .about-us-page-profile-description {
                     border-radius: 5px;
                     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
                     background-color: rgba($color: $white, $alpha: 0.4);
@@ -100,7 +100,7 @@
 // Media query for mobile devices
 @media screen and (max-width: 1079px) {
 
-    .aboutuspage {
+    .about-us-page {
         .about-us-page-wrapper {
             background-image: url("/images/styling/stacked-waves1-haikei.svg");
             background-size: 800% 100%;
@@ -118,18 +118,18 @@
                 }
             }
     
-            .about-us-profile-container {
+            .about-us-page-profile-container {
                 max-width: 90%;
         
-                .about-us-profile {
+                .about-us-page-profile {
                     grid-template-columns: 100%;
 
-                    .about-us-profile-image {
+                    .about-us-page-profile-image {
                         margin-right: auto;
                         margin-left: auto;
                     }
         
-                    .about-us-profile-description {
+                    .about-us-page-profile-description {
                         margin-top: 20px;
                     }
                 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Footer() {
     return (
         <>
-            <div className="footer">
+            <footer className="footer">
                 <div className="footer-logo">
                     <Link href="/">
                         <Image
@@ -19,7 +19,7 @@ export default function Footer() {
                 <div className="footer-copyright">
                     &copy; 2023-{new Date().getFullYear()} investant.net
                 </div>
-            </div>
+            </footer>
         </>
     );
 }

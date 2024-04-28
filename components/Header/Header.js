@@ -60,100 +60,21 @@ export default function Header() {
 
   return (
     <>
-      <nav className="header">
-        <div className="mobile-top-banner">
-          <Link href="/">
-            <Image
-              src={"/images/branding/FaviconTransparent.png"}
-              alt="Investant Favicon"
-              width={100}
-              height={100}
-              priority
-            />
-          </Link>
-        </div>
-        <div className="mobile-menu">
-          <div className="mobile-menu-button"><h3>MENU</h3></div>
-          <ul>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/products">Products</Link>
-            </li>
-            <li>
-              <Link href="/about-us">About Us</Link>
-            </li>
-            <li>
-              <Link href="/blog">Blog</Link>
-            </li>
-          </ul>
-          <div className="mobile-media-links">
-            <li>
-              <Link
-                href="https://discord.gg/SFUKKjWEjH"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/discord-investant.png"
-                  alt="Discord Icon"
-                  width={40}
-                  height={35}
-                  priority
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://twitter.com/InvestantGroup"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/x-investant.png"
-                  alt="X Icon"
-                  width={40}
-                  height={35}
-                  priority
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://www.instagram.com/investantgroup/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/insta-investant.png"
-                  alt="Instagram Icon"
-                  width={38}
-                  height={38}
-                  priority
-                />
-              </Link>
-            </li>
+      <header>
+        <nav className="header">
+          <div className="mobile-top-banner">
+            <Link href="/">
+              <Image
+                src={"/images/branding/FaviconTransparent.png"}
+                alt="Investant Favicon"
+                width={100}
+                height={100}
+                priority
+              />
+            </Link>
           </div>
-        </div>
-
-        <div className="desktop-menu">
-          <div className="NavBar-Investant-Logo">
-            <ul>
-              <li>
-                <Link href="/">
-                  <Image
-                    src={"/images/branding/TransparentLogoHeader.png"}
-                    alt="Investant Logo"
-                    width={300}
-                    height={60}
-                    priority
-                  />
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="NavBar-Navigation-Links">
+          <div className="mobile-menu">
+            <div className="mobile-menu-button"><h3>MENU</h3></div>
             <ul>
               <li>
                 <Link href="/">Home</Link>
@@ -168,9 +89,7 @@ export default function Header() {
                 <Link href="/blog">Blog</Link>
               </li>
             </ul>
-          </div>
-          <div className="NavBar-Media-Links">
-            <ul>        
+            <div className="mobile-media-links">
               <li>
                 <Link
                   href="https://discord.gg/SFUKKjWEjH"
@@ -186,7 +105,7 @@ export default function Header() {
                   />
                 </Link>
               </li>
-              <li className="NavBar-Media-Links-XLogo">
+              <li>
                 <Link
                   href="https://twitter.com/InvestantGroup"
                   target="_blank"
@@ -195,7 +114,7 @@ export default function Header() {
                   <Image
                     src="/images/socialmedia/x-investant.png"
                     alt="X Icon"
-                    width={35}
+                    width={40}
                     height={35}
                     priority
                   />
@@ -216,10 +135,93 @@ export default function Header() {
                   />
                 </Link>
               </li>
-            </ul>
+            </div>
           </div>
-        </div>
-      </nav>
+
+          <div className="desktop-menu">
+            <div className="NavBar-Investant-Logo">
+              <ul>
+                <li>
+                  <Link href="/">
+                    <Image
+                      src={"/images/branding/TransparentLogoHeader.png"}
+                      alt="Investant Logo"
+                      width={300}
+                      height={60}
+                      priority
+                    />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className="NavBar-Navigation-Links">
+              <ul>
+                <li>
+                  <Link href="/">Home</Link>
+                </li>
+                <li>
+                  <Link href="/products">Products</Link>
+                </li>
+                <li>
+                  <Link href="/about-us">About Us</Link>
+                </li>
+                <li>
+                  <Link href="/blog">Blog</Link>
+                </li>
+              </ul>
+            </div>
+            <div className="NavBar-Media-Links">
+              <ul>        
+                <li>
+                  <Link
+                    href="https://discord.gg/SFUKKjWEjH"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/socialmedia/discord-investant.png"
+                      alt="Discord Icon"
+                      width={40}
+                      height={35}
+                      priority
+                    />
+                  </Link>
+                </li>
+                <li className="NavBar-Media-Links-XLogo">
+                  <Link
+                    href="https://twitter.com/InvestantGroup"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/socialmedia/x-investant.png"
+                      alt="X Icon"
+                      width={35}
+                      height={35}
+                      priority
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://www.instagram.com/investantgroup/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/socialmedia/insta-investant.png"
+                      alt="Instagram Icon"
+                      width={38}
+                      height={38}
+                      priority
+                    />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
     </>
   );
 };
