@@ -1,0 +1,191 @@
+.productspage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 160px);
+
+    .productspage-title-section {
+        display: flex;
+        background-color: $chrome;
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0px 0px 0px;
+
+        .productspage-title-container {
+            display: flex;
+            flex-direction: row;
+            white-space: nowrap;
+            width: 50%;
+            max-width: 1400px;
+            align-items: center;
+            color: $soft-purple;
+
+            .productspage-title-span {
+                color: $dark-blue;
+                font-weight: 600;
+            }
+
+            h1 {
+                font-size: 40px;
+                font-weight: bold;
+            }
+            h3 {
+                font-size: 24px;
+                padding-top: 3px;
+                padding-left: 5px;
+                color: $light-grey;
+                font-style: italic;
+            }
+        }
+    }
+
+    .productspage-info-section {
+        display: flex;
+        background-color: $chrome;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        padding: 20px 0px 10px 0px;
+
+        .productspage-info-description {
+            width: 50%;
+            max-width: 1400px;
+            color: $black;
+            padding: 0px 10px;
+
+            .productspage-info-description-span {
+                font-weight: bold;
+            }
+
+            h4 {
+                font-size: 20px;
+                font-family: sans-serif;
+            }
+        }
+    }
+
+    .productspage-divider-1 {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        width: 50%;
+        max-width: 1400px;
+        height: 4px;
+        margin-top: 5px;
+
+        .productspage-divider-1-color-1 {
+            background-color: $trans-purple;
+        }
+        .productspage-divider-1-color-2 {
+            background-color: $dark-blue;
+        }
+    }
+
+    .productspage-conscious-planner-section {
+        display: flex;
+        flex-direction: row;
+        width: 50%;
+        max-width: 1400px;
+        padding: 20px 0px 20px 0px;
+
+        .productspage-conscious-planner-image-container {
+            width: 60%;
+            height: auto;
+            padding: 0 10px;
+
+            img {
+                object-fit: cover;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .productspage-conscious-planner-description {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 40%;
+            color: $black;
+            padding: 0px 20px;
+
+            .productspage-conscious-planner-download-button {
+                border: 2px solid $light-blue;
+                border-radius: 30px;
+                background-color: $soft-purple;
+                width: fit-content;
+                margin: auto 0;
+                padding: 10px;
+                color: $white;
+                cursor: pointer;
+                
+                h4 {
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            }
+
+            .productspage-conscious-planner-description-span {
+                font-weight: bold;
+            }
+
+            h4 {
+                font-size: 22px;
+                font-family: sans-serif;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1079px) {
+    .productspage {
+        .productspage-title-section {
+            .productspage-title-container {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 20px;
+
+                h3 {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .productspage-info-section {
+            .productspage-info-description {
+                width: 100%;
+                padding-left: 20px;
+            }
+        }
+
+        .productspage-divider-1 {
+            width: calc(100% - 40px);
+        }
+
+        .productspage-conscious-planner-section {
+            width: 100%;
+            flex-direction: column;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            .productspage-conscious-planner-image-container {
+                width: 100%;
+                padding: 0px;
+            }
+
+            .productspage-conscious-planner-description {
+                flex-direction: column-reverse;
+                width: 100%;
+                padding: 0px;
+
+                .productspage-conscious-planner-download-button {
+                    margin: 10px 0px;
+                }
+            }
+        }
+    }
+}
