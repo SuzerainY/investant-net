@@ -94,7 +94,7 @@ export default function Home(props) {
           </section>
           <section className="homepage-divider-1">
             <div className="homepage-divider-1-text-container">
-              <h2>Your Roadmap to Financial Freedom</h2>
+              <h2>Building Wealth For New Professionals</h2>
             </div>
           </section>
           <section className="homepage-featured-blog-posts-section">

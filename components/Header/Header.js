@@ -83,10 +83,10 @@ export default function Header() {
                 <Link href="/products">Products</Link>
               </li>
               <li>
-                <Link href="/about-us">About Us</Link>
+                <Link href="/blog">Blog</Link>
               </li>
               <li>
-                <Link href="/blog">Blog</Link>
+                <Link href="/about-us">About Us</Link>
               </li>
             </ul>
             <div className="mobile-media-links">
@@ -163,10 +163,10 @@ export default function Header() {
                   <Link href="/products">Products</Link>
                 </li>
                 <li>
-                  <Link href="/about-us">About Us</Link>
+                  <Link href="/blog">Blog</Link>
                 </li>
                 <li>
-                  <Link href="/blog">Blog</Link>
+                  <Link href="/about-us">About Us</Link>
                 </li>
               </ul>
             </div>
