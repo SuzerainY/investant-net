@@ -6,7 +6,7 @@ import DefaultLayout from '@/layouts/DefaultLayout';
 
 export default function Home() {
 
-  const [downloadInvestantConsciousPlannerURL, setDownloadInvestantConsciousPlannerURL] = useState('/files/UserTemplates/Investant-ConciousSpendingPlan.xlsx');
+  const [downloadInvestantConsciousPlannerURL, setDownloadInvestantConsciousPlannerURL] = useState('/files/UserTemplates/Investant-ConsciousSpendingPlan.xlsx');
   const handleDownloadInvestantConsciousPlannerURL = () => {
     // Create an anchor element
     const anchor = document.createElement('a');
