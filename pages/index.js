@@ -14,25 +14,7 @@ export async function getServerSideProps(context) {
     body: JSON.stringify({
       query: `
         query GetBlogPosts {
-          northStarPost: blogPosts(filters: { id: { eq: 1 } }) {
-            data {
-              id
-              attributes {
-                Title
-                BlogPostBody
-                BlogPostDescription
-                SLUG
-                SPLASH {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          latestTenPosts: blogPosts(pagination: { pageSize: 8 } sort: "id:desc") {
+          latestSixPosts: blogPosts(pagination: { pageSize: 6 } sort: "id:desc") {
             data {
               id
               attributes {
@@ -61,8 +43,7 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
 
   // Arrange blog post data and variables
-  const northStarPost = props.data.northStarPost.data[0]; // Get the most recent post
-  const latestTenPosts = props.data.latestTenPosts.data; // The rest of the blog posts with the mostRecentPost removed
+  const latestSixPosts = props.data.latestSixPosts.data; // The rest of the blog posts with the mostRecentPost removed
 
   const [openCardIndex, setOpenCardIndex] = useState(0);
   const handleCardHover = (index) => {setOpenCardIndex(index);}
@@ -116,62 +97,29 @@ export default function Home(props) {
               <h2>Your Roadmap to Financial Freedom</h2>
             </div>
           </section>
-          <section className="homepage-featured-blog-post-container">
-            <div className="homepage-featured-blog-post-card">
-              <Link key={northStarPost.attributes.SLUG} href={`/blog/${northStarPost.attributes.SLUG}`}>
-                <div className="homepage-featured-blog-post-image-container">
-                  <Image
-                    src={`${northStarPost.attributes.SPLASH.data.attributes.url}`}
-                    alt={northStarPost.attributes.Title}
-                    priority={true}
-                    width={1200}
-                    height={600}
-                  />
-                </div>
-                <div className="homepage-featured-blog-post-text-container">
-                  <h1>{northStarPost.attributes.Title}</h1>
-                  <div className="homepage-featured-blog-post-description-container">
-                    <p>{northStarPost.attributes.BlogPostDescription}</p>
-                  </div>
-                  <div className="homepage-featured-blog-post-read-length">
-                    {/* Calculate approximate minutes to read.*/}
-                    <p>{blogPostReadLengthText(northStarPost)}</p>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="homepage-featured-blog-post-memo">
-              <h2>
-                {`"Welcome to `}<span className="homepage-featured-blog-post-memo-span">investant.net</span>{`, where financial literacy isn't a privilege, but a practical pursuit for everyone."`}
-              </h2>
-            </div>
-          </section>
-          <section className="homepage-divider-2">
-            <div className="homepage-divider-2-text-container">
-              <h2>Delivering Content For The Young Professional</h2>
-            </div>
-          </section>
-          <section className="homepage-blog-post-cards-wrapper">
-            <div className="homepage-blog-post-cards-container">
-              {latestTenPosts.map((post, index) => (
-                <Link
-                  href={`/blog/${post.attributes.SLUG}`}
-                  key={post.id}
-                  className={`homepage-blog-post-card ${openCardIndex === index ? 'open' : ''}`}
-                  style={{ backgroundImage: `url(${post.attributes.SPLASH.data.attributes.url})` }}
-                  onMouseEnter={() => handleCardHover(index)}
-                >
-                  <div className="homepage-blog-post-card-row">
-                    <div className="homepage-blog-post-card-icon" style={{ background: ["#1B0053", "#40C9FF", "#E81CFF"][index % 3] }}>
-                      {index + 1}
+          <section className="homepage-featured-blog-posts-section">
+            <div className="homepage-blog-post-cards-wrapper">
+              <div className="homepage-blog-post-cards-container">
+                {latestSixPosts.map((post, index) => (
+                  <Link
+                    href={`/blog/${post.attributes.SLUG}`}
+                    key={post.id}
+                    className={`homepage-blog-post-card ${openCardIndex === index ? 'open' : ''}`}
+                    style={{ backgroundImage: `url(${post.attributes.SPLASH.data.attributes.url})` }}
+                    onMouseEnter={() => handleCardHover(index)}
+                  >
+                    <div className="homepage-blog-post-card-row">
+                      <div className="homepage-blog-post-card-icon" style={{ background: ["#1B0053", "#40C9FF", "#E81CFF"][index % 3] }}>
+                        {index + 1}
+                      </div>
+                      <div className="homepage-blog-post-card-description">
+                        <h4>{post.attributes.Title}</h4>
+                        <p>{post.attributes.BlogPostDescription}</p>
+                      </div>
                     </div>
-                    <div className="homepage-blog-post-card-description">
-                      <h4>{post.attributes.Title}</h4>
-                      <p>{post.attributes.BlogPostDescription}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
         </main>
