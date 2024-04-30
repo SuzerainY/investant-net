@@ -86,7 +86,7 @@ export default function Home(props) {
                 </h1>
               </div>
               <div className="homepage-hero-section-investant-description">
-                <p>Investant.net is your go-to resource for personal finance tools and information. We understand the unique challenges faced by new professionals starting their careers, and we're here to help you navigate your financial journey with confidence.</p>
+                <p>{"Investant.net is your go-to resource for personal finance tools and information. We understand the unique challenges faced by new professionals starting their careers, and we're here to help you navigate your financial journey with confidence."}</p>
               </div>
               <div className="homepage-hero-section-button-container">
                 <div className="homepage-hero-section-get-started-button">
