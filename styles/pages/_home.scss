@@ -12,7 +12,6 @@
     width: 100%;
     background-image: url("/images/styling/layered-peaks1-haikei.svg");
     background-size: cover;
-    justify-content: center;
     align-items: center;
     min-height: calc(100vh - 80px);
 
@@ -25,6 +24,11 @@
       max-width: 720px;
       padding: 0 0 0 80px;
       animation: fadeIn 0.5s ease-in;
+
+      // Remain on the right of your 40% chunk when screen width exceeds 1800px
+      @media (min-width: 1800px) {
+        margin-left: calc(40% - 720px);
+      }
 
       .homepage-hero-section-large-slogan {
         width: 100%;
@@ -101,9 +105,7 @@
     .homepage-hero-section-image-container {
       position: relative;
       width: 60%;
-      max-width: 1080px;
-      margin-top: auto;
-      margin-bottom: 0;
+      margin: auto 0px 0px auto;
       aspect-ratio: 549.52 / 326.98;
       animation: fadeIn 0.5s ease-in;
     }
