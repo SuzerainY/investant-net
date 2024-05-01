@@ -213,7 +213,7 @@ export default function Home(props) {
                   </div>
                   <div className="homepage-financial-planner-section-subtext-element-text-container">
                     <h4>Set Budgets</h4>
-                    <p>Create personalized budgets that align with your financial goals and priorities.</p>
+                    <p>Create personalized budgets that align with your financial goals and priorities</p>
                   </div>
                 </div>
               </div>
