@@ -180,9 +180,6 @@ export default function Home(props) {
                     onMouseEnter={() => handleCardHover(index)}
                   >
                     <div className="homepage-blog-post-card-row">
-                      <div className="homepage-blog-post-card-icon" style={{ background: ["#1B0053", "#40C9FF", "#E81CFF"][index % 3] }}>
-                      </div>
-                        {index + 1}
                       <div className="homepage-blog-post-card-description">
                         <h4>{post.attributes.Title}</h4>
                         <p>{post.attributes.BlogPostDescription}</p>

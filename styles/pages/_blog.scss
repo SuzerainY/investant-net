@@ -181,11 +181,7 @@
   }
 }
 
-@media screen and (max-width: 1399px) and (min-width: 1080px) {
-
-}
-
-@media screen and (max-width: 1079px) {
+@media screen and (min-width: 768px) and (max-width: 1199px) {
   .blogpage {
     .blogpage-title-background {
       .blogpage-title-wrapper {
@@ -244,12 +240,70 @@
 }
 
 @media screen and (max-width: 767px) {
-  .blogpage .blogpage-title-background .blogpage-title-wrapper .blogpage-featured-post .blogpage-featured-post-text-container .blogpage-featured-post-description-container {
-    display: none;
-  }
+  .blogpage {
+    .blogpage-title-background {
+      .blogpage-title-wrapper {
+        grid-template-columns: 100%;
+        width: 90%;
+        padding-bottom: 0px;
+  
+        .blogpage-title {
+          border-radius: 20px;
+          margin-bottom: 20px;
+          background-color: transparent;
+  
+          h1 {
+            font-size: 30px;
+          }
+          h3 {
+            font-size: 20px;
+          }
+        }
+      
+        .blogpage-featured-post {
+          border-radius: 20px;
 
-  .blogpage .blogpage-blog-posts-wrapper .blogpage-blog-post-list .blogpage-blog-post .blogpage-blog-post-text-container .blogpage-blog-post-description-container {
-    display: none;
+          .blogpage-featured-post-text-container {
+
+            .blogpage-featured-post-description-container {
+              display: none;
+            }
+
+            h2 {
+              font-size: 25px;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+    
+    .blogpage-blog-posts-wrapper {
+      .blogpage-blog-post-list {
+        width: 90%;
+        flex-direction: column;
+    
+        .blogpage-blog-post {
+          width: 100%;
+
+          .blogpage-blog-post-text-container {
+            
+            .blogpage-blog-post-description-container {
+              display: none;
+            }
+
+            p {
+              font-size: 18px;
+            }
+            h2 {
+              font-size: 25px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -377,7 +431,7 @@
   }
 }
 
-@media screen and (max-width: 1079px) {
+@media screen and (max-width: 1199px) {
   .slug-page-background-color {
     .slug-page-title-background {
       height: 250px;
@@ -427,6 +481,9 @@
         }
         p img {
           max-width: 100%;
+        }
+        ul, ol {
+          padding-left: 40px;
         }
       }
     }

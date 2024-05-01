@@ -13,8 +13,8 @@ export default function Header() {
     const handleMobileMenuOnResize = () => {
       const screenWidth = window.innerWidth;
 
-      // We are currently considering anything less than 1080px screen width as mobile display
-      if (screenWidth > 1079) {
+      // We are currently considering anything less than 1200px screen width as mobile display
+      if (screenWidth > 1199) {
         if (mobileMenuToggle.style.display != 'none') {mobileMenuToggle.style.display = 'none';}
       } else {
         if (mobileMenuToggle.style.display != 'flex') {mobileMenuToggle.style.display = 'flex';}

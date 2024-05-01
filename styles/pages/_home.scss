@@ -139,7 +139,7 @@
     .homepage-papertrade-section-text-container {
       display: flex;
       flex-direction: column;
-      padding-left: 40px;
+      padding: 0px 0px 0px 40px;
       width: 40%;
       max-width: 720px;
       justify-content: center;
@@ -174,14 +174,11 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
         width: 100%;
-        padding: 20px 0px;
 
         .homepage-papertrade-section-subtext-element {
           display: flex;
           flex-direction: column;
-          justify-content: center;
           align-items: flex-start;
           width: 46%;
 
@@ -198,9 +195,9 @@
           .homepage-papertrade-section-subtext-element-text-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: flex-start;
             text-align: left;
+            padding: 20px 0px 0px 0px;
             color: $black;
 
             h4 {
@@ -230,19 +227,19 @@
     .homepage-featured-blog-posts-title-container {
       display: flex;
       flex-direction: column;
-      width: 80%;
+      width: 100%;
       max-width: 1800px;
       justify-content: center;
       align-items: center;
-      padding-bottom: 40px;
+      padding: 0px 0px 40px 0px;
 
       .homepage-featured-blog-posts-title {
         color: $black;
         text-align: center;
 
         h1 {
-          font-size: 44px;
-          font-weight: bold;
+          font-size: 40px;
+          font-weight: 600;
         }
       }
 
@@ -298,18 +295,6 @@
             display: flex;
             flex-wrap: nowrap;
     
-            .homepage-blog-post-card-icon {
-              color: $white;
-              border-radius: 50%;
-              width: 50px;
-              height: 50px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin: 15px;
-              font-weight: bold;
-            }
-    
             .homepage-blog-post-card-description {
               display: flex;
               flex-direction: column;
@@ -317,9 +302,9 @@
               background-color: rgba(0, 0, 0, 0.5);
               overflow: hidden;
               height: 80px;
-              width: 520px;
+              width: 600px;
               padding-left: 10px;
-              border-radius: 20px 0px 0px 0px;
+              border-radius: 20px 20px 0px 0px;
               opacity: 0;
               transform: translateY(30px);
               transition-delay: 0.7s;
@@ -368,7 +353,15 @@
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .homepage {
     .homepage-hero-section {
+      min-height: calc(100vh - 60px);
+      flex-direction: column;
+      width: 100%;
+
       .homepage-hero-section-text-container {
+        width: 100%;
+        max-width: none;
+        padding: 40px 40px 0px 40px;
+
         .homepage-hero-section-large-slogan {
           h1 {
             font-size: 38px;
@@ -380,11 +373,66 @@
           }
         }
       }
+
+      .homepage-hero-section-image-container {
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    .homepage-papertrade-section {
+      padding: 40px;
+  
+      .homepage-papertrade-section-image-container {
+        width: 50%;
+        max-width: none;
+
+        img {
+          width: calc(100% - 20px);
+        }
+      }
+  
+      .homepage-papertrade-section-text-container {
+        width: 50%;
+        max-width: none;
+        padding: 0px 0px 0px 20px;
+  
+        .homepage-papertrade-section-title h2 {
+          font-size: 30px;
+        }
+  
+        .homepage-papertrade-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .homepage-papertrade-section-subtext-container {
+          .homepage-papertrade-section-subtext-element {
+            .homepage-papertrade-section-subtext-element-text-container {
+              h4 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
     }
 
     .homepage-featured-blog-posts-section {
       width: 100%;
-      padding: 0px;
+      padding: 20px 0px;
+
+      .homepage-featured-blog-posts-title-container {
+        .homepage-featured-blog-posts-title h1 {
+          font-size: 34px;
+        }
+  
+        .homepage-featured-blog-posts-subtitle p {
+          font-size: 20px;
+        }
+      }
 
       .homepage-blog-post-cards-wrapper {
         height: 450px;
@@ -410,29 +458,22 @@
               align-items: flex-start;
               width: 100%;
   
-              .homepage-blog-post-card-icon {
-                display: none;
-              }
-  
               .homepage-blog-post-card-description {
                 opacity: 1;
                 transform: translateY(0px);
                 width: 100%;
                 height: auto;
                 padding: 10px;
+                border-radius: 0px 0px 20px 20px;
   
                 p {
                   white-space: normal;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
                   display: -webkit-box;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
                 }
                 h4 {
                   white-space: normal;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
                   display: -webkit-box;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
@@ -450,23 +491,96 @@
   .homepage {
     .homepage-hero-section {
       min-height: calc(100vh - 60px);
-      grid-template-columns: 100%;
+      flex-direction: column;
+      width: 100%;
 
       .homepage-hero-section-text-container {
-        height: fit-content;
-        padding: 40px 0 0 10%;
-        align-self: center;
-        justify-content: left;
+        width: 100%;
+        max-width: none;
+        padding: 40px 20px 0px 20px;
 
-        h1 {
-          font-size: 42px;
+        .homepage-hero-section-large-slogan {
+          h1 {
+            font-size: 38px;
+          }
+        }
+        .homepage-hero-section-investant-description {
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .homepage-hero-section-image-container {
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    .homepage-papertrade-section {
+      flex-direction: column-reverse;
+      padding: 20px;
+  
+      .homepage-papertrade-section-image-container {
+        width: 100%;
+        max-width: none;
+
+        img {
+          width: 100%;
+        }
+      }
+  
+      .homepage-papertrade-section-text-container {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+  
+        .homepage-papertrade-section-title h2 {
+          font-size: 30px;
+          font-weight: 600;
+        }
+  
+        .homepage-papertrade-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .homepage-papertrade-section-subtext-container {
+          flex-direction: column;
+
+          .homepage-papertrade-section-subtext-element {
+            width: 100%;
+
+            .homepage-papertrade-section-subtext-element-text-container {
+              padding: 20px 0px;
+              h4 {
+                font-size: 24px;
+                padding-bottom: 10px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
         }
       }
     }
 
     .homepage-featured-blog-posts-section {
       width: 100%;
-      padding: 0px;
+      padding: 20px 0px;
+
+      .homepage-featured-blog-posts-title-container {
+        padding: 0px 20px 20px 20px;
+
+        .homepage-featured-blog-posts-title h1 {
+          font-size: 30px;
+        }
+  
+        .homepage-featured-blog-posts-subtitle p {
+          font-size: 18px;
+          font-family: sans-serif;
+        }
+      }
 
       .homepage-blog-post-cards-wrapper {
         height: 450px;
@@ -492,29 +606,22 @@
               align-items: flex-start;
               width: 100%;
   
-              .homepage-blog-post-card-icon {
-                display: none;
-              }
-  
               .homepage-blog-post-card-description {
                 opacity: 1;
                 transform: translateY(0px);
                 width: 100%;
                 height: auto;
                 padding: 10px;
+                border-radius: 0px 0px 20px 20px;
   
                 p {
                   white-space: normal;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
                   display: -webkit-box;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
                 }
                 h4 {
                   white-space: normal;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
                   display: -webkit-box;
                   -webkit-line-clamp: 2;
                   -webkit-box-orient: vertical;
