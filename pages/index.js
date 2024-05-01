@@ -1,5 +1,5 @@
-import { STRAPIurl, blogPostReadLengthText } from '@/my_modules/bloghelp';
-import { useState } from 'react';
+import { STRAPIurl } from '@/my_modules/bloghelp';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -45,8 +45,23 @@ export default function Home(props) {
   // Arrange blog post data and variables
   const latestSixPosts = props.data.latestSixPosts.data; // The rest of the blog posts with the mostRecentPost removed
 
+  // Handle the hovering of blog cards in the featured blog posts section
   const [openCardIndex, setOpenCardIndex] = useState(0);
   const handleCardHover = (index) => {setOpenCardIndex(index);}
+
+  // Handle the click of the "Get Started" button in the hero section
+  const getStartedButton = useRef(null);
+  const paperTradeSection = useRef(null);
+  useEffect(() => {
+    const handleGetStartedButtonClick = () => {paperTradeSection.current.scrollIntoView({ behavior: 'smooth' });}
+    const getStartedButtonReference = getStartedButton.current;
+
+    if (getStartedButtonReference) {getStartedButtonReference.addEventListener('click', handleGetStartedButtonClick);}
+
+    return () => {
+      if (getStartedButtonReference) {getStartedButtonReference.removeEventListener('click', handleGetStartedButtonClick);}
+    }
+  }, []);
 
   return (
     <>
@@ -76,7 +91,7 @@ export default function Home(props) {
       <DefaultLayout>
         <main className="homepage">
 
-          <section className="homepage-hero-section">
+          <section id="homepage-hero-section" className="homepage-hero-section">
             <div className="homepage-hero-section-text-container">
               <div className="homepage-hero-section-large-slogan">
                 <h1>
@@ -89,7 +104,7 @@ export default function Home(props) {
                 <p>{"Investant.net is your go-to resource for personal finance tools and information. We understand the unique challenges faced by new professionals starting their careers, and we're here to help you navigate your financial journey with confidence."}</p>
               </div>
               <div className="homepage-hero-section-button-container">
-                <div className="homepage-hero-section-get-started-button">
+                <div ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button">
                   <h4>Get Started</h4>
                 </div>
                 <div className="homepage-hero-section-learn-more-button">
@@ -107,7 +122,7 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section className="homepage-papertrade-section">
+          <section ref={paperTradeSection} id="homepage-papertrade-section" className="homepage-papertrade-section">
             <div className="homepage-papertrade-section-image-container">
               <Image
                 src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_glowing_cube_stock_photo_b4a91fa6e0"}
@@ -160,7 +175,60 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section className="homepage-featured-blog-posts-section">
+          <section id="homepage-financial-planner-section" className="homepage-financial-planner-section">
+            <div className="homepage-financial-planner-section-text-container">
+              <div className="homepage-financial-planner-section-title">
+                <h2>
+                  Simplify Your Finances with Our Easy-to-Use Planner
+                  <br></br>
+                  <span className="homepage-financial-planner-section-title-span">{"[In Development]"}</span>
+                </h2>
+              </div>
+              <div className="homepage-financial-planner-section-subtitle">
+                <p>Our simple financial planner is designed to help you manage your personal finances more effectively. With an intuitive interface and powerful features, you can easily track your expenses, set budgets, and plan for the future.</p>
+              </div>
+              <div className="homepage-financial-planner-section-subtext-container">
+                <div className="homepage-financial-planner-section-subtext-element">
+                  <div className="homepage-financial-planner-section-subtext-element-image-container">
+                    <Image
+                      src={"/images/icons/investant-calculator-expenses-icon.png"}
+                      alt="Track your expenses on investant.net"
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                  <div className="homepage-financial-planner-section-subtext-element-text-container">
+                    <h4>Track Expenses</h4>
+                    <p>Effortlessly monitor your spending habits and gain better control over your finances</p>
+                  </div>
+                </div>
+                <div className="homepage-financial-planner-section-subtext-element">
+                  <div className="homepage-financial-planner-section-subtext-element-image-container">
+                    <Image
+                      src={"/images/icons/investant-budget-icon.png"}
+                      alt="Set your budget on investant.net"
+                      width={100}
+                      height={100}
+                    />
+                  </div>
+                  <div className="homepage-financial-planner-section-subtext-element-text-container">
+                    <h4>Set Budgets</h4>
+                    <p>Create personalized budgets that align with your financial goals and priorities.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="homepage-financial-planner-section-image-container">
+              <Image
+                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planners_theme_stock_photo_57ff6eaffb"}
+                alt="Personal Financial Planner on investant.net"
+                width={1200}
+                height={600}
+              />
+            </div>
+          </section>
+
+          <section id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
             <div className="homepage-featured-blog-posts-title-container">
               <div className="homepage-featured-blog-posts-title">
                 <h1>Unlocking Financial Success Together</h1>
