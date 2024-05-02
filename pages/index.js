@@ -1,5 +1,5 @@
 import { STRAPIurl } from '@/my_modules/bloghelp';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -52,16 +52,7 @@ export default function Home(props) {
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
   const paperTradeSection = useRef(null);
-  useEffect(() => {
-    const handleGetStartedButtonClick = () => {paperTradeSection.current.scrollIntoView({ behavior: 'smooth' });}
-    const getStartedButtonReference = getStartedButton.current;
-
-    if (getStartedButtonReference) {getStartedButtonReference.addEventListener('click', handleGetStartedButtonClick);}
-
-    return () => {
-      if (getStartedButtonReference) {getStartedButtonReference.removeEventListener('click', handleGetStartedButtonClick);}
-    }
-  }, []);
+  const handleGetStartedButtonClick = () => {paperTradeSection.current.scrollIntoView({ behavior: 'smooth' })};
 
   return (
     <>
@@ -104,12 +95,12 @@ export default function Home(props) {
                 <p>{"Investant.net is your go-to resource for personal finance tools and information. We understand the unique challenges faced by new professionals starting their careers, and we're here to help you navigate your financial journey with confidence."}</p>
               </div>
               <div className="homepage-hero-section-button-container">
-                <div ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button">
+                <button ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button" onClick={handleGetStartedButtonClick}>
                   <h4>Get Started</h4>
-                </div>
-                <div className="homepage-hero-section-learn-more-button">
-                  <Link href="/about-us"><h4>Learn More</h4></Link>
-                </div>
+                </button>
+                <Link href="/about-us" className="homepage-hero-section-learn-more-button">
+                  <h4>Learn More</h4>
+                </Link>
               </div>
             </div>
             <div className="homepage-hero-section-image-container">
@@ -219,12 +210,54 @@ export default function Home(props) {
               </div>
             </div>
             <div className="homepage-financial-planner-section-image-container">
-              <Image
-                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planners_theme_stock_photo_57ff6eaffb"}
+              <Image                
+                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planning_graphs_in_hand_stock_photo_305328e53e"}
                 alt="Personal Financial Planner on investant.net"
                 width={1200}
                 height={600}
               />
+            </div>
+          </section>
+
+          <section id="homepage-financial-calculator-section" className="homepage-financial-calculator-section">
+            <div className="homepage-financial-calculator-section-image-container">
+              <Image
+                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planners_theme_stock_photo_57ff6eaffb"}
+                alt="PaperTrade on investant.net"
+                width={1200}
+                height={600}
+              />
+            </div>
+            <div className="homepage-financial-calculator-section-text-container">
+              <div className="homepage-financial-calculator-section-title">
+                <h2>
+                  Crystal Clear Finances: Introducing the investant.net Calculator
+                  <br></br>
+                  <span className="homepage-financial-calculator-section-title-span">{"[In Development]"}</span>
+                </h2>
+              </div>
+              <div className="homepage-financial-calculator-section-subtitle">
+                <p>Take charge of your financial future with the innovative investant.net calculator. Our calculator provides crystal clear insight into your financial trajectory, empowering you to make informed decisions today for a more secure tomorrow. Say goodbye to uncertainty and hello to precise financial planning with investant.net.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="homepage-join-newsletter-section" className="homepage-join-newsletter-section">
+            <div className="homepage-join-newsletter-section-text-container">
+              <div className="homepage-join-newsletter-section-title">
+                <h2><span className="homepage-join-newsletter-section-title-span">Subscribe</span> to our Newsletter</h2>
+              </div>
+            </div>
+            <div className="homepage-join-newsletter-section-sign-up-container">
+              <div className="homepage-join-newsletter-section-sign-up-input-container">
+                <input type="email" placeholder="Email" className="homepage-join-newsletter-section-sign-up-email-box"></input>
+                <button className="homepage-join-newsletter-section-sign-up-button">
+                  <h4>Sign Up</h4>
+                </button>
+              </div>
+              <div className="homepage-join-newsletter-section-sign-up-description">
+                <p>Stay current with the latest personal finance tips and updates.</p>
+              </div>
             </div>
           </section>
 
@@ -257,8 +290,27 @@ export default function Home(props) {
                 ))}
               </div>
             </div>
-            <div className="homepage-featured-blog-posts-blogpage-button">
+            <button className="homepage-featured-blog-posts-blogpage-button">
               <Link href="/blog"><h4>View all</h4></Link>
+            </button>
+          </section>
+
+          <section id="homepage-create-new-account-section" className="homepage-create-new-account-section">
+            <div className="homepage-create-new-account-section-text-container">
+              <div className="homepage-create-new-account-section-title">
+                <h2>Start Your Financial Journey Today</h2>
+              </div>
+              <div className="homepage-create-new-account-section-subtitle">
+                <p>Get early access to PaperTrade, our exclusive newsletter, and all future products.</p>
+              </div>
+            </div>
+            <div className="homepage-create-new-account-section-buttons-container">
+              <button className="homepage-create-new-account-section-sign-up-button">
+                <h4>Sign Up</h4>
+              </button>
+              <Link href="/about-us" className="homepage-create-new-account-section-learn-more-button">
+                <h4>Learn More</h4>
+              </Link>
             </div>
           </section>
         </main>

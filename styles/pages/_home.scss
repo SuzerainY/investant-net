@@ -63,9 +63,13 @@
         align-items: center;
 
         .homepage-hero-section-get-started-button {
+          // Remove default button appearances
+          border: none;
+          background: none;
+          font: inherit;
+
           display: flex;
-          width: 120px;
-          height: 45px;
+          padding: 10px 15px;
           justify-content: center;
           align-items: center;
           background-color: $black;
@@ -81,22 +85,19 @@
 
         .homepage-hero-section-learn-more-button {
           display: flex;
-          width: 120px;
-          height: 45px;
+          padding: 10px 15px;
           margin-left: 10px;
           justify-content: center;
           align-items: center;
           background-color: $white;
+          color: $black;
           white-space: nowrap;
+          text-decoration: none;
           cursor: pointer;
   
           h4 {
             font-size: 16px;
             font-weight: 600;
-          }
-          a {
-            text-decoration: none;
-            color: $black;
           }
         }
       }
@@ -133,7 +134,7 @@
       img {
         width: calc(100% - 80px);
         height: 100%;
-        border-radius: 50px;
+        border-radius: 20px;
         object-fit: cover;
       }
     }
@@ -146,11 +147,10 @@
       max-width: 720px;
       justify-content: center;
       align-items: center;
+      text-align: left;
+      color: $black;
 
       .homepage-papertrade-section-title {
-        text-align: left;
-        color: $black;
-
         .homepage-papertrade-section-title-span {
           color: $magenta;
         }
@@ -162,8 +162,6 @@
       }
 
       .homepage-papertrade-section-subtitle {
-        text-align: left;
-        color: $black;
         padding: 20px 0px;
 
         p {
@@ -198,9 +196,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            text-align: left;
             padding: 20px 0px 0px 0px;
-            color: $black;
 
             h4 {
               font-size: 26px;
@@ -236,10 +232,9 @@
       justify-content: center;
       align-items: center;
       color: $white;
+      text-align: left;
 
       .homepage-financial-planner-section-title {
-        text-align: left;
-
         .homepage-financial-planner-section-title-span {
           color: $magenta;
         }
@@ -251,7 +246,6 @@
       }
 
       .homepage-financial-planner-section-subtitle {
-        text-align: left;
         padding: 20px 0px;
 
         p {
@@ -286,7 +280,6 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            text-align: left;
             padding: 20px 0px 0px 0px;
 
             h4 {
@@ -315,8 +308,172 @@
       img {
         width: calc(100% - 80px);
         height: 100%;
-        border-radius: 50px;
+        border-radius: 20px;
         object-fit: cover;
+      }
+    }
+  }
+
+  .homepage-financial-calculator-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px 80px;
+    background-color: $chrome;
+
+    .homepage-financial-calculator-section-image-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 60%;
+      height: auto;
+      max-width: 1080px;
+      overflow: hidden;
+    
+      img {
+        width: calc(100% - 80px);
+        height: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+    }
+
+    .homepage-financial-calculator-section-text-container {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 0px 0px 40px;
+      width: 40%;
+      max-width: 720px;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      color: $black;
+
+      .homepage-financial-calculator-section-title {
+        .homepage-financial-calculator-section-title-span {
+          color: $magenta;
+        }
+
+        h2 {
+          font-size: 36px;
+          font-weight: 600;
+        }
+      }
+
+      .homepage-financial-calculator-section-subtitle {
+        padding: 20px 0px;
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+
+  .homepage-join-newsletter-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    padding: 40px 80px;
+    background-color: $grey;
+
+    .homepage-join-newsletter-section-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      max-width: 1080px;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      color: $white;
+
+      .homepage-join-newsletter-section-title {
+        .homepage-join-newsletter-section-title-span {
+          color: $magenta;
+        }
+
+        h2 {
+          font-size: 40px;
+          font-weight: 600;
+          font-family: sans-serif;
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section-sign-up-container {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+      max-width: 720px;
+
+      .homepage-join-newsletter-section-sign-up-input-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        .homepage-join-newsletter-section-sign-up-email-box {
+          width: 100%;
+          margin-right: 20px;
+          border: 1px solid $white;
+          background-color: transparent;
+          padding: 10px 15px;
+          font-size: 16px;
+          color: $white;
+          border-radius: 6px;
+          transition: border-color 0.3s ease-in-out;
+        
+          &::placeholder {
+            color: $white;
+            opacity: 0.7;
+          }
+        
+          &:focus {
+            outline: none; // Removes default focus line
+            border-color: $magenta;
+          }
+        }
+
+        .homepage-join-newsletter-section-sign-up-button {
+          // Remove default button appearances
+          border: none;
+          background: none;
+          font: inherit;
+
+          display: flex;
+          background-color: $white;
+          padding: 10px 15px;
+          justify-content: center;
+          align-items: center;
+          white-space: nowrap;
+          color: $black;
+          cursor: pointer;
+    
+          h4 {
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
+      }
+
+      .homepage-join-newsletter-section-sign-up-description {
+        display: flex;
+        width: 100%;
+        padding: 10px 0px;
+        text-align: left;
+        color: $white;
+
+        p {
+          font-size: 14px;
+          font-family: sans-serif;
+        }
       }
     }
   }
@@ -329,7 +486,7 @@
     align-items: center;
     width: 100%;
     padding: 40px 80px;
-    background-color: $chrome;
+    background-color: $grey;
 
     .homepage-featured-blog-posts-title-container {
       display: flex;
@@ -339,20 +496,20 @@
       justify-content: center;
       align-items: center;
       padding: 0px 0px 40px 0px;
+      color: $white;
 
       .homepage-featured-blog-posts-title {
-        color: $black;
         text-align: center;
 
         h1 {
           font-size: 40px;
           font-weight: 600;
+          font-family: sans-serif;
         }
       }
 
       .homepage-featured-blog-posts-subtitle {
         padding-top: 20px;
-        color: $black;
         text-align: center;
 
         p {
@@ -436,12 +593,16 @@
     }
 
     .homepage-featured-blog-posts-blogpage-button {
+      // Remove default button appearances
+      border: none;
+      background: none;
+      font: inherit;
+
       display: flex;
-      width: 120px;
-      height: 45px;
+      padding: 10px 15px;
       justify-content: center;
       align-items: center;
-      border: 2px solid $black;
+      border: 1px solid $white;
       white-space: nowrap;
       cursor: pointer;
 
@@ -451,7 +612,96 @@
       }
       a {
         text-decoration: none;
-        color: $black;
+        color: $white;
+      }
+    }
+  }
+
+  .homepage-create-new-account-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 80px;
+    background-color: $chrome;
+
+    .homepage-create-new-account-section-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      max-width: 1080px;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      color: $black;
+
+      .homepage-create-new-account-section-title {
+        h2 {
+          font-size: 40px;
+          font-weight: 600;
+          font-family: sans-serif;
+        }
+      }
+
+      .homepage-create-new-account-section-subtitle {
+        padding: 20px 0px;
+
+        p {
+          font-size: 14px;
+          font-family: sans-serif;
+        }
+      }
+    }
+
+    .homepage-create-new-account-section-buttons-container {
+      display: flex;
+      flex-direction: row;
+      width: 40%;
+      height: 100%;
+      max-width: 720px;
+      justify-content: right;
+      align-items: center;
+      padding: 10px 0px;
+
+      .homepage-create-new-account-section-sign-up-button {
+        // Remove default button appearances
+        border: none;
+        background: none;
+        font: inherit;
+
+        display: flex;
+        background-color: $black;
+        padding: 10px 15px;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        color: $white;
+        border: 1px solid $black;
+        cursor: pointer;
+  
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+
+      .homepage-create-new-account-section-learn-more-button {
+        display: flex;
+        padding: 10px 15px;
+        margin-left: 10px;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        border: 1px solid $magenta;
+        color: $magenta;
+        text-decoration: none;
+        cursor: pointer;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+        }
       }
     }
   }
@@ -542,7 +792,7 @@
       .homepage-financial-planner-section-text-container {
         width: 50%;
         max-width: none;
-        padding: 0px 0px 0px 20px;
+        padding: 0px 20px 0px 0px;
   
         .homepage-financial-planner-section-title h2 {
           font-size: 30px;
@@ -564,6 +814,52 @@
             }
           }
         }
+      }
+    }
+
+    .homepage-financial-calculator-section {
+      padding: 40px;
+  
+      .homepage-financial-calculator-section-image-container {
+        width: 50%;
+        max-width: none;
+
+        img {
+          width: calc(100% - 20px);
+        }
+      }
+  
+      .homepage-financial-calculator-section-text-container {
+        width: 50%;
+        max-width: none;
+        padding: 0px 0px 0px 20px;
+  
+        .homepage-financial-calculator-section-title h2 {
+          font-size: 30px;
+        }
+  
+        .homepage-financial-calculator-section-subtitle p {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section {
+      padding: 40px;
+  
+      .homepage-join-newsletter-section-text-container {
+        width: 50%;
+        max-width: none;
+
+        .homepage-join-newsletter-section-title h2 {
+          font-size: 34px;
+        }
+      }
+  
+      .homepage-join-newsletter-section-sign-up-container {
+        width: 50%;
+        max-width: none;
+        padding-left: 20px;
       }
     }
 
@@ -629,6 +925,27 @@
             }
           }
         }
+      }
+    }
+
+    .homepage-create-new-account-section {
+      flex-direction: column;
+      padding: 40px;
+  
+      .homepage-create-new-account-section-text-container {
+        width: 100%;
+        max-width: none;
+  
+        .homepage-create-new-account-section-title h2 {
+          font-size: 34px;
+          font-weight: 600;
+        }
+      }
+  
+      .homepage-create-new-account-section-buttons-container {
+        width: 100%;
+        max-width: none;
+        justify-content: left;
       }
     }
   }
@@ -758,6 +1075,67 @@
       }
     }
 
+    .homepage-financial-calculator-section {
+      flex-direction: column-reverse;
+      padding: 20px;
+  
+      .homepage-financial-calculator-section-image-container {
+        width: 100%;
+        max-width: none;
+
+        img {
+          width: 100%;
+        }
+      }
+  
+      .homepage-financial-calculator-section-text-container {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+  
+        .homepage-financial-calculator-section-title h2 {
+          font-size: 30px;
+          font-weight: 600;
+        }
+  
+        .homepage-financial-calculator-section-subtitle p {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section {
+      padding: 20px;
+      flex-direction: column;
+  
+      .homepage-join-newsletter-section-text-container {
+        width: 100%;
+        max-width: none;
+
+        .homepage-join-newsletter-section-title h2 {
+          font-size: 34px;
+        }
+      }
+  
+      .homepage-join-newsletter-section-sign-up-container {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+
+        .homepage-join-newsletter-section-sign-up-input-container {
+          flex-direction: column;
+
+          .homepage-join-newsletter-section-sign-up-email-box {
+            margin: 10px 0px;
+          }
+
+          .homepage-join-newsletter-section-sign-up-button {
+            width: 100%;
+          }
+        }
+      }
+    }
+
     .homepage-featured-blog-posts-section {
       width: 100%;
       padding: 20px 0px;
@@ -823,6 +1201,27 @@
             }
           }
         }
+      }
+    }
+
+    .homepage-create-new-account-section {
+      flex-direction: column;
+      padding: 20px;
+  
+      .homepage-create-new-account-section-text-container {
+        width: 100%;
+        max-width: none;
+  
+        .homepage-create-new-account-section-title h2 {
+          font-size: 34px;
+          font-weight: 600;
+        }
+      }
+  
+      .homepage-create-new-account-section-buttons-container {
+        width: 100%;
+        max-width: none;
+        justify-content: left;
       }
     }
   }
