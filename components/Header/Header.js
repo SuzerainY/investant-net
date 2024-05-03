@@ -15,27 +15,37 @@ export default function Header() {
     const mobileMenuButtonClose = document.querySelector('.mobile-menu .mobile-menu-close');
 
     const openMobileMenu = () => {
-      if (mobileMenu.style.display != 'flex') {mobileMenu.style.display = 'flex'};
-      if (mobileMenuOverlay.style.display != 'flex') {mobileMenuOverlay.style.display = 'flex'};
+      if (mobileMenu.style.display != 'flex') {mobileMenu.style.display = 'flex';}
+      if (mobileMenuOverlay.style.display != 'flex') {mobileMenuOverlay.style.display = 'flex';}
     }
 
     const closeMobileMenu = () => {
-      if (mobileMenu.style.display != 'none') {mobileMenu.style.display = 'none'};
-      if (mobileMenuOverlay.style.display != 'none') {mobileMenuOverlay.style.display = 'none'};
+      if (mobileMenu.style.display != 'none') {mobileMenu.style.display = 'none';}
+      if (mobileMenuOverlay.style.display != 'none') {mobileMenuOverlay.style.display = 'none';}
     }
 
     const handleClickOutsideMobileMenu = (event) => {
       if (mobileMenuOverlay.contains(event.target)) {closeMobileMenu();}
     };
 
+    const handleViewportResize = () => {
+      const viewportWidth = window.innerWidth;
+
+      if (viewportWidth >= 1200) {
+        if (mobileMenu.style.display != 'none') {closeMobileMenu();}
+      }
+    }
+
     mobileMenuButtonToggle.addEventListener('click', openMobileMenu);
     mobileMenuButtonClose.addEventListener('click', closeMobileMenu);
     document.addEventListener('click', handleClickOutsideMobileMenu);
+    window.addEventListener('resize', handleViewportResize);
 
     return () => {
       mobileMenuButtonToggle.removeEventListener('click', openMobileMenu);
       mobileMenuButtonClose.removeEventListener('click', closeMobileMenu);
       document.removeEventListener('click', handleClickOutsideMobileMenu);
+      window.removeEventListener('resize', handleViewportResize);
     };
   }, []);
 
