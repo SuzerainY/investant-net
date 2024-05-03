@@ -1,140 +1,145 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
+
 
 export default function Header() {
 
   useEffect(() => {
-    // The Styles Classes that we would like to edit on event
-    const mobileMenuToggle = document.querySelector('.header .mobile-menu');
-    const mobileMenuButtonToggle = document.querySelector('.header .mobile-menu .mobile-menu-button');
-  
-    // Call method on any screen resizing and initial loading of page to decide whether we display mobile nav bar or not
-    const handleMobileMenuOnResize = () => {
-      const screenWidth = window.innerWidth;
 
-      // We are currently considering anything less than 1200px screen width as mobile display
-      if (screenWidth > 1199) {
-        if (mobileMenuToggle.style.display != 'none') {mobileMenuToggle.style.display = 'none';}
-      } else {
-        if (mobileMenuToggle.style.display != 'flex') {mobileMenuToggle.style.display = 'flex';}
-      }
+    // Create mobile menu queries
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileMenuButtonToggle = document.querySelector('.header .mobile-top-banner .mobile-menu-toggle');
+    const mobileMenuButtonClose = document.querySelector('.mobile-menu .mobile-menu-close');
 
-      // If the screen is ever resized, collapse the mobile navigation menu
-      if (mobileMenuButtonToggle.classList.contains('open')) {
-        mobileMenuButtonToggle.classList.toggle('open');
-        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
-      }
+    const openMobileMenu = () => {
+      if (mobileMenu.style.display != 'flex') {mobileMenu.style.display = 'flex'};
+      if (mobileMenuOverlay.style.display != 'flex') {mobileMenuOverlay.style.display = 'flex'};
+    }
 
-      // If the height is not properly set already, then set the height to closed height
-      if (mobileMenuToggle.style.maxHeight != mobileMenuButtonToggle.scrollHeight + 'px') {
-        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
-      }
+    const closeMobileMenu = () => {
+      if (mobileMenu.style.display != 'none') {mobileMenu.style.display = 'none'};
+      if (mobileMenuOverlay.style.display != 'none') {mobileMenuOverlay.style.display = 'none'};
+    }
+
+    const handleClickOutsideMobileMenu = (event) => {
+      if (mobileMenuOverlay.contains(event.target)) {closeMobileMenu();}
     };
 
-    // Extended events to SCSS that should occur when mobile drop down navigation menu is selected
-    const handleMobileMenuOnClick = () => {
-      mobileMenuButtonToggle.classList.toggle('open');
-
-      // When we add the 'open' class of the menu, adjust container height to fit all content
-      if (mobileMenuButtonToggle.classList.contains('open')) {
-        mobileMenuToggle.style.maxHeight = mobileMenuToggle.scrollHeight + 'px';
-      } else {
-        mobileMenuToggle.style.maxHeight = mobileMenuButtonToggle.scrollHeight + 'px';
-      }
-    };
-
-    // Run method on initial load of page
-    handleMobileMenuOnResize();
-
-    // Add our event listeners
-    mobileMenuButtonToggle.addEventListener('click', handleMobileMenuOnClick);
-    window.addEventListener('resize', handleMobileMenuOnResize)
+    mobileMenuButtonToggle.addEventListener('click', openMobileMenu);
+    mobileMenuButtonClose.addEventListener('click', closeMobileMenu);
+    document.addEventListener('click', handleClickOutsideMobileMenu);
 
     return () => {
-      // Clean up the event listener when the component unmounts
-      mobileMenuButtonToggle.removeEventListener('click', handleMobileMenuOnClick);
-      window.removeEventListener('resize', handleMobileMenuOnResize);
+      mobileMenuButtonToggle.removeEventListener('click', openMobileMenu);
+      mobileMenuButtonClose.removeEventListener('click', closeMobileMenu);
+      document.removeEventListener('click', handleClickOutsideMobileMenu);
     };
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, []);
 
   return (
     <>
+      <div className="mobile-menu">
+        <div className="mobile-menu-close">
+          <Image
+            src={"/images/clipart/White-X.svg"}
+            alt="Close Menu"
+            width={40}
+            height={40}
+            priority
+          />
+        </div>
+        <nav className="mobile-menu-navigation">
+          <ul>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/products">Products</Link>
+            </li>
+            <li>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li>
+              <Link href="/about-us">About Us</Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="mobile-menu-media-links">
+          <ul>        
+            <li>
+              <Link
+                href="https://discord.gg/SFUKKjWEjH"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/images/socialmedia/discord-investant.png"
+                  alt="Discord Icon"
+                  width={35}
+                  height={30}
+                  priority
+                />
+              </Link>
+            </li>
+            <li className="NavBar-Media-Links-XLogo">
+              <Link
+                href="https://twitter.com/InvestantGroup"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/images/socialmedia/x-investant.png"
+                  alt="X Icon"
+                  width={30}
+                  height={30}
+                  priority
+                />
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="https://www.instagram.com/investantgroup/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/images/socialmedia/insta-investant.png"
+                  alt="Instagram Icon"
+                  width={33}
+                  height={33}
+                  priority
+                />
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="mobile-menu-overlay"></div>
+
       <header>
         <nav className="header">
           <div className="mobile-top-banner">
-            <Link href="/">
+            <div className="mobile-menu-logo">
+              <Link href="/">
+                <Image
+                  src={"/images/branding/FaviconTransparent.png"}
+                  alt="Investant Favicon"
+                  width={50}
+                  height={50}
+                  priority
+                />
+              </Link>
+            </div>
+            <div className="mobile-menu-toggle">
               <Image
-                src={"/images/branding/FaviconTransparent.png"}
-                alt="Investant Favicon"
-                width={100}
-                height={100}
+                src={"/images/clipart/White-Bars-Mobile-Menu.svg"}
+                alt="Menu Toggle"
+                fill
                 priority
               />
-            </Link>
-          </div>
-          <div className="mobile-menu">
-            <div className="mobile-menu-button"><h3>MENU</h3></div>
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/products">Products</Link>
-              </li>
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-              <li>
-                <Link href="/about-us">About Us</Link>
-              </li>
-            </ul>
-            <div className="mobile-media-links">
-              <li>
-                <Link
-                  href="https://discord.gg/SFUKKjWEjH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/socialmedia/discord-investant.png"
-                    alt="Discord Icon"
-                    width={40}
-                    height={35}
-                    priority
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://twitter.com/InvestantGroup"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/socialmedia/x-investant.png"
-                    alt="X Icon"
-                    width={40}
-                    height={35}
-                    priority
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="https://www.instagram.com/investantgroup/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/socialmedia/insta-investant.png"
-                    alt="Instagram Icon"
-                    width={38}
-                    height={38}
-                    priority
-                  />
-                </Link>
-              </li>
             </div>
           </div>
 
