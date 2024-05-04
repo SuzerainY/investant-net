@@ -106,110 +106,108 @@
   }
 }
 
-.mobile-menu {
+.mobile-menu-container {
   position: sticky;
-  top: calc(50vh - 125px);
+  z-index: 99;
+  top: 0px;
   left: 0px;
-  align-self: center;
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 250px;
-  height: 250px;
-  margin-top: -250px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: $soft-purple;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 99;
+  width: 100%;
+  height: 100vh;
+  margin-top: -100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.4s ease-in-out;
 
-  .mobile-menu-close {
-    align-self: flex-end;
-    transform-origin: 11px 11px;
-    cursor: pointer;
-
-    img {
-      width: 22px;
-      height: 22px;
-    }
-
-    &:hover {
-      animation: spin 1s ease;
-      transform: scale(1);
-    }
-    &:not(:hover) {
-      animation: spin-back 1s ease;
-    }
-  }
-
-  .mobile-menu-navigation {
-    display: flex;
+  .mobile-menu {
+    position: relative;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 10px;
+    width: 250px;
+    height: 250px;
+    background-color: $soft-purple;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  
+    .mobile-menu-close {
+      display: flex;
+      width: fit-content;
+      margin: 0px 0px 0px auto;
+      cursor: pointer;
 
-    ul {
-      list-style: none;
-      text-align: center;
+      &:hover {
+        animation: spin 1s ease;
+      }
+      &:not(:hover) {
+        animation: spin-back 1s ease;
+      }
+
+      img {
+        width: 22px;
+        height: 22px;
+      }
+    }
   
-      li {
-        padding-bottom: 10px;
-        transition: transform 0.2s ease-in-out;
-        &:hover {
-          transform: scale(1.04);
-        }
+    .mobile-menu-navigation {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
   
-        a {
-          text-decoration: none;
-          color: $white;
-          font-weight: bold;
+      ul {
+        list-style: none;
+        text-align: center;
+    
+        li {
+          padding-bottom: 10px;
+          transition: transform 0.2s ease-in-out;
+          &:hover {
+            transform: scale(1.04);
+          }
+    
+          a {
+            text-decoration: none;
+            color: $white;
+            font-weight: bold;
+          }
         }
       }
     }
-  }
-
-  .mobile-menu-media-links {
-    display: flex;
-    justify-content: center;
-
-    ul {
-      display: flex;
-      flex-direction: row;
-      list-style: none;
   
-      li {
-        padding: 0px 5px;
-        transition: transform 0.1s ease-in-out;
-        &:hover {
-          transform: scale(1.05);
-        }
-
-        a {
-          text-decoration: none;
-          color: $white;
-          font-weight: bold;
+    .mobile-menu-media-links {
+      display: flex;
+      justify-content: center;
+  
+      ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+    
+        li {
+          padding: 0px 7px;
+          transition: transform 0.1s ease-in-out;
+          &:hover {
+            transform: scale(1.05);
+          }
+  
+          a {
+            text-decoration: none;
+            color: $white;
+            font-weight: bold;
+          }
         }
       }
     }
   }
 }
 
-.mobile-menu-overlay {
-  position: sticky;
-  display: none;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100vh;
-  margin-top: -100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 98;
-  transition: opacity 0.3s ease-in-out;
-  opacity: 1;
+// This class is added to the mobile-menu and mobile-menu-overlay when closed
+.mobile-menu-fade-out {
+  animation: fadeOut 0.4s ease-in-out;
 }
 
 @media screen and (max-width: 1199px) {
@@ -224,22 +222,5 @@
     .mobile-top-banner {
       display: flex;
     }
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes spin-back {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
   }
 }

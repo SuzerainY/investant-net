@@ -9,31 +9,36 @@ export default function Header() {
   useEffect(() => {
 
     // Create mobile menu queries
+    const mobileMenuContainer = document.querySelector('.mobile-menu-container');
     const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     const mobileMenuButtonToggle = document.querySelector('.header .mobile-top-banner .mobile-menu-toggle');
-    const mobileMenuButtonClose = document.querySelector('.mobile-menu .mobile-menu-close');
+    const mobileMenuButtonClose = document.querySelector('.mobile-menu-container .mobile-menu .mobile-menu-close');
 
     const openMobileMenu = () => {
-      if (mobileMenu.style.display != 'flex') {mobileMenu.style.display = 'flex';}
-      if (mobileMenuOverlay.style.display != 'flex') {mobileMenuOverlay.style.display = 'flex';}
+      if (mobileMenuContainer.style.display !== 'flex') {
+        mobileMenuContainer.style.display = 'flex';
+      }
     }
 
     const closeMobileMenu = () => {
-      if (mobileMenu.style.display != 'none') {mobileMenu.style.display = 'none';}
-      if (mobileMenuOverlay.style.display != 'none') {mobileMenuOverlay.style.display = 'none';}
+      if (mobileMenuContainer.style.display !== 'none') {
+        mobileMenuContainer.classList.add('mobile-menu-fade-out');
+
+        setTimeout(() => {
+          mobileMenuContainer.style.display = 'none';
+          mobileMenuContainer.classList.remove('mobile-menu-fade-out');
+        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
+      }
     }
 
     const handleClickOutsideMobileMenu = (event) => {
-      if (mobileMenuOverlay.contains(event.target)) {closeMobileMenu();}
+      let eventTarget = event.target;
+      if (mobileMenuContainer.contains(eventTarget) === true && mobileMenu.contains(event.target) === false) {closeMobileMenu();}
     };
 
     const handleViewportResize = () => {
       const viewportWidth = window.innerWidth;
-
-      if (viewportWidth >= 1200) {
-        if (mobileMenu.style.display != 'none') {closeMobileMenu();}
-      }
+      if (viewportWidth >= 1200) {closeMobileMenu();}
     }
 
     mobileMenuButtonToggle.addEventListener('click', openMobileMenu);
@@ -51,83 +56,84 @@ export default function Header() {
 
   return (
     <>
-      <div className="mobile-menu">
-        <div className="mobile-menu-close">
-          <Image
-            src={"/images/clipart/White-X.svg"}
-            alt="Close Menu"
-            width={40}
-            height={40}
-            priority
-          />
-        </div>
-        <nav className="mobile-menu-navigation">
-          <ul>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/products">Products</Link>
-            </li>
-            <li>
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li>
-              <Link href="/about-us">About Us</Link>
-            </li>
-          </ul>
+      <div className="mobile-menu-container">
+        <nav className="mobile-menu">
+          <div className="mobile-menu-close">
+            <Image
+              src={"/images/clipart/White-X.svg"}
+              alt="Close Menu"
+              width={40}
+              height={40}
+              priority
+            />
+          </div>
+          <div className="mobile-menu-navigation">
+            <ul>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/products">Products</Link>
+              </li>
+              <li>
+                <Link href="/blog">Blog</Link>
+              </li>
+              <li>
+                <Link href="/about-us">About Us</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="mobile-menu-media-links">
+            <ul>        
+              <li>
+                <Link
+                  href="https://discord.gg/SFUKKjWEjH"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/discord-investant.png"
+                    alt="Discord Icon"
+                    width={35}
+                    height={30}
+                    priority
+                  />
+                </Link>
+              </li>
+              <li className="NavBar-Media-Links-XLogo">
+                <Link
+                  href="https://twitter.com/InvestantGroup"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/x-investant.png"
+                    alt="X Icon"
+                    width={30}
+                    height={30}
+                    priority
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://www.instagram.com/investantgroup/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/socialmedia/insta-investant.png"
+                    alt="Instagram Icon"
+                    width={33}
+                    height={33}
+                    priority
+                  />
+                </Link>
+              </li>
+            </ul>
+          </div>
         </nav>
-        <div className="mobile-menu-media-links">
-          <ul>        
-            <li>
-              <Link
-                href="https://discord.gg/SFUKKjWEjH"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/discord-investant.png"
-                  alt="Discord Icon"
-                  width={35}
-                  height={30}
-                  priority
-                />
-              </Link>
-            </li>
-            <li className="NavBar-Media-Links-XLogo">
-              <Link
-                href="https://twitter.com/InvestantGroup"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/x-investant.png"
-                  alt="X Icon"
-                  width={30}
-                  height={30}
-                  priority
-                />
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="https://www.instagram.com/investantgroup/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/socialmedia/insta-investant.png"
-                  alt="Instagram Icon"
-                  width={33}
-                  height={33}
-                  priority
-                />
-              </Link>
-            </li>
-          </ul>
-        </div>
       </div>
-      <div className="mobile-menu-overlay"></div>
 
       <header>
         <nav className="header">
