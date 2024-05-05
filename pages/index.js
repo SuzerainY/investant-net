@@ -117,7 +117,7 @@ export default function Home(props) {
                 <h1>Unlocking Financial Success Together</h1>
               </div>
               <div className="homepage-featured-blog-posts-section-subtitle">
-                <p>Stay informed with our latest blog posts.</p>
+                <p>Stay informed with our latest blog posts</p>
               </div>
             </div>
             <div className="homepage-featured-blog-posts-section-posts-container">
@@ -179,7 +179,7 @@ export default function Home(props) {
                 </button>
               </div>
               <div className="homepage-join-newsletter-section-sign-up-description">
-                <p>Stay current with the latest personal finance news and updates.</p>
+                <p>Stay current with the latest personal finance news and updates</p>
               </div>
             </div>
           </section>
@@ -319,7 +319,7 @@ export default function Home(props) {
                 <h2>Start Your Financial Journey Today</h2>
               </div>
               <div className="homepage-create-new-account-section-subtitle">
-                <p>Get early access to PaperTrade, our exclusive newsletter, and all future products.</p>
+                <p>Get early access to PaperTrade, our exclusive newsletter, and all future products</p>
               </div>
             </div>
             <div className="homepage-create-new-account-section-buttons-container">
