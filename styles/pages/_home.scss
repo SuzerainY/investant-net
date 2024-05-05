@@ -1,5 +1,7 @@
 $homepage-max-width: 1600px; // Maximum width for any div in the homepage
 $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
+$homepage-tablet-side-padding: 40px; // Padding on left and right sides of tablet viewport
+$homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobile viewport
 
 .homepage {
   position: relative;
@@ -112,6 +114,357 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
     }
   }
 
+  .homepage-featured-blog-posts-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px $homepage-desktop-side-padding;
+    background-color: $chrome;
+
+    .homepage-featured-blog-posts-section-title-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: $homepage-max-width;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 0px 40px 0px;
+      color: $black;
+
+      .homepage-featured-blog-posts-section-title {
+        text-align: center;
+
+        h1 {
+          font-size: 40px;
+          font-weight: 600;
+          font-family: sans-serif;
+        }
+      }
+
+      .homepage-featured-blog-posts-section-subtitle {
+        padding-top: 20px;
+        text-align: center;
+
+        p {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .homepage-featured-blog-posts-section-posts-container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: $homepage-max-width;
+      justify-content: center;
+      
+      .homepage-featured-blog-posts-section-top-post-container {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 0px 20px 0px 0px;
+        text-align: left;
+        a {text-decoration: none;}
+
+        .homepage-featured-blog-posts-section-top-post-header-container {
+          padding: 0px 0px 15px 0px;
+          h3 {
+            font-family: sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: $black;
+          }
+        }
+
+        .homepage-featured-blog-posts-section-top-post-image-container {
+          display: flex;
+          justify-content: flex-start;
+          width: inherit;
+          height: inherit;
+          border-radius: 10px;
+          overflow: hidden;
+        
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+          }
+        }
+
+        .homepage-featured-blog-posts-section-top-post-description-container {
+          padding: 15px 0px 0px 0px;
+          h3 {
+            font-size: 30px;
+            font-weight: 600;
+            color: $black;
+            padding: 0px 0px 5px 0px;
+          }
+          p {
+            font-size: 18px;
+            font-style: italic;
+            color: $grey;
+          }
+        }
+
+        &:hover .homepage-featured-blog-posts-section-top-post-image-container img,
+        .homepage-featured-blog-posts-section-top-post-description-container:hover + .homepage-featured-blog-posts-section-top-post-image-container {
+          transform: scale(1.04);
+        }
+      }
+
+      .homepage-featured-blog-posts-section-other-posts-container {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 0px 0px 0px 20px;
+        text-align: left;
+        a {text-decoration: none;}
+
+        .homepage-featured-blog-posts-section-other-posts-header-container {
+          padding: 0px 0px 15px 0px;
+
+          .homepage-featured-blog-posts-section-other-posts-header-span {
+            color: $magenta;
+          }
+
+          h3 {
+            font-family: sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: $black;
+          }
+        }
+
+        .homepage-featured-blog-posts-section-other-posts-border-frame {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          border: 2px solid $black;
+          border-radius: 10px;
+          padding: 5px 0px;
+
+          .homepage-featured-blog-posts-section-other-posts-row {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: flex-start;
+            padding: 10px 0px;
+  
+            .homepage-featured-blog-posts-section-other-posts-row-identifier {
+              display: flex;
+              justify-content: center;
+              width: 40px;
+              h4 {
+                font-size: 32px;
+                color: $magenta;
+              }
+            }
+  
+            .homepage-featured-blog-posts-section-other-posts-row-description {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              h3 {
+                font-size: 30px;
+                font-weight: 600;
+                a {
+                  color: $black;
+                  &:hover {
+                    color: $dark-blue;
+                  }
+                }
+              }
+              h4 {
+                font-family: sans-serif;
+                font-size: 20px;
+                color: $black;
+                padding: 5px 0px;
+                a {color: $black;}
+              }
+              p {
+                font-size: 18px;
+                font-style: italic;
+                color: $grey;
+              }
+            }
+
+            // Hides the top and left border portions
+            &::before {
+              content: '';
+              position: absolute;
+              left: -2px;
+              bottom: 0px;
+              background-color: $chrome;
+              width: 10px;
+              height: 65%;
+            }
+            &::after {
+              content: '';
+              position: absolute;
+              top: -2px;
+              right: 0px;
+              background-color: $chrome;
+              width: 65%;
+              height: 10px;
+            }
+          }
+
+          // Hides the bottom and right border portions
+          &::before {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 0px;
+            background-color: $chrome;
+            width: 10px;
+            height: 65%;
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0px;
+            background-color: $chrome;
+            width: 65%;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+    .homepage-featured-blog-posts-section-blogpage-button {
+      // Remove default button appearances
+      border: none;
+      background: none;
+      font: inherit;
+
+      display: flex;
+      padding: 10px 15px;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $black;
+      white-space: nowrap;
+      cursor: pointer;
+
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      a {
+        text-decoration: none;
+        color: $black;
+      }
+    }
+  }
+
+  .homepage-join-newsletter-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    padding: 40px $homepage-desktop-side-padding;
+    background-color: $grey;
+
+    .homepage-join-newsletter-section-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      max-width: calc($homepage-max-width * 0.6);
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      color: $white;
+
+      .homepage-join-newsletter-section-title {
+        .homepage-join-newsletter-section-title-span {
+          color: $magenta;
+        }
+
+        h2 {
+          font-size: 40px;
+          font-weight: 600;
+          font-family: sans-serif;
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section-sign-up-container {
+      display: flex;
+      flex-direction: column;
+      width: 40%;
+      max-width: calc($homepage-max-width * 0.4);
+
+      .homepage-join-newsletter-section-sign-up-input-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        .homepage-join-newsletter-section-sign-up-email-box {
+          width: 100%;
+          margin-right: 20px;
+          border: 1px solid $white;
+          background-color: transparent;
+          padding: 10px 15px;
+          font-size: 16px;
+          color: $white;
+          border-radius: 6px;
+          transition: border-color 0.3s ease-in-out;
+        
+          &::placeholder {
+            color: $white;
+            opacity: 0.7;
+          }
+        
+          &:focus {
+            outline: none; // Removes default focus line
+            border-color: $magenta;
+          }
+        }
+
+        .homepage-join-newsletter-section-sign-up-button {
+          // Remove default button appearances
+          border: none;
+          background: none;
+          font: inherit;
+
+          display: flex;
+          background-color: $white;
+          padding: 10px 15px;
+          justify-content: center;
+          align-items: center;
+          white-space: nowrap;
+          color: $black;
+          cursor: pointer;
+    
+          h4 {
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .homepage-join-newsletter-section-sign-up-description {
+        display: flex;
+        width: 100%;
+        padding: 10px 0px;
+        text-align: left;
+        color: $white;
+
+        p {
+          font-size: 14px;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+
   .homepage-papertrade-section {
     position: relative;
     display: flex;
@@ -135,7 +488,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       img {
         width: 100%;
         height: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         object-fit: cover;
       }
     }
@@ -316,7 +669,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       img {
         width: 100%;
         height: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         object-fit: cover;
       }
     }
@@ -345,7 +698,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       img {
         width: 100%;
         height: 100%;
-        border-radius: 20px;
+        border-radius: 10px;
         object-fit: cover;
       }
     }
@@ -386,248 +739,6 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
     }
   }
 
-  .homepage-join-newsletter-section {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    padding: 40px $homepage-desktop-side-padding;
-    background-color: $grey;
-
-    .homepage-join-newsletter-section-text-container {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
-      max-width: calc($homepage-max-width * 0.6);
-      justify-content: center;
-      align-items: flex-start;
-      text-align: left;
-      color: $white;
-
-      .homepage-join-newsletter-section-title {
-        .homepage-join-newsletter-section-title-span {
-          color: $magenta;
-        }
-
-        h2 {
-          font-size: 40px;
-          font-weight: 600;
-          font-family: sans-serif;
-        }
-      }
-    }
-
-    .homepage-join-newsletter-section-sign-up-container {
-      display: flex;
-      flex-direction: column;
-      width: 40%;
-      max-width: calc($homepage-max-width * 0.4);
-
-      .homepage-join-newsletter-section-sign-up-input-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-
-        .homepage-join-newsletter-section-sign-up-email-box {
-          width: 100%;
-          margin-right: 20px;
-          border: 1px solid $white;
-          background-color: transparent;
-          padding: 10px 15px;
-          font-size: 16px;
-          color: $white;
-          border-radius: 6px;
-          transition: border-color 0.3s ease-in-out;
-        
-          &::placeholder {
-            color: $white;
-            opacity: 0.7;
-          }
-        
-          &:focus {
-            outline: none; // Removes default focus line
-            border-color: $magenta;
-          }
-        }
-
-        .homepage-join-newsletter-section-sign-up-button {
-          // Remove default button appearances
-          border: none;
-          background: none;
-          font: inherit;
-
-          display: flex;
-          background-color: $white;
-          padding: 10px 15px;
-          justify-content: center;
-          align-items: center;
-          white-space: nowrap;
-          color: $black;
-          cursor: pointer;
-    
-          h4 {
-            font-size: 16px;
-            font-weight: 600;
-          }
-        }
-      }
-
-      .homepage-join-newsletter-section-sign-up-description {
-        display: flex;
-        width: 100%;
-        padding: 10px 0px;
-        text-align: left;
-        color: $white;
-
-        p {
-          font-size: 14px;
-          font-family: sans-serif;
-        }
-      }
-    }
-  }
-
-  .homepage-featured-blog-posts-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 40px $homepage-desktop-side-padding;
-    background-color: $grey;
-
-    .homepage-featured-blog-posts-title-container {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: $homepage-max-width;
-      justify-content: center;
-      align-items: center;
-      padding: 0px 0px 40px 0px;
-      color: $white;
-
-      .homepage-featured-blog-posts-title {
-        text-align: center;
-
-        h1 {
-          font-size: 40px;
-          font-weight: 600;
-          font-family: sans-serif;
-        }
-      }
-
-      .homepage-featured-blog-posts-subtitle {
-        padding-top: 20px;
-        text-align: center;
-
-        p {
-          font-size: 20px;
-        }
-      }
-    }
-
-    .homepage-blog-post-cards-wrapper {
-      width: 100%;
-      max-width: $homepage-max-width;
-      height: 450px;
-      padding-bottom: 40px;
-      display: flex;
-      justify-content: center;
-    
-      .homepage-blog-post-cards-container {
-        height: 100%;
-        display: flex;
-  
-        .homepage-blog-post-card {
-          width: 80px;
-          border-radius: 20px;
-          background-size: cover;
-          cursor: pointer;
-          overflow: hidden;
-          border-radius: 2rem;
-          margin: 0 10px;
-          display: flex;
-          align-items: flex-end;
-          transition: 1.0s cubic-bezier(0.28, -0.03, 0, 0.99);
-          box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8);
-          text-decoration: none;
-    
-          &.open {
-            width: 600px;
-    
-            .homepage-blog-post-card-row .homepage-blog-post-card-description {
-              opacity: 1;
-              transform: translateY(0px);
-            }
-          }
-    
-          .homepage-blog-post-card-row {
-            color: $white;
-            display: flex;
-            flex-wrap: nowrap;
-    
-            .homepage-blog-post-card-description {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              background-color: rgba(0, 0, 0, 0.5);
-              overflow: hidden;
-              height: 80px;
-              width: 600px;
-              padding-left: 10px;
-              border-radius: 20px 20px 0px 0px;
-              opacity: 0;
-              transform: translateY(30px);
-              transition-delay: 0.7s;
-              transition: all 0.7s ease;
-              
-              p {
-                padding-top: 5px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-              h4 {
-                font-weight: bold;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .homepage-featured-blog-posts-blogpage-button {
-      // Remove default button appearances
-      border: none;
-      background: none;
-      font: inherit;
-
-      display: flex;
-      padding: 10px 15px;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid $white;
-      white-space: nowrap;
-      cursor: pointer;
-
-      h4 {
-        font-size: 16px;
-        font-weight: 600;
-      }
-      a {
-        text-decoration: none;
-        color: $white;
-      }
-    }
-  }
-
   .homepage-create-new-account-section {
     display: flex;
     flex-direction: row;
@@ -635,7 +746,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
     justify-content: center;
     align-items: flex-start;
     padding: 40px $homepage-desktop-side-padding;
-    background-color: $chrome;
+    background-color: $grey;
 
     .homepage-create-new-account-section-text-container {
       display: flex;
@@ -645,7 +756,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       justify-content: center;
       align-items: flex-start;
       text-align: left;
-      color: $black;
+      color: $white;
 
       .homepage-create-new-account-section-title {
         h2 {
@@ -682,18 +793,18 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
         font: inherit;
 
         display: flex;
-        background-color: $black;
+        background-color: $white;
         padding: 10px 15px;
         justify-content: center;
         align-items: center;
         white-space: nowrap;
-        color: $white;
-        border: 1px solid $black;
+        color: $black;
+        border: 1px solid $white;
         cursor: pointer;
   
         h4 {
           font-size: 16px;
-          font-weight: 600;
+          font-weight: bold;
         }
       }
 
@@ -728,7 +839,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       .homepage-hero-section-text-container {
         width: 100%;
         max-width: none;
-        padding: 40px 40px 0px 40px;
+        padding: 40px $homepage-tablet-side-padding 0px $homepage-tablet-side-padding;
 
         .homepage-hero-section-large-slogan {
           h1 {
@@ -748,8 +859,75 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       }
     }
 
+    .homepage-featured-blog-posts-section {
+      padding: 40px $homepage-tablet-side-padding;
+  
+      .homepage-featured-blog-posts-section-title-container {
+        .homepage-featured-blog-posts-section-title h1 {
+          font-size: 36px;
+        }
+      }
+  
+      .homepage-featured-blog-posts-section-posts-container {        
+        .homepage-featured-blog-posts-section-top-post-container {  
+          .homepage-featured-blog-posts-section-top-post-description-container {
+            h3 {
+              font-size: 24px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+  
+        .homepage-featured-blog-posts-section-other-posts-container {  
+          .homepage-featured-blog-posts-section-other-posts-border-frame {
+            .homepage-featured-blog-posts-section-other-posts-row {
+              padding: 0px 0px 10px 0px;
+
+              .homepage-featured-blog-posts-section-other-posts-row-identifier h4 {
+                font-size: 26px;
+              }
+    
+              .homepage-featured-blog-posts-section-other-posts-row-description {
+                h3 {
+                  font-size: 24px;
+                }
+                h4 {
+                  font-size: 18px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section {
+      padding: $homepage-tablet-side-padding;
+  
+      .homepage-join-newsletter-section-text-container {
+        width: 50%;
+        max-width: none;
+        padding-right: 20px;
+
+        .homepage-join-newsletter-section-title h2 {
+          font-size: 34px;
+        }
+      }
+  
+      .homepage-join-newsletter-section-sign-up-container {
+        width: 50%;
+        max-width: none;
+        padding-left: 20px;
+      }
+    }
+
     .homepage-papertrade-section {
-      padding: 40px;
+      padding: $homepage-tablet-side-padding;
   
       .homepage-papertrade-section-text-container {
         .homepage-papertrade-section-title h2 {
@@ -776,7 +954,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
     }
   
     .homepage-financial-planner-section {
-      padding: 40px;
+      padding: $homepage-tablet-side-padding;
   
       .homepage-financial-planner-section-text-container {
         .homepage-financial-planner-section-title h2 {
@@ -803,7 +981,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
     }
 
     .homepage-financial-calculator-section {
-      padding: 40px;
+      padding: $homepage-tablet-side-padding;
   
       .homepage-financial-calculator-section-text-container {
         .homepage-financial-calculator-section-title h2 {
@@ -816,94 +994,9 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       }
     }
 
-    .homepage-join-newsletter-section {
-      padding: 40px;
-  
-      .homepage-join-newsletter-section-text-container {
-        width: 50%;
-        max-width: none;
-        padding-right: 20px;
-
-        .homepage-join-newsletter-section-title h2 {
-          font-size: 34px;
-        }
-      }
-  
-      .homepage-join-newsletter-section-sign-up-container {
-        width: 50%;
-        max-width: none;
-        padding-left: 20px;
-      }
-    }
-
-    .homepage-featured-blog-posts-section {
-      width: 100%;
-      padding: 20px 0px;
-
-      .homepage-featured-blog-posts-title-container {
-        .homepage-featured-blog-posts-title h1 {
-          font-size: 34px;
-        }
-  
-        .homepage-featured-blog-posts-subtitle p {
-          font-size: 20px;
-        }
-      }
-
-      .homepage-blog-post-cards-wrapper {
-        height: 450px;
-        padding: 0px 0px 20px 0px;
-  
-        .homepage-blog-post-cards-container {
-          overflow: visible;
-          overflow-x: scroll;
-          scroll-snap-type: x mandatory;
-          scroll-behavior: smooth;
-          margin: 0px;
-  
-          .homepage-blog-post-card {
-            width: 80%;
-            min-width: 300px;
-            flex-direction: column;
-            align-items: flex-start;
-            scroll-snap-align: center;
-  
-            .homepage-blog-post-card-row {
-              flex-direction: column;
-              flex-wrap: wrap;
-              align-items: flex-start;
-              width: 100%;
-  
-              .homepage-blog-post-card-description {
-                opacity: 1;
-                transform: translateY(0px);
-                width: 100%;
-                height: auto;
-                padding: 10px;
-                border-radius: 0px 0px 20px 20px;
-  
-                p {
-                  white-space: normal;
-                  display: -webkit-box;
-                  -webkit-line-clamp: 2;
-                  -webkit-box-orient: vertical;
-                }
-                h4 {
-                  white-space: normal;
-                  display: -webkit-box;
-                  -webkit-line-clamp: 2;
-                  -webkit-box-orient: vertical;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     .homepage-create-new-account-section {
       flex-direction: column;
-      padding: 40px;
+      padding: $homepage-tablet-side-padding;
   
       .homepage-create-new-account-section-text-container {
         width: 100%;
@@ -934,7 +1027,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       .homepage-hero-section-text-container {
         width: 100%;
         max-width: none;
-        padding: 40px 20px 0px 20px;
+        padding: 40px $homepage-mobile-side-padding 0px $homepage-mobile-side-padding;
 
         .homepage-hero-section-large-slogan {
           h1 {
@@ -954,9 +1047,96 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       }
     }
 
+    .homepage-featured-blog-posts-section {
+      padding: $homepage-mobile-side-padding;
+  
+      .homepage-featured-blog-posts-section-title-container {
+        padding: 0px 0px 20px 0px;
+        .homepage-featured-blog-posts-section-title h1 {
+          font-size: 34px;
+        }
+      }
+  
+      .homepage-featured-blog-posts-section-posts-container {
+        flex-direction: column;
+
+        .homepage-featured-blog-posts-section-top-post-container {
+          padding: 0px 0px 20px 0px;
+          width: 100%;
+          .homepage-featured-blog-posts-section-top-post-description-container {
+            h3 {
+              font-size: 24px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+  
+        .homepage-featured-blog-posts-section-other-posts-container {
+          padding: 0px 0px 20px 0px;
+          width: 100%;
+          .homepage-featured-blog-posts-section-other-posts-border-frame {
+            .homepage-featured-blog-posts-section-other-posts-row {
+              padding: 0px 0px 10px 0px;
+
+              .homepage-featured-blog-posts-section-other-posts-row-identifier h4 {
+                font-size: 26px;
+              }
+    
+              .homepage-featured-blog-posts-section-other-posts-row-description {
+                h3 {
+                  font-size: 22px;
+                }
+                h4 {
+                  font-size: 18px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .homepage-join-newsletter-section {
+      padding: $homepage-mobile-side-padding;
+      flex-direction: column;
+  
+      .homepage-join-newsletter-section-text-container {
+        width: 100%;
+        max-width: none;
+
+        .homepage-join-newsletter-section-title h2 {
+          font-size: 34px;
+        }
+      }
+  
+      .homepage-join-newsletter-section-sign-up-container {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+
+        .homepage-join-newsletter-section-sign-up-input-container {
+          flex-direction: column;
+
+          .homepage-join-newsletter-section-sign-up-email-box {
+            margin: 10px 0px;
+          }
+
+          .homepage-join-newsletter-section-sign-up-button {
+            width: 100%;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+
     .homepage-papertrade-section {
       flex-direction: column-reverse;
-      padding: 20px;
+      padding: $homepage-mobile-side-padding;
   
       .homepage-papertrade-section-image-container {
         width: 100%;
@@ -998,7 +1178,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
 
     .homepage-financial-planner-section {
       flex-direction: column;
-      padding: 20px;
+      padding: $homepage-mobile-side-padding;
   
       .homepage-financial-planner-section-image-container {
         width: 100%;
@@ -1045,7 +1225,7 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
 
     .homepage-financial-calculator-section {
       flex-direction: column-reverse;
-      padding: 20px;
+      padding: $homepage-mobile-side-padding;
   
       .homepage-financial-calculator-section-image-container {
         width: 100%;
@@ -1071,109 +1251,9 @@ $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desk
       }
     }
 
-    .homepage-join-newsletter-section {
-      padding: 20px;
-      flex-direction: column;
-  
-      .homepage-join-newsletter-section-text-container {
-        width: 100%;
-        max-width: none;
-
-        .homepage-join-newsletter-section-title h2 {
-          font-size: 34px;
-        }
-      }
-  
-      .homepage-join-newsletter-section-sign-up-container {
-        width: 100%;
-        max-width: none;
-        padding: 0px;
-
-        .homepage-join-newsletter-section-sign-up-input-container {
-          flex-direction: column;
-
-          .homepage-join-newsletter-section-sign-up-email-box {
-            margin: 10px 0px;
-          }
-
-          .homepage-join-newsletter-section-sign-up-button {
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    .homepage-featured-blog-posts-section {
-      width: 100%;
-      padding: 20px 0px;
-
-      .homepage-featured-blog-posts-title-container {
-        padding: 0px 20px 20px 20px;
-
-        .homepage-featured-blog-posts-title h1 {
-          font-size: 30px;
-        }
-  
-        .homepage-featured-blog-posts-subtitle p {
-          font-size: 18px;
-          font-family: sans-serif;
-        }
-      }
-
-      .homepage-blog-post-cards-wrapper {
-        height: 450px;
-        padding: 0px 0px 20px 0px;
-  
-        .homepage-blog-post-cards-container {
-          overflow: visible;
-          overflow-x: scroll;
-          scroll-snap-type: x mandatory;
-          scroll-behavior: smooth;
-          margin: 0px;
-  
-          .homepage-blog-post-card {
-            width: 80%;
-            min-width: 300px;
-            flex-direction: column;
-            align-items: flex-start;
-            scroll-snap-align: center;
-  
-            .homepage-blog-post-card-row {
-              flex-direction: column;
-              flex-wrap: wrap;
-              align-items: flex-start;
-              width: 100%;
-  
-              .homepage-blog-post-card-description {
-                opacity: 1;
-                transform: translateY(0px);
-                width: 100%;
-                height: auto;
-                padding: 10px;
-                border-radius: 0px 0px 20px 20px;
-  
-                p {
-                  white-space: normal;
-                  display: -webkit-box;
-                  -webkit-line-clamp: 2;
-                  -webkit-box-orient: vertical;
-                }
-                h4 {
-                  white-space: normal;
-                  display: -webkit-box;
-                  -webkit-line-clamp: 2;
-                  -webkit-box-orient: vertical;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     .homepage-create-new-account-section {
       flex-direction: column;
-      padding: 20px;
+      padding: $homepage-mobile-side-padding;
   
       .homepage-create-new-account-section-text-container {
         width: 100%;

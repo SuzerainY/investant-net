@@ -111,8 +111,8 @@ export default function Blog(props) {
           </section>
           <section className="blogpage-blog-posts-wrapper">
             <div className="blogpage-blog-post-list">
-              {blogPosts.map((post) => (
-                <div className="blogpage-blog-post" key={post.attributes.SLUG}>
+              {blogPosts.map((post, index) => (
+                <div key={index} className="blogpage-blog-post">
                   <Link href={`/blog/${post.attributes.SLUG}`}>
                     <div className="blogpage-blog-post-image-container">
                       <Image

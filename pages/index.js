@@ -1,4 +1,4 @@
-import { STRAPIurl } from '@/my_modules/bloghelp';
+import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
@@ -14,12 +14,13 @@ export async function getServerSideProps(context) {
     body: JSON.stringify({
       query: `
         query GetBlogPosts {
-          latestSixPosts: blogPosts(pagination: { pageSize: 6 } sort: "id:desc") {
+          featuredPosts: blogPosts(pagination: { pageSize: 5 } sort: "id:desc") {
             data {
               id
               attributes {
                 Title
                 BlogPostDescription
+                PublishDate
                 SLUG
                 SPLASH {
                   data {
@@ -42,12 +43,9 @@ export async function getServerSideProps(context) {
 
 export default function Home(props) {
 
-  // Arrange blog post data and variables
-  const latestSixPosts = props.data.latestSixPosts.data; // The rest of the blog posts with the mostRecentPost removed
-
-  // Handle the hovering of blog cards in the featured blog posts section
-  const [openCardIndex, setOpenCardIndex] = useState(0);
-  const handleCardHover = (index) => {setOpenCardIndex(index);}
+  // Arrange blog posts for display
+  const featuredPosts = props.data.featuredPosts.data.slice(1);
+  const featuredPost = props.data.featuredPosts.data.slice(0, 1)[0];
 
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
@@ -110,6 +108,79 @@ export default function Home(props) {
                 priority={true}
                 fill
               />
+            </div>
+          </section>
+
+          <section id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
+            <div className="homepage-featured-blog-posts-section-title-container">
+              <div className="homepage-featured-blog-posts-section-title">
+                <h1>Unlocking Financial Success Together</h1>
+              </div>
+              <div className="homepage-featured-blog-posts-section-subtitle">
+                <p>Stay informed with our latest blog posts.</p>
+              </div>
+            </div>
+            <div className="homepage-featured-blog-posts-section-posts-container">
+              <div className="homepage-featured-blog-posts-section-top-post-container">
+                <div className="homepage-featured-blog-posts-section-top-post-header-container">
+                  <h3>Latest Story</h3>
+                </div>
+                <Link href={`/blog/${featuredPost.attributes.SLUG}`}>
+                  <div className="homepage-featured-blog-posts-section-top-post-image-container">
+                    <Image
+                      src={featuredPost.attributes.SPLASH.data.attributes.url}
+                      alt={featuredPost.attributes.BlogPostDescription}
+                      width={800}
+                      height={400}
+                    />
+                  </div>
+                  <div className="homepage-featured-blog-posts-section-top-post-description-container">
+                    <h3>{featuredPost.attributes.Title}</h3>
+                    <p>{formatDate(new Date(featuredPost.attributes.PublishDate))}</p>
+                  </div>
+                </Link>
+              </div>
+              <div className="homepage-featured-blog-posts-section-other-posts-container">
+                <div className="homepage-featured-blog-posts-section-other-posts-header-container">
+                  <h3>More from <span className="homepage-featured-blog-posts-section-other-posts-header-span">investant.net</span></h3>
+                </div>
+                <div className="homepage-featured-blog-posts-section-other-posts-border-frame">
+                  {featuredPosts.map((post, index) => (
+                    <div key={index} className="homepage-featured-blog-posts-section-other-posts-row">
+                      <div className="homepage-featured-blog-posts-section-other-posts-row-identifier">
+                        <h4>{index + 1}</h4>
+                      </div>
+                      <div className="homepage-featured-blog-posts-section-other-posts-row-description">
+                        <h3><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.Title}</Link></h3>
+                        <h4><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.BlogPostDescription}</Link></h4>
+                        <p>{formatDate(new Date(post.attributes.PublishDate))}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <button className="homepage-featured-blog-posts-section-blogpage-button">
+              <Link href="/blog"><h4>View all</h4></Link>
+            </button>
+          </section>
+
+          <section id="homepage-join-newsletter-section" className="homepage-join-newsletter-section">
+            <div className="homepage-join-newsletter-section-text-container">
+              <div className="homepage-join-newsletter-section-title">
+                <h2><span className="homepage-join-newsletter-section-title-span">Subscribe</span> to our Newsletter</h2>
+              </div>
+            </div>
+            <div className="homepage-join-newsletter-section-sign-up-container">
+              <div className="homepage-join-newsletter-section-sign-up-input-container">
+                <input type="email" placeholder="Email" className="homepage-join-newsletter-section-sign-up-email-box"></input>
+                <button className="homepage-join-newsletter-section-sign-up-button">
+                  <h4>Sign Up</h4>
+                </button>
+              </div>
+              <div className="homepage-join-newsletter-section-sign-up-description">
+                <p>Stay current with the latest personal finance news and updates.</p>
+              </div>
             </div>
           </section>
 
@@ -240,59 +311,6 @@ export default function Home(props) {
                 <p>Take charge of your financial future with the innovative investant.net calculator. Our calculator provides crystal clear insight into your financial trajectory, empowering you to make informed decisions today for a more secure tomorrow. Say goodbye to uncertainty and hello to precise financial planning with investant.net.</p>
               </div>
             </div>
-          </section>
-
-          <section id="homepage-join-newsletter-section" className="homepage-join-newsletter-section">
-            <div className="homepage-join-newsletter-section-text-container">
-              <div className="homepage-join-newsletter-section-title">
-                <h2><span className="homepage-join-newsletter-section-title-span">Subscribe</span> to our Newsletter</h2>
-              </div>
-            </div>
-            <div className="homepage-join-newsletter-section-sign-up-container">
-              <div className="homepage-join-newsletter-section-sign-up-input-container">
-                <input type="email" placeholder="Email" className="homepage-join-newsletter-section-sign-up-email-box"></input>
-                <button className="homepage-join-newsletter-section-sign-up-button">
-                  <h4>Sign Up</h4>
-                </button>
-              </div>
-              <div className="homepage-join-newsletter-section-sign-up-description">
-                <p>Stay current with the latest personal finance tips and updates.</p>
-              </div>
-            </div>
-          </section>
-
-          <section id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
-            <div className="homepage-featured-blog-posts-title-container">
-              <div className="homepage-featured-blog-posts-title">
-                <h1>Unlocking Financial Success Together</h1>
-              </div>
-              <div className="homepage-featured-blog-posts-subtitle">
-                <p>Stay informed with our latest blog posts.</p>
-              </div>
-            </div>
-            <div className="homepage-blog-post-cards-wrapper">
-              <div className="homepage-blog-post-cards-container">
-                {latestSixPosts.map((post, index) => (
-                  <Link
-                    href={`/blog/${post.attributes.SLUG}`}
-                    key={post.id}
-                    className={`homepage-blog-post-card ${openCardIndex === index ? 'open' : ''}`}
-                    style={{ backgroundImage: `url(${post.attributes.SPLASH.data.attributes.url})` }}
-                    onMouseEnter={() => handleCardHover(index)}
-                  >
-                    <div className="homepage-blog-post-card-row">
-                      <div className="homepage-blog-post-card-description">
-                        <h4>{post.attributes.Title}</h4>
-                        <p>{post.attributes.BlogPostDescription}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <button className="homepage-featured-blog-posts-blogpage-button">
-              <Link href="/blog"><h4>View all</h4></Link>
-            </button>
           </section>
 
           <section id="homepage-create-new-account-section" className="homepage-create-new-account-section">
