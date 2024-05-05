@@ -1,5 +1,5 @@
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";

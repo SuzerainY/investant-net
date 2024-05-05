@@ -832,7 +832,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .homepage {
     .homepage-hero-section {
-      min-height: calc(100vh - 60px);
+      min-height: calc(100svh - 60px);
       flex-direction: column;
       width: 100%;
 
@@ -1020,7 +1020,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
 @media screen and (max-width: 767px) {
   .homepage {
     .homepage-hero-section {
-      min-height: calc(100vh - 60px);
+      min-height: calc(100svh - 60px);
       flex-direction: column;
       width: 100%;
 
