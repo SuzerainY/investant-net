@@ -1,33 +1,33 @@
+$homepage-max-width: 1600px; // Maximum width for any div in the homepage
+$homepage-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
+
 .homepage {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(100vh - 160px);
 
   .homepage-hero-section {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
+    min-height: calc(100svh - 80px);
+    align-items: center;
     background-image: url("/images/styling/layered-peaks1-haikei.svg");
     background-size: cover;
-    align-items: center;
-    min-height: calc(100vh - 80px);
 
     .homepage-hero-section-text-container {
-      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       width: 40%;
-      max-width: 720px;
-      padding: 0 0 0 80px;
+      padding: 0px 0px 0px $homepage-desktop-side-padding;
       animation: fadeIn 0.5s ease-in;
 
-      // Remain on the right of your 40% chunk when screen width exceeds 1800px
-      @media (min-width: 1800px) {
-        margin-left: calc(40% - 720px);
+      // Remain on the right of your 40% chunk when screen width exceeds $homepage-max-width + 80px padding on either side (160px)
+      @media (min-width: calc($homepage-max-width + ($homepage-desktop-side-padding * 2))) {
+        padding: 0px 0px 0px calc((100% - $homepage-max-width) / 2);
       }
 
       .homepage-hero-section-large-slogan {
@@ -119,20 +119,21 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $chrome;
 
     .homepage-papertrade-section-image-container {
       position: relative;
       display: flex;
       justify-content: flex-start;
-      width: 60%;
+      width: 50%;
       height: auto;
-      max-width: 1080px;
+      max-width: calc($homepage-max-width * 0.5);
+      padding: 0px 20px 0px 0px;
       overflow: hidden;
     
       img {
-        width: calc(100% - 80px);
+        width: 100%;
         height: 100%;
         border-radius: 20px;
         object-fit: cover;
@@ -142,15 +143,17 @@
     .homepage-papertrade-section-text-container {
       display: flex;
       flex-direction: column;
-      padding: 0px 0px 0px 40px;
-      width: 40%;
-      max-width: 720px;
+      width: 50%;
+      max-width: calc($homepage-max-width * 0.5);
+      padding: 0px 0px 0px 20px;
       justify-content: center;
       align-items: center;
       text-align: left;
       color: $black;
 
       .homepage-papertrade-section-title {
+        width: 100%;
+
         .homepage-papertrade-section-title-span {
           color: $magenta;
         }
@@ -162,6 +165,7 @@
       }
 
       .homepage-papertrade-section-subtitle {
+        width: 100%;
         padding: 20px 0px;
 
         p {
@@ -220,21 +224,23 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $soft-purple;
 
     .homepage-financial-planner-section-text-container {
       display: flex;
       flex-direction: column;
-      padding: 0px 40px 0px 0px;
-      width: 40%;
-      max-width: 720px;
+      padding: 0px 20px 0px 0px;
+      width: 50%;
+      max-width: calc($homepage-max-width * 0.5);
       justify-content: center;
       align-items: center;
       color: $white;
       text-align: left;
 
       .homepage-financial-planner-section-title {
+        width: 100%;
+
         .homepage-financial-planner-section-title-span {
           color: $magenta;
         }
@@ -246,6 +252,7 @@
       }
 
       .homepage-financial-planner-section-subtitle {
+        width: 100%;
         padding: 20px 0px;
 
         p {
@@ -300,13 +307,14 @@
       position: relative;
       display: flex;
       justify-content: flex-end;
-      width: 60%;
+      width: 50%;
       height: auto;
-      max-width: 1080px;
+      max-width: calc($homepage-max-width * 0.5);
+      padding: 0px 0px 0px 20px;
       overflow: hidden;
     
       img {
-        width: calc(100% - 80px);
+        width: 100%;
         height: 100%;
         border-radius: 20px;
         object-fit: cover;
@@ -321,20 +329,21 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $chrome;
 
     .homepage-financial-calculator-section-image-container {
       position: relative;
       display: flex;
       justify-content: flex-start;
-      width: 60%;
+      width: 50%;
       height: auto;
-      max-width: 1080px;
+      max-width: calc($homepage-max-width * 0.5);
+      padding: 0px 20px 0px 0px;
       overflow: hidden;
     
       img {
-        width: calc(100% - 80px);
+        width: 100%;
         height: 100%;
         border-radius: 20px;
         object-fit: cover;
@@ -344,15 +353,17 @@
     .homepage-financial-calculator-section-text-container {
       display: flex;
       flex-direction: column;
-      padding: 0px 0px 0px 40px;
-      width: 40%;
-      max-width: 720px;
+      padding: 0px 0px 0px 20px;
+      width: 50%;
+      max-width: calc($homepage-max-width * 0.5);
       justify-content: center;
       align-items: center;
       text-align: left;
       color: $black;
 
       .homepage-financial-calculator-section-title {
+        width: 100%;
+
         .homepage-financial-calculator-section-title-span {
           color: $magenta;
         }
@@ -364,6 +375,7 @@
       }
 
       .homepage-financial-calculator-section-subtitle {
+        width: 100%;
         padding: 20px 0px;
 
         p {
@@ -381,14 +393,14 @@
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $grey;
 
     .homepage-join-newsletter-section-text-container {
       display: flex;
       flex-direction: column;
       width: 60%;
-      max-width: 1080px;
+      max-width: calc($homepage-max-width * 0.6);
       justify-content: center;
       align-items: flex-start;
       text-align: left;
@@ -411,7 +423,7 @@
       display: flex;
       flex-direction: column;
       width: 40%;
-      max-width: 720px;
+      max-width: calc($homepage-max-width * 0.4);
 
       .homepage-join-newsletter-section-sign-up-input-container {
         display: flex;
@@ -485,14 +497,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $grey;
 
     .homepage-featured-blog-posts-title-container {
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1800px;
+      max-width: $homepage-max-width;
       justify-content: center;
       align-items: center;
       padding: 0px 0px 40px 0px;
@@ -520,8 +532,7 @@
 
     .homepage-blog-post-cards-wrapper {
       width: 100%;
-      max-width: 1800px;
-      max-width: 1400px;
+      max-width: $homepage-max-width;
       height: 450px;
       padding-bottom: 40px;
       display: flex;
@@ -623,14 +634,14 @@
     width: 100%;
     justify-content: center;
     align-items: flex-start;
-    padding: 40px 80px;
+    padding: 40px $homepage-desktop-side-padding;
     background-color: $chrome;
 
     .homepage-create-new-account-section-text-container {
       display: flex;
       flex-direction: column;
       width: 60%;
-      max-width: 1080px;
+      max-width: calc($homepage-max-width * 0.6);
       justify-content: center;
       align-items: flex-start;
       text-align: left;
@@ -659,7 +670,7 @@
       flex-direction: row;
       width: 40%;
       height: 100%;
-      max-width: 720px;
+      max-width: calc($homepage-max-width * 0.4);
       justify-content: right;
       align-items: center;
       padding: 10px 0px;
@@ -740,20 +751,7 @@
     .homepage-papertrade-section {
       padding: 40px;
   
-      .homepage-papertrade-section-image-container {
-        width: 50%;
-        max-width: none;
-
-        img {
-          width: calc(100% - 20px);
-        }
-      }
-  
       .homepage-papertrade-section-text-container {
-        width: 50%;
-        max-width: none;
-        padding: 0px 0px 0px 20px;
-  
         .homepage-papertrade-section-title h2 {
           font-size: 30px;
         }
@@ -780,20 +778,7 @@
     .homepage-financial-planner-section {
       padding: 40px;
   
-      .homepage-financial-planner-section-image-container {
-        width: 50%;
-        max-width: none;
-
-        img {
-          width: calc(100% - 20px);
-        }
-      }
-  
       .homepage-financial-planner-section-text-container {
-        width: 50%;
-        max-width: none;
-        padding: 0px 20px 0px 0px;
-  
         .homepage-financial-planner-section-title h2 {
           font-size: 30px;
         }
@@ -820,20 +805,7 @@
     .homepage-financial-calculator-section {
       padding: 40px;
   
-      .homepage-financial-calculator-section-image-container {
-        width: 50%;
-        max-width: none;
-
-        img {
-          width: calc(100% - 20px);
-        }
-      }
-  
       .homepage-financial-calculator-section-text-container {
-        width: 50%;
-        max-width: none;
-        padding: 0px 0px 0px 20px;
-  
         .homepage-financial-calculator-section-title h2 {
           font-size: 30px;
         }
@@ -850,6 +822,7 @@
       .homepage-join-newsletter-section-text-container {
         width: 50%;
         max-width: none;
+        padding-right: 20px;
 
         .homepage-join-newsletter-section-title h2 {
           font-size: 34px;
@@ -987,16 +960,11 @@
   
       .homepage-papertrade-section-image-container {
         width: 100%;
-        max-width: none;
-
-        img {
-          width: 100%;
-        }
+        padding: 0px;
       }
   
       .homepage-papertrade-section-text-container {
         width: 100%;
-        max-width: none;
         padding: 0px;
   
         .homepage-papertrade-section-title h2 {
@@ -1034,7 +1002,7 @@
   
       .homepage-financial-planner-section-image-container {
         width: 100%;
-        max-width: none;
+        padding: 0px;
 
         img {
           width: 100%;
@@ -1081,7 +1049,7 @@
   
       .homepage-financial-calculator-section-image-container {
         width: 100%;
-        max-width: none;
+        padding: 0px;
 
         img {
           width: 100%;
@@ -1090,7 +1058,6 @@
   
       .homepage-financial-calculator-section-text-container {
         width: 100%;
-        max-width: none;
         padding: 0px;
   
         .homepage-financial-calculator-section-title h2 {

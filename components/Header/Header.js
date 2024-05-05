@@ -11,7 +11,7 @@ export default function Header() {
     // Create mobile menu queries
     const mobileMenuContainer = document.querySelector('.mobile-menu-container');
     const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileMenuButtonToggle = document.querySelector('.header .mobile-top-banner .mobile-menu-toggle');
+    const mobileMenuButtonOpen = document.querySelector('.header .mobile-top-banner .mobile-menu-open');
     const mobileMenuButtonClose = document.querySelector('.mobile-menu-container .mobile-menu .mobile-menu-close');
 
     const openMobileMenu = () => {
@@ -41,13 +41,13 @@ export default function Header() {
       if (viewportWidth >= 1200) {closeMobileMenu();}
     }
 
-    mobileMenuButtonToggle.addEventListener('click', openMobileMenu);
+    mobileMenuButtonOpen.addEventListener('click', openMobileMenu);
     mobileMenuButtonClose.addEventListener('click', closeMobileMenu);
     document.addEventListener('click', handleClickOutsideMobileMenu);
     window.addEventListener('resize', handleViewportResize);
 
     return () => {
-      mobileMenuButtonToggle.removeEventListener('click', openMobileMenu);
+      mobileMenuButtonOpen.removeEventListener('click', openMobileMenu);
       mobileMenuButtonClose.removeEventListener('click', closeMobileMenu);
       document.removeEventListener('click', handleClickOutsideMobileMenu);
       window.removeEventListener('resize', handleViewportResize);
@@ -149,7 +149,7 @@ export default function Header() {
                 />
               </Link>
             </div>
-            <div className="mobile-menu-toggle">
+            <div className="mobile-menu-open">
               <Image
                 src={"/images/clipart/White-Bars-Mobile-Menu.svg"}
                 alt="Menu Toggle"
