@@ -105,7 +105,6 @@ export default function Home(props) {
               <Image
                 src={"/images/clipart/ClipArtOfficeWorker.svg"}
                 alt="Office Worker ClipArt"
-                priority={true}
                 fill
               />
             </div>

@@ -64,7 +64,6 @@ export default function Header() {
               alt="Close Menu"
               width={40}
               height={40}
-              priority
             />
           </div>
           <div className="mobile-menu-navigation">
@@ -96,7 +95,6 @@ export default function Header() {
                     alt="Discord Icon"
                     width={35}
                     height={30}
-                    priority
                   />
                 </Link>
               </li>
@@ -111,7 +109,6 @@ export default function Header() {
                     alt="X Icon"
                     width={30}
                     height={30}
-                    priority
                   />
                 </Link>
               </li>
@@ -126,7 +123,6 @@ export default function Header() {
                     alt="Instagram Icon"
                     width={33}
                     height={33}
-                    priority
                   />
                 </Link>
               </li>
@@ -154,7 +150,6 @@ export default function Header() {
                 src={"/images/clipart/White-Bars-Mobile-Menu.svg"}
                 alt="Menu Toggle"
                 fill
-                priority
               />
             </div>
           </div>
@@ -204,7 +199,6 @@ export default function Header() {
                       alt="Discord Icon"
                       width={40}
                       height={35}
-                      priority
                     />
                   </Link>
                 </li>
@@ -219,7 +213,6 @@ export default function Header() {
                       alt="X Icon"
                       width={35}
                       height={35}
-                      priority
                     />
                   </Link>
                 </li>
@@ -234,7 +227,6 @@ export default function Header() {
                       alt="Instagram Icon"
                       width={38}
                       height={38}
-                      priority
                     />
                   </Link>
                 </li>
