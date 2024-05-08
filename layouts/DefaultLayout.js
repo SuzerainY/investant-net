@@ -45,10 +45,9 @@ export default function DefaultLayout({ children }) {
         <Header/>
         {children}
         <Footer/>
+        <SpeedInsights/>
+        <Analytics/>
       </div>
-
-      <SpeedInsights/>
-      <Analytics/>
     </>
   );
 }
