@@ -33,7 +33,7 @@ export default function Header() {
 
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
-      if (mobileMenuContainer.contains(eventTarget) === true && mobileMenu.contains(event.target) === false) {closeMobileMenu();}
+      if (mobileMenuContainer.contains(eventTarget) === true && mobileMenu.contains(eventTarget) === false) {closeMobileMenu();}
     };
 
     const handleViewportResize = () => {
