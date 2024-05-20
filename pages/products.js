@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export default function Home() {
 
-  const [downloadInvestantConsciousPlannerURL, setDownloadInvestantConsciousPlannerURL] = useState('/files/UserTemplates/Investant-ConsciousSpendingPlan.xlsx');
+  const downloadInvestantConsciousPlannerURL = '/files/UserTemplates/Investant-ConsciousSpendingPlan.xlsx';
   const handleDownloadInvestantConsciousPlannerURL = () => {
     // Create an anchor element
     const anchor = document.createElement('a');
