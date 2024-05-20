@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-
-
 export default function Header() {
   // Mobile menu references
-  const [mobileMenuContainer, mobileMenu, mobileMenuButtonOpen, mobileMenuButtonClose] = new Array(4).fill(null).map(() => useRef(null));
+  const mobileMenuContainer = useRef(null);
+  const mobileMenu = useRef(null);
+  const mobileMenuButtonOpen = useRef(null);
+  const mobileMenuButtonClose = useRef(null);
 
   useEffect(() => {
     const openMobileMenu = () => {
@@ -26,7 +27,7 @@ export default function Header() {
 
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
-      if (mobileMenuContainer.current?.contains(eventTarget) === true && mobileMenu.current?.contains(eventTarget) === false) {closeMobileMenu();}
+      if (mobileMenuContainer.current?.contains(eventTarget) && !mobileMenu.current?.contains(eventTarget)) {closeMobileMenu();}
     };
 
     const handleViewportResize = () => {
@@ -34,14 +35,17 @@ export default function Header() {
       if (viewportWidth >= 1200) {closeMobileMenu();}
     }
 
-    mobileMenuButtonOpen.current?.addEventListener('click', openMobileMenu);
-    mobileMenuButtonClose.current?.addEventListener('click', closeMobileMenu);
+    const currentMobileMenuButtonOpen = mobileMenuButtonOpen.current;
+    const currentMobileMenuButtonClose = mobileMenuButtonClose.current;
+
+    currentMobileMenuButtonOpen?.addEventListener('click', openMobileMenu);
+    currentMobileMenuButtonClose?.addEventListener('click', closeMobileMenu);
     document.addEventListener('click', handleClickOutsideMobileMenu);
     window.addEventListener('resize', handleViewportResize);
 
     return () => {
-      mobileMenuButtonOpen.current?.removeEventListener('click', openMobileMenu);
-      mobileMenuButtonClose.current?.removeEventListener('click', closeMobileMenu);
+      currentMobileMenuButtonOpen?.removeEventListener('click', openMobileMenu);
+      currentMobileMenuButtonClose?.removeEventListener('click', closeMobileMenu);
       document.removeEventListener('click', handleClickOutsideMobileMenu);
       window.removeEventListener('resize', handleViewportResize);
     };
@@ -61,18 +65,10 @@ export default function Header() {
           </div>
           <div className="mobile-menu-navigation">
             <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/products">Products</Link>
-              </li>
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-              <li>
-                <Link href="/about-us">About Us</Link>
-              </li>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/products">Products</Link></li>
+              <li><Link href="/blog">Blog</Link></li>
+              <li><Link href="/about-us">About Us</Link></li>
             </ul>
           </div>
           <div className="mobile-menu-media-links">
@@ -165,18 +161,10 @@ export default function Header() {
             </div>
             <div className="NavBar-Navigation-Links">
               <ul>
-                <li>
-                  <Link href="/">Home</Link>
-                </li>
-                <li>
-                  <Link href="/products">Products</Link>
-                </li>
-                <li>
-                  <Link href="/blog">Blog</Link>
-                </li>
-                <li>
-                  <Link href="/about-us">About Us</Link>
-                </li>
+                <li><Link href="/">Home</Link></li>
+                <li><Link href="/products">Products</Link></li>
+                <li><Link href="/blog">Blog</Link></li>
+                <li><Link href="/about-us">About Us</Link></li>
               </ul>
             </div>
             <div className="NavBar-Media-Links">
