@@ -1,39 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 
 
 export default function Header() {
+  // Mobile menu references
+  const [mobileMenuContainer, mobileMenu, mobileMenuButtonOpen, mobileMenuButtonClose] = new Array(4).fill(null).map(() => useRef(null));
 
   useEffect(() => {
-
-    // Create mobile menu queries
-    const mobileMenuContainer = document.querySelector('.mobile-menu-container');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileMenuButtonOpen = document.querySelector('.header .mobile-top-banner .mobile-menu-open');
-    const mobileMenuButtonClose = document.querySelector('.mobile-menu-container .mobile-menu .mobile-menu-close');
-
     const openMobileMenu = () => {
-      if (mobileMenuContainer.style.display !== 'flex') {
-        mobileMenuContainer.style.display = 'flex';
-      }
+      if (mobileMenuContainer.current?.style.display !== 'flex') {mobileMenuContainer.current.style.display = 'flex';}
     }
 
     const closeMobileMenu = () => {
-      if (mobileMenuContainer.style.display !== 'none') {
-        mobileMenuContainer.classList.add('mobile-menu-fade-out');
+      if (mobileMenuContainer.current?.style.display !== 'none') {
+        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
 
         setTimeout(() => {
-          mobileMenuContainer.style.display = 'none';
-          mobileMenuContainer.classList.remove('mobile-menu-fade-out');
+          mobileMenuContainer.current.style.display = 'none';
+          mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
         }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
       }
     }
 
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
-      if (mobileMenuContainer.contains(eventTarget) === true && mobileMenu.contains(eventTarget) === false) {closeMobileMenu();}
+      if (mobileMenuContainer.current?.contains(eventTarget) === true && mobileMenu.current?.contains(eventTarget) === false) {closeMobileMenu();}
     };
 
     const handleViewportResize = () => {
@@ -41,14 +34,14 @@ export default function Header() {
       if (viewportWidth >= 1200) {closeMobileMenu();}
     }
 
-    mobileMenuButtonOpen.addEventListener('click', openMobileMenu);
-    mobileMenuButtonClose.addEventListener('click', closeMobileMenu);
+    mobileMenuButtonOpen.current?.addEventListener('click', openMobileMenu);
+    mobileMenuButtonClose.current?.addEventListener('click', closeMobileMenu);
     document.addEventListener('click', handleClickOutsideMobileMenu);
     window.addEventListener('resize', handleViewportResize);
 
     return () => {
-      mobileMenuButtonOpen.removeEventListener('click', openMobileMenu);
-      mobileMenuButtonClose.removeEventListener('click', closeMobileMenu);
+      mobileMenuButtonOpen.current?.removeEventListener('click', openMobileMenu);
+      mobileMenuButtonClose.current?.removeEventListener('click', closeMobileMenu);
       document.removeEventListener('click', handleClickOutsideMobileMenu);
       window.removeEventListener('resize', handleViewportResize);
     };
@@ -56,9 +49,9 @@ export default function Header() {
 
   return (
     <>
-      <div className="mobile-menu-container">
-        <nav className="mobile-menu">
-          <div className="mobile-menu-close">
+      <div ref={mobileMenuContainer} className="mobile-menu-container">
+        <nav ref={mobileMenu} className="mobile-menu">
+          <div ref={mobileMenuButtonClose} className="mobile-menu-close">
             <Image
               src={"/images/clipart/White-X.svg"}
               alt="Close Menu"
@@ -145,7 +138,7 @@ export default function Header() {
                 />
               </Link>
             </div>
-            <div className="mobile-menu-open">
+            <div ref={mobileMenuButtonOpen} className="mobile-menu-open">
               <Image
                 src={"/images/clipart/White-Bars-Mobile-Menu.svg"}
                 alt="Menu Toggle"
