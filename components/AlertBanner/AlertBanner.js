@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function AlertBanner({ message, link, linkMessage, onClose }) {
+  const alertBannerExit = useRef(null);
 
   useEffect(() => {
-    const alertBannerExit = document.querySelector('.alert-banner .alert-banner-exit');
     const handleAlertBannerExitClick = () => {onClose();};
-    alertBannerExit.addEventListener('click', handleAlertBannerExitClick);
+    alertBannerExit.current?.addEventListener('click', handleAlertBannerExitClick);
 
-    return () => {alertBannerExit.removeEventListener('click', handleAlertBannerExitClick);};
-  }, []);
+    return () => {alertBannerExit.current?.removeEventListener('click', handleAlertBannerExitClick);};
+  }, [onClose]);
 
   return (
     <div className="alert-banner">
@@ -22,7 +22,7 @@ export default function AlertBanner({ message, link, linkMessage, onClose }) {
           </Link>
         </h3>
       </div>
-      <div className="alert-banner-exit">
+      <div ref={alertBannerExit} className="alert-banner-exit">
         <Image
           src={'/images/clipart/White-X.svg'}
           alt={'Close Banner'}
