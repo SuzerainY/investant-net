@@ -9,7 +9,6 @@ import rehypeRaw from 'rehype-raw';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export async function getServerSideProps(context) {
-  // Fetch 15 most recent posts for inital page render
   const fetchParams = {
     method: "POST",
     headers: {
@@ -97,57 +96,37 @@ export default function AboutUs(props) {
 
       <DefaultLayout>
         <main className="about-us-page">
-          <div className="about-us-page-wrapper">
-            <section className="about-us-page-title-container">
-              <div className="about-us-page-title">
-                <h1>The Investant Team</h1>
-                <div className="about-us-page-title-divider">
-                  <h3>{"Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy."}</h3>
-                </div>
+
+          <section className="about-us-page-title-section">
+            <div className="about-us-page-title-section-text-container">
+              <div className="about-us-page-title-section-title">
+                <h1>Navigate <span className="about-us-page-title-section-title-span">Your</span> Financial Journey With <span className="about-us-page-title-section-title-span">Confidence</span></h1>
               </div>
-            </section>
-            <article className="about-us-page-profile-container">
-              {(havenDescription != null) && (
-                <section className="about-us-page-profile">
-                  <div className="about-us-page-profile-image">
-                    <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
-                      <Image
-                        src={havenProfilePictureURL}
-                        alt={"havenProfilePicture"}
-                        priority={true}
-                        width={200}
-                        height={200}
-                      />
-                    </Link>
-                  </div>
-                  <div className="about-us-page-profile-description">
-                    <h2>Haven Smith</h2>
-                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
-                  </div>
-                </section>
-              )}
-              {(ryanDescription != null) && (
-                <section className="about-us-page-profile">
-                  <div className="about-us-page-profile-image">
-                    <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
-                      <Image
-                        className="about-us-page-profile-image"
-                        src={ryanProfilePictureURL}
-                        alt={"ryanProfilePicture"}
-                        priority={true}
-                        width={200}
-                        height={200}
-                      />
-                    </Link>
-                  </div>
-                  <div className="about-us-page-profile-description">
-                    <h2>Ryan White</h2>
-                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
-                  </div>
-                </section>
-              )}
-            </article>
-          </div>
+              <div className="about-us-page-title-section-subtitle">
+                <p>Welcome to <span className="about-us-page-title-section-subtitle-span">investant.net</span>, where financial literacy {`isn't`} a privilege, but a practical pursuit for everyone.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="about-us-page-company-description-section">
+            <div className="about-us-page-company-description-section-text-container">
+              <div className="about-us-page-company-description-section-title">
+                <h2>Transforming <span className="about-us-page-company-description-section-title-span">Personal Finance</span> for New Professionals</h2>
+              </div>
+              <div className="about-us-page-company-description-section-subtitle">
+                <p>At <span className="about-us-page-company-description-section-subtitle-span">investant.net</span>, {`we're`} dedicated to providing new professionals with the tools and information they need to take control of their personal finances. Our mission is to empower individuals to make smart financial decisions and achieve their financial goals.</p>
+              </div>
+            </div>
+            <div className="about-us-page-company-description-section-image-container">
+              {<Image
+                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/medium_credit_card_stock_photo_1_3b7da4e384"}
+                alt={"Investant Cover Photo for Company Description"}
+                priority={true}
+                width={800}
+                height={400}
+              />}
+            </div>
+          </section>
         </main>
       </DefaultLayout>
     </>

@@ -7,7 +7,6 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .homepage-hero-section {
     position: relative;
@@ -28,7 +27,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
       animation: fadeIn 0.5s ease-in;
 
       // Remain on the right of your 40% chunk when screen width exceeds $homepage-max-width + 80px padding on either side (160px)
-      @media (min-width: calc($homepage-max-width + ($homepage-desktop-side-padding * 2))) {
+      @media screen and (min-width: calc($homepage-max-width + ($homepage-desktop-side-padding * 2))) {
         padding: 0px 0px 0px calc((100% - $homepage-max-width) / 2);
       }
 
@@ -42,7 +41,8 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
         }
   
         h1 {
-          font-size: 52px;
+          font-size: 60px;
+          line-height: 100%;
         }
       }
 
@@ -54,6 +54,16 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
 
         p {
           font-family: sans-serif;
+          font-size: 24px;
+        }
+      }
+
+      // Hero font sizes as we approach tablet viewport width
+      @media screen and (min-width: 1200px) and (max-width: 1600px) {
+        .homepage-hero-section-large-slogan h1 {
+          font-size: 46px;
+        }
+        .homepage-hero-section-investant-description p {
           font-size: 20px;
         }
       }
