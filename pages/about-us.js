@@ -118,14 +118,64 @@ export default function AboutUs(props) {
               </div>
             </div>
             <div className="about-us-page-company-description-section-image-container">
-              {<Image
+              <Image
                 src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/medium_credit_card_stock_photo_1_3b7da4e384"}
                 alt={"Investant Cover Photo for Company Description"}
                 priority={true}
                 width={800}
                 height={400}
-              />}
+              />
             </div>
+          </section>
+
+          <section className="about-us-page-meet-the-team-section">
+            <div className="about-us-page-meet-the-team-section-title">
+              <h2>Meet the Team!</h2>
+            </div>
+            {havenDescription && (
+              <div className="about-us-page-meet-the-team-section-team-member">
+                <div className="about-us-page-meet-the-team-section-team-member-photo-container">
+                  <Link href="https://www.linkedin.com/in/haven-smith/" target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={havenProfilePictureURL}
+                      alt={"Haven Profile Picture"}
+                      width={200}
+                      height={200}
+                    />
+                  </Link>
+                </div>
+                <div className="about-us-page-meet-the-team-section-team-member-text-container">
+                  <div className="about-us-page-meet-the-team-section-team-member-name">
+                    <h3>Haven <span className="about-us-page-meet-the-team-section-team-member-name-span">Smith</span></h3>
+                  </div>
+                  <div className="about-us-page-meet-the-team-section-team-member-description">
+                  <p><Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown></p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {ryanDescription && (
+              <div className="about-us-page-meet-the-team-section-team-member">
+                <div className="about-us-page-meet-the-team-section-team-member-photo-container">
+                  <Link href="https://www.linkedin.com/in/ryanrw/" target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={ryanProfilePictureURL}
+                      alt={"Ryan Profile Picture"}
+                      width={200}
+                      height={200}
+                    />
+                  </Link>
+                </div>
+                <div className="about-us-page-meet-the-team-section-team-member-text-container">
+                  <div className="about-us-page-meet-the-team-section-team-member-name">
+                    <h3>Ryan <span className="about-us-page-meet-the-team-section-team-member-name-span">White</span></h3>
+                  </div>
+                  <div className="about-us-page-meet-the-team-section-team-member-description">
+                    <p><Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown></p>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         </main>
       </DefaultLayout>

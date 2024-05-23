@@ -1,141 +1,384 @@
 $about-us-page-max-width: 1200px;
-$about-us-pagee-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
+$about-us-page-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
 $about-us-page-tablet-side-padding: 40px; // Padding on left and right sides of tablet viewport
 $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of mobile viewport
 
 .about-us-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  .about-us-page-title-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
+    background-image: url('https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/small_man_plays_chess_with_robot_16882f0e0d');
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: 75%;
+    
+    .about-us-page-title-section-text-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(8px);
+      background-color: rgba(22, 11, 44, 0.75);
+      color: $white;
+
+      .about-us-page-title-section-title {
+        max-width: 1200px;
+        text-align: center;
+        padding: 10px $about-us-page-desktop-side-padding;
+
+        .about-us-page-title-section-title-span {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        h1 {
+          font-size: 60px;
+          font-weight: 600;
+          line-height: 100%;
+        }
+      }
+
+      .about-us-page-title-section-subtitle {
+        max-width: 1200px;
+        text-align: center;
+        padding: 10px $about-us-page-desktop-side-padding;
+
+        .about-us-page-title-section-subtitle-span {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+
+  .about-us-page-company-description-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px $about-us-page-desktop-side-padding;
+    background-color: $white;
+
+    .about-us-page-company-description-section-text-container {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 20px 0px 0px;
+      width: 50%;
+      max-width: calc($about-us-page-max-width * 0.5);
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      color: $black;
+  
+      .about-us-page-company-description-section-title {
+        width: 100%;
+
+        .about-us-page-company-description-section-title-span {
+          color: $dark-blue;
+        }
+
+        h2 {
+          font-size: 40px;
+          font-weight: 600;
+          line-height: 100%;
+        }
+      }
+  
+      .about-us-page-company-description-section-subtitle {
+        width: 100%;
+        padding: 20px 0px;
+
+        .about-us-page-company-description-section-subtitle-span {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+    }
+
+    .about-us-page-company-description-section-image-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 50%;
+      height: auto;
+      max-width: calc($about-us-page-max-width * 0.5);
+      padding: 0px 0px 0px 20px;
+      overflow: hidden;
+    
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .about-us-page-meet-the-team-section {
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    overflow: hidden;
+    width: 100%;
 
-    .about-us-page-title-section {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 400px;
-        background-image: url('https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/small_man_plays_chess_with_robot_16882f0e0d');
-        background-size: cover;
-        background-position-x: center;
-        background-position-y: 75%;
-        
-        .about-us-page-title-section-text-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(8px);
-            background-color: rgba(22, 11, 44, 0.75);
-            color: $white;
+    .about-us-page-meet-the-team-section-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0px;
+      width: 100%;
+      background-color: $soft-purple;
+      color: $white;
+      text-align: center;
 
-            .about-us-page-title-section-title {
-                max-width: 1200px;
-                text-align: center;
-                padding: 10px $about-us-pagee-desktop-side-padding;
-
-                .about-us-page-title-section-title-span {
-                    color: $magenta;
-                    font-weight: bold;
-                }
-
-                h1 {
-                    font-size: 60px;
-                    font-weight: 600;
-                    line-height: 100%;
-                }
-            }
-
-            .about-us-page-title-section-subtitle {
-                max-width: 1200px;
-                text-align: center;
-                padding: 10px $about-us-pagee-desktop-side-padding;
-
-                .about-us-page-title-section-subtitle-span {
-                    color: $magenta;
-                    font-weight: bold;
-                }
-
-                p {
-                    font-size: 20px;
-                    font-family: sans-serif;
-                }
-            }
-        }
+      h2 {
+        font-size: 40px;
+        font-weight: bold;
+      }
     }
 
-    .about-us-page-company-description-section {
+    .about-us-page-meet-the-team-section-team-member {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 20px $about-us-page-desktop-side-padding;
+      background-color: $white;
+
+      .about-us-page-meet-the-team-section-team-member-photo-container {
         position: relative;
         display: flex;
-        flex-direction: row;
+        justify-content: center;
+        width: 40%;
+        height: auto;
+        max-width: calc($about-us-page-max-width * 0.4);
+        padding: 20px;
+      
+        img {
+          width: 200px;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 20px;
+          box-shadow: 5px 5px 5px $trans-purple;
+          transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+          &:hover {
+            transform: scale(1.01);
+            box-shadow: 7px 7px 7px $trans-purple;
+          }
+        }
+      }
+
+      .about-us-page-meet-the-team-section-team-member-text-container {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 0px 0px 20px;
+        width: 60%;
+        max-width: calc($about-us-page-max-width * 0.6);
         justify-content: center;
         align-items: center;
-        width: 100%;
-        padding: 40px $about-us-pagee-desktop-side-padding;
-        background-color: $white;
-
-        .about-us-page-company-description-section-text-container {
-            display: flex;
-            flex-direction: column;
-            padding: 0px 20px 0px 0px;
-            width: 50%;
-            max-width: calc($about-us-page-max-width * 0.5);
-            justify-content: center;
-            align-items: center;
-            text-align: left;
-            color: $black;
-      
-            .about-us-page-company-description-section-title {
-              width: 100%;
-      
-              .about-us-page-company-description-section-title-span {
-                color: $dark-blue;
-              }
-      
-              h2 {
-                font-size: 40px;
-                font-weight: 600;
-                line-height: 100%;
-              }
-            }
-      
-            .about-us-page-company-description-section-subtitle {
-              width: 100%;
-              padding: 20px 0px;
-
-              .about-us-page-company-description-section-subtitle-span {
-                color: $magenta;
-                font-weight: bold;
-              }
-      
-              p {
-                font-size: 20px;
-                font-family: sans-serif;
-              }
-            }
+        text-align: left;
+        color: $black;
+    
+        .about-us-page-meet-the-team-section-team-member-name {
+          width: 100%;
+  
+          .about-us-page-meet-the-team-section-team-member-name-span {
+            color: $magenta;
+          }
+  
+          h3 {
+            font-size: 34px;
+            font-weight: 600;
+          }
         }
+    
+        .about-us-page-meet-the-team-section-team-member-description {
+          width: 100%;
+          padding: 20px 0px;
+  
+          .about-us-page-meet-the-team-section-team-member-description-span {
+            color: $magenta;
+            font-weight: bold;
+          }
+  
+          p {
+            font-size: 20px;
+            font-family: sans-serif;
+          }
+        }
+      }
+    }
+  }
+}
 
-        .about-us-page-company-description-section-image-container {
-            position: relative;
-            display: flex;
-            justify-content: flex-start;
-            width: 50%;
-            height: auto;
-            max-width: calc($about-us-page-max-width * 0.5);
-            padding: 0px 0px 0px 20px;
-            overflow: hidden;
-          
-            img {
-              width: 100%;
-              height: 100%;
-              border-radius: 10px;
-              object-fit: cover;
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .about-us-page {
+    .about-us-page-title-section {
+      .about-us-page-title-section-text-container {
+        .about-us-page-title-section-title {
+          padding: 10px $about-us-page-tablet-side-padding;
+          h1 {
+            font-size: 44px;
+          }
+        }
+  
+        .about-us-page-title-section-subtitle {
+          padding: 10px $about-us-page-tablet-side-padding;
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  
+    .about-us-page-company-description-section {
+      padding: 40px $about-us-page-tablet-side-padding;
+  
+      .about-us-page-company-description-section-text-container {
+        .about-us-page-company-description-section-title {
+          h2 {
+            font-size: 32px;
+          }
+        }
+    
+        .about-us-page-company-description-section-subtitle {ht: bold;
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  
+    .about-us-page-meet-the-team-section {
+      .about-us-page-meet-the-team-section-team-member {
+        padding: 20px $about-us-page-tablet-side-padding;
+  
+        .about-us-page-meet-the-team-section-team-member-photo-container {
+          width: 30%;
+          max-width: calc($about-us-page-max-width * 0.3);
+        }
+  
+        .about-us-page-meet-the-team-section-team-member-text-container {
+          width: 70%;
+          max-width: calc($about-us-page-max-width * 0.7);
+      
+          .about-us-page-meet-the-team-section-team-member-description {
+            p {
+              font-size: 18px;
             }
           }
+        }
+      }
     }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about-us-page {
+    .about-us-page-title-section {
+      height: 300px;
+      
+      .about-us-page-title-section-text-container {
+        .about-us-page-title-section-title {
+          padding: 10px $about-us-page-mobile-side-padding;
+          h1 {
+            font-size: 36px;
+          }
+        }
+  
+        .about-us-page-title-section-subtitle {
+          padding: 10px $about-us-page-mobile-side-padding;
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  
+    .about-us-page-company-description-section {
+      flex-direction: column;
+      padding: 40px $about-us-page-mobile-side-padding;
+  
+      .about-us-page-company-description-section-text-container {
+        width: 100%;
+        padding: 0px;
+    
+        .about-us-page-company-description-section-title {
+          width: 100%;
+
+          h2 {
+            font-size: 32px;
+          }
+        }
+    
+        .about-us-page-company-description-section-subtitle {
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+  
+      .about-us-page-company-description-section-image-container {
+        width: 100%;
+        padding: 0px;
+      }
+    }
+  
+    .about-us-page-meet-the-team-section {
+      .about-us-page-meet-the-team-section-title {
+        h2 {
+          font-size: 32px;
+        }
+      }
+  
+      .about-us-page-meet-the-team-section-team-member {
+        flex-direction: column;
+        padding: 20px $about-us-page-mobile-side-padding 0px $about-us-page-mobile-side-padding;
+  
+        .about-us-page-meet-the-team-section-team-member-photo-container {
+          width: 100%;
+          max-width: $about-us-page-max-width;
+        }
+  
+        .about-us-page-meet-the-team-section-team-member-text-container {
+          width: 100%;
+          max-width: $about-us-page-max-width;
+      
+          .about-us-page-meet-the-team-section-team-member-description {
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
