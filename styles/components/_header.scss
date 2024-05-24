@@ -5,9 +5,11 @@
   height: 100%;
   background-color: $soft-purple;
   backdrop-filter: blur(20px);
+  position: relative; // Ensure .header is positioned correctly
+  z-index: 1;
 
   .desktop-menu {
-    position: static;
+    position: relative;
     width: 100%;
     height: 80px;
     display: flex;
@@ -29,12 +31,79 @@
 
     .NavBar-Navigation-Links {
       position: relative;
-
+    
       ul {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        align-items: center;
         list-style: none;
+        padding-bottom: 8px;
+    
+        .NavBar-Navigation-Links-Products-Dropdown {
+          position: relative;
+          display: flex;
+          
+          a {
+            display: flex;
+            align-items: center;
+
+            .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+              padding-left: 4px;
+              font-size: 16px;
+            }
+          }
+    
+          .NavBar-Navigation-Links-Products-Dropdown-Content {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+            overflow: hidden;
+            transition: max-height 0.75s ease-in-out, opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            white-space: nowrap;
+    
+            li {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              padding: 0px 5px;
+              text-decoration: none;
+              transition: transform 0.2s ease-in-out;
+              &:hover {
+                transform: scale(1.02);
+              }
+    
+              button {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                text-align: left;
+                padding: 5px;
+                color: $white;
+                transition: color 0.2s ease-in-out;
+                &:hover {
+                  color: $magenta;
+                }
+                p {
+                  font-size: 18px;
+                }
+              }
+            }
+          }
+    
+          &:hover .NavBar-Navigation-Links-Products-Dropdown-Content {
+            max-height: 500px;
+            opacity: 1;
+          }
+        }
       }
     }
 
@@ -61,12 +130,14 @@
         list-style: none;
       }
     }
+
     li {
       transition: transform 0.2s ease-in-out;
       &:hover {
         transform: scale(1.04);
       }
     }
+
     a {
       text-decoration: none;
       align-items: center;
@@ -74,6 +145,10 @@
       margin: 1.5rem;
       color: $white;
       white-space: nowrap;
+      transition: color 0.2s ease-in-out;
+      &:hover {
+        color: $light-grey;
+      }
     }
   }
 
@@ -126,7 +201,6 @@
     flex-direction: column;
     justify-content: center;
     width: 250px;
-    height: 250px;
     background-color: $soft-purple;
     padding: 15px;
     border-radius: 10px;
@@ -157,6 +231,51 @@
       justify-content: center;
       align-items: center;
       padding: 10px;
+
+      .NavBar-Navigation-Links-Products-Dropdown-Content {
+        display: flex;
+        flex-direction: column;
+        height: 0px;
+        padding-top: 5px;
+        overflow: hidden;
+        transition: height 0.4s ease-in-out;
+
+        li {
+          padding-bottom: 0px;
+          transition: transform 0.2s ease-in-out;
+          &:hover {
+            transform: scale(1.02);
+          }
+
+          button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 2px;
+            text-align: left;
+            color: $very-light-grey;
+            transition: color 0.2s ease-in-out;
+            &:hover {
+              color: $magenta;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+          padding-left: 4px;
+          font-size: 16px;
+        }
+      }
   
       ul {
         list-style: none;
@@ -164,15 +283,16 @@
     
         li {
           padding-bottom: 10px;
-          transition: transform 0.2s ease-in-out;
-          &:hover {
-            transform: scale(1.04);
-          }
     
           a {
             text-decoration: none;
             color: $white;
             font-weight: bold;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+              transform: scale(1.04);
+            }
           }
         }
       }

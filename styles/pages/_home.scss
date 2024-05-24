@@ -2,6 +2,7 @@ $homepage-max-width: 1600px; // Maximum width for any div in the homepage
 $homepage-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
 $homepage-tablet-side-padding: 40px; // Padding on left and right sides of tablet viewport
 $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobile viewport
+$homepage-button-border-radius: 5px; // Consistent border radius throughout page
 
 .homepage {
   position: relative;
@@ -84,6 +85,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
           padding: 10px 15px;
           justify-content: center;
           align-items: center;
+          border-radius: $homepage-button-border-radius;
           background-color: $black;
           color: $white;
           white-space: nowrap;
@@ -101,6 +103,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
           margin-left: 10px;
           justify-content: center;
           align-items: center;
+          border-radius: $homepage-button-border-radius;
           background-color: $white;
           color: $black;
           white-space: nowrap;
@@ -357,6 +360,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
       justify-content: center;
       align-items: center;
       border: 1px solid $black;
+      border-radius: $homepage-button-border-radius;
       white-space: nowrap;
       cursor: pointer;
 
@@ -424,7 +428,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
           padding: 10px 15px;
           font-size: 16px;
           color: $white;
-          border-radius: 6px;
+          border-radius: $homepage-button-border-radius;
           transition: border-color 0.3s ease-in-out;
         
           &::placeholder {
@@ -449,6 +453,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
           padding: 10px 15px;
           justify-content: center;
           align-items: center;
+          border-radius: $homepage-button-border-radius;
           white-space: nowrap;
           color: $black;
           cursor: pointer;
@@ -810,6 +815,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
         white-space: nowrap;
         color: $black;
         border: 1px solid $white;
+        border-radius: $homepage-button-border-radius;
         cursor: pointer;
   
         h4 {
@@ -826,6 +832,7 @@ $homepage-mobile-side-padding: 20px; // Padding on left and right sides of mobil
         align-items: center;
         white-space: nowrap;
         border: 1px solid $magenta;
+        border-radius: $homepage-button-border-radius;
         color: $magenta;
         text-decoration: none;
         cursor: pointer;
