@@ -47,10 +47,15 @@ export default function Home(props) {
   const featuredPosts = props.data.featuredPosts.data.slice(1);
   const featuredPost = props.data.featuredPosts.data.slice(0, 1)[0];
 
+  // Document Sections by Reference
+  const blogPostsSection = useRef(null);
+  const paperTradeSection = useRef(null);
+  const financialPlannerSection = useRef(null);
+  const financialCalculatorSection = useRef(null);
+
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
-  const paperTradeSection = useRef(null);
-  const handleGetStartedButtonClick = () => {paperTradeSection.current.scrollIntoView({ behavior: 'smooth' })};
+  const handleGetStartedButtonClick = () => {blogPostsSection.current.scrollIntoView({ behavior: 'smooth' })};
 
   return (
     <>
@@ -110,7 +115,7 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
+          <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
             <div className="homepage-featured-blog-posts-section-title-container">
               <div className="homepage-featured-blog-posts-section-title">
                 <h1>Unlocking Financial Success Together</h1>
@@ -236,7 +241,7 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section id="homepage-financial-planner-section" className="homepage-financial-planner-section">
+          <section ref={financialPlannerSection} id="homepage-financial-planner-section" className="homepage-financial-planner-section">
             <div className="homepage-financial-planner-section-text-container">
               <div className="homepage-financial-planner-section-title">
                 <h2>
@@ -289,7 +294,7 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section id="homepage-financial-calculator-section" className="homepage-financial-calculator-section">
+          <section ref={financialCalculatorSection} id="homepage-financial-calculator-section" className="homepage-financial-calculator-section">
             <div className="homepage-financial-calculator-section-image-container">
               <Image
                 src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planners_theme_stock_photo_57ff6eaffb"}

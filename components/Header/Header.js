@@ -1,8 +1,26 @@
 import { useEffect, useRef } from "react";
+import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Header() {
+  const router = useRouter();
+
+  // Route to product sections if navigated to via header
+  const handleProductClick = (productId) => {
+    if (router.pathname === '/') {
+      const productSection = document.getElementById(productId);
+      if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+    } else {
+      router.push('/').then(() => {
+        setTimeout(() => {
+          const productSection = document.getElementById(productId);
+          if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+        }, 100);
+      });
+    }
+  };
+
   // Mobile menu references
   const mobileMenuContainer = useRef(null);
   const mobileMenu = useRef(null);
@@ -12,7 +30,7 @@ export default function Header() {
   useEffect(() => {
     const openMobileMenu = () => {
       if (mobileMenuContainer.current?.style.display !== 'flex') {mobileMenuContainer.current.style.display = 'flex';}
-    }
+    };
 
     const closeMobileMenu = () => {
       if (mobileMenuContainer.current?.style.display !== 'none') {
@@ -23,7 +41,7 @@ export default function Header() {
           mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
         }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
       }
-    }
+    };
 
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
@@ -33,7 +51,7 @@ export default function Header() {
     const handleViewportResize = () => {
       const viewportWidth = window.innerWidth;
       if (viewportWidth >= 1200) {closeMobileMenu();}
-    }
+    };
 
     const currentMobileMenuButtonOpen = mobileMenuButtonOpen.current;
     const currentMobileMenuButtonClose = mobileMenuButtonClose.current;
@@ -66,9 +84,9 @@ export default function Header() {
           <div className="mobile-menu-navigation">
             <ul>
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/products">Products</Link></li>
-              <li><Link href="/blog">Blog</Link></li>
               <li><Link href="/about-us">About Us</Link></li>
+              <li><Link href="/blog">Blog</Link></li>
+              <li><Link href="/products">Products</Link></li>
             </ul>
           </div>
           <div className="mobile-menu-media-links">
@@ -162,13 +180,20 @@ export default function Header() {
             <div className="NavBar-Navigation-Links">
               <ul>
                 <li><Link href="/">Home</Link></li>
-                <li><Link href="/products">Products</Link></li>
-                <li><Link href="/blog">Blog</Link></li>
                 <li><Link href="/about-us">About Us</Link></li>
+                <li><Link href="/blog">Blog</Link></li>
+                <li className="NavBar-Navigation-Links-Products-Dropdown">
+                  <a href="#">Products<span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">&#11167;</span></a>
+                  <ul className="NavBar-Navigation-Links-Products-Dropdown-Content">
+                    <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
+                    <li><button onClick={() => handleProductClick("homepage-financial-planner-section")}><p>Financial Planners</p></button></li>
+                    <li><button onClick={() => handleProductClick("homepage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                  </ul>
+                </li>
               </ul>
             </div>
             <div className="NavBar-Media-Links">
-              <ul>        
+              <ul>
                 <li>
                   <Link
                     href="https://discord.gg/SFUKKjWEjH"
