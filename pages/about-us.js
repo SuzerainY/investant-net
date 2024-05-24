@@ -149,7 +149,7 @@ export default function AboutUs(props) {
                     <h3>Haven <span className="about-us-page-meet-the-team-section-team-member-name-span">Smith</span></h3>
                   </div>
                   <div className="about-us-page-meet-the-team-section-team-member-description">
-                  <p><Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown></p>
+                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{havenDescription}</Markdown>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export default function AboutUs(props) {
                     <h3>Ryan <span className="about-us-page-meet-the-team-section-team-member-name-span">White</span></h3>
                   </div>
                   <div className="about-us-page-meet-the-team-section-team-member-description">
-                    <p><Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown></p>
+                    <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{ryanDescription}</Markdown>
                   </div>
                 </div>
               </div>
