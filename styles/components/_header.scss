@@ -201,7 +201,6 @@
     flex-direction: column;
     justify-content: center;
     width: 250px;
-    height: 250px;
     background-color: $soft-purple;
     padding: 15px;
     border-radius: 10px;
@@ -232,6 +231,51 @@
       justify-content: center;
       align-items: center;
       padding: 10px;
+
+      .NavBar-Navigation-Links-Products-Dropdown-Content {
+        display: flex;
+        flex-direction: column;
+        height: 0px;
+        padding-top: 5px;
+        overflow: hidden;
+        transition: height 0.4s ease-in-out;
+
+        li {
+          padding-bottom: 0px;
+          transition: transform 0.2s ease-in-out;
+          &:hover {
+            transform: scale(1.02);
+          }
+
+          button {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 2px;
+            text-align: left;
+            color: $very-light-grey;
+            transition: color 0.2s ease-in-out;
+            &:hover {
+              color: $magenta;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+          padding-left: 4px;
+          font-size: 16px;
+        }
+      }
   
       ul {
         list-style: none;
@@ -239,15 +283,16 @@
     
         li {
           padding-bottom: 10px;
-          transition: transform 0.2s ease-in-out;
-          &:hover {
-            transform: scale(1.04);
-          }
     
           a {
             text-decoration: none;
             color: $white;
             font-weight: bold;
+            transition: transform 0.2s ease-in-out;
+
+            &:hover {
+              transform: scale(1.04);
+            }
           }
         }
       }

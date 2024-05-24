@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
@@ -8,9 +8,20 @@ export default function Header() {
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
+    // Route the user if needed
     if (router.pathname === '/') {
       const productSection = document.getElementById(productId);
       if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+
+      // Close the mobile menu if it is open
+      if (mobileMenuContainer.current?.style.display !== 'none') {
+        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
+
+        setTimeout(() => {
+          mobileMenuContainer.current.style.display = 'none';
+          mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
+        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
+      }
     } else {
       router.push('/').then(() => {
         setTimeout(() => {
@@ -26,6 +37,20 @@ export default function Header() {
   const mobileMenu = useRef(null);
   const mobileMenuButtonOpen = useRef(null);
   const mobileMenuButtonClose = useRef(null);
+  const mobileMenuProductsDropdown = useRef(null);
+
+  //Mobile menu state
+  const [showProductsDropdown, setShowProductsDropdown] = useState(false);
+  const [showProductsDropdownArrowDirection, setShowProductsDropdownArrowDirection] = useState('⮟');
+  const handleShowProductsDropdownClick = () => {
+    if (!showProductsDropdown) {
+      setShowProductsDropdown(true);
+      setShowProductsDropdownArrowDirection('⮝');
+    } else {
+      setShowProductsDropdown(false);
+      setShowProductsDropdownArrowDirection('⮟');
+    }
+  };
 
   useEffect(() => {
     const openMobileMenu = () => {
@@ -86,7 +111,17 @@ export default function Header() {
               <li><Link href="/">Home</Link></li>
               <li><Link href="/about-us">About Us</Link></li>
               <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/products">Products</Link></li>
+              <li>
+                <a href="#" onClick={() => handleShowProductsDropdownClick()}>
+                  Products
+                  {showProductsDropdownArrowDirection && <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">{showProductsDropdownArrowDirection}</span>}
+                </a>
+                <ul ref={mobileMenuProductsDropdown} className="NavBar-Navigation-Links-Products-Dropdown-Content" style={{height: showProductsDropdown ? '80px' : '0px'}}>
+                  <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
+                  <li><button onClick={() => handleProductClick("homepage-financial-planner-section")}><p>Financial Planners</p></button></li>
+                  <li><button onClick={() => handleProductClick("homepage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                </ul>
+              </li>
             </ul>
           </div>
           <div className="mobile-menu-media-links">
