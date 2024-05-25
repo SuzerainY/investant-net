@@ -111,82 +111,94 @@ export default function Home(props) {
                 src={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
                 alt="Office Worker ClipArt"
                 fill
+                priority
               />
               <div className="homepage-hero-section-hero-piece-1">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_1_Paper.svg"}
                   alt="homepage hero section hero piece 1"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-2">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_2_White_Star.svg"}
                   alt="homepage hero section hero piece 2"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-3">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_3_Flower.svg"}
                   alt="homepage hero section hero piece 3"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-4">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_4_Green_Star.svg"}
                   alt="homepage hero section hero piece 4"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-5">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_5_Coins.svg"}
                   alt="homepage hero section hero piece 5"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-6">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_6_Person.svg"}
                   alt="homepage hero section hero piece 6"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-7">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_7_Pink_Star_1.svg"}
                   alt="homepage hero section hero piece 7"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-8">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_8_Pink_Star_2.svg"}
                   alt="homepage hero section hero piece 8"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-9">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_9_Blue_Star.svg"}
                   alt="homepage hero section hero piece 9"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-10">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_10_Yellow_Star.svg"}
                   alt="homepage hero section hero piece 10"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-11">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_11_Graph.svg"}
                   alt="homepage hero section hero piece 11"
-                  fill
+                  width={100}
+                  height={100}
                 />
               </div>
             </div>
