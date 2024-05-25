@@ -8,21 +8,14 @@ export default function Header() {
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
-    // Route the user if needed
+    // Close the mobile menu & route the user
     if (router.pathname === '/' || router.pathname === '/#') {
+      closeMobileMenu();
       const productSection = document.getElementById(productId);
       if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
 
-      // Close the mobile menu if it is open
-      if (mobileMenuContainer.current?.style.display !== 'none') {
-        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
-
-        setTimeout(() => {
-          mobileMenuContainer.current.style.display = 'none';
-          mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
-        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
-      }
     } else {
+      document.body.classList.remove('no-scroll');
       router.push('/').then(() => {
         setTimeout(() => {
           const productSection = document.getElementById(productId);
@@ -49,22 +42,36 @@ export default function Header() {
     }
   };
 
+  const openMobileMenu = () => {
+    if (mobileMenuContainer.current?.style.display !== 'flex') {
+      mobileMenuContainer.current.style.display = 'flex';
+      document.body.classList.add('no-scroll');
+    }
+  };
+
+  const closeMobileMenu = () => {
+    if (mobileMenuContainer.current?.style.display !== 'none') {
+      setShowProductsDropdown(false);
+      mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
+      document.body.classList.remove('no-scroll');
+
+      setTimeout(() => {
+        mobileMenuContainer.current.style.display = 'none';
+        mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
+      }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
+    }
+  };
+
+  // Mobile links should close the mobile menu on click before navigating
+  const MobileNavLink = ({ href, children }) => {  
+    return (
+      <Link href={href} onClick={closeMobileMenu}>
+        {children}
+      </Link>
+    );
+  };
+
   useEffect(() => {
-    const openMobileMenu = () => {
-      if (mobileMenuContainer.current?.style.display !== 'flex') {mobileMenuContainer.current.style.display = 'flex';}
-    };
-
-    const closeMobileMenu = () => {
-      if (mobileMenuContainer.current?.style.display !== 'none') {
-        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
-
-        setTimeout(() => {
-          mobileMenuContainer.current.style.display = 'none';
-          mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
-        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
-      }
-    };
-
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
       if (mobileMenuContainer.current?.contains(eventTarget) && !mobileMenu.current?.contains(eventTarget)) {closeMobileMenu();}
@@ -105,9 +112,9 @@ export default function Header() {
           </div>
           <div className="mobile-menu-navigation">
             <ul>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/about-us">About Us</Link></li>
-              <li><Link href="/blog">Blog</Link></li>
+              <li><MobileNavLink href="/">Home</MobileNavLink></li>
+              <li><MobileNavLink href="/about-us">About Us</MobileNavLink></li>
+              <li><MobileNavLink href="/blog">Blog</MobileNavLink></li>
               <li>
                 <a href="#" onClick={() => handleShowProductsDropdownClick()}>
                   Products
