@@ -9,7 +9,7 @@ export default function Header() {
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
     // Route the user if needed
-    if (router.pathname === '/') {
+    if (router.pathname === '/' || router.pathname === '/#') {
       const productSection = document.getElementById(productId);
       if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
 
@@ -41,14 +41,11 @@ export default function Header() {
 
   //Mobile menu state
   const [showProductsDropdown, setShowProductsDropdown] = useState(false);
-  const [showProductsDropdownArrowDirection, setShowProductsDropdownArrowDirection] = useState('⮟');
   const handleShowProductsDropdownClick = () => {
     if (!showProductsDropdown) {
       setShowProductsDropdown(true);
-      setShowProductsDropdownArrowDirection('⮝');
     } else {
       setShowProductsDropdown(false);
-      setShowProductsDropdownArrowDirection('⮟');
     }
   };
 
@@ -114,7 +111,15 @@ export default function Header() {
               <li>
                 <a href="#" onClick={() => handleShowProductsDropdownClick()}>
                   Products
-                  {showProductsDropdownArrowDirection && <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">{showProductsDropdownArrowDirection}</span>}
+                  <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
+                    <Image
+                      src={"/images/clipart/WhiteDropDownArrow.png"}
+                      alt="Products Drop Down Arrow"
+                      width={20}
+                      height={20}
+                      style={{rotate: showProductsDropdown ? '-180deg' : '0deg'}}
+                    />
+                  </span>
                 </a>
                 <ul ref={mobileMenuProductsDropdown} className="NavBar-Navigation-Links-Products-Dropdown-Content" style={{height: showProductsDropdown ? '80px' : '0px'}}>
                   <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
@@ -218,7 +223,17 @@ export default function Header() {
                 <li><Link href="/about-us">About Us</Link></li>
                 <li><Link href="/blog">Blog</Link></li>
                 <li className="NavBar-Navigation-Links-Products-Dropdown">
-                  <a href="#">Products<span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">&#11167;</span></a>
+                  <a href="#">
+                    Products
+                    <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
+                      <Image
+                        src={"/images/clipart/WhiteDropDownArrow.png"}
+                        alt="Products Drop Down Arrow"
+                        width={22}
+                        height={22}
+                      />
+                    </span>
+                  </a>
                   <ul className="NavBar-Navigation-Links-Products-Dropdown-Content">
                     <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
                     <li><button onClick={() => handleProductClick("homepage-financial-planner-section")}><p>Financial Planners</p></button></li>

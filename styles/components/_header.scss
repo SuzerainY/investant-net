@@ -42,22 +42,24 @@
         .NavBar-Navigation-Links-Products-Dropdown {
           position: relative;
           display: flex;
-          
-          a {
-            display: flex;
-            align-items: center;
 
+          a {
             .NavBar-Navigation-Links-Products-Dropdown-Arrow {
-              padding-left: 4px;
-              font-size: 16px;
+              position: absolute;
+              margin-top: 3px;
+              margin-left: 4px;
+              transition: margin 0.4s ease;
             }
           }
-    
+          &:hover a .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+            margin-left: 4.5px;
+          }
+          
           .NavBar-Navigation-Links-Products-Dropdown-Content {
             display: flex;
             flex-direction: column;
             position: absolute;
-            top: 50px;
+            top: 25px;
             background-color: rgba(0, 0, 0, 0.6);
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -134,7 +136,7 @@
     li {
       transition: transform 0.2s ease-in-out;
       &:hover {
-        transform: scale(1.04);
+        transform: scale(1.02);
       }
     }
 
@@ -142,12 +144,12 @@
       text-decoration: none;
       align-items: center;
       font-size: 2rem;
-      margin: 1.5rem;
+      margin: 0px 18px;
       color: $white;
       white-space: nowrap;
       transition: color 0.2s ease-in-out;
       &:hover {
-        color: $light-grey;
+        opacity: 0.5;
       }
     }
   }
@@ -272,8 +274,14 @@
         justify-content: center;
 
         .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+          display: flex;
+          padding-top: 2px;
           padding-left: 4px;
-          font-size: 16px;
+
+          img {
+            rotate: 0deg;
+            transition: rotate 0.4s ease;
+          }
         }
       }
   
