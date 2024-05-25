@@ -80,10 +80,10 @@ export default function BlogPost(props) {
     const [embeddedTweetExists, setEmbeddedTweetExists] = useState(false);
 
     useEffect(() => {
-        const { BlogPostBody, embeddedTweetExists } = parseMarkdownHTML(post);
-        setBlogPostBody(BlogPostBody);
+        const { textBody, embeddedTweetExists } = parseMarkdownHTML(post.attributes.BlogPostBody);
+        setBlogPostBody(textBody);
         setEmbeddedTweetExists(embeddedTweetExists);
-    }, [post]);
+    }, [post.attributes.BlogPostBody]);
 
     useEffect(() => {
         // Preload Twitter Widget for embedded tweets

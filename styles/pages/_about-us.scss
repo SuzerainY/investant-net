@@ -211,7 +211,7 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
           width: 100%;
   
           .about-us-page-meet-the-team-section-team-member-name-span {
-            color: $magenta;
+            color: $dark-blue;
           }
   
           h3 {
@@ -243,6 +243,8 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
   .about-us-page {
     .about-us-page-title-section {
       .about-us-page-title-section-text-container {
+        backdrop-filter: blur(6px);
+
         .about-us-page-title-section-title {
           padding: 10px $about-us-page-tablet-side-padding;
           h1 {
@@ -307,6 +309,8 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
       height: 300px;
       
       .about-us-page-title-section-text-container {
+        backdrop-filter: blur(4px);
+
         .about-us-page-title-section-title {
           padding: 10px $about-us-page-mobile-side-padding;
           h1 {

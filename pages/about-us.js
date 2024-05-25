@@ -1,4 +1,4 @@
-import { STRAPIurl, customImage } from '@/my_modules/bloghelp';
+import { STRAPIurl, customImage, parseMarkdownHTML } from '@/my_modules/bloghelp';
 
 import Head from 'next/head';
 import Image from 'next/image';
@@ -57,8 +57,8 @@ export default function AboutUs(props) {
   const [ryanProfilePictureURL, setRyanProfilePictureURL] = useState(null);
 
   useEffect(() => {
-    setHavenDescription(props.data.aboutUsPage.data.attributes.HavenDescription);
-    setRyanDescription(props.data.aboutUsPage.data.attributes.RyanDescription);
+    setHavenDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.HavenDescription).textBody);
+    setRyanDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.RyanDescription).textBody);
     setHavenProfilePictureURL(props.data.aboutUsPage.data.attributes.HavenProfilePicture.data.attributes.url);
     setRyanProfilePictureURL(props.data.aboutUsPage.data.attributes.RyanProfilePicture.data.attributes.url);
   }, [
