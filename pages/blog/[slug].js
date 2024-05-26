@@ -96,7 +96,7 @@ export default function BlogPost(props) {
             script.onload = () => {
                 // Ensure the DOM is ready before calling load()
                 document.addEventListener('DOMContentLoaded', () => {
-                    window.twttr.widgets.load(document.getElementById("slug-body"));
+                    window.twttr.widgets.load(document.getElementById("slug-page-body"));
                 });
             };
             document.head.appendChild(script);
@@ -109,7 +109,7 @@ export default function BlogPost(props) {
                 if (!window.twttr) {
                     loadTwitterWidgetScript();
                 } else { // We do have the twitter widget defined, run it
-                    window.twttr.widgets.load(document.getElementById("slug-body"));
+                    window.twttr.widgets.load(document.getElementById("slug-page-body"));
                 }
             }
         };
@@ -161,7 +161,7 @@ export default function BlogPost(props) {
                                 <h4>{formatDate(new Date(post.attributes.PublishDate))}</h4>
                             </div>
                             <div className='slug-page-time-text'>
-                                <p>{blogPostReadLengthText(post)}</p>
+                                <p>{blogPostReadLengthText(post.attributes.BlogPostBody)}</p>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@ export default function BlogPost(props) {
                             height={600}
                         />
                         {BlogPostBody && (
-                            <div id='slug-body' className='slug-page-body'>
+                            <div id='slug-page-body' className='slug-page-body'>
                                 <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{BlogPostBody}</Markdown>
                             </div>
                         )}

@@ -1,5 +1,4 @@
 // The methods in this module are used to aid the blog pages and some blog functionality of investant.net
-import Blog from '@/pages/blog';
 import Image from 'next/image';
 
 // The URL for our STRAPI app backend stored in environment variables
@@ -25,11 +24,10 @@ export const customImage = ({ alt, src }) => {
 // This function takes a blog post and our assumption for WPM the average reader reads to calculate approximately how long it will take to read the post 
 export const blogPostReadLengthText = (post) => {
     const readWPM = 200; // Assumption for how many words per minute the average reader can read
-    const blogPostBody = post.attributes.BlogPostBody;
     let spaceCount = 0;
 
     // Count the number of spaces in blog body
-    for (let i = 0; i < blogPostBody.length; i++) {if (blogPostBody[i] === " ") {spaceCount++;}}
+    for (let i = 0; i < post.length; i++) {if (post[i] === " ") {spaceCount++;}}
     const blogPostTimeToRead = Math.ceil(spaceCount / readWPM);
 
     // If it only takes 1 minute to read, return "minute", else we'll return "minutes" below

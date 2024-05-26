@@ -101,8 +101,7 @@ export default function Blog(props) {
                       <p>{mostRecentPost.attributes.BlogPostDescription}</p>
                     </div>
                     <div className="blogpage-blog-post-read-length">
-                      {/* Calculate approximate minutes to read.*/}
-                      <p>{blogPostReadLengthText(mostRecentPost)}</p>
+                      <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
                     </div>
                   </div>
                 </Link>
@@ -127,8 +126,7 @@ export default function Blog(props) {
                       <div className="blogpage-blog-post-description-container">
                         <p>{post.attributes.BlogPostDescription}</p>
                       </div>
-                      {/* Calculate approximate minutes to read.*/}
-                      <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post)}</p>
+                      <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post.attributes.BlogPostBody)}</p>
                     </div>
                   </Link>
                 </div>

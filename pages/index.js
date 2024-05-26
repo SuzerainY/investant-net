@@ -47,7 +47,7 @@ export default function Home(props) {
   const featuredPosts = props.data.featuredPosts.data.slice(1);
   const featuredPost = props.data.featuredPosts.data.slice(0, 1)[0];
 
-  // Document Sections by Reference
+  // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
   const blogPostsSection = useRef(null);
   const paperTradeSection = useRef(null);
   const financialPlannerSection = useRef(null);
