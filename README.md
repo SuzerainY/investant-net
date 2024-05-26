@@ -1,5 +1,7 @@
 ## [Investant](https://investant.net) | Frontend Application
 
+![Investant Favicon](https://github.com/SuzerainY/investant-net/blob/main/public/images/branding/OriginalLogoInvestantTHIN.png?raw=true)
+
 Investant is an online platform founded for the financial literacy and education of new professionals.
 
 ## Background
@@ -36,4 +38,4 @@ There are two portions to the Header Component: The mobile navigation menu and t
 
 On mobile viewport width, the mobile application menu can be opened by calling the `openMobileMenu()` method. This method will add the `no-scroll` class to the html document so that the user cannot scroll the page behind the mobile menu. This was added since the entire document would re-render when the state of the `showProductsDropdown` changed. This state change would place the user back at the top of the document regardless of where they had scrolled the page to. If any navigation links are selected or when the `closeMobileMenu()` method is called, the `no-scroll` class is removed from the html document.
 
-While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the landing page briefing the product and what's to come. As the products are released, the links 
+While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the landing page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
