@@ -62,10 +62,11 @@ export default function Header() {
     }
   };
 
-  // Mobile links should close the mobile menu on click before navigating
-  const MobileNavLink = ({ href, children }) => {  
+  // Mobile links should allow scrolling of page again
+  const MobileNavLink = ({ href, children }) => {
+    const handleMobileNavLinkClick = () => {document.body.classList.remove('no-scroll');};
     return (
-      <Link href={href} onClick={closeMobileMenu}>
+      <Link href={href} onClick={handleMobileNavLinkClick}>
         {children}
       </Link>
     );
