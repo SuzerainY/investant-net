@@ -32,7 +32,6 @@ export default function DefaultLayout({ children }) {
   return (
     <>
       <GoogleAnalytics/>
-
       <div className="default-layout">
         {(showAlertBanner === true) && (
           <AlertBanner
