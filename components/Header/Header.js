@@ -2,9 +2,42 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
+import { useInvestantUserAuth } from '@/context/GlobalContext';
 
 export default function Header() {
   const router = useRouter();
+  
+  // ---------------------------------------------------------------------------------------
+  // Testing Global Context Logic for user sign in
+
+  // Grab the updateUser method from the Global Context
+  const { updateInvestantUser } = useInvestantUserAuth();
+
+  // Pretend we received some JSON data from the backend
+  const userData = {
+    "username": "Ryan",
+    "firstName": "Ryan",
+    "lastName": "Ryan",
+  }
+
+  // Send the user info to our Global Context
+  const handleUser = (userData) => {
+    console.log('Attempting to update user');
+    console.log(userData.firstName);
+    updateInvestantUser({
+      username: userData.username,
+      userFirstName: userData.firstName,
+      userLastName: userData.lastName,
+      userSignedIn: true,
+      userConfirmedVerification: true
+    });
+  };
+  handleUser(userData);
+
+  // Fetch user info from the Global Context to display somewhere or use in logic
+  const { userFirstName } = useInvestantUserAuth();
+  console.log(`We can now access the user's first name: ${userFirstName}... in our components`);
+  // ---------------------------------------------------------------------------------------
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
