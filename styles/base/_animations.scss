@@ -32,42 +32,43 @@
 }
 @keyframes home-hero-piece-float-1 {
   0% {
-    transform: translate(0%, 0%);
+    transform: translateX(0%) translateY(0%);
   }
   20% {
-    transform: translate(3%, 4.5%);
+    transform: translateX(3%) translateY(4.5%);
   }
   40% {
-    transform: translate(-3%, 1.5%);
+    transform: translateX(-3%) translateY(1.5%);
   }
   60% {
-    transform: translate(3%, 4.5%);
+    transform: translateX(3%) translateY(4.5%);
   }
   80% {
-    transform: translate(0%, 4.5%);
+    transform: translateX(0%) translateY(4.5%);
   }
   100% {
-    transform: translate(0%, 0%);
+    transform: translateX(0%) translateY(0%);
   }
 }
+
 @keyframes home-hero-piece-float-2 {
   0% {
-    transform: translate(0%, 0%);
+    transform: translateX(0%) translateY(0%);
   }
   20% {
-    transform: translate(5%, 4%);
+    transform: translateX(5%) translateY(4%);
   }
   40% {
-    transform: translate(5%, 6%);
+    transform: translateX(5%) translateY(6%);
   }
   60% {
-    transform: translate(0%, 6%);
+    transform: translateX(0%) translateY(6%);
   }
   80% {
-    transform: translate(-5%, 4%);
+    transform: translateX(-5%) translateY(4%);
   }
   100% {
-    transform: translate(0%, 0%);
+    transform: translateX(0%) translateY(0%);
   }
 }
 @keyframes home-hero-twinkle-animation-1 {

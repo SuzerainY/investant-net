@@ -110,8 +110,9 @@ export default function Home(props) {
               <Image
                 src={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
                 alt="Office Worker ClipArt"
-                fill
-                priority
+                fill={true}
+                placeholder="blur"
+                blurDataURL={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
               />
               <div className="homepage-hero-section-hero-piece-1">
                 <Image
@@ -225,6 +226,7 @@ export default function Home(props) {
                       alt={featuredPost.attributes.BlogPostDescription}
                       width={800}
                       height={400}
+                      priority={true}
                     />
                   </div>
                   <div className="homepage-featured-blog-posts-section-top-post-description-container">
