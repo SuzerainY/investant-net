@@ -1,0 +1,166 @@
+.login-form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100svh - 180px);
+    background: linear-gradient(45deg, $dark-blue 0%, $magenta 30%, $magenta 35%, $soft-purple 100%);
+
+    .login-form-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        width: 400px;
+        height: auto;
+        color: $white;
+        background-color: $dark-blue;
+      
+        .login-form-title {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+
+            h1 {
+                font-size: 32px;
+                font-weight: bold;
+            }
+        }
+      
+        .login-form {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 50px;
+
+            .login-form-row {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+
+                .login-form-row-label {
+                    width: 100%;
+                    text-align: left;
+                }
+
+                .login-form-row-input {
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                    border-radius: 5px;
+                    border: 2px solid $white;
+                    background-color: transparent;
+                    color: $white;
+                    font-size: 16px;
+                    transition: border-color 0.3s;
+            
+                    &:focus {
+                    outline: none;
+                    border-color: $magenta;
+                    }
+                }
+            }
+      
+            .login-form-error-message {
+                color: $alert-yellow;
+                margin-bottom: 20px;
+            }
+      
+            .login-form-submit-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 15px;
+                background-color: $magenta;
+                color: $white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                p {
+                    font-size: 18px;
+                }
+        
+                &:hover {
+                background-color: darken($magenta, 10%);
+                }
+            }
+        }
+        .login-form-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            p {
+                font-size: 16px;
+            }
+
+            .login-form-toggle-switch-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding-top: 5px;
+
+                .login-form-toggle-label {
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: $alert-yellow;
+
+                    transition: opacity 0.4s ease;
+                }
+    
+                .login-form-toggle-switch {
+                    display: flex;
+                    margin: 0px 10px;
+                    align-items: center;
+                    cursor: pointer;
+                
+                    .login-form-toggle-input {
+                        display: none;
+                
+                        &:checked + .login-form-toggle-slider {
+                            background-color: $magenta;
+                        }
+                
+                        &:checked + .login-form-toggle-slider::before {
+                            transform: translateX(26px);
+                        }
+                    }
+                
+                    .login-form-toggle-slider {
+                        position: relative;
+                        display: inline-block;
+                        width: 50px;
+                        height: 26px;
+                        background-color: $light-blue;
+                        border-radius: 20px;
+                
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            width: 22px;
+                            height: 22px;
+                            background-color: $chrome;
+                            border-radius: 50%;
+                            top: 2px;
+                            left: 2px;
+                            transition: transform 0.3s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
