@@ -93,3 +93,11 @@
     opacity: 0;
   }
 }
+@keyframes login-form-background-animation {
+  from {
+    background-position: left;
+  }
+  to {
+    background-position: right;
+  }
+}
