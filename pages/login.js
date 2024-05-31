@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useRouter } from 'next/router';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import DefaultLayout from "@/layouts/DefaultLayout";
+import Link from "next/link";
+import { isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
+import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
     const { updateInvestantUser } = useInvestantUserAuth();
@@ -21,18 +24,12 @@ export default function Login() {
         setIsLoginForm(!isLoginForm);
     };
 
-    // Email format validation regular expression
-    const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
     const handleLogin = async (e) => {
         e.preventDefault();
         setError('');
         setInfo('');
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPIBASEURL}/api/auth/local`, {
+            const response = await fetch(`${STRAPIurl}/api/auth/local`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,6 +44,7 @@ export default function Login() {
                 // Catch known default STRAPI Errors
                 if (data.error.message === 'Invalid identifier or password') {
                     setError('Invalid Username/Email or Password');
+                    return;
                 } else {throw new Error('Unaccounted For Error Occurred.');}
             }
 
@@ -55,6 +53,7 @@ export default function Login() {
                 setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
             } else {
                 updateInvestantUser({
+                    userJWT: data.jwt,
                     username: data.user.username,
                     userFirstName: data.user.firstname,
                     userLastName: data.user.lastname,
@@ -72,12 +71,15 @@ export default function Login() {
 
         // Check if string is a valid email format
         if (isValidEmail(email) === false) {
-            setError("Invalid email format");
+            setError("Invalid email address");
+            return;
+        } else if (isValidPassword(password) === false) {
+            setError("Password Must Be 6 Or More Characters");
             return;
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPIBASEURL}/api/auth/local/register`, {
+            const response = await fetch(`${STRAPIurl}/api/auth/local/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -166,9 +168,11 @@ export default function Login() {
                             </button>
                         </div>
                         {isLoginForm === true && (
-                            <button className="login-form-forgot-password">
-                                <p>Forgot Password</p>
-                            </button>
+                            <div className="login-form-forgot-password">
+                                <Link href="recovery/forgot-password">
+                                    <p>Forgot Password</p>
+                                </Link>
+                            </div>
                         )}
                     </div>
                 </div>
