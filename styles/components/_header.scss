@@ -1,43 +1,97 @@
 .header {
+  position: relative;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: $soft-purple;
-  backdrop-filter: blur(20px);
-  position: relative; // Ensure .header is positioned correctly
   z-index: 1;
 
   .desktop-menu {
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 65px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
-    .NavBar-Investant-Logo {
+    .NavBar-Investant-Logo-Container {
       position: relative;
-      left: 0px;
+      display: flex;
       width: auto;
-      justify-content: left;
+      height: 100%;
+      margin: 0px auto 0px 0px;
+      padding: 3px 0px 3px 0px;
 
-      ul {
-        justify-content: left;
-        list-style: none;
+      .NavBar-Investant-Sign-In-Button {
+        border: none;
+        font: inherit;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 5px 15px;
+        margin-left: 5px;
+        border-radius: 5px;
+        background-color: $trans-magenta;
+        color: $white;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.02);
+        }
+  
+        p {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+  
+      .NavBar-Investant-User-Name {
+        display: flex;
+        align-items: center;
+        color: $white;
+        margin-left: 10px;
+        .NavBar-Investant-User-Name-Span h3 { margin-left: 5px; color: $magenta; font-weight: 600; }
+
+        h3 {
+          font-size: 26px;
+          font-weight: 500;
+        }
+      }
+
+      img {
+        width: auto;
+        height: 100%;
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.02);
+        }
       }
     }
 
     .NavBar-Navigation-Links {
       position: relative;
+      display: flex;
+      flex-direction: row;
+      margin: 0px auto 0px auto;
     
       ul {
         display: flex;
         flex-direction: row;
         align-items: center;
         list-style: none;
-        padding-bottom: 8px;
+
+        li {
+          transition: transform 0.2s ease-in-out;
+          &:hover {
+            transform: scale(1.02);
+          }
+        }
     
         .NavBar-Navigation-Links-Products-Dropdown {
           position: relative;
@@ -111,8 +165,11 @@
 
     .NavBar-Media-Links {
       position: relative;
-      right: 0px;
-      width: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin: 0px 0px 0px auto;
 
       .NavBar-Media-Links-XLogo {
         transform-origin: 35px 17.5px;
@@ -128,15 +185,20 @@
       ul {
         display: flex;
         flex-direction: row;
-        justify-content: right;
+        justify-content: center;
+        align-items: center;
         list-style: none;
-      }
-    }
-
-    li {
-      transition: transform 0.2s ease-in-out;
-      &:hover {
-        transform: scale(1.02);
+        li {
+          display: flex;
+          width: fit-content;
+          height: auto;
+          a {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            height: auto;
+          }
+        }
       }
     }
 
@@ -170,6 +232,51 @@
       }
       &:not(:hover) {
         animation: spin-back 1s ease;
+      }
+    }
+
+    .mobile-menu-sign-in-user {
+      margin: 0px 10px 0px auto;
+      padding-bottom: 4px;
+      a {text-decoration: none;}
+
+      .NavBar-Investant-Sign-In-Button {
+        border: none;
+        font: inherit;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        padding: 5px 15px;
+        margin-left: 5px;
+        border-radius: 5px;
+        background-color: $trans-magenta;
+        color: $white;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.02);
+        }
+  
+        p {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+  
+      .NavBar-Investant-User-Name {
+        display: flex;
+        align-items: center;
+        color: $white;
+        margin-left: 10px;
+        .NavBar-Investant-User-Name-Span h3 { margin-left: 5px; color: $magenta; font-weight: 600; }
+
+        h3 {
+          font-size: 26px;
+          font-weight: 500;
+        }
       }
     }
 

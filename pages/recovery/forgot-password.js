@@ -41,14 +41,14 @@ export default function ForgotPassword() {
     return (
         <>
             <DefaultLayout>
-                <div className="forgot-password-form-wrapper">
-                    <div className="forgot-password-form-container">
-                        <div className="forgot-password-form-title"><h1>Password Recovery</h1></div>
-                        <form className="forgot-password-form" onSubmit={handleForgotPassword}>
-                            <div className="forgot-password-form-row">
-                                <label className="forgot-password-form-row-label" htmlFor="email">Email Address</label>
+                <div className="login-form-wrapper">
+                    <div className="login-form-container">
+                        <div className="login-form-title"><h1>Password Recovery</h1></div>
+                        <form className="login-form" onSubmit={handleForgotPassword}>
+                            <div className="login-form-row">
+                                <label className="login-form-row-label" htmlFor="email">Email Address</label>
                                 <input
-                                    className="forgot-password-form-row-input"
+                                    className="login-form-row-input"
                                     type="email"
                                     id="email"
                                     value={email}
@@ -56,15 +56,15 @@ export default function ForgotPassword() {
                                     required
                                 />
                             </div>
-                            {error && <p className="forgot-password-form-error-message">{error}</p>}
-                            {info && <p className="forgot-password-form-info-message">{info}</p>}
-                            <button className="forgot-password-form-submit-button" type="submit"><p>Send Email</p></button>
+                            {error && <p className="login-form-error-message">{error}</p>}
+                            {info && <p className="login-form-info-message">{info}</p>}
+                            <button className="login-form-submit-button" type="submit"><p>Send Email</p></button>
                         </form>
-                        <div className="forgot-password-form-footer">
+                        <div className="login-form-footer">
                             <p>Hey! Good To Go?</p>
-                            <div className="forgot-password-form-toggle-switch-container">
+                            <div className="login-form-toggle-switch-container">
                                 <Link href="/login">
-                                    <p className="forgot-password-form-toggle-label">Login</p>
+                                    <p className="login-form-toggle-label">Login</p>
                                 </Link>
                             </div>
                         </div>

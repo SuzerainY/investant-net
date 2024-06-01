@@ -56,14 +56,14 @@ export default function NewPassword() {
     return (
         <>
             <DefaultLayout>
-                <div className="forgot-password-form-wrapper">
-                    <div className="forgot-password-form-container">
-                        <div className="forgot-password-form-title"><h1>Create New Password</h1></div>
-                        <form className="forgot-password-form" onSubmit={handleNewPassword}>
-                            <div className="forgot-password-form-row">
-                                <label className="forgot-password-form-row-label" htmlFor="password">New Password</label>
+                <div className="login-form-wrapper">
+                    <div className="login-form-container">
+                        <div className="login-form-title"><h1>Set New Password</h1></div>
+                        <form className="login-form" onSubmit={handleNewPassword}>
+                            <div className="login-form-row">
+                                <label className="login-form-row-label" htmlFor="password">New Password</label>
                                 <input
-                                    className="forgot-password-form-row-input"
+                                    className="login-form-row-input"
                                     type="password"
                                     id="password"
                                     value={newPassword}
@@ -71,10 +71,10 @@ export default function NewPassword() {
                                     required
                                 />
                             </div>
-                            <div className="forgot-password-form-row">
-                                <label className="forgot-password-form-row-label" htmlFor="confirmPassword">Confirm New Password</label>
+                            <div className="login-form-row">
+                                <label className="login-form-row-label" htmlFor="confirmPassword">Confirm New Password</label>
                                 <input
-                                    className="forgot-password-form-row-input"
+                                    className="login-form-row-input"
                                     type="password"
                                     id="confirmPassword"
                                     value={confirmNewPassword}
@@ -82,15 +82,15 @@ export default function NewPassword() {
                                     required
                                 />
                             </div>
-                            {error && <p className="forgot-password-form-error-message">{error}</p>}
-                            {info && <p className="forgot-password-form-info-message">{info}</p>}
-                            <button className="forgot-password-form-submit-button" type="submit"><p>Reset Password</p></button>
+                            {error && <p className="login-form-error-message">{error}</p>}
+                            {info && <p className="login-form-info-message">{info}</p>}
+                            <button className="login-form-submit-button" type="submit"><p>Reset Password</p></button>
                         </form>
-                        <div className="forgot-password-form-footer">
+                        <div className="login-form-footer">
                             <p>Hey! Good To Go?</p>
-                            <div className="forgot-password-form-toggle-switch-container">
+                            <div className="login-form-toggle-switch-container">
                                 <Link href="/login">
-                                    <p className="forgot-password-form-toggle-label">Login</p>
+                                    <p className="login-form-toggle-label">Login</p>
                                 </Link>
                             </div>
                         </div>

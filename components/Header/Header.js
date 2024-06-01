@@ -2,9 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
+import { useInvestantUserAuth } from "@/context/GlobalContext";
 
 export default function Header() {
   const router = useRouter();
+
+  // Fetch whether or not this user is signed in
+  const { userSignedIn, username } = useInvestantUserAuth();
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
@@ -200,6 +204,16 @@ export default function Header() {
                 />
               </Link>
             </div>
+            <div className="mobile-menu-sign-in-user">
+              {userSignedIn === true ? (
+                  <div className="NavBar-Investant-User-Name">
+                    <h3>Hello,</h3>
+                    <span className="NavBar-Investant-User-Name-Span"><h3>{username}</h3></span>
+                  </div>
+                ) : (
+                  <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>
+                )}
+            </div>
             <div ref={mobileMenuButtonOpen} className="mobile-menu-open">
               <Image
                 src={"/images/clipart/White-Bars-Mobile-Menu.svg"}
@@ -210,20 +224,24 @@ export default function Header() {
           </div>
 
           <div className="desktop-menu">
-            <div className="NavBar-Investant-Logo">
-              <ul>
-                <li>
-                  <Link href="/">
-                    <Image
-                      src={"/images/branding/TransparentLogoHeader.png"}
-                      alt="Investant Logo"
-                      width={300}
-                      height={60}
-                      priority
-                    />
-                  </Link>
-                </li>
-              </ul>
+            <div className="NavBar-Investant-Logo-Container">
+              <Link href="/">
+                <Image
+                  src={"/images/branding/FaviconTransparent.png"}
+                  alt="Investant Logo"
+                  width={50}
+                  height={50}
+                  priority
+                />
+              </Link>
+              {userSignedIn === true ? (
+                <div className="NavBar-Investant-User-Name">
+                  <h3>Hello,</h3>
+                  <span className="NavBar-Investant-User-Name-Span"><h3>{username}</h3></span>
+                </div>
+              ) : (
+                <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>
+              )}
             </div>
             <div className="NavBar-Navigation-Links">
               <ul>

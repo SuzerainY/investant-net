@@ -77,11 +77,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         align-items: center;
 
         .homepage-hero-section-get-started-button {
-          // Remove default button appearances
           border: none;
           background: none;
           font: inherit;
-
           display: flex;
           padding: 10px 15px;
           justify-content: center;
