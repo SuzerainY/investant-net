@@ -39,7 +39,7 @@ export default function Login() {
             setError('Invalid Username Format. If This Is Your Correct Username, Please Contact Us To Recover Your Account.');
             return;
         } else if (isValidPassword(password) === false) {
-            setError("Invalid Password Format. If This Is Your Correct Password, Please Contact Us To Recover Your Account.");
+            setError("Invalid Username/Email or Password.");
             return;
         }
 
@@ -78,7 +78,7 @@ export default function Login() {
             }
         } catch (error) {setError("Login Failed. Please Contact Us If The Issue Persists.");}
     };
-    
+
     const handleSignUp = async (e) => {
         if (e) {e.preventDefault();}
         setError('');

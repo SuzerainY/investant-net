@@ -107,13 +107,20 @@ export default function Header() {
     <>
       <div ref={mobileMenuContainer} className="mobile-menu-container">
         <nav ref={mobileMenu} className="mobile-menu">
-          <div ref={mobileMenuButtonClose} className="mobile-menu-close">
-            <Image
-              src={"/images/clipart/White-X.svg"}
-              alt="Close Menu"
-              width={40}
-              height={40}
-            />
+          <div className="mobile-menu-logout-close-container">
+            {userSignedIn === true && (
+              <button className="mobile-menu-logout-user" onClick={clearInvestantUser}>
+                <p>Logout</p>
+              </button>
+            )}
+            <div ref={mobileMenuButtonClose} className="mobile-menu-close">
+              <Image
+                src={"/images/clipart/White-X.svg"}
+                alt="Close Menu"
+                width={40}
+                height={40}
+              />
+            </div>
           </div>
           <div className="mobile-menu-navigation">
             <ul>
@@ -208,7 +215,7 @@ export default function Header() {
               {userSignedIn === true ? (
                   <div className="NavBar-Investant-User-Name">
                     <h3>Hello,</h3>
-                    <span className="NavBar-Investant-User-Name-Span"><h3>{username}</h3></span>
+                    <span className="NavBar-Investant-User-Name-Span"><h3>{username ? username : "anonymous"}</h3></span>
                   </div>
                 ) : (
                   <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>
