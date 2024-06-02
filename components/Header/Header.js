@@ -8,7 +8,7 @@ export default function Header() {
   const router = useRouter();
 
   // Fetch whether or not this user is signed in
-  const { userSignedIn, username } = useInvestantUserAuth();
+  const { userSignedIn, username, clearInvestantUser } = useInvestantUserAuth();
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
@@ -236,8 +236,13 @@ export default function Header() {
               </Link>
               {userSignedIn === true ? (
                 <div className="NavBar-Investant-User-Name">
-                  <h3>Hello,</h3>
-                  <span className="NavBar-Investant-User-Name-Span"><h3>{username}</h3></span>
+                  <h3>Hello,<span className="NavBar-Investant-User-Name-Span">{username}</span></h3>
+                  <button
+                    onClick={clearInvestantUser}
+                    className="NavBar-Investant-Sign-In-Button"
+                    style={{ height: 'auto', margin: '0px auto 0px 0px', padding: '2px 10px' }}>
+                    <span style={{ fontSize: '16px' }}>Logout</span>
+                  </button>
                 </div>
               ) : (
                 <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>

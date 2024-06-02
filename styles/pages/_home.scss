@@ -532,6 +532,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         flex-direction: row;
         align-items: center;
         width: 100%;
+        a {text-decoration: none;}
 
         .homepage-join-newsletter-section-sign-up-email-box {
           width: 100%;
@@ -913,6 +914,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
       justify-content: right;
       align-items: center;
       padding: 10px 0px;
+      a {text-decoration: none;}
 
       .homepage-create-new-account-section-sign-up-button {
         // Remove default button appearances

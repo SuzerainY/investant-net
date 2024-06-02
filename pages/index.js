@@ -1,5 +1,6 @@
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { useRef } from 'react';
+import { isValidEmail } from '@/my_modules/authenticationhelp';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -56,6 +57,13 @@ export default function Home(props) {
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
   const handleGetStartedButtonClick = () => {blogPostsSection.current.scrollIntoView({ behavior: 'smooth' })};
+
+  // State handling components
+  const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
+  const validateNewsletterSignUpEmail = (email) => {
+    if (isValidEmail(email)) {return true;}
+    return false;
+  };
 
   return (
     <>
@@ -268,10 +276,16 @@ export default function Home(props) {
             </div>
             <div className="homepage-join-newsletter-section-sign-up-container">
               <div className="homepage-join-newsletter-section-sign-up-input-container">
-                <input type="email" placeholder="Email" className="homepage-join-newsletter-section-sign-up-email-box"></input>
-                <button className="homepage-join-newsletter-section-sign-up-button">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="homepage-join-newsletter-section-sign-up-email-box"
+                  value={newsletterSignUpEmail}
+                  onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
+                />
+                <Link href={`/login?form=SignUp${validateNewsletterSignUpEmail(newsletterSignUpEmail) === true ? `&email=${newsletterSignUpEmail}` : ""}`} className="homepage-join-newsletter-section-sign-up-button">
                   <h4>Sign Up</h4>
-                </button>
+                </Link>
               </div>
               <div className="homepage-join-newsletter-section-sign-up-description">
                 <p>Stay current with the latest personal finance news and updates</p>
@@ -418,9 +432,9 @@ export default function Home(props) {
               </div>
             </div>
             <div className="homepage-create-new-account-section-buttons-container">
-              <button className="homepage-create-new-account-section-sign-up-button">
+              <Link href="/login?&form=SignUp" className="homepage-create-new-account-section-sign-up-button">
                 <h4>Sign Up</h4>
-              </button>
+              </Link>
               <Link href="/about-us" className="homepage-create-new-account-section-learn-more-button">
                 <h4>Learn More</h4>
               </Link>

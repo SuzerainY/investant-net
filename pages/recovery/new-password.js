@@ -21,18 +21,18 @@ export default function NewPassword() {
     }, [router.isReady, router.query]);
 
     const handleNewPassword = async (e) => {
-        e.preventDefault();
+        if (e) {e.preventDefault();}
         setError('');
         setInfo('');
         
         if (!userCode) {
-            setError('Reset Code Is Missing. This Page Is For Email Password Recovery Only.');
+            setError('Reset Code Is Missing. This Form Is For Email Password Recovery Only.');
+            return;
+        } else if (isValidPassword(newPassword) === false) {
+            setError('Password Must Have No Spaces, Contain At Least 8 Characters, And Include 1 Special Character');
             return;
         } else if (newPassword !== confirmNewPassword) {
             setError('Your Passwords Do Not Match!');
-            return;
-        } else if (isValidPassword(newPassword) === false) {
-            setError('Password Must Be 6 Or More Characters');
             return;
         }
 
@@ -53,6 +53,7 @@ export default function NewPassword() {
             setInfo('New Password Set! Feel Free To Leave This Page!');
         } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
     };
+    
     return (
         <>
             <DefaultLayout>

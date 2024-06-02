@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Link from "next/link";
-import { isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
+import { isValidUsername, isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
@@ -18,16 +18,31 @@ export default function Login() {
     const [isLoginForm, setIsLoginForm] = useState(true);
 
     const handleFormToggle = (e) => {
-        e.preventDefault();
+        if (e) {e.preventDefault();}
         setError('');
         setInfo('');
         setIsLoginForm(!isLoginForm);
     };
 
     const handleLogin = async (e) => {
-        e.preventDefault();
+        if (e) {e.preventDefault();}
         setError('');
         setInfo('');
+
+        // Check for valid username and/or password:
+        if (usernameEmail.includes("@")) {
+            if (isValidEmail(usernameEmail) === false) {
+                setError('Invalid Email Address. If This Is Your Correct Email, Please Contact Us To Recover Your Account.');
+                return;
+            }
+        } else if (isValidUsername(usernameEmail) === false) {
+            setError('Invalid Username Format. If This Is Your Correct Username, Please Contact Us To Recover Your Account.');
+            return;
+        } else if (isValidPassword(password) === false) {
+            setError("Invalid Password Format. If This Is Your Correct Password, Please Contact Us To Recover Your Account.");
+            return;
+        }
+
         try {
             const response = await fetch(`${STRAPIurl}/api/auth/local`, {
                 method: 'POST',
@@ -57,24 +72,27 @@ export default function Login() {
                     username: data.user.username,
                     userFirstName: data.user.firstname,
                     userLastName: data.user.lastname,
-                    userSignedIn: true,
-                    userConfirmedVerification: data.user.confirmed
+                    userSignedIn: true
                 });
                 router.push('/');
             }
         } catch (error) {setError("Login Failed. Please Contact Us If The Issue Persists.");}
     };
+    
     const handleSignUp = async (e) => {
-        e.preventDefault();
+        if (e) {e.preventDefault();}
         setError('');
         setInfo('');
 
         // Check if string is a valid email format
-        if (isValidEmail(email) === false) {
-            setError("Invalid email address");
+        if (isValidUsername(username) === false) {
+            setError("Invalid Username");
+            return;
+        } else if (isValidEmail(email) === false) {
+            setError("Invalid Email Address");
             return;
         } else if (isValidPassword(password) === false) {
-            setError("Password Must Be 6 Or More Characters");
+            setError("Password Must Have No Spaces, Contain At Least 8 Characters, And Include 1 Special Character");
             return;
         }
 
@@ -98,7 +116,16 @@ export default function Login() {
                 } else {throw new Error('Unaccounted For Error Occurred.');}
             } else {setInfo('Sign Up Successful. Please Check Your Email To Verify Your Account And Login.');}
         } catch (error) {setError("There Was An Error Creating Your Account. Please Contact Us If The Issue Persists.");}
-    }
+    };
+
+    useEffect(() => {
+        const handleFormOnLoad = () => {
+            if (router.isReady && router.query.form === 'SignUp') {
+                handleFormToggle();
+                if (router.query.email) {setEmail(router.query.email);}
+            }
+        }; handleFormOnLoad();
+    }, [router.isReady, router.query.form]);
 
     return (
         <>

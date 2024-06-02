@@ -11,13 +11,13 @@ export default function ForgotPassword() {
     const [info, setInfo] = useState('');
 
     const handleForgotPassword = async (e) => {
-        e.preventDefault();
+        if (e) {e.preventDefault();}
         setError('');
         setInfo('');
 
         // Check if string is a valid email format
         if (isValidEmail(email) === false) {
-            setError("Invalid email address");
+            setError("Invalid Email Address. If This Is Your Correct Email, Please Contact Us To Recover Your Account.");
             return;
         }
 
@@ -38,6 +38,7 @@ export default function ForgotPassword() {
             setInfo('Email Sent. Please Check Your Inbox To Rest Your Password. If You Cannot Find The Message, Try Your Spam Folder!');
         } catch (error) {console.log(error.message); setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
     };
+    
     return (
         <>
             <DefaultLayout>
