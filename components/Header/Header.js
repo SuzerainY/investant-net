@@ -203,7 +203,7 @@ export default function Header() {
             <div className="mobile-menu-logo">
               <Link href="/">
                 <Image
-                  src={"/images/branding/FaviconTransparent.png"}
+                  src={"/images/branding/FaviconTransparentBordered.png"}
                   alt="Investant Favicon"
                   width={50}
                   height={50}
@@ -234,7 +234,7 @@ export default function Header() {
             <div className="NavBar-Investant-Logo-Container">
               <Link href="/">
                 <Image
-                  src={"/images/branding/FaviconTransparent.png"}
+                  src={"/images/branding/FaviconTransparentBordered.png"}
                   alt="Investant Logo"
                   width={50}
                   height={50}

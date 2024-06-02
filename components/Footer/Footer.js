@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="footer-logo">
                     <Link href="/">
                         <Image
-                            src={"/images/branding/FaviconTransparent.png"}
+                            src={"/images/branding/FaviconTransparentBordered.png"}
                             alt="Investant Favicon"
                             width={100}
                             height={100}
