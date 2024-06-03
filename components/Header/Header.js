@@ -5,10 +5,26 @@ import Image from "next/image";
 import { useInvestantUserAuth } from "@/context/GlobalContext";
 
 export default function Header() {
-  const router = useRouter();
 
-  // Fetch whether or not this user is signed in
+  const router = useRouter();
   const { userSignedIn, username, clearInvestantUser } = useInvestantUserAuth();
+
+  // Mobile menu references
+  const mobileMenuContainer = useRef(null);
+  const mobileMenu = useRef(null);
+  const mobileMenuButtonOpen = useRef(null);
+  const mobileMenuButtonClose = useRef(null);
+  const mobileMenuProductsDropdown = useRef(null);
+
+  //Mobile menu state
+  const [showProductsDropdown, setShowProductsDropdown] = useState(false);
+  const handleShowProductsDropdownClick = () => {
+    if (!showProductsDropdown) {
+      setShowProductsDropdown(true);
+    } else {
+      setShowProductsDropdown(false);
+    }
+  };
 
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
@@ -26,23 +42,6 @@ export default function Header() {
           if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
         }, 100);
       });
-    }
-  };
-
-  // Mobile menu references
-  const mobileMenuContainer = useRef(null);
-  const mobileMenu = useRef(null);
-  const mobileMenuButtonOpen = useRef(null);
-  const mobileMenuButtonClose = useRef(null);
-  const mobileMenuProductsDropdown = useRef(null);
-
-  //Mobile menu state
-  const [showProductsDropdown, setShowProductsDropdown] = useState(false);
-  const handleShowProductsDropdownClick = () => {
-    if (!showProductsDropdown) {
-      setShowProductsDropdown(true);
-    } else {
-      setShowProductsDropdown(false);
     }
   };
 

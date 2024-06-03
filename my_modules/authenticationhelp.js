@@ -28,7 +28,6 @@ export const verifyGoogleRecaptcha = async (token) => {
             body: JSON.stringify({ token })
         });
         const googleRecaptchaData = await googleRecaptchaResponse.json();
-        console.log(`Google reCaptcha Score: ${googleRecaptchaData.score}`);
         if (googleRecaptchaData.success === true && googleRecaptchaData.score > 0.5) {return true;}
         return false;
     } catch (error) {return false;}

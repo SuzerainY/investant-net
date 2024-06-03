@@ -3,6 +3,7 @@ $login-form-tablet-side-padding: 20px;
 
 .login-form-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: calc(100svh - 130px);
@@ -168,6 +169,22 @@ $login-form-tablet-side-padding: 20px;
             }
         }
     }
+
+    .login-page-google-recaptcha-disclaimer-tag {
+        position: relative;
+        display: flex;
+        margin-top: 15px;
+        padding: 10px $login-form-desktop-side-padding;
+        border-radius: 10px;
+        width: 400px;
+        background-color: rgba(0, 0, 0, 0.075);
+        p {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: $light-grey;
+        }
+        a {text-decoration: none; color: $dark-blue}
+    }
 }
 
 @media screen and (max-width: 1199px) {
@@ -186,6 +203,10 @@ $login-form-tablet-side-padding: 20px;
             .login-form-forgot-password {
                 right: $login-form-tablet-side-padding;
             }
+        }
+        .login-page-google-recaptcha-disclaimer-tag {
+            width: 350px;
+            padding: 10px $login-form-tablet-side-padding;
         }
     }
 }

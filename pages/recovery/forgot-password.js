@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import DefaultLayout from "@/layouts/DefaultLayout";
-import { isValidEmail } from "@/my_modules/authenticationhelp";
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from "@/my_modules/authenticationhelp";
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function ForgotPassword() {
@@ -9,6 +9,16 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
+
+    useEffect(() => {
+        const loadGoogleRecaptcha = () => {
+            const googleRecaptchaScript = document.createElement('script');
+            googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+            googleRecaptchaScript.async = true;
+            googleRecaptchaScript.defer = true;
+            document.body.appendChild(googleRecaptchaScript);
+        }; loadGoogleRecaptcha();
+    }, []);
 
     const handleForgotPassword = async (e) => {
         if (e) {e.preventDefault();}
@@ -21,29 +31,38 @@ export default function ForgotPassword() {
             return;
         }
 
-        try {
-            const response = await fetch(`${STRAPIurl}/api/auth/forgot-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email
-                })
-            });
-            const data = await response.json();
-            console.log(data);
-            if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordFormSubmission' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (await verifyGoogleRecaptcha(token) !== true) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
 
-            setInfo('Email Sent. Please Check Your Inbox To Rest Your Password. If You Cannot Find The Message, Try Your Spam Folder!');
-        } catch (error) {console.log(error.message); setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+                    const response = await fetch(`${STRAPIurl}/api/auth/forgot-password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email
+                        })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+
+                    setInfo('Email Sent. Please Check Your Inbox To Rest Your Password. If You Cannot Find The Message, Try Your Spam Folder!');
+                } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+            });
+        });
     };
     
     return (
         <>
             <DefaultLayout>
                 <div className="login-form-wrapper">
-                    <div className="login-form-container">
+                    <section className="login-form-container">
                         <div className="login-form-title"><h1>Password Recovery</h1></div>
                         <form className="login-form" onSubmit={handleForgotPassword}>
                             <div className="login-form-row">
@@ -69,7 +88,14 @@ export default function ForgotPassword() {
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    </section>
+                    <section className="login-page-google-recaptcha-disclaimer-tag">
+                        <p>
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy"> Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+                        </p>
+                    </section>
                 </div>
             </DefaultLayout>
         </>

@@ -2,16 +2,27 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import DefaultLayout from "@/layouts/DefaultLayout";
-import { isValidPassword } from '@/my_modules/authenticationhelp';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidPassword } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function NewPassword() {
+
     const router = useRouter();
     const [userCode, setUserCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
+
+    useEffect(() => {
+        const loadGoogleRecaptcha = () => {
+            const googleRecaptchaScript = document.createElement('script');
+            googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+            googleRecaptchaScript.async = true;
+            googleRecaptchaScript.defer = true;
+            document.body.appendChild(googleRecaptchaScript);
+        }; loadGoogleRecaptcha();
+    }, []);
 
     useEffect(() => {
         if (router.isReady) {
@@ -36,29 +47,39 @@ export default function NewPassword() {
             return;
         }
 
-        try {
-            const response = await fetch(`${STRAPIurl}/api/auth/reset-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    code: userCode,
-                    password: newPassword,
-                    passwordConfirmation: confirmNewPassword
-                })
-            });
-            if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordSetNewPasswordFormSubmission' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (await verifyGoogleRecaptcha(token) !== true) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
 
-            setInfo('New Password Set! Feel Free To Leave This Page!');
-        } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+                    const response = await fetch(`${STRAPIurl}/api/auth/reset-password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            code: userCode,
+                            password: newPassword,
+                            passwordConfirmation: confirmNewPassword
+                        })
+                    });
+                    if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+
+                    setInfo('New Password Set! Feel Free To Leave This Page!');
+                } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+            });
+        });
     };
     
     return (
         <>
             <DefaultLayout>
                 <div className="login-form-wrapper">
-                    <div className="login-form-container">
+                    <section className="login-form-container">
                         <div className="login-form-title"><h1>Set New Password</h1></div>
                         <form className="login-form" onSubmit={handleNewPassword}>
                             <div className="login-form-row">
@@ -95,7 +116,14 @@ export default function NewPassword() {
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    </section>
+                    <section className="login-page-google-recaptcha-disclaimer-tag">
+                        <p>
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy"> Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+                        </p>
+                    </section>
                 </div>
             </DefaultLayout>
         </>

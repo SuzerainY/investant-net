@@ -15,9 +15,9 @@ body {
   box-sizing: border-box;
 }
 
-.no-scroll {
-  overflow: hidden;
-}
+.grecaptcha-badge { visibility: hidden; }
+
+.no-scroll { overflow: hidden; }
 
 @media screen and (max-width: 1079px)  {
 

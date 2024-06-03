@@ -7,6 +7,7 @@ import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValid
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
+
     const { updateInvestantUser } = useInvestantUserAuth();
     const router = useRouter();
     const [error, setError] = useState('');
@@ -23,7 +24,7 @@ export default function Login() {
             googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
             googleRecaptchaScript.async = true;
             googleRecaptchaScript.defer = true;
-            document.head.appendChild(googleRecaptchaScript);
+            document.body.appendChild(googleRecaptchaScript);
         }; loadGoogleRecaptcha();
     }, []);
 
@@ -57,7 +58,7 @@ export default function Login() {
             grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
-                    if (verifyGoogleRecaptcha(token) !== true) {
+                    if (await verifyGoogleRecaptcha(token) !== true) {
                         setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
                         return;
                     }
@@ -120,7 +121,7 @@ export default function Login() {
             grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserSignUp' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
-                    if (verifyGoogleRecaptcha(token) === false) {
+                    if (await verifyGoogleRecaptcha(token) !== true) {
                         setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
                         return;
                     }
@@ -166,7 +167,7 @@ export default function Login() {
         <>
             <DefaultLayout>
                 <div className="login-form-wrapper">
-                    <div className="login-form-container">
+                    <section className="login-form-container">
                         <div className="login-form-title"><h1>{isLoginForm === true ? "Login" : "Sign Up"}</h1></div>
                         <form className="login-form" onSubmit={isLoginForm === true ? handleLogin : handleSignUp}>
                             {isLoginForm === false && (
@@ -236,7 +237,14 @@ export default function Login() {
                                 </Link>
                             </div>
                         )}
-                    </div>
+                    </section>
+                    <section className="login-page-google-recaptcha-disclaimer-tag">
+                        <p>
+                            This site is protected by reCAPTCHA and the Google
+                            <a href="https://policies.google.com/privacy"> Privacy Policy</a> and
+                            <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+                        </p>
+                    </section>
                 </div>
             </DefaultLayout>
         </>
