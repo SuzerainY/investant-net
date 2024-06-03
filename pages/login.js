@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import DefaultLayout from "@/layouts/DefaultLayout";
 import Link from "next/link";
-import { isValidUsername, isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
@@ -16,6 +16,16 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoginForm, setIsLoginForm] = useState(true);
+
+    useEffect(() => {
+        const loadGoogleRecaptcha = () => {
+            const googleRecaptchaScript = document.createElement('script');
+            googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+            googleRecaptchaScript.async = true;
+            googleRecaptchaScript.defer = true;
+            document.head.appendChild(googleRecaptchaScript);
+        }; loadGoogleRecaptcha();
+    }, []);
 
     const handleFormToggle = (e) => {
         if (e) {e.preventDefault();}
@@ -43,40 +53,50 @@ export default function Login() {
             return;
         }
 
-        try {
-            const response = await fetch(`${STRAPIurl}/api/auth/local`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    identifier: usernameEmail,
-                    password: password
-                })
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                // Catch known default STRAPI Errors
-                if (data.error.message === 'Invalid identifier or password') {
-                    setError('Invalid Username/Email or Password');
-                    return;
-                } else {throw new Error('Unaccounted For Error Occurred.');}
-            }
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (verifyGoogleRecaptcha(token) !== true) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
 
-            // Only allow verified users to login
-            if (data.user.confirmed !== true) {
-                setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
-            } else {
-                updateInvestantUser({
-                    userJWT: data.jwt,
-                    username: data.user.username,
-                    userFirstName: data.user.firstname,
-                    userLastName: data.user.lastname,
-                    userSignedIn: true
-                });
-                router.push('/');
-            }
-        } catch (error) {setError("Login Failed. Please Contact Us If The Issue Persists.");}
+                    // This API request will return a signed JWT and user object if the user logs in successfully
+                    const response = await fetch(`${STRAPIurl}/api/auth/local`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            identifier: usernameEmail,
+                            password: password
+                        })
+                    });
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        // Catch known default STRAPI Errors
+                        if (data.error.message === 'Invalid identifier or password') {
+                            setError('Invalid Username/Email or Password');
+                            return;
+                        } else {throw new Error('Unaccounted For Error Occurred.');}
+                    } else if (data.user.confirmed !== true) {
+                        setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
+                        return;
+                    }
+
+                    updateInvestantUser({
+                        userJWT: data.jwt,
+                        username: data.user.username,
+                        userFirstName: data.user.firstname,
+                        userLastName: data.user.lastname,
+                        userSignedIn: true
+                    });
+                    router.push('/');
+                } catch (error) {setError("Login Failed. Please Contact Us If The Issue Persists.");}
+            });
+        });
     };
 
     const handleSignUp = async (e) => {
@@ -96,26 +116,41 @@ export default function Login() {
             return;
         }
 
-        try {
-            const response = await fetch(`${STRAPIurl}/api/auth/local/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password
-                })
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserSignUp' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (verifyGoogleRecaptcha(token) === false) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
+
+                    // This API request will create a user and send verification email if proper inputs provided
+                    const response = await fetch(`${STRAPIurl}/api/auth/local/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            password: password
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json();
+                        // Catch known default STRAPI Errors
+                        if (data.error.message === 'Email or Username are already taken') {
+                            setError('Username or Email Already Taken.');
+                            return;
+                        } else {throw new Error('Unaccounted For Error Occurred.');}
+                    }
+
+                    setInfo('Sign Up Successful. Please Check Your Email To Verify Your Account And Login.');
+                } catch (error) {setError('There Was An Error Creating Your Account. Please Contact Us If The Issue Persists.');}
             });
-            if (!response.ok) {
-                const data = await response.json();
-                // Catch known default STRAPI Errors
-                if (data.error.message === 'Email or Username are already taken') {
-                    setError('Username or Email Already Taken.');
-                } else {throw new Error('Unaccounted For Error Occurred.');}
-            } else {setInfo('Sign Up Successful. Please Check Your Email To Verify Your Account And Login.');}
-        } catch (error) {setError("There Was An Error Creating Your Account. Please Contact Us If The Issue Persists.");}
+        });
     };
 
     useEffect(() => {

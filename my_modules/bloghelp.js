@@ -2,7 +2,7 @@
 import Image from 'next/image';
 
 // The URL for our STRAPI app backend stored in environment variables
-export const STRAPIurl = process.env.NEXT_PUBLIC_STRAPIBASEURL;
+export const STRAPIurl = process.env.NEXT_PUBLIC_STRAPI_BASE_URL;
 
 // Custom component to conditionally render Cloudinary images as Next.js Image components
 export const customImage = ({ alt, src }) => {
