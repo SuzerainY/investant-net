@@ -50,7 +50,7 @@ export default function Login() {
             setError('Invalid Username Format. If This Is Your Correct Username, Please Contact Us To Recover Your Account.');
             return;
         } else if (isValidPassword(password) === false) {
-            setError("Invalid Username/Email or Password.");
+            setError('Invalid Username/Email or Password.');
             return;
         }
 
@@ -95,7 +95,7 @@ export default function Login() {
                         userSignedIn: true
                     });
                     router.push('/');
-                } catch (error) {setError("Login Failed. Please Contact Us If The Issue Persists.");}
+                } catch (error) {setError('Login Failed. Please Contact Us If The Issue Persists.');}
             });
         });
     };
@@ -107,13 +107,13 @@ export default function Login() {
 
         // Check if string is a valid email format
         if (isValidUsername(username) === false) {
-            setError("Invalid Username");
+            setError('Invalid Username');
             return;
         } else if (isValidEmail(email) === false) {
-            setError("Invalid Email Address");
+            setError('Invalid Email Address');
             return;
         } else if (isValidPassword(password) === false) {
-            setError("Password Must Have No Spaces, Contain At Least 8 Characters, And Include 1 Special Character");
+            setError('Password Must Have No Spaces, Contain At Least 8 Characters, And Include 1 Special Character');
             return;
         }
 

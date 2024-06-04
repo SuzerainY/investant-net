@@ -86,45 +86,30 @@ export default function BlogPost(props) {
     }, [post.attributes.BlogPostBody]);
 
     useEffect(() => {
-        // Preload Twitter Widget for embedded tweets
-        const loadTwitterWidgetScript = () => {
-            const script = document.createElement('script');
-            script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-            script.setAttribute('async', 'true');
-
-            // Wait for the script to be fully loaded, then append it to the document head
-            script.onload = () => {
-                // Ensure the DOM is ready before calling load()
-                document.addEventListener('DOMContentLoaded', () => {
-                    window.twttr.widgets.load(document.getElementById("slug-page-body"));
-                });
-            };
-            document.head.appendChild(script);
-        };
         // Check if we need to preload the twitter widget and handle accordingly
         const checkAndLoadTwitterWidget = () => {
-            // Load Twitter widget script only if we found an embedded tweet in the body of this blog post
-            if (embeddedTweetExists) {
-                // If we don't have the twitter widget defined, then preload the widget
+            if (embeddedTweetExists === true) {
                 if (!window.twttr) {
-                    loadTwitterWidgetScript();
-                } else { // We do have the twitter widget defined, run it
-                    window.twttr.widgets.load(document.getElementById("slug-page-body"));
-                }
+                    const script = document.createElement('script');
+                    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+                    script.setAttribute('async', 'true');
+        
+                    script.onload = () => {
+                        document.addEventListener('DOMContentLoaded', () => {
+                            window.twttr.widgets.load(document.getElementById("slug-page-body"));
+                        });
+                    };
+                    document.head.appendChild(script);
+                } else {window.twttr.widgets.load(document.getElementById("slug-page-body"));}
             }
-        };
-
-        // Check and load Twitter widget script on initial component mount
-        checkAndLoadTwitterWidget();
+        }; checkAndLoadTwitterWidget();
 
         // Clean up: Remove any event listeners when component unmounts
         return () => {};
     }, [embeddedTweetExists]);
 
     // Render a loading state while data is being fetched
-    if (router.isFallback) {
-        return <div>Loading...</div>;
-    }
+    if (router.isFallback) {return <div>Loading...</div>;}
 
     return (
         <>
@@ -182,5 +167,5 @@ export default function BlogPost(props) {
                 </div>
             </DefaultLayout>
         </>
-    )
-}
+    );
+};

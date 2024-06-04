@@ -49,7 +49,6 @@ export default function ForgotPassword() {
                             email: email
                         })
                     });
-                    const data = await response.json();
                     if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
 
                     setInfo('Email Sent. Please Check Your Inbox To Rest Your Password. If You Cannot Find The Message, Try Your Spam Folder!');

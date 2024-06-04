@@ -22,123 +22,64 @@ The Next.js application is in JavaScript with [Sass CSS](https://sass-lang.com/)
 
 **<span style="color:#FFCC00">Alert Yellow:</span> In Development**
 
-## Layouts
+## APIs
 
-### Default Layout:
+### Email Verification | `/api/verify-email`
 
-The Default Layout can be found at `layouts\DefaultLayout.js`
+The Email Verification api is used on the sign-up of a new user. Our backend will generate a confirmation token for the new user and deliver a custom email template with a unique URL to the `/api/verify-email` api containing the token in the router query parameters. The token is used to make a GET request to our backend with the token and upon a `ok` response, we route the user to the homepage of the site.
 
-The Default Layout is used to render all standard pages containing the Header and Footer components. Attached to the Default Layout are the Vercel Analytics and Speed Insights scripts which allow for visibility on the frontend performance in the Vercel Dashboard. In addition, we are also tracking website activity with Google Analytics which is attached to the Default Layout pages.
-
-The Alert Banner can be closed by the user, which triggers the handleCloseAlertBanner() function. This function stores a cookie on the client stating that the Alert Banner is closed. This cookie is removed on the unload of the application, which means while navigating the site the Alert Banner will remain closed on each subsequent page, but upon closing or refreshing the tab containing the application, the cookie will be reset. This enables us to have an Alert Banner with any custom messaging that will be visible on each user's unique visit of the site, but can be closed for the current session.
+The reason we use this api to make the request with the token rather than having the Verification URL itself make the GET request is due to our decision to create our own email template requiring unique logic and styles. To create this email template, it was necessary to turn off the default users-permissions email verification flow which, in turn, disables us from easily selecting a reroute url. This implementation gives us more control over routing the user on email verification from the frontend and nextjs was the simpler development choice than changing the default logic of the users-permissions plugin on STRAPI.
 
 ``` javascript
-// Check if user has alert banner closed in browser storage
-useEffect(() => {
-    const isAlertBannerClosed = localStorage.getItem("investantNetAlertBannerClosed");
-    if (!isAlertBannerClosed) {setShowAlertBanner(true);}
-}, []);
-```
-``` javascript
-// Events to trigger before terminating page session
-useEffect(() => {
-    const handleBeforeUnload = () => {localStorage.removeItem("investantNetAlertBannerClosed");};
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {window.removeEventListener("beforeunload", handleBeforeUnload);};
-}, []);
-```
-
-``` javascript
-// Handle the closing of the alert banner with browser storage
-const handleCloseAlertBanner = () => {
-    setShowAlertBanner(false);
-    localStorage.setItem("investantNetAlertBannerClosed", "true");
-};
-```
-
-## Components
-
-### Alert Banner:
-
-The Alert Banner Component can be found at `components\AlertBanner\AlertBanner.js` and styles at `styles\components\_alert-banner.scss`
-
-The Alert Banner allows us to share any prevelant news or releases to the users. It takes a dynamic message and link that is displayed at the top of the screen. It also takes an `onClose()` method that will be called if the user closes the component.
-
-``` javascript
-useEffect(() => {
-    const handleAlertBannerExitClick = () => {onClose();};
-    alertBannerExit.current?.addEventListener('click', handleAlertBannerExitClick);
-
-    return () => {alertBannerExit.current?.removeEventListener('click', handleAlertBannerExitClick);};
-}, [onClose]);
-```
-
-### Header:
-
-The Header Component can be found at `components\Header\Header.js` and styles at `styles\components\_header.scss`
-
-There are two portions to the Header Component: The mobile navigation menu and the desktop navigation bar.
-
-On mobile viewport width, the mobile application menu can be opened by calling the `openMobileMenu()` method. This method will add the `no-scroll` class to the html document so that the user cannot scroll the page behind the mobile menu. This was added since the entire document would re-render when the state of the `showProductsDropdown` changed. This state change would place the user back at the top of the document regardless of where they had scrolled the page to. If any navigation links are selected or when the `closeMobileMenu()` method is called, the `no-scroll` class is removed from the html document.
-
-``` javascript
-const openMobileMenu = () => {
-    if (mobileMenuContainer.current?.style.display !== 'flex') {
-        mobileMenuContainer.current.style.display = 'flex';
-        document.body.classList.add('no-scroll');
-    }
-};
-```
-``` javascript
-const closeMobileMenu = () => {
-    if (mobileMenuContainer.current?.style.display !== 'none') {
-        setShowProductsDropdown(false);
-        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
-        document.body.classList.remove('no-scroll');
-
-        setTimeout(() => {
-        mobileMenuContainer.current.style.display = 'none';
-        mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
-        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
-    }
-};
-```
-
-While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the landing page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
-
-``` javascript
-// Route to product sections if navigated to via header
-const handleProductClick = (productId) => {
-    // Close the mobile menu & route the user
-    if (router.pathname === '/' || router.pathname === '/#') {
-        closeMobileMenu();
-        const productSection = document.getElementById(productId);
-        if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-
-    } else {
-        document.body.classList.remove('no-scroll');
-        router.push('/').then(() => {
-        setTimeout(() => {
-            const productSection = document.getElementById(productId);
-            if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-        }, 100);
+export default async function handler(req, res) {    
+    try {
+        const { confirmationToken } = req.query;
+        if (!confirmationToken) { throw new Error('No Confirmation Token Provided. Email Verification Failed.'); }
+        // Verify the token and confirm the user
+        const response = await fetch(`${STRAPIurl}/api/auth/email-confirmation?confirmation=${confirmationToken}`, {
+            method: 'GET',
         });
-    }
+        if (!response.ok) { throw new Error('Email Verification Failed.'); }
+
+        // Redirect to login page
+        res.writeHead(302, { Location: '/login' });
+        res.end();
+    } catch (error) { res.status(500).json({ message: error.message }); }
 };
 ```
 
-### Footer:
+### Google Recaptcha Verification | `/api/verify-google-recaptcha`
 
-The Footer Component can be found at `components\Footer\Footer.js` and styles at `styles\components\_footer.scss`
+The Google Recaptcha Verification api is used to verify the google recaptcha tokens generated on forms and actions throughout the site. It is called by the `verifyGoogleRecaptcha()` method of the `authenticationhelp.js` module. The api only accepts POST requests and must include the recaptcha token in the request body. We simply pass the token through to google's siteverify api and return the response json.
 
-The Footer Component contains our rotating favicon and copyright. As the site is expanded and more pages added, there will be a selection of navigation links available within the footer.
+We are using Google reCAPTCHA V3. Refer to the [official documentation](https://developers.google.com/recaptcha/docs/v3).
 
-### Google Analytics:
+``` javascript
+export default async function handler(req, res) {
+    if (req.method === 'POST') {
+        try {
+            const { token } = req.body;
+            if (!token) {throw new Error('Token is missing');}
 
-The Google Analytics Component can be found at `components\GoogleAnalytics\GoogleAnalytics.js`
+            const googleRecaptchaSecretKey = process.env.GOOGLE_RECAPTCHA_SECRET_KEY;
+            if (!googleRecaptchaSecretKey) {throw new Error('Google reCAPTCHA secret key is not provided');}
+    
+            const response = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `secret=${googleRecaptchaSecretKey}&response=${token}`
+            });
+    
+            if (!response.ok) {throw new Error('Failed To Verify Google reCAPTCHA Token');}
 
-The Google Analytics Component contains the script link with our website's KEY stored in environment variables.
+            const data = await response.json();
+            res.status(200).json(data);
+        } catch (error) {res.status(400).json({ error: error.message });}
+    } else {res.status(405).json({ error: 'Method not allowed' });}
+};
+```
 
 ## Pages
 
@@ -370,7 +311,249 @@ useEffect(() => {
 }, [embeddedTweetExists]);
 ```
 
+### Login | `/login`
+
+Styles available at `styles\pages\_login.scss`
+
+This page contains our login and sign-up forms which are protected by google reCAPTCHA V3. We append the recaptcha `<script>` element to the document head on page load and wrap our form submission methods with the `grecaptcha.execute()` method to generate a token. We then verify the token and receive a score which we use to determine whether the user is likely to be a human or a bot. See more in the `/api/verify-google-recaptcha` api.
+
+``` javascript
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).then(async (token) => {
+  try {
+    // Google Recaptcha Verification
+    if (await verifyGoogleRecaptcha(token) !== true) {
+      setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+      return;
+    }
+
+    // This API request will return a signed JWT and user object if the user logs in successfully
+    const response = await fetch(`${STRAPIurl}/api/auth/local`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        identifier: usernameEmail,
+        password: password
+      })
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Catch known default STRAPI Errors
+      if (data.error.message === 'Invalid identifier or password') {
+        setError('Invalid Username/Email or Password');
+        return;
+      } else {throw new Error('Unaccounted For Error Occurred.');}
+    } else if (data.user.confirmed !== true) {
+      setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
+      return;
+    }
+
+    updateInvestantUser({
+      userJWT: data.jwt,
+      username: data.user.username,
+      userFirstName: data.user.firstname,
+      userLastName: data.user.lastname,
+      userSignedIn: true
+    });
+    router.push('/');
+  } catch (error) {setError('Login Failed. Please Contact Us If The Issue Persists.');}
+});
+```
+
+The user can toggle between the **Login** and **Sign Up** forms. We page's router query also accepts the `form` parameter which can be used to land the user on either of the forms intially. The `email` parameter is also accepted to set the email passed as auto-populated to the email input field.
+
+``` javascript
+useEffect(() => {
+  const handleFormOnLoad = () => {
+    if (router.isReady && router.query.form === 'SignUp') {
+      handleFormToggle();
+      if (router.query.email) {setEmail(router.query.email);}
+    }
+  }; handleFormOnLoad();
+}, [router.isReady, router.query.form]);
+```
+
+### Forgot Password | `/recovery/forgot-password`
+
+Styles available at `styles\pages\_login.scss`
+
+The Forgot Password page is meant to initiate the email password recovery flow. The form is protected by google reCAPTCHA V3. The user may input the email address they created their account with and will receive an email with a unique password recovery link. The link will route the user to the New Password page where the password recovery code provided in the email is used to validate the user.
+
+Our STRAPI api will generate the user a password recovery code and provide it in the url attached to the email as a query parameter.
+
+``` javascript
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordFormSubmission' }).then(async (token) => {
+  try {
+    // Google Recaptcha Verification
+    if (await verifyGoogleRecaptcha(token) !== true) {
+      setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+      return;
+    }
+
+    const response = await fetch(`${STRAPIurl}/api/auth/forgot-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    });
+    if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+
+    setInfo('Email Sent. Please Check Your Inbox To Rest Your Password. If You Cannot Find The Message, Try Your Spam Folder!');
+  } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+});
+```
+
+### New Password | `/recovery/new-password`
+
+Styles available at `styles\pages\_login.scss`
+
+The New Password page is meant to complete the email password recovery flow. The router query accepts the `code` parameter which should contain the password recovery code provided to the user in the password recovery email. The form is protected by google reCAPTCHA V3.
+
+We pass the user's new password and code to our STRAPI api which handles the password update.
+
+``` javascript
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordSetNewPasswordFormSubmission' }).then(async (token) => {
+  try {
+    // Google Recaptcha Verification
+    if (await verifyGoogleRecaptcha(token) !== true) {
+      setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+      return;
+    }
+
+    const response = await fetch(`${STRAPIurl}/api/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        code: userCode,
+        password: newPassword,
+        passwordConfirmation: confirmNewPassword
+      })
+    });
+    if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+
+    setInfo('New Password Set! Feel Free To Leave This Page!');
+  } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+});
+```
+
+## Components
+
+### Alert Banner:
+
+The Alert Banner Component can be found at `components\AlertBanner\AlertBanner.js` and styles at `styles\components\_alert-banner.scss`
+
+The Alert Banner allows us to share any prevelant news or releases to the users. It takes a dynamic message and link that is displayed at the top of the screen. It also takes an `onClose()` method that will be called if the user closes the component.
+
+``` javascript
+useEffect(() => {
+    const handleAlertBannerExitClick = () => {onClose();};
+    alertBannerExit.current?.addEventListener('click', handleAlertBannerExitClick);
+
+    return () => {alertBannerExit.current?.removeEventListener('click', handleAlertBannerExitClick);};
+}, [onClose]);
+```
+
+### Header:
+
+The Header Component can be found at `components\Header\Header.js` and styles at `styles\components\_header.scss`
+
+There are two portions to the Header Component: The mobile navigation menu and the desktop navigation bar.
+
+On mobile viewport width, the mobile application menu can be opened by calling the `openMobileMenu()` method. This method will add the `no-scroll` class to the html document so that the user cannot scroll the page behind the mobile menu. This was added since the entire document would re-render when the state of the `showProductsDropdown` changed. This state change would place the user back at the top of the document regardless of where they had scrolled the page to. If any navigation links are selected or when the `closeMobileMenu()` method is called, the `no-scroll` class is removed from the html document.
+
+``` javascript
+const openMobileMenu = () => {
+    if (mobileMenuContainer.current?.style.display !== 'flex') {
+        mobileMenuContainer.current.style.display = 'flex';
+        document.body.classList.add('no-scroll');
+    }
+};
+```
+``` javascript
+const closeMobileMenu = () => {
+    if (mobileMenuContainer.current?.style.display !== 'none') {
+        setShowProductsDropdown(false);
+        mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
+        document.body.classList.remove('no-scroll');
+
+        setTimeout(() => {
+        mobileMenuContainer.current.style.display = 'none';
+        mobileMenuContainer.current.classList.remove('mobile-menu-fade-out');
+        }, 375); // mobile-menu-fade-out animation is 400ms, allowing 25ms of hedge for events
+    }
+};
+```
+
+While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the landing page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
+
+``` javascript
+// Route to product sections if navigated to via header
+const handleProductClick = (productId) => {
+    // Close the mobile menu & route the user
+    if (router.pathname === '/' || router.pathname === '/#') {
+        closeMobileMenu();
+        const productSection = document.getElementById(productId);
+        if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+
+    } else {
+        document.body.classList.remove('no-scroll');
+        router.push('/').then(() => {
+        setTimeout(() => {
+            const productSection = document.getElementById(productId);
+            if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+        }, 100);
+        });
+    }
+};
+```
+
+### Footer:
+
+The Footer Component can be found at `components\Footer\Footer.js` and styles at `styles\components\_footer.scss`
+
+The Footer Component contains our rotating favicon and copyright. As the site is expanded and more pages added, there will be a selection of navigation links available within the footer.
+
+### Google Analytics:
+
+The Google Analytics Component can be found at `components\GoogleAnalytics\GoogleAnalytics.js`
+
+The Google Analytics Component contains the script link with our website's KEY stored in environment variables.
+
 ## Custom Modules
+
+### Authentication Help: `my_modules\authenticationhelp.js`
+
+The purpose of the Authentication Help module is to contain functions regarding the aiding of JWT and other token authentication, form guardrails, and any methods pertaining to verification and authentication of users.
+
+The `isValidUsername()`, `isValidEmail()`, and `isValidPassword()` methods verify user inputs from our account-related forms to fit our expectations for usernames, emails, and passwords. We make use of regular expressions which ensure inputs meet our defined patterns.
+
+We will be attempting to minimize the distasteful usernames that can be created on the site.
+
+The `verifyGoogleRecaptcha()` method calls our Verify Google Recaptcha api and tests the response body to contain a score > 0.5. We are using Google reCAPTCHA V3. Refer to the [official documentation](https://developers.google.com/recaptcha/docs/v3).
+
+``` javascript
+export const verifyGoogleRecaptcha = async (token) => {
+    try {
+        const googleRecaptchaResponse = await fetch('/api/verify-google-recaptcha', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token })
+        });
+        const googleRecaptchaData = await googleRecaptchaResponse.json();
+        if (googleRecaptchaData.success === true && googleRecaptchaData.score > 0.5) {return true;}
+        return false;
+    } catch (error) {return false;}
+};
+```
 
 ### Blog Help: `my_modules\bloghelp.js`
 
@@ -459,4 +642,39 @@ else if (textBody[i] === "<" && i + 7 < textBody.length && textBody.substring(i,
         }
     }
 }
+```
+
+## Layouts
+
+### Default Layout:
+
+The Default Layout can be found at `layouts\DefaultLayout.js`
+
+The Default Layout is used to render all standard pages containing the Header and Footer components. Attached to the Default Layout are the Vercel Analytics and Speed Insights scripts which allow for visibility on the frontend performance in the Vercel Dashboard. In addition, we are also tracking website activity with Google Analytics which is attached to the Default Layout pages.
+
+The Alert Banner can be closed by the user, which triggers the handleCloseAlertBanner() function. This function stores a cookie on the client stating that the Alert Banner is closed. This cookie is removed on the unload of the application, which means while navigating the site the Alert Banner will remain closed on each subsequent page, but upon closing or refreshing the tab containing the application, the cookie will be reset. This enables us to have an Alert Banner with any custom messaging that will be visible on each user's unique visit of the site, but can be closed for the current session.
+
+``` javascript
+// Check if user has alert banner closed in browser storage
+useEffect(() => {
+    const isAlertBannerClosed = localStorage.getItem("investantNetAlertBannerClosed");
+    if (!isAlertBannerClosed) {setShowAlertBanner(true);}
+}, []);
+```
+``` javascript
+// Events to trigger before terminating page session
+useEffect(() => {
+    const handleBeforeUnload = () => {localStorage.removeItem("investantNetAlertBannerClosed");};
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {window.removeEventListener("beforeunload", handleBeforeUnload);};
+}, []);
+```
+
+``` javascript
+// Handle the closing of the alert banner with browser storage
+const handleCloseAlertBanner = () => {
+    setShowAlertBanner(false);
+    localStorage.setItem("investantNetAlertBannerClosed", "true");
+};
 ```

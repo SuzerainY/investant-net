@@ -1,9 +1,9 @@
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
-export default async function handler(req, res) {
-    const { confirmationToken } = req.query;
-
+export default async function handler(req, res) {    
     try {
+        const { confirmationToken } = req.query;
+        if (!confirmationToken) { throw new Error('No Confirmation Token Provided. Email Verification Failed.'); }
         // Verify the token and confirm the user
         const response = await fetch(`${STRAPIurl}/api/auth/email-confirmation?confirmation=${confirmationToken}`, {
             method: 'GET',
