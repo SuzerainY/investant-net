@@ -1,0 +1,187 @@
+$account-page-sidebar-desktop-side-padding: 40px;
+$account-page-sidebar-width: 250px;
+$account-page-form-desktop-side-padding: 40px;
+$account-page-form-tablet-side-padding: 20px;
+
+.account-page-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: calc(100svh - 130px);
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(45deg, $soft-purple, $dark-blue);
+    background-size: 140%;
+    animation: login-form-background-animation 30s infinite alternate;
+
+    .account-page-sidebar-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0px auto 0px 0px;
+        padding: 40px 0px 0px $account-page-sidebar-desktop-side-padding;
+        width: $account-page-sidebar-width;
+        min-height: inherit;
+        background-color: $soft-purple;
+        box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.2);
+
+        .account-page-sidebar-section-text-container {
+            position: absolute;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            width: auto;
+            height: auto;
+            text-align: left;
+            color: $white;
+
+            h2 {
+                display: flex;
+                font-size: 30px;
+                font-weight: bold;
+                color: $magenta;
+                padding: 0px 0px 20px 0px;
+                margin-left: -2px;
+            }
+            p {
+                font-size: 18px;
+                padding: 0px 0px 10px 0px;
+                transition: transform 0.2s ease-in-out;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
+    }
+
+    .account-page-forms-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: calc(100% - $account-page-sidebar-width);
+        min-height: inherit;
+
+        .account-page-form-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px $account-page-form-desktop-side-padding;
+            width: 600px;
+            height: auto;
+            background-color: $dark-blue;
+            border-radius: 10px;
+            box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.2);
+            color: $white;
+
+            .account-page-form-title {
+                width: 100%;
+
+                h1 {
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+            }
+
+            .account-page-form-body {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .account-page-form-body-row {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 5px 0px;
+
+                    .account-page-form-body-row-label {
+                        width: 100%;
+                        text-align: left;
+                    }
+    
+                    .account-page-form-body-row-input {
+                        position: relative;
+                        display: flex;
+                        width: 100%;
+                        padding: 10px;
+                        margin-bottom: 5px;
+                        border-radius: 5px;
+                        border: 2px solid $white;
+                        background-color: transparent;
+                        color: $white;
+                        font-size: 16px;
+                        transition: border-color 0.3s;
+                
+                        &:focus {
+                            outline: none;
+                            border-color: $magenta;
+                        }
+    
+                        &:-webkit-autofill,
+                        &:-webkit-autofill:hover,
+                        &:-webkit-autofill:focus {
+                            -webkit-text-fill-color: $white;  // Text color
+                            -webkit-box-shadow: 0 0 0px 1000px $trans-dark-blue inset;  // Background color
+                        }
+                    }
+
+                    .account-page-form-body-row-button {
+                        border: none;
+                        font: inherit;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: auto;
+                        padding: 5px 15px;
+                        margin: 0px auto 0px 0px;
+                        border-radius: 5px;
+                        background-color: $trans-magenta;
+                        color: $white;
+                        white-space: nowrap;
+                        cursor: pointer;
+                        transition: opacity 0.3s ease-in-out;
+                        &:hover { opacity: 0.9; }
+                        &alternate {background-color: $black;}
+                  
+                        p {
+                          font-size: 16px;
+                          font-weight: 600;
+                        }
+                    }
+
+                    .account-page-form-body-row-error-message {
+                        width: 100%;
+                        color: $alert-yellow;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                        line-height: 130%;
+                    }
+                          
+                    .account-page-form-body-row-info-message {
+                        width: 100%;
+                        color: $light-blue;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                        line-height: 130%;
+                    }
+
+                    .account-page-form-body-row-span {
+                        color: $light-blue;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

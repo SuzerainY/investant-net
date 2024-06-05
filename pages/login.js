@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
-import DefaultLayout from "@/layouts/DefaultLayout";
-import Link from "next/link";
-import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from "@/my_modules/authenticationhelp";
+import DefaultLayout from '@/layouts/DefaultLayout';
+import Link from 'next/link';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
