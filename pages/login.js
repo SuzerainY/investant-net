@@ -86,15 +86,21 @@ export default function Login() {
                         setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
                         return;
                     }
-
+                    
                     updateInvestantUser({
                         userJWT: data.jwt,
                         username: data.user.username,
                         userFirstName: data.user.firstname,
                         userLastName: data.user.lastname,
+                        userSubscriptions: {
+                            blogPostSubscription: data.user.blogPostSubscription
+                        },
                         userSignedIn: true
                     });
-                    router.push('/');
+                    if (router.query.referrer) {
+                        router.push(`/${router.query.referrer}`);
+                        return;
+                    }; router.push('/');
                 } catch (error) {setError('Login Failed. Please Contact Us If The Issue Persists.');}
             });
         });

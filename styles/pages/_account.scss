@@ -46,16 +46,24 @@ $account-page-form-tablet-side-padding: 20px;
                 padding: 0px 0px 20px 0px;
                 margin-left: -2px;
             }
-            p {
-                font-size: 18px;
-                padding: 0px 0px 10px 0px;
-                transition: transform 0.2s ease-in-out;
-                cursor: pointer;
 
+            .account-page-sidebar-section-button {
+                transition: transform 0.2s ease-in-out;
+                padding: 0px 0px 10px 0px;
+                border: none;
+                font: inherit;
+                background-color: transparent;
+                text-align: left;
+                cursor: pointer;
                 &:hover {
                     transform: scale(1.02);
                 }
+                p {
+                    font-size: 18px;
+                    color: $white
+                }
             }
+
         }
     }
 
@@ -183,5 +191,21 @@ $account-page-form-tablet-side-padding: 20px;
                 }
             }
         }
+    }
+    
+    .account-page-google-recaptcha-disclaimer-tag {
+        position: relative;
+        display: flex;
+        margin-top: 15px;
+        padding: 10px $account-page-form-desktop-side-padding;
+        border-radius: 10px;
+        width: 600px;
+        background-color: rgba(0, 0, 0, 0.075);
+        p {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: $light-grey;
+        }
+        a {text-decoration: none; color: $dark-blue}
     }
 }
