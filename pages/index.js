@@ -239,6 +239,7 @@ export default function Home(props) {
                   </div>
                   <div className="homepage-featured-blog-posts-section-top-post-description-container">
                     <h3>{featuredPost.attributes.Title}</h3>
+                    <h4>{featuredPost.attributes.BlogPostDescription}</h4>
                     <p>{formatDate(new Date(featuredPost.attributes.PublishDate))}</p>
                   </div>
                 </Link>

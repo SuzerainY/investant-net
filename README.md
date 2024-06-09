@@ -362,18 +362,13 @@ grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).
 });
 ```
 
-The user can toggle between the **Login** and **Sign Up** forms. We page's router query also accepts the `form` parameter which can be used to land the user on either of the forms intially. The `email` parameter is also accepted to set the email passed as auto-populated to the email input field.
+The user can toggle between the **Login** and **Sign Up** forms. We page's router query also accepts the `form` parameter which can be used to land the user on either of the forms intially. The `email` parameter is also accepted to set the email passed as auto-populated to the email input field. The `referrer` query parameter can be used to determine what page to route to after logging in.
 
-``` javascript
-useEffect(() => {
-  const handleFormOnLoad = () => {
-    if (router.isReady && router.query.form === 'SignUp') {
-      handleFormToggle();
-      if (router.query.email) {setEmail(router.query.email);}
-    }
-  }; handleFormOnLoad();
-}, [router.isReady, router.query.form]);
-```
+| Router Query | Query Function |
+|--------------|----------------|
+| form | Define what form will be visible when page first loads |
+| email | Pass an email that will be auto-populated in the sign-up form |
+| referrer | Define what page of the site will be routed to after logging in |
 
 ### Forgot Password | `/recovery/forgot-password`
 

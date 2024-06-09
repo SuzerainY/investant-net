@@ -8,6 +8,7 @@ $account-page-form-tablet-side-padding: 20px;
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: 100%;
     min-height: calc(100svh - 130px);
     justify-content: center;
     align-items: center;
@@ -15,21 +16,38 @@ $account-page-form-tablet-side-padding: 20px;
     background-size: 140%;
     animation: login-form-background-animation 30s infinite alternate;
 
+    .sidebar-toggle-button {
+        display: none;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        background: $soft-purple;
+        border: none;
+        padding: 10px;
+        border-radius: 10px;
+        color: $white;
+        cursor: pointer;
+
+        .sidebar-toggle-button-arrow img {
+            transition: rotate 0.3s ease-in-out;
+        }
+    }
+
     .account-page-sidebar-section {
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 0px auto 0px 0px;
-        padding: 40px 0px 0px $account-page-sidebar-desktop-side-padding;
+        align-self: stretch;
         width: $account-page-sidebar-width;
-        min-height: inherit;
         background-color: $soft-purple;
         box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.2);
 
         .account-page-sidebar-section-text-container {
             position: absolute;
             top: 40px;
+            left: $account-page-sidebar-desktop-side-padding;
             display: flex;
             flex-direction: column;
             flex-wrap: nowrap;
@@ -207,5 +225,90 @@ $account-page-form-tablet-side-padding: 20px;
             color: $light-grey;
         }
         a {text-decoration: none; color: $dark-blue}
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .account-page-container {
+        min-height: calc(100svh - 115px);
+
+        .sidebar-toggle-button { display: flex; }
+
+        .account-page-sidebar-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: $account-page-sidebar-width;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+
+            &.open {
+                transform: translateX(0);
+            }
+
+            .account-page-sidebar-section-text-container {
+                position: absolute;
+                top: 50px;
+                left: $account-page-sidebar-desktop-side-padding;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                width: auto;
+                height: auto;
+                text-align: left;
+                color: $white;
+
+                h2 {
+                    display: flex;
+                    font-size: 30px;
+                    font-weight: bold;
+                    color: $magenta;
+                    padding: 0px 0px 20px 0px;
+                    margin-left: -2px;
+                }
+
+                .account-page-sidebar-section-button {
+                    transition: transform 0.2s ease-in-out;
+                    padding: 0px 0px 10px 0px;
+                    border: none;
+                    font: inherit;
+                    background-color: transparent;
+                    text-align: left;
+                    cursor: pointer;
+                    &:hover {
+                        transform: scale(1.02);
+                    }
+                    p {
+                        font-size: 18px;
+                        color: $white
+                    }
+                }
+            }
+        }
+    
+        .account-page-forms-section {
+            width: 100%;
+            .account-page-form-container {
+                padding: 20px $account-page-form-tablet-side-padding;
+                width: 350px;
+    
+                .account-page-form-body {
+                    .account-page-form-body-row {
+                        p {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .account-page-google-recaptcha-disclaimer-tag {
+            padding: 10px $account-page-form-tablet-side-padding;
+            width: 350px;
+            p { font-size: 12px; }
+        }
     }
 }

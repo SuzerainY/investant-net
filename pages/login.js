@@ -7,16 +7,27 @@ import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValid
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
 export default function Login() {
-
-    const { updateInvestantUser } = useInvestantUserAuth();
     const router = useRouter();
+    const { userSignedIn, updateInvestantUser } = useInvestantUserAuth();
+
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
-    const [usernameEmail, setUsernameEmail] = useState('');
+    const [isLoginForm, setIsLoginForm] = useState(true);
+    const [liveLogin, setLiveLogin] = useState(false);
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [usernameEmail, setUsernameEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoginForm, setIsLoginForm] = useState(true);
+
+    useEffect(() => {
+        const verifyUserSignedIn = () => {
+            if (router.isReady && userSignedIn !== undefined) {
+                if (userSignedIn === true && liveLogin === false) {
+                    router.push('/account');
+                }
+            }
+        }; verifyUserSignedIn();
+    }, [router.isReady, userSignedIn]);
 
     useEffect(() => {
         const loadGoogleRecaptcha = () => {
@@ -55,7 +66,7 @@ export default function Login() {
         }
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Login' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {
@@ -86,12 +97,12 @@ export default function Login() {
                         setError('Please Verify Your Email Before Logging In. If You Do Not See The Email, Check Your Spam Folder.');
                         return;
                     }
-                    
+
+                    setLiveLogin(true);
                     updateInvestantUser({
                         userJWT: data.jwt,
                         username: data.user.username,
-                        userFirstName: data.user.firstname,
-                        userLastName: data.user.lastname,
+                        userEmail: data.user.email,
                         userSubscriptions: {
                             blogPostSubscription: data.user.blogPostSubscription
                         },
@@ -101,7 +112,7 @@ export default function Login() {
                         router.push(`/${router.query.referrer}`);
                         return;
                     }; router.push('/');
-                } catch (error) {setError('Login Failed. Please Contact Us If The Issue Persists.');}
+                } catch (error) {setLiveLogin(false); setError('Login Failed. Please Contact Us If The Issue Persists.');}
             });
         });
     };
@@ -113,7 +124,7 @@ export default function Login() {
 
         // Check if string is a valid email format
         if (isValidUsername(username) === false) {
-            setError('Invalid Username');
+            setError('Username Must Be 20 Or Less Characters And Only Contain Letters, Digits, Underscores, Or Dashes');
             return;
         } else if (isValidEmail(email) === false) {
             setError('Invalid Email Address');
@@ -124,7 +135,7 @@ export default function Login() {
         }
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserSignUp' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Sign_Up' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {
@@ -163,8 +174,16 @@ export default function Login() {
     useEffect(() => {
         const handleFormOnLoad = () => {
             if (router.isReady && router.query.form === 'SignUp') {
-                handleFormToggle();
-                if (router.query.email) {setEmail(router.query.email);}
+                if (router.query.email) {setEmail(router.query.email); router.query.email = '';}
+                setError('');
+                setInfo('');
+                setIsLoginForm(false);
+                router.query.form = '';
+            } else if (router.isReady && router.query.form === 'Login') {
+                setError('');
+                setInfo('');
+                setIsLoginForm(true);
+                router.query.form = '';
             }
         }; handleFormOnLoad();
     }, [router.isReady, router.query.form]);

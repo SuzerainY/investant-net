@@ -48,7 +48,7 @@ export default function NewPassword() {
         }
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordSetNewPasswordFormSubmission' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Forgot_Password_Set_New_Password_Form_Submission' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {

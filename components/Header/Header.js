@@ -7,7 +7,7 @@ import { useInvestantUserAuth } from "@/context/GlobalContext";
 export default function Header() {
 
   const router = useRouter();
-  const { userSignedIn, username, clearInvestantUser } = useInvestantUserAuth();
+  const { userSignedIn, clearInvestantUser } = useInvestantUserAuth();
 
   // Mobile menu references
   const mobileMenuContainer = useRef(null);
@@ -66,10 +66,10 @@ export default function Header() {
   };
 
   // Mobile links should allow scrolling of page again
-  const MobileNavLink = ({ href, children }) => {
+  const MobileNavLink = ({ href, className, style, children }) => {
     const handleMobileNavLinkClick = () => {document.body.classList.remove('no-scroll');};
     return (
-      <Link href={href} onClick={handleMobileNavLinkClick}>
+      <Link href={href} className={className} style={style} onClick={handleMobileNavLinkClick}>
         {children}
       </Link>
     );
@@ -107,10 +107,12 @@ export default function Header() {
       <div ref={mobileMenuContainer} className="mobile-menu-container">
         <nav ref={mobileMenu} className="mobile-menu">
           <div className="mobile-menu-logout-close-container">
-            {userSignedIn === true && (
-              <button className="mobile-menu-logout-user" onClick={clearInvestantUser}>
+            {userSignedIn === true ? (
+              <button className="mobile-menu-logout-user" onClick={() => {document.body.classList.remove('no-scroll'); clearInvestantUser();}}>
                 <p>Logout</p>
               </button>
+            ) : (
+              <MobileNavLink href="/login?form=Login" className="mobile-menu-logout-user" style={{ opacity: '1.0', color: '#E81CFF' }}><p style={{ fontWeight: 'bold' }}>Login</p></MobileNavLink>
             )}
             <div ref={mobileMenuButtonClose} className="mobile-menu-close">
               <Image
@@ -212,13 +214,10 @@ export default function Header() {
             </div>
             <div className="mobile-menu-sign-in-user">
               {userSignedIn === true ? (
-                  <div className="NavBar-Investant-User-Name">
-                    <h3>Hello,</h3>
-                    <span className="NavBar-Investant-User-Name-Span"><h3>{username ? username : "anonymous"}</h3></span>
-                  </div>
-                ) : (
-                  <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>
-                )}
+                <Link href="/account" className="NavBar-Investant-Sign-Up-Button"><p>Account</p></Link>
+              ) : (
+                <Link href="/login?form=SignUp" className="NavBar-Investant-Sign-Up-Button"><p>Sign Up</p></Link>
+              )}
             </div>
             <div ref={mobileMenuButtonOpen} className="mobile-menu-open">
               <Image
@@ -241,17 +240,37 @@ export default function Header() {
                 />
               </Link>
               {userSignedIn === true ? (
-                <div className="NavBar-Investant-User-Name">
-                  <h3>Hello,<span className="NavBar-Investant-User-Name-Span">{username}</span></h3>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Link
+                    href="/account"
+                    className="NavBar-Investant-Sign-In-Button"
+                    style={{ height: 'auto', marginLeft: '-10px', marginBottom: '2px', padding: '4px 10px' }}>
+                    <p>Account</p>
+                  </Link>
                   <button
                     onClick={clearInvestantUser}
                     className="NavBar-Investant-Sign-In-Button"
-                    style={{ height: 'auto', margin: '0px auto 0px 0px', padding: '2px 10px' }}>
-                    <span style={{ fontSize: '16px' }}>Logout</span>
+                    style={{ height: 'auto', marginLeft: '0px', marginBottom: '2px', padding: '4px 0px', backgroundColor: 'transparent', color: 'white' }}>
+                    <p>Logout</p>
                   </button>
                 </div>
               ) : (
-                <Link href="/login" className="NavBar-Investant-Sign-In-Button"><p>Login</p></Link>
+                <>
+                  <Link
+                    href="/login?form=SignUp"
+                    className="NavBar-Investant-Sign-In-Button"
+                    style={{ marginLeft: '-10px' }}
+                  >
+                    <p>Sign Up</p>
+                  </Link>
+                  <Link
+                    href="/login?form=Login"
+                    className="NavBar-Investant-Sign-In-Button"
+                    style={{ marginLeft: '0px', padding: '5px 0px', backgroundColor: 'transparent', color: 'white' }}
+                  >
+                    <p>Login</p>
+                  </Link>
+                </>
               )}
             </div>
             <div className="NavBar-Navigation-Links">

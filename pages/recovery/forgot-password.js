@@ -32,7 +32,7 @@ export default function ForgotPassword() {
         }
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPasswordFormSubmission' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Forgot_Password_Form_Submission' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {

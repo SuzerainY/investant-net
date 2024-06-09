@@ -5,8 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 const InvestantUserContext = createContext({
     userJWT: String,
     username: String,
-    userFirstName: String,
-    userLastName: String,
+    userEmail: String,
     userSubscriptions: {},
     userSignedIn: Boolean,
     updateInvestantUser: () => {},
@@ -20,8 +19,7 @@ export const useInvestantUserAuth = () => useContext(InvestantUserContext);
 export const InvestantUserAuthProvider = ({ children }) => {
     const [userJWT, setUserJWT] = useState('');
     const [username, setUsername] = useState('');
-    const [userFirstName, setUserFirstName] = useState('');
-    const [userLastName, setUserLastName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [userSubscriptions, setUserSubscriptions] = useState({});
     const [userSignedIn, setUserSignedIn] = useState(undefined);
 
@@ -41,14 +39,12 @@ export const InvestantUserAuthProvider = ({ children }) => {
                 setUserJWT(session);
                 setUserSignedIn(true);
                 const thyName = localStorage.getItem('investantUsername');
-                const firstName = localStorage.getItem('investantUserFirstName');
-                const lastName = localStorage.getItem('investantUserLastName');
+                const email = localStorage.getItem('investantUserEmail');
                 const subscriptions = localStorage.getItem('investantUserSubscriptions');
                 if (thyName) {setUsername(thyName);}
-                if (firstName) {setUserFirstName(firstName);}
-                if (lastName) {setUserLastName(lastName);}
-                if (subscriptions) {setUserSubscriptions(subscriptions);}
-            }
+                if (email) {setUserEmail(email);}
+                if (subscriptions) {setUserSubscriptions(JSON.parse(subscriptions));}
+            } else {clearInvestantUser();}
         }; verifyUserOnLoad();
     }, []);
 
@@ -56,21 +52,18 @@ export const InvestantUserAuthProvider = ({ children }) => {
     const updateInvestantUser = (user) => {
         setUserJWT(prevUserJWT => user.userJWT !== undefined ? user.userJWT : prevUserJWT);
         setUsername(prevUsername => user.username !== undefined ? user.username : prevUsername);
-        setUserFirstName(prevUserFirstName => user.userFirstName !== undefined ? user.userFirstName : prevUserFirstName);
-        setUserLastName(prevUserLastName => user.userLastName !== undefined ? user.userLastName : prevUserLastName);
+        setUserEmail(prevUserEmail => user.userEmail !== undefined ? user.userEmail : prevUserEmail);
         setUserSubscriptions(prevUserSubscriptions => user.userSubscriptions !== undefined ? user.userSubscriptions : prevUserSubscriptions);
         setUserSignedIn(prevUserSignedIn => user.userSignedIn !== undefined ? user.userSignedIn : prevUserSignedIn);
 
         if (user.userJWT !== undefined) {localStorage.setItem('investantUserSession', user.userJWT);}
         if (user.username !== undefined) {localStorage.setItem('investantUsername', user.username);}
-        if (user.userFirstName !== undefined) {localStorage.setItem('investantUserFirstName', user.userFirstName);}
-        if (user.userLastName !== undefined) {localStorage.setItem('investantUserLastName', user.userLastName);}
-        if (user.userSubscriptions !== undefined) {localStorage.setItem('investantUserSubscriptions', user.userSubscriptions);}
+        if (user.userEmail !== undefined) {localStorage.setItem('investantUserEmail', user.userEmail);}
+        if (user.userSubscriptions !== undefined) {localStorage.setItem('investantUserSubscriptions', JSON.stringify(user.userSubscriptions));}
         if (user.userSignedIn === false) {
             localStorage.removeItem('investantUserSession');
             localStorage.removeItem('investantUsername');
-            localStorage.removeItem('investantUserFirstName');
-            localStorage.removeItem('investantUserLastName');
+            localStorage.removeItem('investantUserEmail');
             localStorage.removeItem('investantUserSubscriptions');
         }
     };
@@ -79,15 +72,13 @@ export const InvestantUserAuthProvider = ({ children }) => {
     const clearInvestantUser = () => {
         setUserJWT('');
         setUsername('');
-        setUserFirstName('');
-        setUserLastName('');
+        setUserEmail('');
         setUserSubscriptions({});
         setUserSignedIn(false);
 
         localStorage.removeItem('investantUserSession');
         localStorage.removeItem('investantUsername');
-        localStorage.removeItem('investantUserFirstName');
-        localStorage.removeItem('investantUserLastName');
+        localStorage.removeItem('investantUserEmail');
         localStorage.removeItem('investantUserSubscriptions');
     };
 
@@ -96,8 +87,7 @@ export const InvestantUserAuthProvider = ({ children }) => {
             value={{
                 userJWT,
                 username,
-                userFirstName,
-                userLastName,
+                userEmail,
                 userSubscriptions,
                 userSignedIn,
                 updateInvestantUser,

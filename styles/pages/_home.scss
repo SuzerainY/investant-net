@@ -328,6 +328,13 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             color: $black;
             padding: 0px 0px 5px 0px;
           }
+          h4 {
+            font-family: sans-serif;
+            font-size: 20px;
+            color: $black;
+            padding: 5px 0px;
+            a {color: $black;}
+          }
           p {
             font-size: 18px;
             font-style: italic;
@@ -1005,6 +1012,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             h3 {
               font-size: 24px;
             }
+            h4 {
+              font-size: 18px;
+            }
             p {
               font-size: 16px;
             }
@@ -1197,6 +1207,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
           .homepage-featured-blog-posts-section-top-post-description-container {
             h3 {
               font-size: 24px;
+            }
+            h4 {
+              font-size: 18px;
             }
             p {
               font-size: 16px;
