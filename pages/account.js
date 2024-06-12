@@ -449,7 +449,7 @@ export default function Account() {
                                 </div>
                                 <div className="account-page-form-body">
                                     <div className="account-page-form-body-row">
-                                        <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will To Continue To Deliver You More.</p>
+                                        <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will Continue To Deliver You More.</p>
                                     </div>
                                     <div className="account-page-form-body-row">
                                         <p>Have Ideas Or Feedback? <span style={{ fontWeight: 'bold' }}>Please Contact Us</span></p>
