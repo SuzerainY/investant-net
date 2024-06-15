@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { STRAPIurl } from '@/my_modules/bloghelp';
 
 // Create the global context with default values
 const InvestantUserContext = createContext({
@@ -24,27 +25,37 @@ export const InvestantUserAuthProvider = ({ children }) => {
     const [userSignedIn, setUserSignedIn] = useState(undefined);
 
     useEffect(() => {
-        // On application load, we should check if the user has a non-expired JWT and update user accordingly
-        const verifyUserOnLoad = () => {
+        // On application load, we should check if the user has a non-expired JWT and fetch user object if so
+        const verifyUserOnLoad = async () => {
             const session = localStorage.getItem('investantUserSession');
-            if (session) {
+            if (!session) {clearInvestantUser(); return;}
+
+            try {
                 // If the token is expired, clear the user and return
                 const decodedToken = jwtDecode(session);
                 const currentTime = Date.now() / 1000;
-                if (decodedToken.exp < currentTime) {
-                    clearInvestantUser();
-                    return;
-                }
+                if (decodedToken.exp < currentTime) {clearInvestantUser(); return;}
 
-                setUserJWT(session);
-                setUserSignedIn(true);
-                const thyName = localStorage.getItem('investantUsername');
-                const email = localStorage.getItem('investantUserEmail');
-                const subscriptions = localStorage.getItem('investantUserSubscriptions');
-                if (thyName) {setUsername(thyName);}
-                if (email) {setUserEmail(email);}
-                if (subscriptions) {setUserSubscriptions(JSON.parse(subscriptions));}
-            } else {clearInvestantUser();}
+                const response = await fetch(`${STRAPIurl}/api/users/me`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${session}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {clearInvestantUser(); return;}
+                
+                const data = await response.json();
+                updateInvestantUser({
+                    userJWT: session,
+                    username: data.username,
+                    userEmail: data.email,
+                    userSubscriptions: {
+                        blogPostSubscription: data.blogPostSubscription
+                    },
+                    userSignedIn: true
+                });
+            } catch (error) {clearInvestantUser(); return;}
         }; verifyUserOnLoad();
     }, []);
 

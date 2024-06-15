@@ -104,6 +104,7 @@ $account-page-form-tablet-side-padding: 20px;
             border-radius: 10px;
             box-shadow: 5px 8px 5px 0px rgba(0, 0, 0, 0.2);
             color: $white;
+            margin-top: 65px;
 
             .account-page-form-title {
                 width: 100%;
@@ -215,6 +216,7 @@ $account-page-form-tablet-side-padding: 20px;
         position: relative;
         display: flex;
         margin-top: 15px;
+        margin-bottom: 15px;
         padding: 10px $account-page-form-desktop-side-padding;
         border-radius: 10px;
         width: 600px;

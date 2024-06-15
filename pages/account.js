@@ -21,6 +21,7 @@ export default function Account() {
     // Sidebar Variables & Components
     const [showSidebarMenu, setShowSidebarMenu] = useState(false);
     const accountPageSidebar = useRef(null);
+    const accountPageFormsSection = useRef(null);
     const handleToggleSidebar = () => {
         if (accountPageSidebar.current) {
             setShowSidebarMenu(!showSidebarMenu);
@@ -39,6 +40,15 @@ export default function Account() {
     // Subscriptions Block Variables & Components
     const [blogPostSubscriptionChecked, setBlogPostSubscriptionChecked] = useState(userSubscriptions.blogPostSubscription);
     const handleBlogPostSubscriptionChange = () => {setBlogPostSubscriptionChecked(!blogPostSubscriptionChecked);}
+
+    useEffect(() => {
+        const handleClickOutsideSidebar = (event) => {
+            let eventTarget = event.target;
+            if (accountPageFormsSection.current?.contains(eventTarget) && showSidebarMenu === true) {handleToggleSidebar();}
+        }; document.addEventListener('click', handleClickOutsideSidebar);
+
+        return () => {document.removeEventListener('click', handleClickOutsideSidebar);};
+    }, [showSidebarMenu]);
 
     useEffect(() => {
         const verifySignIn = () => {
@@ -287,7 +297,7 @@ export default function Account() {
         <>
             <DefaultLayout>
                 <div className='account-page-container'>
-                    <button class='sidebar-toggle-button' onClick={handleToggleSidebar}>
+                    <button className='sidebar-toggle-button' onClick={handleToggleSidebar}>
                         <span className='sidebar-toggle-button-arrow'>
                             <Image
                                 src={"/images/clipart/WhiteDropDownArrow.png"}
@@ -307,7 +317,7 @@ export default function Account() {
                         </div>
                     </section>
 
-                    <div className='account-page-forms-section'>
+                    <div ref={accountPageFormsSection} className='account-page-forms-section'>
                         {activeBlock === profileBlock && (
                             <section ref={profileBlock} className='account-page-form-container'>
                                 <div className='account-page-form-title'>

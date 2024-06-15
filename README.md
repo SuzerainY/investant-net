@@ -438,6 +438,18 @@ grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserForgotPass
 });
 ```
 
+### Account | `/account`
+
+Styles available at `styles\pages\_account.scss`
+
+The Account page is for users to manage their user info, subscriptions, and account settings. All of the forms are incorporated in the single page and rendered conditionally based on which "block" has been activated/selected.
+
+In the profile block, we allow the user to update their info such as Username, Email, and Password. These forms are connected to our CMS API.
+
+In the subscriptions block, we allow the user to subscribe/unsubscribe from our notifications. In the future, we will be adding the distinction between Paid and Free Subscriptions. Paid subscriptions will be handled through Stripe.
+
+In the settings block, we will be adding a Delete Account functionality as well as any user-specific web settings for our web-application.
+
 ## Components
 
 ### Alert Banner:
@@ -460,6 +472,8 @@ useEffect(() => {
 The Header Component can be found at `components\Header\Header.js` and styles at `styles\components\_header.scss`
 
 There are two portions to the Header Component: The mobile navigation menu and the desktop navigation bar.
+
+We will display the "Account" or "Sign Up" button depending on if the user is logged in or a guest. These buttons will always be on the header bar, but on mobile we move the Login/Logout button to the mobile menu.
 
 On mobile viewport width, the mobile application menu can be opened by calling the `openMobileMenu()` method. This method will add the `no-scroll` class to the html document so that the user cannot scroll the page behind the mobile menu. This was added since the entire document would re-render when the state of the `showProductsDropdown` changed. This state change would place the user back at the top of the document regardless of where they had scrolled the page to. If any navigation links are selected or when the `closeMobileMenu()` method is called, the `no-scroll` class is removed from the html document.
 
