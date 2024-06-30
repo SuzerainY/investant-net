@@ -43,11 +43,11 @@ export async function getServerSideProps(context) {
         }
       `
     })
-  }
+  };
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
-}
+};
 
 export default function AboutUs(props) {
 
@@ -67,7 +67,6 @@ export default function AboutUs(props) {
     props.data.aboutUsPage.data.attributes.HavenProfilePicture,
     props.data.aboutUsPage.data.attributes.RyanProfilePicture
   ]);
-
 
   return (
     <>
@@ -181,4 +180,4 @@ export default function AboutUs(props) {
       </DefaultLayout>
     </>
   )
-}
+};

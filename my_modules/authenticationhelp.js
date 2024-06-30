@@ -18,6 +18,12 @@ export const isValidPassword = (password) => {
     return passwordRegex.test(password);
 };
 
+// No backticks ` or angle brackets <> allowed
+export const isValidText = (text) => {
+    const textRegex = /^[^<>`]*$/;
+    return textRegex.test(text);
+}
+
 export const verifyGoogleRecaptcha = async (token) => {
     try {
         const googleRecaptchaResponse = await fetch('/api/verify-google-recaptcha', {

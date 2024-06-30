@@ -1,6 +1,7 @@
+import { useInvestantUserAuth } from '@/context/GlobalContext';
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { isValidEmail } from '@/my_modules/authenticationhelp';
-import { useRef, useState } from 'react';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail, isValidText } from '@/my_modules/authenticationhelp';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -40,7 +41,7 @@ export async function getServerSideProps(context) {
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
-}
+};
 
 export default function Home(props) {
 
@@ -50,9 +51,7 @@ export default function Home(props) {
 
   // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
   const blogPostsSection = useRef(null);
-  const paperTradeSection = useRef(null);
-  const financialPlannerSection = useRef(null);
-  const financialCalculatorSection = useRef(null);
+  const contactUsSection = useRef(null);
 
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
@@ -63,6 +62,94 @@ export default function Home(props) {
   const validateNewsletterSignUpEmail = (email) => {
     if (isValidEmail(email)) {return true;}
     return false;
+  };
+
+  const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
+
+  const { username, userEmail, userSignedIn } = useInvestantUserAuth();
+  const [contactUsName, setContactUsName] = useState('');
+  const [contactUsEmail, setContactUsEmail] = useState('');
+  const [contactUsSubject, setContactUsSubject] = useState('');
+  const [contactUsMessage, setContactUsMessage] = useState('');
+
+  useEffect(() => {
+    const loadGoogleRecaptcha = () => {
+      const googleRecaptchaScript = document.createElement('script');
+      googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+      googleRecaptchaScript.async = true;
+      googleRecaptchaScript.defer = true;
+      document.body.appendChild(googleRecaptchaScript);
+    }; loadGoogleRecaptcha();
+  }, []);
+
+  useEffect(() => {
+    const verifySignIn = () => {
+      if (userSignedIn !== undefined) {
+        if (userSignedIn === true) {
+          if (username) {setContactUsName(username);}
+          if (userEmail) {setContactUsEmail(userEmail);}
+        }
+      }
+    }; verifySignIn();
+  }, [userSignedIn, username, userEmail]);
+
+  const handleContactUsSubmission = async (e) => {
+    if (e) {e.preventDefault();}
+    setError('');
+    setInfo('');
+
+    if (contactUsEmail.length <= 0 || contactUsSubject.length <= 0 || contactUsMessage.length <= 0) {
+      setError('Form Incomplete');
+      return;
+    }
+    if (isValidEmail(contactUsEmail) === false) {
+      setError('Invalid Email Address');
+      return;
+    }
+    if (isValidText(contactUsSubject) === false) {
+      setError('Invalid Subject. Please Do Not Use Any Angle Brackets <> Or Backticks `');
+      return;
+    }
+    if (isValidText(contactUsMessage) === false) {
+      setError('Invalid Message. Please Do Not Use Any Angle Brackets <> Or Backticks `');
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Contact_Us_Form_Submission' }).then(async (token) => {
+        try {
+          // Google Recaptcha Verification
+          if (await verifyGoogleRecaptcha(token) !== true) {
+            setError('We Believe You Are A Bot. Please Try Again Later.');
+            return;
+          }
+            
+          const response = await fetch(`${STRAPIurl}/api/contact-us-submissions`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              data: {
+                Subject: contactUsSubject,
+                Message: contactUsMessage,
+                OpenedAt: new Date().toISOString(),
+                ContactName: contactUsName,
+                ContactEmail: contactUsEmail,
+                TicketClosed: false
+              }
+            })
+          });
+
+          if (!response.ok) {
+            // Handle Known Errors
+            throw new Error('Unaccounted For Error Occurred.');
+          }
+          setInfo('Message Delivered! Haven Or Ryan Will Reach Out To You As Soon As Possible!');
+        } catch (error) {console.log(error.message); setError('Unable To Deliver Message. Please Try Again Later.');}
+      });
+    });
   };
 
   return (
@@ -97,13 +184,10 @@ export default function Home(props) {
             <div className="homepage-hero-section-text-container">
               <div className="homepage-hero-section-large-slogan">
                 <h1>
-                  Personal Finance
+                  Start Your
                   <br/>
-                  <span className="homepage-hero-section-text-span">Made Simple.</span>
+                  <span className="homepage-hero-section-text-span">Wealth-Building Journey</span>
                 </h1>
-              </div>
-              <div className="homepage-hero-section-investant-description">
-                <p>{"Investant.net is your go-to resource for personal finance tools and information. We understand the unique challenges faced by new professionals starting their careers, and we're here to help you navigate your financial journey with confidence."}</p>
               </div>
               <div className="homepage-hero-section-button-container">
                 <button ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button" onClick={handleGetStartedButtonClick}>
@@ -293,156 +377,93 @@ export default function Home(props) {
               </div>
             </div>
           </section>
-
-          <section ref={paperTradeSection} id="homepage-papertrade-section" className="homepage-papertrade-section">
-            <div className="homepage-papertrade-section-image-container">
-              <Image
-                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_glowing_cube_stock_photo_b4a91fa6e0"}
-                alt="PaperTrade on investant.net"
-                width={1200}
-                height={600}
-              />
-            </div>
-            <div className="homepage-papertrade-section-text-container">
-              <div className="homepage-papertrade-section-title">
-                <h2>
-                  Discover the Power of PaperTrade on investant.net
-                  <br></br>
-                  <span className="homepage-papertrade-section-title-span">{"[In Development]"}</span>
-                </h2>
-              </div>
-              <div className="homepage-papertrade-section-subtitle">
-                <p>Experience the thrill of trading without risking real money. Our PaperTrade platform allows you to practice and learn before you invest.</p>
-              </div>
-              <div className="homepage-papertrade-section-subtext-container">
-                <div className="homepage-papertrade-section-subtext-element">
-                  <div className="homepage-papertrade-section-subtext-element-image-container">
-                    <Image
-                      src={"/images/icons/papertrade-practice-icon.png"}
-                      alt="Learn with PaperTrade on investant.net"
-                      width={100}
-                      height={100}
+          
+          <section ref={contactUsSection} id="homepage-contact-us-form-section" className="account-page-container" style={{flexDirection: 'column', minHeight: 'auto', backgroundImage: 'none', backgroundColor: '#F1FAFF'}}>
+            <div className="account-page-forms-section" style={{width: '100%', marginTop: '-40px'}}>
+              <div className="account-page-form-container" style={{backgroundColor: '#1B0053'}}>
+                <div className="account-page-form-title">
+                  <h1>Contact Us</h1>
+                </div>
+                <form className="account-page-form-body" onSubmit={handleContactUsSubmission}>
+                  {(userSignedIn !== true) && (
+                    <>
+                      <div className="account-page-form-body-row">
+                        <label className="account-page-form-body-row-label" htmlFor="contactUsName">Your Name</label>
+                        <input
+                          className="account-page-form-body-row-input"
+                          type="username"
+                          autoComplete="off"
+                          id="contactUsName"
+                          placeholder="Who Are We Speaking To?"
+                          value={contactUsName}
+                          onChange={(e) => setContactUsName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="account-page-form-body-row">
+                        <label className="account-page-form-body-row-label" htmlFor="contactUsEmail">Your Email</label>
+                        <input
+                          className="account-page-form-body-row-input"
+                          type="email"
+                          autoComplete="off"
+                          id="contactUsEmail"
+                          placeholder="How Can We Contact You?"
+                          value={contactUsEmail}
+                          onChange={(e) => setContactUsEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </>
+                  )}
+                  <div className="account-page-form-body-row">
+                    <label className="account-page-form-body-row-label" htmlFor="contactUsSubject">Subject  <span style={{fontSize: '14px', color: '#D3D3D3'}}>{`(${100 - contactUsSubject.length} characters remaining)`}</span></label>
+                    <input
+                      className="account-page-form-body-row-input"
+                      type="text"
+                      autoComplete="off"
+                      id="contactUsSubject"
+                      maxLength={100}
+                      placeholder={`What's the topic?`}
+                      value={contactUsSubject}
+                      onChange={(e) => setContactUsSubject(e.target.value)}
+                      required
                     />
                   </div>
-                  <div className="homepage-papertrade-section-subtext-element-text-container">
-                    <h4>Practice</h4>
-                    <p>Trade with virtual money and gain confidence in your investment skills</p>
-                  </div>
-                </div>
-                <div className="homepage-papertrade-section-subtext-element">
-                  <div className="homepage-papertrade-section-subtext-element-image-container">
-                    <Image
-                      src={"/images/icons/papertrade-learn-icon.png"}
-                      alt="Learn with PaperTrade on investant.net"
-                      width={100}
-                      height={100}
+                  <div className="account-page-form-body-row">
+                    <label className="account-page-form-body-row-label" htmlFor="contactUsMessage">Message <span style={{fontSize: '14px', color: '#D3D3D3'}}>{`(${2500 - contactUsMessage.length} characters remaining)`}</span></label>
+                    <textarea
+                      className="account-page-form-body-row-input"
+                      id="contactUsMessage"
+                      rows={5}
+                      maxLength={2500}
+                      placeholder="What can we help you with?"
+                      value={contactUsMessage}
+                      onChange={(e) => setContactUsMessage(e.target.value)}
+                      required
                     />
+                  </div>                  
+                  <div className="account-page-form-body-row">
+                    {error && <p className="account-page-form-body-row-error-message">{error}</p>}
+                    {info && <p className="account-page-form-body-row-info-message">{info}</p>}
                   </div>
-                  <div className="homepage-papertrade-section-subtext-element-text-container">
-                    <h4>Learn</h4>
-                    <p>Access educational resources and expand your knowledge of the financial markets</p>
+                  <div className="account-page-form-body-row">
+                    <button type="submit" className="account-page-form-body-row-button">
+                      <p>Send</p>
+                    </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
-          </section>
-
-          <section ref={financialPlannerSection} id="homepage-financial-planner-section" className="homepage-financial-planner-section">
-            <div className="homepage-financial-planner-section-text-container">
-              <div className="homepage-financial-planner-section-title">
-                <h2>
-                  Simplify Your Finances with Our Easy-to-Use Planner
-                  <br></br>
-                  <span className="homepage-financial-planner-section-title-span">{"[In Development]"}</span>
-                </h2>
-              </div>
-              <div className="homepage-financial-planner-section-subtitle">
-                <p>Our simple financial planner is designed to help you manage your personal finances more effectively. With an intuitive interface and powerful features, you can easily track your expenses, set budgets, and plan for the future.</p>
-              </div>
-              <div className="homepage-financial-planner-section-subtext-container">
-                <div className="homepage-financial-planner-section-subtext-element">
-                  <div className="homepage-financial-planner-section-subtext-element-image-container">
-                    <Image
-                      src={"/images/icons/investant-calculator-expenses-icon.png"}
-                      alt="Track your expenses on investant.net"
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <div className="homepage-financial-planner-section-subtext-element-text-container">
-                    <h4>Track Expenses</h4>
-                    <p>Effortlessly monitor your spending habits and gain better control over your finances</p>
-                  </div>
-                </div>
-                <div className="homepage-financial-planner-section-subtext-element">
-                  <div className="homepage-financial-planner-section-subtext-element-image-container">
-                    <Image
-                      src={"/images/icons/investant-budget-icon.png"}
-                      alt="Set your budget on investant.net"
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                  <div className="homepage-financial-planner-section-subtext-element-text-container">
-                    <h4>Set Budgets</h4>
-                    <p>Create personalized budgets that align with your financial goals and priorities</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="homepage-financial-planner-section-image-container">
-              <Image                
-                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planning_graphs_in_hand_stock_photo_305328e53e"}
-                alt="Personal Financial Planner on investant.net"
-                width={1200}
-                height={600}
-              />
-            </div>
-          </section>
-
-          <section ref={financialCalculatorSection} id="homepage-financial-calculator-section" className="homepage-financial-calculator-section">
-            <div className="homepage-financial-calculator-section-image-container">
-              <Image
-                src={"https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/large_investant_financial_planners_theme_stock_photo_57ff6eaffb"}
-                alt="PaperTrade on investant.net"
-                width={1200}
-                height={600}
-              />
-            </div>
-            <div className="homepage-financial-calculator-section-text-container">
-              <div className="homepage-financial-calculator-section-title">
-                <h2>
-                  Crystal Clear Finances: Introducing the investant.net Calculator
-                  <br></br>
-                  <span className="homepage-financial-calculator-section-title-span">{"[In Development]"}</span>
-                </h2>
-              </div>
-              <div className="homepage-financial-calculator-section-subtitle">
-                <p>Take charge of your financial future with the innovative investant.net calculator. Our calculator provides crystal clear insight into your financial trajectory, empowering you to make informed decisions today for a more secure tomorrow. Say goodbye to uncertainty and hello to precise financial planning with investant.net.</p>
-              </div>
-            </div>
-          </section>
-
-          <section id="homepage-create-new-account-section" className="homepage-create-new-account-section">
-            <div className="homepage-create-new-account-section-text-container">
-              <div className="homepage-create-new-account-section-title">
-                <h2>Start Your Financial Journey Today</h2>
-              </div>
-              <div className="homepage-create-new-account-section-subtitle">
-                <p>Get early access to PaperTrade, our exclusive newsletter, and all future products</p>
-              </div>
-            </div>
-            <div className="homepage-create-new-account-section-buttons-container">
-              <Link href="/login?&form=SignUp" className="homepage-create-new-account-section-sign-up-button">
-                <h4>Sign Up</h4>
-              </Link>
-              <Link href="/about-us" className="homepage-create-new-account-section-learn-more-button">
-                <h4>Learn More</h4>
-              </Link>
+            <div className="account-page-google-recaptcha-disclaimer-tag">
+              <p>
+                This site is protected by reCAPTCHA and the Google
+                <a href="https://policies.google.com/privacy"> Privacy Policy</a> and
+                <a href="https://policies.google.com/terms"> Terms of Service</a> apply.
+              </p>
             </div>
           </section>
         </main>
       </DefaultLayout>
     </>
   )
-}
+};

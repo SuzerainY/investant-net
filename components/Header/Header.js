@@ -29,14 +29,14 @@ export default function Header() {
   // Route to product sections if navigated to via header
   const handleProductClick = (productId) => {
     // Close the mobile menu & route the user
-    if (router.pathname === '/' || router.pathname === '/#') {
+    if (router.pathname === '/products') {
       closeMobileMenu();
       const productSection = document.getElementById(productId);
       if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
 
     } else {
       document.body.classList.remove('no-scroll');
-      router.push('/').then(() => {
+      router.push('/products').then(() => {
         setTimeout(() => {
           const productSection = document.getElementById(productId);
           if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
@@ -126,10 +126,10 @@ export default function Header() {
           <div className="mobile-menu-navigation">
             <ul>
               <li><MobileNavLink href="/">Home</MobileNavLink></li>
-              <li><MobileNavLink href="/about-us">About Us</MobileNavLink></li>
               <li><MobileNavLink href="/blog">Blog</MobileNavLink></li>
+              <li><MobileNavLink href="/about-us">About</MobileNavLink></li>
               <li>
-                <a href="#" onClick={() => handleShowProductsDropdownClick()}>
+                <div className="mobile-menu-navigation-products" onClick={() => handleShowProductsDropdownClick()}>
                   Products
                   <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
                     <Image
@@ -140,11 +140,11 @@ export default function Header() {
                       style={{rotate: showProductsDropdown ? '-180deg' : '0deg'}}
                     />
                   </span>
-                </a>
+                </div>
                 <ul ref={mobileMenuProductsDropdown} className="NavBar-Navigation-Links-Products-Dropdown-Content" style={{height: showProductsDropdown ? '80px' : '0px'}}>
-                  <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
-                  <li><button onClick={() => handleProductClick("homepage-financial-planner-section")}><p>Financial Planners</p></button></li>
-                  <li><button onClick={() => handleProductClick("homepage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                  <li><button onClick={() => handleProductClick("productspage-papertrade-section")}><p>PaperTrade</p></button></li>
+                  <li><button onClick={() => handleProductClick("productspage-financial-planner-section")}><p>Financial Planners</p></button></li>
+                  <li><button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
                 </ul>
               </li>
             </ul>
@@ -276,10 +276,8 @@ export default function Header() {
             <div className="NavBar-Navigation-Links">
               <ul>
                 <li><Link href="/">Home</Link></li>
-                <li><Link href="/about-us">About Us</Link></li>
-                <li><Link href="/blog">Blog</Link></li>
-                <li className="NavBar-Navigation-Links-Products-Dropdown">
-                  <a href="#">
+                <li style={{marginRight: '20px'}} className="NavBar-Navigation-Links-Products-Dropdown">
+                  <Link href="/products">
                     Products
                     <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
                       <Image
@@ -289,13 +287,15 @@ export default function Header() {
                         height={22}
                       />
                     </span>
-                  </a>
+                  </Link>
                   <ul className="NavBar-Navigation-Links-Products-Dropdown-Content">
-                    <li><button onClick={() => handleProductClick("homepage-papertrade-section")}><p>PaperTrade</p></button></li>
-                    <li><button onClick={() => handleProductClick("homepage-financial-planner-section")}><p>Financial Planners</p></button></li>
-                    <li><button onClick={() => handleProductClick("homepage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                    <li><button onClick={() => handleProductClick("productspage-papertrade-section")}><p>PaperTrade</p></button></li>
+                    <li><button onClick={() => handleProductClick("productspage-financial-planner-section")}><p>Financial Planners</p></button></li>
+                    <li><button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
                   </ul>
                 </li>
+                <li><Link href="/blog">Blog</Link></li>
+                <li><Link href="/about-us">About</Link></li>
               </ul>
             </div>
             <div className="NavBar-Media-Links">

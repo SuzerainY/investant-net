@@ -46,22 +46,6 @@
           font-weight: 600;
         }
       }
-  
-      .NavBar-Investant-User-Name {
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        color: $white;
-        margin-left: 10px;
-        .NavBar-Investant-User-Name-Span { margin-left: 5px; color: $magenta; font-weight: 600; }
-        
-        h3 {
-          font-size: 20px;
-          font-weight: 500;
-        }
-      }
 
       img {
         width: auto;
@@ -83,6 +67,7 @@
 
         li {
           transition: transform 0.2s ease-in-out;
+          a {font-size: 20px; font-weight: 600;}
           &:hover {
             transform: scale(1.02);
           }
@@ -97,11 +82,7 @@
               position: absolute;
               margin-top: 3px;
               margin-left: 4px;
-              transition: margin 0.4s ease;
             }
-          }
-          &:hover a .NavBar-Navigation-Links-Products-Dropdown-Arrow {
-            margin-left: 4.5px;
           }
           
           .NavBar-Navigation-Links-Products-Dropdown-Content {
@@ -263,19 +244,6 @@
           font-weight: 600;
         }
       }
-  
-      .NavBar-Investant-User-Name {
-        display: flex;
-        align-items: center;
-        color: $white;
-        margin-left: 10px;
-        .NavBar-Investant-User-Name-Span h3 { margin-left: 5px; color: $magenta; font-weight: 600; }
-
-        h3 {
-          font-size: 26px;
-          font-weight: 500;
-        }
-      }
     }
 
     .mobile-menu-open {
@@ -396,27 +364,31 @@
           }
         }
       }
-
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .NavBar-Navigation-Links-Products-Dropdown-Arrow {
-          display: flex;
-          padding-top: 2px;
-          padding-left: 4px;
-
-          img {
-            rotate: 0deg;
-            transition: rotate 0.4s ease;
-          }
-        }
-      }
   
       ul {
         list-style: none;
         text-align: center;
+
+        .mobile-menu-navigation-products {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $white;
+          font-weight: bold;
+          transition: transform 0.2s ease-in-out;
+          cursor: pointer;
+  
+          .NavBar-Navigation-Links-Products-Dropdown-Arrow {
+            display: flex;
+            padding-top: 2px;
+            padding-left: 4px;
+  
+            img {
+              rotate: 0deg;
+              transition: rotate 0.4s ease;
+            }
+          }
+        }
     
         li {
           padding-bottom: 10px;
@@ -449,12 +421,6 @@
           transition: transform 0.1s ease-in-out;
           &:hover {
             transform: scale(1.05);
-          }
-  
-          a {
-            text-decoration: none;
-            color: $white;
-            font-weight: bold;
           }
         }
       }

@@ -41,6 +41,16 @@ export default function Account() {
     const [blogPostSubscriptionChecked, setBlogPostSubscriptionChecked] = useState(userSubscriptions.blogPostSubscription);
     const handleBlogPostSubscriptionChange = () => {setBlogPostSubscriptionChecked(!blogPostSubscriptionChecked);}
 
+    // Route to contact us form
+    const handleContactUsLinkClick = () => {
+        router.push('/').then(() => {
+            setTimeout(() => {
+            const contactUsFormSection = document.getElementById("homepage-contact-us-form-section");
+            if (contactUsFormSection) {contactUsFormSection.scrollIntoView({ behavior: 'smooth' });}
+            }, 100);
+        });
+    };
+
     useEffect(() => {
         const handleClickOutsideSidebar = (event) => {
             let eventTarget = event.target;
@@ -104,7 +114,7 @@ export default function Account() {
         } else if (newUsername === username) {return;}
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_user_Account_Page_Set_New_Username_Form_Submission' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Account_Page_Set_New_Username_Form_Submission' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {
@@ -154,7 +164,7 @@ export default function Account() {
         } else if (newEmail === userEmail) {return;}
 
         grecaptcha.ready(() => {
-            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_user_Account_Page_Set_New_Email_Form_Submission' }).then(async (token) => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Account_Page_Set_New_Email_Form_Submission' }).then(async (token) => {
                 try {
                     // Google Recaptcha Verification
                     if (await verifyGoogleRecaptcha(token) !== true) {
@@ -462,7 +472,7 @@ export default function Account() {
                                         <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will Continue To Deliver You More.</p>
                                     </div>
                                     <div className="account-page-form-body-row">
-                                        <p>Have Ideas Or Feedback? <span style={{ fontWeight: 'bold' }}>Please Contact Us</span></p>
+                                        <p>Have Ideas Or Feedback? <span onClick={handleContactUsLinkClick} style={{ cursor: 'pointer', fontWeight: 'bold' }}>Please Contact Us</span></p>
                                     </div>
                                 </div>
                             </section>

@@ -1,191 +1,713 @@
+$productspage-max-width: 1600px; // Maximum width for any div in the productspage
+$productspage-desktop-side-padding: 80px; // Padding on left and right sides on desktop viewport
+$productspage-tablet-side-padding: 40px; // Padding on left and right sides of tablet viewport
+$productspage-mobile-side-padding: 20px; // Padding on left and right sides of mobile viewport
+$productspage-button-border-radius: 5px; // Consistent border radius throughout page
+
 .productspage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .productspage-title-section {
+    position: relative;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
+    background-image: url('https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/small_investant_man_in_chair_night_work_stock_photo_4fd472ba26');
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: 50%;
+    
+    .productspage-title-section-text-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(4px);
+      background-color: rgba(22, 11, 44, 0.75);
+      color: $white;
+
+      .productspage-title-section-title {
+        max-width: 1200px;
+        text-align: center;
+        padding: 10px $productspage-desktop-side-padding;
+
+        .productspage-title-section-title-span {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        h1 {
+          font-size: 60px;
+          font-weight: 600;
+          line-height: 100%;
+        }
+      }
+
+      .productspage-title-section-subtitle {
+        max-width: 1200px;
+        text-align: center;
+        padding: 10px $productspage-desktop-side-padding;
+
+        .productspage-title-section-subtitle-span {
+          color: $magenta;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+
+  .productspage-papertrade-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
-    min-height: calc(100vh - 160px);
+    padding: 40px $productspage-desktop-side-padding;
+    background-color: $chrome;
 
-    .productspage-title-section {
-        display: flex;
-        background-color: $chrome;
+    .productspage-papertrade-section-image-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 50%;
+      height: auto;
+      max-width: calc($productspage-max-width * 0.5);
+      padding: 0px 20px 0px 0px;
+      overflow: hidden;
+    
+      img {
         width: 100%;
-        height: auto;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 0px 0px 0px;
-
-        .productspage-title-container {
-            display: flex;
-            flex-direction: row;
-            white-space: nowrap;
-            width: 50%;
-            max-width: 1400px;
-            align-items: center;
-            color: $soft-purple;
-
-            .productspage-title-span {
-                color: $dark-blue;
-                font-weight: 600;
-            }
-
-            h1 {
-                font-size: 40px;
-                font-weight: bold;
-            }
-            h3 {
-                font-size: 24px;
-                padding-top: 3px;
-                padding-left: 5px;
-                color: $light-grey;
-                font-style: italic;
-            }
-        }
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
     }
 
-    .productspage-info-section {
-        display: flex;
-        background-color: $chrome;
-        justify-content: center;
-        align-items: center;
+    .productspage-papertrade-section-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      max-width: calc($productspage-max-width * 0.5);
+      padding: 0px 0px 0px 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      color: $black;
+
+      .productspage-papertrade-section-title {
         width: 100%;
-        height: auto;
-        padding: 20px 0px 10px 0px;
 
-        .productspage-info-description {
-            width: 50%;
-            max-width: 1400px;
-            color: $black;
-            padding: 0px 10px;
-
-            .productspage-info-description-span {
-                font-weight: bold;
-            }
-
-            h4 {
-                font-size: 20px;
-                font-family: sans-serif;
-            }
+        .productspage-papertrade-section-title-span {
+          color: $magenta;
         }
-    }
 
-    .productspage-divider-1 {
-        display: grid;
-        grid-template-columns: 30% 70%;
-        width: 50%;
-        max-width: 1400px;
-        height: 4px;
-        margin-top: 5px;
-
-        .productspage-divider-1-color-1 {
-            background-color: $trans-purple;
+        h2 {
+          font-size: 36px;
+          font-weight: 600;
         }
-        .productspage-divider-1-color-2 {
-            background-color: $dark-blue;
-        }
-    }
+      }
 
-    .productspage-conscious-planner-section {
+      .productspage-papertrade-section-subtitle {
+        width: 100%;
+        padding: 20px 0px;
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+
+      .productspage-papertrade-section-subtext-container {
         display: flex;
         flex-direction: row;
-        width: 50%;
-        max-width: 1400px;
-        padding: 20px 0px 20px 0px;
+        justify-content: space-between;
+        width: 100%;
 
-        .productspage-conscious-planner-image-container {
-            width: 60%;
-            height: auto;
-            padding: 0 10px;
+        .productspage-papertrade-section-subtext-element {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 46%;
+
+          .productspage-papertrade-section-subtext-element-image-container {
+            width: 75px;
+            height: 75px;
 
             img {
-                object-fit: cover;
-                width: 100%;
-                height: auto;
+              width: 100%;
+              height: 100%;
             }
-        }
+          }
 
-        .productspage-conscious-planner-description {
+          .productspage-papertrade-section-subtext-element-text-container {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            width: 40%;
-            color: $black;
-            padding: 0px 20px;
-
-            .productspage-conscious-planner-download-button {
-                border: 2px solid $light-blue;
-                border-radius: 30px;
-                background-color: $soft-purple;
-                width: fit-content;
-                margin: auto 0;
-                padding: 10px;
-                color: $white;
-                cursor: pointer;
-                
-                h4 {
-                    font-weight: bold;
-                    font-size: 18px;
-                }
-            }
-
-            .productspage-conscious-planner-description-span {
-                font-weight: bold;
-            }
+            align-items: flex-start;
+            padding: 20px 0px 0px 0px;
 
             h4 {
-                font-size: 22px;
-                font-family: sans-serif;
+              font-size: 26px;
+              font-weight: bold;
+              padding-bottom: 10px;
             }
+            p {
+              font-size: 20px;
+              font-family: sans-serif;
+            }
+          }
         }
+      }
     }
+  }
+
+  .productspage-financial-planner-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px $productspage-desktop-side-padding;
+    background-color: $soft-purple;
+
+    .productspage-financial-planner-section-text-container {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 20px 0px 0px;
+      width: 50%;
+      max-width: calc($productspage-max-width * 0.5);
+      justify-content: center;
+      align-items: center;
+      color: $white;
+      text-align: left;
+
+      .productspage-financial-planner-section-title {
+        width: 100%;
+
+        .productspage-financial-planner-section-title-span {
+          color: $magenta;
+        }
+
+        h2 {
+          font-size: 36px;
+          font-weight: 600;
+        }
+      }
+
+      .productspage-financial-planner-section-subtitle {
+        width: 100%;
+        padding: 20px 0px;
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+
+      .productspage-financial-planner-section-subtext-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .productspage-financial-planner-section-subtext-element {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 46%;
+
+          .productspage-financial-planner-section-subtext-element-image-container {
+            width: 75px;
+            height: 75px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .productspage-financial-planner-section-subtext-element-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px 0px 0px 0px;
+
+            h4 {
+              font-size: 26px;
+              font-weight: bold;
+              padding-bottom: 10px;
+            }
+            p {
+              font-size: 20px;
+              font-family: sans-serif;
+            }
+          }
+        }
+      }
+    }
+
+    .productspage-financial-planner-section-image-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      width: 50%;
+      height: auto;
+      max-width: calc($productspage-max-width * 0.5);
+      padding: 0px 0px 0px 20px;
+      overflow: hidden;
+    
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .productspage-financial-calculator-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 40px $productspage-desktop-side-padding;
+    background-color: $chrome;
+
+    .productspage-financial-calculator-section-image-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 50%;
+      height: auto;
+      max-width: calc($productspage-max-width * 0.5);
+      padding: 0px 20px 0px 0px;
+      overflow: hidden;
+    
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+    }
+
+    .productspage-financial-calculator-section-text-container {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 0px 0px 20px;
+      width: 50%;
+      max-width: calc($productspage-max-width * 0.5);
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      color: $black;
+
+      .productspage-financial-calculator-section-title {
+        width: 100%;
+
+        .productspage-financial-calculator-section-title-span {
+          color: $magenta;
+        }
+
+        h2 {
+          font-size: 36px;
+          font-weight: 600;
+        }
+      }
+
+      .productspage-financial-calculator-section-subtitle {
+        width: 100%;
+        padding: 20px 0px;
+
+        p {
+          font-size: 20px;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+
+  .productspage-create-new-account-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px $productspage-desktop-side-padding;
+    background-color: $grey;
+
+    .productspage-create-new-account-section-text-container {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+      max-width: calc($productspage-max-width * 0.6);
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      color: $white;
+
+      .productspage-create-new-account-section-title {
+        h2 {
+          font-size: 40px;
+          font-weight: 600;
+          font-family: sans-serif;
+        }
+      }
+
+      .productspage-create-new-account-section-subtitle {
+        padding: 20px 0px;
+
+        p {
+          font-size: 14px;
+          font-family: sans-serif;
+        }
+      }
+    }
+
+    .productspage-create-new-account-section-buttons-container {
+      display: flex;
+      flex-direction: row;
+      width: 40%;
+      height: 100%;
+      max-width: calc($productspage-max-width * 0.4);
+      justify-content: right;
+      align-items: center;
+      padding: 10px 0px;
+      a {text-decoration: none;}
+
+      .productspage-create-new-account-section-sign-up-button {
+        // Remove default button appearances
+        border: none;
+        background: none;
+        font: inherit;
+
+        display: flex;
+        background-color: $white;
+        padding: 10px 15px;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        color: $black;
+        border: 1px solid $white;
+        border-radius: $productspage-button-border-radius;
+        cursor: pointer;
+  
+        h4 {
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+
+      .productspage-create-new-account-section-learn-more-button {
+        display: flex;
+        padding: 10px 15px;
+        margin-left: 10px;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+        border: 1px solid $magenta;
+        border-radius: $productspage-button-border-radius;
+        color: $magenta;
+        text-decoration: none;
+        cursor: pointer;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }
 
-@media screen and (max-width: 1199px) {
-    .productspage {
-        .productspage-title-section {
-            .productspage-title-container {
-                width: 100%;
-                flex-direction: column;
-                align-items: flex-start;
-                padding-left: 20px;
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .productspage {
+    .productspage-title-section {
+      .productspage-title-section-text-container {
+        backdrop-filter: blur(2px);
 
-                h3 {
-                    font-size: 20px;
-                }
-            }
+        .productspage-title-section-title {
+          padding: 10px $productspage-tablet-side-padding;
+          h1 {
+            font-size: 44px;
+          }
         }
-
-        .productspage-info-section {
-            .productspage-info-description {
-                width: 100%;
-                padding-left: 20px;
-            }
+  
+        .productspage-title-section-subtitle {
+          padding: 10px $productspage-tablet-side-padding;
+          p {
+            font-size: 18px;
+          }
         }
-
-        .productspage-divider-1 {
-            width: calc(100% - 40px);
-        }
-
-        .productspage-conscious-planner-section {
-            width: 100%;
-            flex-direction: column;
-            padding-left: 20px;
-            padding-right: 20px;
-
-            .productspage-conscious-planner-image-container {
-                width: 100%;
-                padding: 0px;
-            }
-
-            .productspage-conscious-planner-description {
-                flex-direction: column-reverse;
-                width: 100%;
-                padding: 0px;
-
-                .productspage-conscious-planner-download-button {
-                    margin: 10px 0px;
-                }
-            }
-        }
+      }
     }
+
+    .productspage-papertrade-section {
+      padding: $productspage-tablet-side-padding;
+  
+      .productspage-papertrade-section-text-container {
+        .productspage-papertrade-section-title h2 {
+          font-size: 30px;
+        }
+  
+        .productspage-papertrade-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .productspage-papertrade-section-subtext-container {
+          .productspage-papertrade-section-subtext-element {
+            .productspage-papertrade-section-subtext-element-text-container {
+              h4 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    .productspage-financial-planner-section {
+      padding: $productspage-tablet-side-padding;
+  
+      .productspage-financial-planner-section-text-container {
+        .productspage-financial-planner-section-title h2 {
+          font-size: 30px;
+        }
+  
+        .productspage-financial-planner-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .productspage-financial-planner-section-subtext-container {
+          .productspage-financial-planner-section-subtext-element {
+            .productspage-financial-planner-section-subtext-element-text-container {
+              h4 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productspage-financial-calculator-section {
+      padding: $productspage-tablet-side-padding;
+  
+      .productspage-financial-calculator-section-text-container {
+        .productspage-financial-calculator-section-title h2 {
+          font-size: 30px;
+        }
+  
+        .productspage-financial-calculator-section-subtitle p {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .productspage-create-new-account-section {
+      flex-direction: column;
+      padding: $productspage-tablet-side-padding;
+  
+      .productspage-create-new-account-section-text-container {
+        width: 100%;
+        max-width: none;
+  
+        .productspage-create-new-account-section-title h2 {
+          font-size: 34px;
+          font-weight: 600;
+        }
+      }
+  
+      .productspage-create-new-account-section-buttons-container {
+        width: 100%;
+        max-width: none;
+        justify-content: left;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .productspage {
+    .productspage-title-section {
+      height: 300px;
+      
+      .productspage-title-section-text-container {
+        backdrop-filter: blur(2px);
+
+        .productspage-title-section-title {
+          padding: 10px $productspage-mobile-side-padding;
+          h1 {
+            font-size: 28px;
+          }
+        }
+  
+        .productspage-title-section-subtitle {
+          padding: 10px $productspage-mobile-side-padding;
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .productspage-papertrade-section {
+      flex-direction: column-reverse;
+      padding: $productspage-mobile-side-padding;
+  
+      .productspage-papertrade-section-image-container {
+        width: 100%;
+        padding: 0px;
+      }
+  
+      .productspage-papertrade-section-text-container {
+        width: 100%;
+        padding: 0px;
+  
+        .productspage-papertrade-section-title h2 {
+          font-size: 30px;
+          font-weight: 600;
+        }
+  
+        .productspage-papertrade-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .productspage-papertrade-section-subtext-container {
+          flex-direction: column;
+
+          .productspage-papertrade-section-subtext-element {
+            width: 100%;
+
+            .productspage-papertrade-section-subtext-element-text-container {
+              padding: 20px 0px;
+              h4 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productspage-financial-planner-section {
+      flex-direction: column;
+      padding: $productspage-mobile-side-padding;
+  
+      .productspage-financial-planner-section-image-container {
+        width: 100%;
+        padding: 0px;
+
+        img {
+          width: 100%;
+        }
+      }
+  
+      .productspage-financial-planner-section-text-container {
+        width: 100%;
+        max-width: none;
+        padding: 0px;
+  
+        .productspage-financial-planner-section-title h2 {
+          font-size: 30px;
+          font-weight: 600;
+        }
+  
+        .productspage-financial-planner-section-subtitle p {
+          font-size: 18px;
+        }
+  
+        .productspage-financial-planner-section-subtext-container {
+          flex-direction: column;
+
+          .productspage-financial-planner-section-subtext-element {
+            width: 100%;
+
+            .productspage-financial-planner-section-subtext-element-text-container {
+              padding: 20px 0px;
+              h4 {
+                font-size: 24px;
+              }
+              p {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .productspage-financial-calculator-section {
+      flex-direction: column-reverse;
+      padding: $productspage-mobile-side-padding;
+  
+      .productspage-financial-calculator-section-image-container {
+        width: 100%;
+        padding: 0px;
+
+        img {
+          width: 100%;
+        }
+      }
+  
+      .productspage-financial-calculator-section-text-container {
+        width: 100%;
+        padding: 0px;
+  
+        .productspage-financial-calculator-section-title h2 {
+          font-size: 30px;
+          font-weight: 600;
+        }
+  
+        .productspage-financial-calculator-section-subtitle p {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .productspage-create-new-account-section {
+      flex-direction: column;
+      padding: $productspage-mobile-side-padding;
+  
+      .productspage-create-new-account-section-text-container {
+        width: 100%;
+        max-width: none;
+  
+        .productspage-create-new-account-section-title h2 {
+          font-size: 34px;
+          font-weight: 600;
+        }
+      }
+  
+      .productspage-create-new-account-section-buttons-container {
+        width: 100%;
+        max-width: none;
+        justify-content: left;
+      }
+    }
+  }
 }
