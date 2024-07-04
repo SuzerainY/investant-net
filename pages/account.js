@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
@@ -40,16 +41,6 @@ export default function Account() {
     // Subscriptions Block Variables & Components
     const [blogPostSubscriptionChecked, setBlogPostSubscriptionChecked] = useState(userSubscriptions.blogPostSubscription);
     const handleBlogPostSubscriptionChange = () => {setBlogPostSubscriptionChecked(!blogPostSubscriptionChecked);}
-
-    // Route to contact us form
-    const handleContactUsLinkClick = () => {
-        router.push('/').then(() => {
-            setTimeout(() => {
-            const contactUsFormSection = document.getElementById("homepage-contact-us-form-section");
-            if (contactUsFormSection) {contactUsFormSection.scrollIntoView({ behavior: 'smooth' });}
-            }, 100);
-        });
-    };
 
     useEffect(() => {
         const handleClickOutsideSidebar = (event) => {
@@ -472,7 +463,7 @@ export default function Account() {
                                         <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will Continue To Deliver You More.</p>
                                     </div>
                                     <div className="account-page-form-body-row">
-                                        <p>Have Ideas Or Feedback? <span onClick={handleContactUsLinkClick} style={{ cursor: 'pointer', fontWeight: 'bold' }}>Please Contact Us</span></p>
+                                        <p>Have Ideas Or Feedback? <Link href={'/?block=ContactUs'} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#E81CFF' }}>Please Contact Us</Link></p>
                                     </div>
                                 </div>
                             </section>

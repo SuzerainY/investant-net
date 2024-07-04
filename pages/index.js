@@ -2,6 +2,7 @@ import { useInvestantUserAuth } from '@/context/GlobalContext';
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail, isValidText } from '@/my_modules/authenticationhelp';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -44,6 +45,8 @@ export async function getServerSideProps(context) {
 };
 
 export default function Home(props) {
+  const router = useRouter();
+  const { username, userEmail, userSignedIn } = useInvestantUserAuth();
 
   // Arrange blog posts for display
   const featuredPosts = props.data.featuredPosts.data.slice(1);
@@ -57,17 +60,15 @@ export default function Home(props) {
   const getStartedButton = useRef(null);
   const handleGetStartedButtonClick = () => {blogPostsSection.current.scrollIntoView({ behavior: 'smooth' })};
 
-  // State handling components
+  // Handle the Newsletter Signup form
   const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
-  const validateNewsletterSignUpEmail = (email) => {
-    if (isValidEmail(email)) {return true;}
-    return false;
-  };
+  const validateNewsletterSignUpEmail = (email) => {return isValidEmail(email);};
 
+  // Error and Info to be used in form messages
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
 
-  const { username, userEmail, userSignedIn } = useInvestantUserAuth();
+  // Handle the Contact Us form
   const [contactUsName, setContactUsName] = useState('');
   const [contactUsEmail, setContactUsEmail] = useState('');
   const [contactUsSubject, setContactUsSubject] = useState('');
@@ -85,11 +86,9 @@ export default function Home(props) {
 
   useEffect(() => {
     const verifySignIn = () => {
-      if (userSignedIn !== undefined) {
-        if (userSignedIn === true) {
-          if (username) {setContactUsName(username);}
-          if (userEmail) {setContactUsEmail(userEmail);}
-        }
+      if (userSignedIn !== undefined && userSignedIn === true) {
+        if (username) {setContactUsName(username);}
+        if (userEmail) {setContactUsEmail(userEmail);}
       }
     }; verifySignIn();
   }, [userSignedIn, username, userEmail]);
@@ -151,6 +150,16 @@ export default function Home(props) {
       });
     });
   };
+
+  useEffect(() => {
+    const handleRouterQueryOnLoad = () => {
+      if (router.isReady && router.query.block === 'ContactUs') {
+        setError('');
+        setInfo('');
+        contactUsSection.current?.scrollIntoView({behavior: 'smooth'});
+      }
+    }; handleRouterQueryOnLoad();
+  }, [router.isReady, router.query.block, contactUsSection.current]);
 
   return (
     <>
@@ -433,6 +442,7 @@ export default function Home(props) {
                     <label className="account-page-form-body-row-label" htmlFor="contactUsMessage">Message <span style={{fontSize: '14px', color: '#D3D3D3'}}>{`(${2500 - contactUsMessage.length} characters remaining)`}</span></label>
                     <textarea
                       className="account-page-form-body-row-input"
+                      style={{resize: 'vertical', minHeight: '43px'}}
                       id="contactUsMessage"
                       rows={5}
                       maxLength={2500}
