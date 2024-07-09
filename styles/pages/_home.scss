@@ -15,8 +15,6 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     flex-direction: row;
     width: 100%;
     align-items: center;
-    background-image: url("/images/styling/layered-peaks1-haikei.svg");
-    background-size: cover;
     overflow: hidden;
 
     .homepage-hero-section-text-container {
@@ -223,6 +221,93 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     }
   }
 
+  .homepage-investor-roadmap-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0px $homepage-desktop-side-padding 40px $homepage-desktop-side-padding;
+
+    .homepage-investor-roadmap-section-title-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: calc(100% + (2 * $homepage-desktop-side-padding));
+      padding: 20px 0px;
+      background-color: $chrome;
+      color: $black;
+      
+      .homepage-investor-roadmap-section-title {
+        .homepage-investor-roadmap-section-title-span {color: $magenta;}
+        h1 {
+          font-size: 40px;
+          font-weight: 600;
+        }
+      }
+
+      .homepage-investor-roadmap-section-subtitle {
+        padding-top: 15px;
+        p {font-size: 20px;}
+      }
+    }
+
+    .homepage-investor-roadmap-section-roadmap-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-radius: 10px;
+
+      .homepage-investor-roadmap-section-roadmap-step {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px 0px;
+        width: 100%;
+
+        .homepage-investor-roadmap-section-roadmap-step-number-container {
+          display: flex;
+          justify-content: flex-start;
+          width: 40%;
+
+          // Remain on the right of your 40% chunk when screen width exceeds $homepage-max-width + 80px padding on either side (160px)
+          @media screen and (min-width: calc($homepage-max-width + ($homepage-desktop-side-padding * 2))) {
+            padding: 0px 0px 0px calc((100% - $homepage-max-width) / 2);
+          }
+
+          .homepage-investor-roadmap-section-roadmap-step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            background-color: $chrome;
+            border-radius: 50%;
+            color: $black;
+            h1 {
+              font-size: 70px;
+              font-weight: bolder;
+            }
+          }
+        }
+
+        .homepage-investor-roadmap-section-roadmap-step-commentary {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          width: 60%;
+          text-align: left;
+        }
+      }
+    }
+  }
+
   .homepage-featured-blog-posts-section {
     position: relative;
     display: flex;
@@ -257,9 +342,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         padding-top: 20px;
         text-align: center;
 
-        p {
-          font-size: 20px;
-        }
+        p {font-size: 20px;}
       }
     }
 
