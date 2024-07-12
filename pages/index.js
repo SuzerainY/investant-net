@@ -53,12 +53,13 @@ export default function Home(props) {
   const featuredPost = props.data.featuredPosts.data.slice(0, 1)[0];
 
   // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
+  const investorRoadmapSection = useRef(null);
   const blogPostsSection = useRef(null);
   const contactUsSection = useRef(null);
 
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
-  const handleGetStartedButtonClick = () => {blogPostsSection.current.scrollIntoView({ behavior: 'smooth' })};
+  const handleGetStartedButtonClick = () => {investorRoadmapSection.current?.scrollIntoView({ behavior: 'smooth' })};
 
   // Handle the Newsletter Signup form
   const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
@@ -188,192 +189,221 @@ export default function Home(props) {
 
       <DefaultLayout>
         <main className="homepage">
-          <div style={{backgroundImage: 'url("/images/styling/layered-peaks1-haikei.svg")', backgroundSize: 'cover'}}>
-            <section id="homepage-hero-section" className="homepage-hero-section">
-              <div className="homepage-hero-section-text-container">
-                <div className="homepage-hero-section-large-slogan">
-                  <h1>
-                    Start Your
-                    <br/>
-                    <span className="homepage-hero-section-text-span">Wealth-Building Journey</span>
-                  </h1>
-                </div>
-                <div className="homepage-hero-section-button-container">
-                  <button ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button" onClick={handleGetStartedButtonClick}>
-                    <h4>Get Started</h4>
-                  </button>
-                  <Link href="/about-us" className="homepage-hero-section-learn-more-button">
-                    <h4>Learn More</h4>
-                  </Link>
-                </div>
+          <section id="homepage-hero-section" className="homepage-hero-section">
+            <div className="homepage-hero-section-text-container">
+              <div className="homepage-hero-section-large-slogan">
+                <h1>
+                  Start Your
+                  <br/>
+                  <span className="homepage-hero-section-text-span">Wealth-Building Journey</span>
+                </h1>
               </div>
-              <div className="homepage-hero-section-image-container">
+              <div className="homepage-hero-section-button-container">
+                <button ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button" onClick={handleGetStartedButtonClick}>
+                  <h4>Get Started</h4>
+                </button>
+                <Link href="/about-us" className="homepage-hero-section-learn-more-button">
+                  <h4>Learn More</h4>
+                </Link>
+              </div>
+            </div>
+            <div className="homepage-hero-section-image-container">
+              <Image
+                src={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
+                alt="Office Worker ClipArt"
+                fill={true}
+                placeholder="blur"
+                blurDataURL={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
+              />
+              <div className="homepage-hero-section-hero-piece-1">
                 <Image
-                  src={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
-                  alt="Office Worker ClipArt"
-                  fill={true}
-                  placeholder="blur"
-                  blurDataURL={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_1_Paper.svg"}
+                  alt="homepage hero section hero piece 1"
+                  width={100}
+                  height={100}
                 />
-                <div className="homepage-hero-section-hero-piece-1">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_1_Paper.svg"}
-                    alt="homepage hero section hero piece 1"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-2">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_2_White_Star.svg"}
-                    alt="homepage hero section hero piece 2"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-3">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_3_Flower.svg"}
-                    alt="homepage hero section hero piece 3"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-4">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_4_Green_Star.svg"}
-                    alt="homepage hero section hero piece 4"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-5">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_5_Coins.svg"}
-                    alt="homepage hero section hero piece 5"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-6">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_6_Person.svg"}
-                    alt="homepage hero section hero piece 6"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-7">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_7_Pink_Star_1.svg"}
-                    alt="homepage hero section hero piece 7"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-8">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_8_Pink_Star_2.svg"}
-                    alt="homepage hero section hero piece 8"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-9">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_9_Blue_Star.svg"}
-                    alt="homepage hero section hero piece 9"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-10">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_10_Yellow_Star.svg"}
-                    alt="homepage hero section hero piece 10"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-                <div className="homepage-hero-section-hero-piece-11">
-                  <Image
-                    src={"/images/clipart/OfficeWorkerHeroComponents/Piece_11_Graph.svg"}
-                    alt="homepage hero section hero piece 11"
-                    width={100}
-                    height={100}
-                  />
-                </div>
               </div>
-            </section>
+              <div className="homepage-hero-section-hero-piece-2">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_2_White_Star.svg"}
+                  alt="homepage hero section hero piece 2"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-3">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_3_Flower.svg"}
+                  alt="homepage hero section hero piece 3"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-4">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_4_Green_Star.svg"}
+                  alt="homepage hero section hero piece 4"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-5">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_5_Coins.svg"}
+                  alt="homepage hero section hero piece 5"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-6">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_6_Person.svg"}
+                  alt="homepage hero section hero piece 6"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-7">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_7_Pink_Star_1.svg"}
+                  alt="homepage hero section hero piece 7"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-8">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_8_Pink_Star_2.svg"}
+                  alt="homepage hero section hero piece 8"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-9">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_9_Blue_Star.svg"}
+                  alt="homepage hero section hero piece 9"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-10">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_10_Yellow_Star.svg"}
+                  alt="homepage hero section hero piece 10"
+                  width={100}
+                  height={100}
+                />
+              </div>
+              <div className="homepage-hero-section-hero-piece-11">
+                <Image
+                  src={"/images/clipart/OfficeWorkerHeroComponents/Piece_11_Graph.svg"}
+                  alt="homepage hero section hero piece 11"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            </div>
+          </section>
 
-            <section id="homepage-investor-roadmap-section" className="homepage-investor-roadmap-section">
-              <div className="homepage-investor-roadmap-section-title-container">
-                <div className="homepage-investor-roadmap-section-title">
-                  <h1>The <span className="homepage-investor-roadmap-section-title-span">Investant</span> Handbook</h1>
-                </div>
-                <div className="homepage-investor-roadmap-section-subtitle">
-                  <p>3 Steps To Take Today</p>
+          <section ref={investorRoadmapSection} id="homepage-investor-roadmap-section" className="homepage-investor-roadmap-section">
+            <div className="homepage-investor-roadmap-section-title-container">
+              <div className="homepage-investor-roadmap-section-title">
+                <h1>The <span className="homepage-investor-roadmap-section-title-span">Investant</span> Handbook</h1>
+              </div>
+              <div className="homepage-investor-roadmap-section-subtitle">
+                <p>3 Steps To Take Today</p>
+              </div>
+            </div>
+            <div className="homepage-investor-roadmap-section-roadmap-container">
+              <div className="homepage-investor-roadmap-section-roadmap-step">
+                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
+                  <h2 style={{fontWeight: 'bold'}}>Step 1</h2>
+                  <h2>Get Started</h2>
+                  <p><br/>This is the perfect time to start building your future! {`Let's`} find you an account to build wealth tax-deferred!</p>
+                  <ul style={{listStyle: 'inside'}}><br/>
+                    <li><span style={{fontWeight: 'bold'}}>Roth IRA</span>
+                      <ul style={{marginLeft: '20px'/*, color: '#40C9FF'*/}}>
+                        <li>Pay taxes on money now, withdraw tax-free later</li>
+                        <li>Tax-free capital gains</li>
+                        <li>For those who expect to be in a higher tax bracket in the future</li>
+                      </ul>
+                    </li>
+                    <br/>
+                    <li><span style={{fontWeight: 'bold'}}>Traditional IRA</span>
+                      <ul style={{marginLeft: '20px'/*, color: '#40C9FF'*/}}>
+                        <li>Pay taxes upon withdrawing money, contribute tax-free now</li>
+                        <li>For those who expect to be in a lower tax bracket in the future</li>
+                      </ul>
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div className="homepage-investor-roadmap-section-roadmap-container">
-                <div className="homepage-investor-roadmap-section-roadmap-step">
-                  <div className="homepage-investor-roadmap-section-roadmap-step-number-container">
-                    <div className="homepage-investor-roadmap-section-roadmap-step-number"><h1>1</h1></div>
-                  </div>
-                  <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                    <h2 style={{fontWeight: 'bold'}}>Never Too Soon!</h2>
-                    <p><br/>This is the perfect time to start building your future! {`Let's`} find you an account to build wealth tax-deferred!</p>
-                    <ul style={{listStyle: 'none'}}><br/>
-                      <li><p><span style={{fontWeight: 'bold'}}>Roth IRA - </span>Pay taxes on money now, withdraw tax-free later. Tax-free capital gains.</p></li>
-                      <li><p><span style={{fontWeight: 'bold'}}>Traditional IRA - </span>Pay taxes upon withdrawing money, contribute tax-free now. Capital gains are taxed on withdrawal.</p></li>
-                    </ul>
-                    <p><br/>If you expect to earn more money later in your career, we suggest using a Roth IRA. If you are a high earner now and expect to withdraw when you are in a lower tax bracket, a Traditional IRA may be suitable, but remember that capital gains will also be taxed in a Traditional IRA.</p>
-                  </div>
-                </div>
-                <div className="homepage-investor-roadmap-section-roadmap-step">
-                  <div className="homepage-investor-roadmap-section-roadmap-step-number-container">
-                    <div className="homepage-investor-roadmap-section-roadmap-step-number"><h1>2</h1></div>
-                  </div>
-                  <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                    <h2 style={{fontWeight: 'bold'}}>On Your Own?</h2>
-                    <p><br/>Once you have decided on an account type, you will need to decide whether you are going to become a <span style={{fontWeight: 'bold'}}>DIY {'(Do It Yourself)'} Investor</span>, or use a <span style={{fontWeight: 'bold'}}>Financial Advisor</span>.</p>
-                    <ul style={{listStyle: 'inside'}}><br/>
-                      <li><span style={{fontWeight: 'bold'}}>DIY</span>
-                        <ul style={{marginLeft: '20px', color: '#40C9FF'}}>
-                          <li>Cheaper expense ratios through use of index funds</li>
-                          <li>More flexibility & oversight</li>
-                          <li>Easy to set-up</li>
-                          <li style={{color: '#FFCC00'}}>Easier to make emotional & impulsive decisions that can negatively impact long-term performance</li>
-                        </ul>
-                      </li>
-                      <br/>
-                      <li><span style={{fontWeight: 'bold'}}>Financial Advisor</span>
-                        <ul style={{marginLeft: '20px', color: '#40C9FF'}}>
-                          <li>Unemotional decision making</li>
-                          <li>Financial planning assistance {'(tax, estate, etc.)'}</li>
-                          <li style={{color: '#FFCC00'}}>High management fees with AUM {'(Assets Under Management)'} model</li>
-                          <li style={{color: '#FFCC00'}}>Returns after fees likely to trail an index fund portfolio</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="homepage-investor-roadmap-section-roadmap-step">
-                  <div className="homepage-investor-roadmap-section-roadmap-step-number-container">
-                    <div className="homepage-investor-roadmap-section-roadmap-step-number"><h1>3</h1></div>
-                  </div>
-                  <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                    <h2 style={{fontWeight: 'bold'}}>Start Contributing!</h2>
-                    <p><br/>{`It's`} time to start funding your portfolio! Most individuals get paid on a biweekly basis, so we recommend setting up monthly contributions to your accounts on the first of each month. Budget and save your paycheck!</p>
-                    <p><br/>To set-up recurring deposits, check with your financial advisor or click below on your broker below.</p>
-                  </div>
-                </div>
-                <div className="homepage-investor-roadmap-section-roadmap-step">
-                  
+              <div className="homepage-investor-roadmap-section-roadmap-step">
+                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
+                  <h2 style={{fontWeight: 'bold'}}>Step 2</h2>
+                  <h2>Choose Your Path</h2>
+                  <ul style={{listStyle: 'inside'}}><br/>
+                    <li><span style={{fontWeight: 'bold'}}>DIY {'(Do It Yourself)'}</span>
+                      <ul style={{marginLeft: '20px'/*, color: '#40C9FF'*/}}>
+                        <li>Cheaper expense ratios through use of index funds</li>
+                        <li>More flexibility & oversight</li>
+                        <li style={{color: '#FFCC00'}}>Easier to make emotional & impulsive decisions</li>
+                      </ul>
+                    </li>
+                    <br/>
+                    <li><span style={{fontWeight: 'bold'}}>Financial Advisor</span>
+                      <ul style={{marginLeft: '20px'/*, color: '#40C9FF'*/}}>
+                        <li>Unemotional decision making</li>
+                        <li>Financial planning assistance {'(tax, estate, etc.)'}</li>
+                        <li style={{color: '#FFCC00'}}>High management fees with AUM {'(Assets Under Management)'} model</li>
+                      </ul>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </section>
-          </div>
+              <div className="homepage-investor-roadmap-section-roadmap-step">
+                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
+                  <h2 style={{fontWeight: 'bold'}}>Step 3</h2>
+                  <h2>Build Your Future</h2>
+                  <p><br/>{`It's`} time to start funding your portfolio! Most individuals get paid on a biweekly basis, so we recommend setting up monthly contributions to your accounts on the first of each month. Budget and save your paycheck!</p>
+                  <p><br/>To set-up recurring deposits, check with your financial advisor or click below on your broker below.</p>
+                </div>
+                <div className="homepage-investor-roadmap-section-roadmap-images-container">
+                  <div className="homepage-investor-roadmap-section-roadmap-image">
+                    <Link href={'https://vanguard.com'} target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={"/images/icons/VanguardIcon.png"}
+                        alt="Vanguard Icon and Link"
+                        width={100}
+                        height={100}
+                      />
+                    </Link>
+                  </div>
+                  <div className="homepage-investor-roadmap-section-roadmap-image">
+                    <Link href={'https://www.fidelity.com'} target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={"/images/icons/FidelityIcon.png"}
+                        alt="Fidelity Icon and Link"
+                        width={100}
+                        height={100}
+                      />
+                    </Link>
+                  </div>
+                  <div className="homepage-investor-roadmap-section-roadmap-image">
+                    <Link href={'https://schwab.com'} target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={"/images/icons/CharlesSchwabIcon.png"}
+                        alt="Charles Schwab Icon and Link"
+                        width={100}
+                        height={100}
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
           <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
             <div className="homepage-featured-blog-posts-section-title-container">
@@ -458,7 +488,7 @@ export default function Home(props) {
           
           <section ref={contactUsSection} id="homepage-contact-us-form-section" className="account-page-container" style={{flexDirection: 'column', minHeight: 'auto', backgroundImage: 'none', backgroundColor: '#F1FAFF'}}>
             <div className="account-page-forms-section" style={{width: '100%', marginTop: '-40px'}}>
-              <div className="account-page-form-container" style={{backgroundColor: '#1B0053'}}>
+              <div className="account-page-form-container">
                 <div className="account-page-form-title">
                   <h1>Contact Us</h1>
                 </div>
