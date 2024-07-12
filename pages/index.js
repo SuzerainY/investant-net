@@ -367,7 +367,7 @@ export default function Home(props) {
                   <h2 style={{fontWeight: 'bold'}}>Step 3</h2>
                   <h2>Build Your Future</h2>
                   <p><br/>{`It's`} time to start funding your portfolio! Most individuals get paid on a biweekly basis, so we recommend setting up monthly contributions to your accounts on the first of each month. Budget and save your paycheck!</p>
-                  <p><br/>To set-up recurring deposits, check with your financial advisor or click below on your broker below.</p>
+                  <p><br/>To set-up recurring deposits, check with your financial advisor or click on your broker below.</p>
                 </div>
                 <div className="homepage-investor-roadmap-section-roadmap-images-container">
                   <div className="homepage-investor-roadmap-section-roadmap-image">
