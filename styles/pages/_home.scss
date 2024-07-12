@@ -103,7 +103,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     .homepage-hero-section-image-container {
       position: relative;
       width: 60%;
-      margin: auto 0px 0px auto;
+      margin: auto 0px -2px auto; // -2px bottom removes the split under table and following section
       aspect-ratio: 549.52 / 326.98;
       animation: fadeIn 0.5s ease-in;
 
