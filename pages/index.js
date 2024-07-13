@@ -260,17 +260,17 @@ export default function Home(props) {
                   <ul style={{listStyle: 'inside'}}><br/>
                     <li><span style={{fontWeight: 'bold'}}>DIY {'(Do It Yourself)'}</span>
                       <ul style={{marginLeft: '20px'}}>
-                        <li>Cheaper expense ratios through use of index funds</li>
-                        <li>More flexibility & oversight</li>
-                        <li>Easier to make emotional & impulsive decisions</li>
+                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Cheaper expense ratios through use of index funds</li>
+                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> More flexibility & oversight</li>
+                        <li><span style={{fontWeight: 'bold', color: '#820EA9'}}>Con:</span> Easier to make emotional & impulsive decisions</li>
                       </ul>
                     </li>
                     <br/>
                     <li><span style={{fontWeight: 'bold'}}>Financial Advisor</span>
                       <ul style={{marginLeft: '20px'}}>
-                        <li>Unemotional decision making</li>
-                        <li>Financial planning assistance {'(tax, estate, etc.)'}</li>
-                        <li>High management fees with AUM {'(Assets Under Management)'} model</li>
+                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Unemotional decision making</li>
+                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Financial planning assistance {'(tax, estate, etc.)'}</li>
+                        <li><span style={{fontWeight: 'bold', color: '#820EA9'}}>Con:</span> High management fees with AUM {'(Assets Under Management)'} model</li>
                       </ul>
                     </li>
                   </ul>
