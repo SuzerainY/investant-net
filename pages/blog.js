@@ -60,15 +60,15 @@ export default function Blog(props) {
 
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Investant | Financial Tools, Literacy, & Education" />
+        <meta name="twitter:title" content="Investant | Blog" />
         <meta name="twitter:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
         <meta name="twitter:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
 
         {/* Open Graph Meta Tags (for platforms like Facebook) */}
-        <meta property="og:title" content="Investant | Financial Tools, Literacy, & Education" />
+        <meta property="og:title" content="Investant | Blog" />
         <meta property="og:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
         <meta property="og:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
-        <meta property="og:url" content="https://investant.net" />
+        <meta property="og:url" content="https://investant.net/blog" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Investant" />
 

@@ -90,7 +90,6 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
           color: $black;
           white-space: nowrap;
           text-decoration: none;
-          cursor: pointer;
   
           h4 {
             font-size: 16px;
@@ -259,49 +258,87 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 
     .homepage-investor-roadmap-section-roadmap-container {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       width: 100%;
+      margin: 0px;
       max-width: $homepage-max-width;
 
       .homepage-investor-roadmap-section-roadmap-step {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
+        align-items: center;
+        width: 100%;
         margin: 40px 0px;
-        padding: 15px;
-        width: 32%;
-        border-radius: 10px;
-        background-color: $dark-blue;
+        color: $black;
 
         .homepage-investor-roadmap-section-roadmap-step-commentary {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
+          width: 60%;
+
+          .homepage-investor-roadmap-section-roadmap-step-button {
+            display: flex;
+            padding: 10px 15px;
+            margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            background-color: $soft-purple;
+            color: $white;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: background-color 0.2s ease-in-out;
+            &:hover {background-color: $magenta;}
+    
+            h4 {
+              font-size: 16px;
+              font-weight: 600;
+            }
+          }
+
+          .homepage-investor-roadmap-section-roadmap-commentary-images-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 15px 0px 0px 0px;
+            width: 100%;
+  
+            .homepage-investor-roadmap-section-roadmap-commentary-image {
+              display: flex;
+              margin: 0px 20px;
+              width: 75px;
+              height: 75px;
+              border-radius: 50%;
+              overflow: hidden;
+              transition: transform 0.2s ease-in-out;
+              &:hover {transform: scale(1.03);}
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+          }
         }
 
-        .homepage-investor-roadmap-section-roadmap-images-container {
+        .homepage-investor-roadmap-section-step-icon-container {
           display: flex;
-          flex-direction: row;
           justify-content: center;
-          padding: 20px 0px;
-          width: 100%;
+          width: 40%;
 
-          .homepage-investor-roadmap-section-roadmap-image {
+          .homepage-investor-roadmap-section-step-icon {
             display: flex;
-            margin: 0px 20px;
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            overflow: hidden;
-            transition: transform 0.2s ease-in-out;
-            &:hover {transform: scale(1.03);}
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            max-width: 300px;
             img {
               width: 100%;
               height: 100%;
-              object-fit: cover;
             }
           }
         }
@@ -688,27 +725,20 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     }
 
     .homepage-investor-roadmap-section {
-      padding: 0px $homepage-tablet-side-padding;
-
-      .homepage-investor-roadmap-section-title-container {
-        margin-bottom: -40px;
-        .homepage-investor-roadmap-section-title {
-          .homepage-investor-roadmap-section-title-span {color: $magenta;}
-          h1 {font-size: 36px;}
-        }
-        .homepage-investor-roadmap-section-subtitle {
-          p {font-size: 20px;}
-        }
-      }
+      padding: 0px $homepage-mobile-side-padding;
   
       .homepage-investor-roadmap-section-roadmap-container {
+        display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        margin-top: 40px;
+        width: 100%;
+        margin: 0px;
+        max-width: $homepage-max-width;
   
-        .homepage-investor-roadmap-section-roadmap-step {
-          width: 100%;
-          margin: 40px 0px 0px 0px;
+        .homepage-investor-roadmap-section-roadmap-step {  
+          .homepage-investor-roadmap-section-roadmap-step-commentary {width: 65%;}
+          .homepage-investor-roadmap-section-step-icon-container {width: 35%;}
         }
       }
     }
@@ -779,10 +809,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         width: 100%;
         max-width: none;
         padding: 40px $homepage-mobile-side-padding 0px $homepage-mobile-side-padding;
-
-        .homepage-hero-section-large-slogan {
-          h1 {font-size: 36px;}
-        }
+        .homepage-hero-section-large-slogan h1 {font-size: 36px;}
       }
 
       .homepage-hero-section-image-container {
@@ -793,29 +820,32 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 
     .homepage-investor-roadmap-section {
       padding: 0px $homepage-mobile-side-padding;
-
-      .homepage-investor-roadmap-section-title-container {
-        margin-bottom: -40px;
-        .homepage-investor-roadmap-section-title {
-          .homepage-investor-roadmap-section-title-span {color: $magenta;}
-          h1 {font-size: 34px;}
-        }
-        .homepage-investor-roadmap-section-subtitle {
-          p {font-size: 18px;}
-        }
-      }
   
       .homepage-investor-roadmap-section-roadmap-container {
+        display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        margin-top: 40px;
+        width: 100%;
+        margin: 0px;
+        max-width: $homepage-max-width;
   
         .homepage-investor-roadmap-section-roadmap-step {
-          width: 100%;
-          margin: 20px 0px 0px 0px;
+          flex-direction: column-reverse; &.reversed {flex-direction: column;}
+          margin: 20px 0px;
 
-          .homepage-investor-roadmap-section-roadmap-step-commentary {
-            h2 {font-size: 32px;}
+          .homepage-investor-roadmap-section-roadmap-step-commentary { 
+            width: 100%;
+            .homepage-investor-roadmap-section-roadmap-step-button {
+              align-self: center;
+            }
+          }
+          .homepage-investor-roadmap-section-step-icon-container {
+            width: 100%;
+            .homepage-investor-roadmap-section-step-icon {
+              max-width: 200px;
+              margin-bottom: 10px;
+            }
           }
         }
       }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
@@ -296,6 +297,29 @@ export default function Account() {
 
     return (
         <>
+            <Head>
+                <title>Investant | Account</title>
+                <meta name="description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+                {/* Twitter Meta Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Investant | Account" />
+                <meta name="twitter:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta name="twitter:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
+
+                {/* Open Graph Meta Tags (for platforms like Facebook) */}
+                <meta property="og:title" content="Investant | Account" />
+                <meta property="og:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta property="og:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
+                <meta property="og:url" content="https://investant.net/account" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Investant" />
+
+                {/* Favicon */}
+                <link rel="icon" href="/images/branding/FaviconTransparent.png" />
+            </Head>
+
             <DefaultLayout>
                 <div className='account-page-container'>
                     <button className='sidebar-toggle-button' onClick={handleToggleSidebar}>
@@ -463,7 +487,7 @@ export default function Account() {
                                         <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will Continue To Deliver You More.</p>
                                     </div>
                                     <div className="account-page-form-body-row">
-                                        <p>Have Ideas Or Feedback? <Link href={'/?block=ContactUs'} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#E81CFF' }}>Please Contact Us</Link></p>
+                                        <p>Have Ideas Or Feedback? <Link href={'/contact-us'} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#E81CFF' }}>Please Contact Us</Link></p>
                                     </div>
                                 </div>
                             </section>

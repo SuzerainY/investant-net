@@ -88,7 +88,7 @@ export default function Footer() {
                             <div className="footer-body-link-tree-root"><h4>Info</h4></div>
                             <Link href={'/login'}>Sign Up / Login</Link>
                             <Link href={'/account'}>Account Settings</Link>
-                            <Link href={'/?block=ContactUs'}>Contact Us</Link>
+                            <Link href={'/contact-us'}>Contact Us</Link>
                         </div>
                     </section>
                     <section className="footer-join-newsletter-section">

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useInvestantUserAuth } from '@/context/GlobalContext';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import Link from 'next/link';
+import Head from 'next/head';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidUsername, isValidEmail, isValidPassword } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
 
@@ -190,6 +191,29 @@ export default function Login() {
 
     return (
         <>
+            <Head>
+                <title>Investant | Login</title>
+                <meta name="description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+                {/* Twitter Meta Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Investant | Login" />
+                <meta name="twitter:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta name="twitter:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
+
+                {/* Open Graph Meta Tags (for platforms like Facebook) */}
+                <meta property="og:title" content="Investant | Login" />
+                <meta property="og:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+                <meta property="og:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
+                <meta property="og:url" content="https://investant.net/login" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Investant" />
+
+                {/* Favicon */}
+                <link rel="icon" href="/images/branding/FaviconTransparent.png" />
+            </Head>
+
             <DefaultLayout>
                 <div className="login-form-wrapper">
                     <section className="login-form-container">
