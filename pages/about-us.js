@@ -115,6 +115,9 @@ export default function AboutUs(props) {
               <div className="about-us-page-company-description-section-subtitle">
                 <p>At <span className="about-us-page-company-description-section-subtitle-span">investant.net</span>, {`we're`} dedicated to providing new professionals with the tools and information they need to take control of their personal finances. Our mission is to empower individuals to make smart financial decisions and achieve their financial goals.</p>
               </div>
+              <Link href={'/contact-us'} className="about-us-page-company-description-section-button">
+                <h4>Contact Us</h4>
+              </Link>
             </div>
             <div className="about-us-page-company-description-section-image-container">
               <Image
@@ -179,5 +182,5 @@ export default function AboutUs(props) {
         </main>
       </DefaultLayout>
     </>
-  )
+  );
 };

@@ -392,5 +392,5 @@ export default function Home(props) {
         </main>
       </DefaultLayout>
     </>
-  )
+  );
 };

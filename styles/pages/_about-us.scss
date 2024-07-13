@@ -86,7 +86,7 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
       width: 50%;
       max-width: calc($about-us-page-max-width * 0.5);
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       text-align: left;
       color: $black;
   
@@ -116,6 +116,25 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
         p {
           font-size: 20px;
           font-family: sans-serif;
+        }
+      }
+
+      .about-us-page-company-description-section-button {
+        display: flex;
+        padding: 10px 15px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        background-color: $soft-purple;
+        color: $white;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+        &:hover {background-color: $magenta;}
+
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
         }
       }
     }
@@ -354,6 +373,8 @@ $about-us-page-mobile-side-padding: 20px; // Padding on left and right sides of 
         width: 100%;
         padding: 0px;
       }
+
+      .about-us-page-company-description-section-button {margin-bottom: 20px;}
     }
   
     .about-us-page-meet-the-team-section {
