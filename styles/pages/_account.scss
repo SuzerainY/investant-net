@@ -9,7 +9,7 @@ $account-page-form-tablet-side-padding: 20px;
     flex-direction: row;
     width: 100%;
     height: 100%;
-    min-height: calc(100svh - 130px);
+    min-height: calc(100svh - 65px);
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(45deg, $soft-purple, $dark-blue);
@@ -29,9 +29,7 @@ $account-page-form-tablet-side-padding: 20px;
         color: $white;
         cursor: pointer;
 
-        .sidebar-toggle-button-arrow img {
-            transition: rotate 0.3s ease-in-out;
-        }
+        .sidebar-toggle-button-arrow img {transition: rotate 0.3s ease-in-out;}
     }
 
     .account-page-sidebar-section {
@@ -73,9 +71,7 @@ $account-page-form-tablet-side-padding: 20px;
                 background-color: transparent;
                 text-align: left;
                 cursor: pointer;
-                &:hover {
-                    transform: scale(1.02);
-                }
+                &:hover {transform: scale(1.02);}
                 p {
                     font-size: 18px;
                     color: $white
@@ -108,7 +104,6 @@ $account-page-form-tablet-side-padding: 20px;
 
             .account-page-form-title {
                 width: 100%;
-
                 h1 {
                     font-size: 30px;
                     font-weight: bold;
@@ -201,9 +196,7 @@ $account-page-form-tablet-side-padding: 20px;
                         font-weight: bold;
                     }
 
-                    p {
-                        font-size: 20px;
-                    }
+                    p {font-size: 20px;}
                 }
             }
         }
@@ -229,7 +222,7 @@ $account-page-form-tablet-side-padding: 20px;
 
 @media screen and (max-width: 1199px) {
     .account-page-container {
-        min-height: calc(100svh - 115px);
+        min-height: calc(100svh - 65px);
 
         .sidebar-toggle-button { display: flex; }
 
@@ -244,9 +237,7 @@ $account-page-form-tablet-side-padding: 20px;
             box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
 
-            &.open {
-                transform: translateX(0);
-            }
+            &.open {transform: translateX(0);}
 
             .account-page-sidebar-section-text-container {
                 position: absolute;
@@ -277,9 +268,7 @@ $account-page-form-tablet-side-padding: 20px;
                     background-color: transparent;
                     text-align: left;
                     cursor: pointer;
-                    &:hover {
-                        transform: scale(1.02);
-                    }
+                    &:hover {transform: scale(1.02);}
                     p {
                         font-size: 18px;
                         color: $white
@@ -296,9 +285,7 @@ $account-page-form-tablet-side-padding: 20px;
     
                 .account-page-form-body {
                     .account-page-form-body-row {
-                        p {
-                            font-size: 18px;
-                        }
+                        p {font-size: 18px;}
                     }
                 }
             }

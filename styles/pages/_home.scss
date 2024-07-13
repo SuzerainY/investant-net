@@ -106,10 +106,8 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
       margin: auto 0px -2px auto; // -2px bottom removes the split under table and following section
       aspect-ratio: 549.52 / 326.98;
       animation: fadeIn 0.5s ease-in;
+      img {transform: translateX(4px) translateY(4px);}
 
-      img {
-        transform: translateX(4px) translateY(4px);
-      }
       .homepage-hero-section-hero-piece-1 {
         position: absolute;
         top: 4%;
@@ -475,9 +473,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
                 font-weight: 600;
                 a {
                   color: $black;
-                  &:hover {
-                    color: $dark-blue;
-                  }
+                  &:hover {color: $dark-blue;}
                 }
               }
               h4 {
@@ -674,7 +670,6 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .homepage {
     .homepage-hero-section {
-      // min-height: calc(100svh - 60px); // Use to make hero section full screen on landing
       flex-direction: column;
       width: 100%;
 
@@ -683,11 +678,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         max-width: none;
         padding: 40px $homepage-tablet-side-padding 0px $homepage-tablet-side-padding;
 
-        .homepage-hero-section-large-slogan {
-          h1 {
-            font-size: 36px;
-          }
-        }
+        .homepage-hero-section-large-slogan h1 {font-size: 36px;}
       }
 
       .homepage-hero-section-image-container {
@@ -726,23 +717,15 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
       padding: 40px $homepage-tablet-side-padding;
   
       .homepage-featured-blog-posts-section-title-container {
-        .homepage-featured-blog-posts-section-title h1 {
-          font-size: 36px;
-        }
+        .homepage-featured-blog-posts-section-title h1 {font-size: 36px;}
       }
   
       .homepage-featured-blog-posts-section-posts-container {        
         .homepage-featured-blog-posts-section-top-post-container {  
           .homepage-featured-blog-posts-section-top-post-description-container {
-            h3 {
-              font-size: 24px;
-            }
-            h4 {
-              font-size: 18px;
-            }
-            p {
-              font-size: 16px;
-            }
+            h3 {font-size: 24px;}
+            h4 {font-size: 18px;}
+            p {font-size: 16px;}
           }
         }
   
@@ -756,15 +739,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
               }
     
               .homepage-featured-blog-posts-section-other-posts-row-description {
-                h3 {
-                  font-size: 24px;
-                }
-                h4 {
-                  font-size: 18px;
-                }
-                p {
-                  font-size: 16px;
-                }
+                h3 {font-size: 24px;}
+                h4 {font-size: 18px;}
+                p {font-size: 16px;}
               }
             }
           }
@@ -780,9 +757,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         max-width: none;
         padding-right: 20px;
 
-        .homepage-join-newsletter-section-title h2 {
-          font-size: 34px;
-        }
+        .homepage-join-newsletter-section-title h2 {font-size: 34px;}
       }
   
       .homepage-join-newsletter-section-sign-up-container {
@@ -797,7 +772,6 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 @media screen and (max-width: 767px) {
   .homepage {
     .homepage-hero-section {
-      // min-height: calc(100svh - 60px); // Use to make hero section full screen on landing
       flex-direction: column;
       width: 100%;
 
@@ -807,9 +781,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         padding: 40px $homepage-mobile-side-padding 0px $homepage-mobile-side-padding;
 
         .homepage-hero-section-large-slogan {
-          h1 {
-            font-size: 36px;
-          }
+          h1 {font-size: 36px;}
         }
       }
 
@@ -866,15 +838,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
           padding: 0px 0px 20px 0px;
           width: 100%;
           .homepage-featured-blog-posts-section-top-post-description-container {
-            h3 {
-              font-size: 24px;
-            }
-            h4 {
-              font-size: 18px;
-            }
-            p {
-              font-size: 16px;
-            }
+            h3 {font-size: 24px;}
+            h4 {font-size: 18px;}
+            p {font-size: 16px;}
           }
         }
   
@@ -890,15 +856,9 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
               }
     
               .homepage-featured-blog-posts-section-other-posts-row-description {
-                h3 {
-                  font-size: 22px;
-                }
-                h4 {
-                  font-size: 18px;
-                }
-                p {
-                  font-size: 16px;
-                }
+                h3 {font-size: 22px;}
+                h4 {font-size: 18px;}
+                p {font-size: 16px;}
               }
             }
           }
@@ -914,9 +874,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         width: 100%;
         max-width: none;
 
-        .homepage-join-newsletter-section-title h2 {
-          font-size: 34px;
-        }
+        .homepage-join-newsletter-section-title h2 {font-size: 34px;}
       }
   
       .homepage-join-newsletter-section-sign-up-container {

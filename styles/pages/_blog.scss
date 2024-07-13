@@ -1,6 +1,6 @@
 .blogpage {
   background: $white;
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 65px);
 
   .blogpage-title-background {
     background: url("/images/styling/layered-waves1-haikei.svg");
@@ -22,9 +22,7 @@
         text-align: left;
         color: $white;
 
-        .blogpage-title-span {
-          font-weight: 1000;
-        }
+        .blogpage-title-span {font-weight: 1000;}
 
         h1 {
           padding: 0px 12.5px 0px 12.5px;
@@ -72,6 +70,7 @@
   
           .blogpage-featured-post-description-container {
             display: -webkit-box;
+            line-clamp: 2;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             height: fit-content;
@@ -80,9 +79,7 @@
             text-overflow: ellipsis;
           }
 
-          .blogpage-blog-post-read-length {
-            font-style: italic;
-          }
+          .blogpage-blog-post-read-length {font-style: italic;}
   
           h2 {
             font-size: 36px;
@@ -151,6 +148,7 @@
           
           .blogpage-blog-post-description-container {
             display: -webkit-box;
+            line-clamp: 2;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             height: fit-content;
@@ -159,9 +157,7 @@
             text-overflow: ellipsis;
           }
 
-          .blogpage-blog-post-read-length {
-            font-style: italic;
-          }            
+          .blogpage-blog-post-read-length {font-style: italic;}            
         
           p {
             font-size: 16px;
@@ -289,17 +285,9 @@
           width: 100%;
 
           .blogpage-blog-post-text-container {
-            
-            .blogpage-blog-post-description-container {
-              display: none;
-            }
-
-            p {
-              font-size: 18px;
-            }
-            h2 {
-              font-size: 25px;
-            }
+            .blogpage-blog-post-description-container {display: none;}
+            p {font-size: 18px;}
+            h2 {font-size: 25px;}
           }
         }
       }
@@ -347,9 +335,7 @@
         h2::after {
           content: '\00a0|\00a0'; // Add the pipe symbol with spacing around it
         }
-        h4 {
-          font-style: italic;
-        }
+        h4 {font-style: italic;}
       }
     
       .slug-page-time-text p {
@@ -422,11 +408,7 @@
       ul, ol {
         list-style-position: outside;
         padding-left: 25px;
-        li {
-          strong {
-            font-weight: bold;
-          }
-        }
+        li {strong {font-weight: bold;}}
       }
     }
   }
@@ -484,9 +466,7 @@
           width: 100%;
           max-width: 100%;
         }
-        ul, ol {
-          padding-left: 40px;
-        }
+        ul, ol {padding-left: 40px;}
       }
     }
   }
