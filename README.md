@@ -87,7 +87,7 @@ export default async function handler(req, res) {
 
 Styles available at `styles\pages\_home.scss`
 
-The landing page for the site, or home page. On arrival, the visitor lands on the site's hero: a young professional dressed in business casual working on his laptop. Leaking onto the viewport is the following section: blog content.
+The landing page for the site, or home page. On arrival, the visitor lands on the site's hero: a young professional dressed in business casual working on his laptop. Leaking onto the viewport is the Investant Handbook: 3 Steps To Take Today.
 
 On the home page, we fetch the latest 5 blog posts for featuring using `getServerSideProps()` method. We have installed a [graphql](https://graphql.org/) layer to our STRAPI CMS APIs which we use to make these requests.
 
@@ -126,14 +126,8 @@ export async function getServerSideProps(context) {
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
-}
+};
 ```
-
-There is a call to action to sign up to the newsletter to receive latest blog posts. This will direct the user to the <span style="color:#FFCC00">Sign Up Form</span>
-
-Next, the user is served info about Investant products: <span style="color:#FFCC00">PaperTrade</span>, <span style="color:#FFCC00">Financial Planners</span>, and <span style="color:#FFCC00">The Investant Calculator</span>. As these products are published, there will be buttons linking the user to each respective product's dashboard/page.
-
-There is a final call to action section to sign up which will link to the <span style="color:#FFCC00">Sign Up Form</span> and a navigation button to the About Us Page.
 
 ### About Us: `/about-us`
 
@@ -179,11 +173,11 @@ export async function getServerSideProps(context) {
         }
       `
     })
-  }
+  };
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
-}
+};
 ```
 
 Long text sections are stored as Markdown, so we make use of `react-markdown` and `rehype-raw` to generate HTML components. The text is passed through our `parseMarkdownHTML()` method to apply unique styling such as the magenta coloring of **<span style="color:#E81CFF">investant.net</span>**.
@@ -203,30 +197,30 @@ This dynamic route fetches routes using `getServerSidePaths()` which captures al
 ``` javascript
 // Fetch the SLUG for the selected BlogPost in order to route the new URL properly
 export async function getServerSidePaths() {
-    const fetchParams = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            query: `
-                {
-                    blogPosts {
-                        data {
-                            attributes {
-                                SLUG
-                            }
-                        }
-                    }
-                }
-            `
-        })
-    }
-    const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
-    const data = await res.json();
-    const paths = data.data.blogPosts.data.map((post) => ({
-        params: { slug: post.attributes.SLUG },
-    }));
-    return { paths, fallback: true };
-}
+  const fetchParams = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        {
+          blogPosts {
+            data {
+              attributes {
+                SLUG
+              }
+            }
+          }
+        }
+      `
+    })
+  };
+  const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+  const data = await res.json();
+  const paths = data.data.blogPosts.data.map((post) => ({
+    params: { slug: post.attributes.SLUG },
+  }));
+  return { paths, fallback: true };
+};
 ```
 
 The `getServerSideProps()` method fetches the content from our CMS for the blog post that has the unique `slug` requested.
@@ -234,80 +228,80 @@ The `getServerSideProps()` method fetches the content from our CMS for the blog 
 ``` javascript
 // Fetch the selected blog from the server via graphql
 export async function getServerSideProps({ params }) {
-    const slug = params.slug;
-    const fetchParams = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            query: `
-                query getBlogPost($slug: String!) {
-                    blogPosts(filters: {SLUG: {eq: $slug}}) {
-                        data {
-                            attributes {
-                                Title
-                                BlogPostBody
-                                BlogPostDescription
-                                SLUG
-                                Author
-                                PublishDate
-                                SPLASH {
-                                    data {
-                                        attributes {
-                                            url
-                                        }
-                                    }
-                                }
-                            }
-                        }
+  const slug = params.slug;
+  const fetchParams = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        query getBlogPost($slug: String!) {
+          blogPosts(filters: {SLUG: {eq: $slug}}) {
+            data {
+              attributes {
+                Title
+                BlogPostBody
+                BlogPostDescription
+                SLUG
+                Author
+                PublishDate
+                SPLASH {
+                  data {
+                    attributes {
+                      url
                     }
+                  }
                 }
-            `,
-            variables: {"slug": slug} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
-        })
-    }
-    const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
-    const data = await res.json();
-    return { props: data };
-}
+              }
+            }
+          }
+        }
+      `,
+      variables: {"slug": slug} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
+    })
+  };
+  const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+  const data = await res.json();
+  return { props: data };
+};
 ```
 
 We have written a parser in the `my_modules\bloghelp.js` module called `parseMarkdownHTML()` that enables embedded youtube, twitter, and other content to be displayed properly. For twitter embeds specifically, this method will return to the page that a twitter embed exists and so the twitter widget should be fetched and added to the document which is handled as a `useEffect()` when the state of `embeddedTweetExists` changes.
 
 ``` javascript
 useEffect(() => {
-    // Preload Twitter Widget for embedded tweets
-    const loadTwitterWidgetScript = () => {
-        const script = document.createElement('script');
-        script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-        script.setAttribute('async', 'true');
+  // Preload Twitter Widget for embedded tweets
+  const loadTwitterWidgetScript = () => {
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+    script.setAttribute('async', 'true');
 
-        // Wait for the script to be fully loaded, then append it to the document head
-        script.onload = () => {
-            // Ensure the DOM is ready before calling load()
-            document.addEventListener('DOMContentLoaded', () => {
-                window.twttr.widgets.load(document.getElementById("slug-page-body"));
-            });
-        };
-        document.head.appendChild(script);
+    // Wait for the script to be fully loaded, then append it to the document head
+    script.onload = () => {
+      // Ensure the DOM is ready before calling load()
+      document.addEventListener('DOMContentLoaded', () => {
+        window.twttr.widgets.load(document.getElementById("slug-page-body"));
+      });
     };
-    // Check if we need to preload the twitter widget and handle accordingly
-    const checkAndLoadTwitterWidget = () => {
-        // Load Twitter widget script only if we found an embedded tweet in the body of this blog post
-        if (embeddedTweetExists) {
-            // If we don't have the twitter widget defined, then preload the widget
-            if (!window.twttr) {
-                loadTwitterWidgetScript();
-            } else { // We do have the twitter widget defined, run it
-                window.twttr.widgets.load(document.getElementById("slug-page-body"));
-            }
-        }
-    };
+    document.head.appendChild(script);
+  };
+  // Check if we need to preload the twitter widget and handle accordingly
+  const checkAndLoadTwitterWidget = () => {
+    // Load Twitter widget script only if we found an embedded tweet in the body of this blog post
+    if (embeddedTweetExists) {
+      // If we don't have the twitter widget defined, then preload the widget
+      if (!window.twttr) {
+        loadTwitterWidgetScript();
+      } else { // We do have the twitter widget defined, run it
+        window.twttr.widgets.load(document.getElementById("slug-page-body"));
+      }
+    }
+  };
 
-    // Check and load Twitter widget script on initial component mount
-    checkAndLoadTwitterWidget();
+  // Check and load Twitter widget script on initial component mount
+  checkAndLoadTwitterWidget();
 
-    // Clean up: Remove any event listeners when component unmounts
-    return () => {};
+  // Clean up: Remove any event listeners when component unmounts
+  return () => {};
 }, [embeddedTweetExists]);
 ```
 
@@ -318,7 +312,7 @@ Styles available at `styles\pages\_login.scss`
 This page contains our login and sign-up forms which are protected by google reCAPTCHA V3. We append the recaptcha `<script>` element to the document head on page load and wrap our form submission methods with the `grecaptcha.execute()` method to generate a token. We then verify the token and receive a score which we use to determine whether the user is likely to be a human or a bot. See more in the `/api/verify-google-recaptcha` api.
 
 ``` javascript
-grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).then(async (token) => {
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Login' }).then(async (token) => {
   try {
     // Google Recaptcha Verification
     if (await verifyGoogleRecaptcha(token) !== true) {
@@ -350,15 +344,21 @@ grecaptcha.execute(googleRecaptchaSiteKey, { action: 'investantWebUserLogin' }).
       return;
     }
 
+    setLiveLogin(true);
     updateInvestantUser({
       userJWT: data.jwt,
       username: data.user.username,
-      userFirstName: data.user.firstname,
-      userLastName: data.user.lastname,
+      userEmail: data.user.email,
+      userSubscriptions: {
+        blogPostSubscription: data.user.blogPostSubscription
+      },
       userSignedIn: true
     });
-    router.push('/');
-  } catch (error) {setError('Login Failed. Please Contact Us If The Issue Persists.');}
+    if (router.query.referrer) {
+      router.push(`/${router.query.referrer}`);
+      return;
+    }; router.push('/');
+  } catch (error) {setLiveLogin(false); setError('Login Failed. Please Contact Us If The Issue Persists.');}
 });
 ```
 
@@ -444,11 +444,121 @@ Styles available at `styles\pages\_account.scss`
 
 The Account page is for users to manage their user info, subscriptions, and account settings. All of the forms are incorporated in the single page and rendered conditionally based on which "block" has been activated/selected.
 
+When the user requests to change username, email, or password, we call a special api route we've created on the STRAPI backend. It accepts a PUT method with the user's JWT token in the Authorization header. It will send back the updated field confirming the change which we use to instantly update the user state.
+
+``` javascript
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Account_Page_Set_New_Username_Form_Submission' }).then(async (token) => {
+  try {
+    // Google Recaptcha Verification
+    if (await verifyGoogleRecaptcha(token) !== true) {
+      setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+      return;
+    }
+      
+    const response = await fetch(`${STRAPIurl}/api/user/me`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${userJWT}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: newUsername
+      })
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Handle Known Errors
+      if (data.message === 'Username already taken') {
+        setError('Username Already Taken');
+        return;
+      }
+      throw new Error('Unaccounted For Error Occurred.');
+    }
+          
+    updateInvestantUser({
+      username: data.userInfo.username
+    });
+
+    setInfo('Username Updated!');
+  } catch (error) {setError('Unable To Change Username. Please Contact Us If The Issue Persists.');}
+});
+```
+
 In the profile block, we allow the user to update their info such as Username, Email, and Password. These forms are connected to our CMS API.
 
 In the subscriptions block, we allow the user to subscribe/unsubscribe from our notifications. In the future, we will be adding the distinction between Paid and Free Subscriptions. Paid subscriptions will be handled through Stripe.
 
 In the settings block, we will be adding a Delete Account functionality as well as any user-specific web settings for our web-application.
+
+### Contact Us | `/contact-us`
+
+Styles available at `styles\_account.scss`
+
+The Contact Us page is for users to send messages to the Investant Team. We handle this in two different ways based on the current user state in the application.
+
+If the user is logged in, we already have their username and email, so they may just enter their Subject and Message and submit the form. If the user is a public guest, we require they share their name and email so we can respond to them.
+
+On submition, the form will create a new database entry in our admin panel which auto-fires an email to the Investant Executive Team. We hold ourselves accountable to a <strong>same-day response</strong> to the ticket.
+
+``` javascript
+grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Contact_Us_Form_Submission' }).then(async (token) => {
+  try {
+    // Google Recaptcha Verification
+    if (await verifyGoogleRecaptcha(token) !== true) {
+      setError('We Believe You Are A Bot. Please Try Again Later.');
+      return;
+    }
+        
+    const response = await fetch(`${STRAPIurl}/api/contact-us-submissions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        data: {
+          Subject: contactUsSubject,
+          Message: contactUsMessage,
+          OpenedAt: new Date().toISOString(),
+          ContactName: contactUsName,
+          ContactEmail: contactUsEmail,
+          TicketClosed: false
+        }
+      })
+    });
+
+    if (!response.ok) {
+      // Handle Known Errors
+      throw new Error('Unaccounted For Error Occurred.');
+    }
+    setInfo('Message Delivered! Haven Or Ryan Will Reach Out To You As Soon As Possible!');
+  } catch (error) {setError('Unable To Deliver Message. Please Try Again Later.');}
+});
+```
+
+### Products | `/products`
+
+Styles available at `styles\_products`
+
+The Products page holds the descriptions and links to each Product provided by Investant. These are currently under development as we settle in our the company brand and direction.
+
+#### PaperTrade:
+
+PaperTrade was the initial works of Haven and Ryan which is already available in the [Investant Discord Server](https://discord.gg/SFUKKjWEjH) as a [Discord Bot](https://github.com/SuzerainY/InvestantDiscord/) that allows users to trade with fake incomes on real-time market data through the Yahoo Finance API.
+
+PaperTrade will be brought to the web as a full-fledged online paper money trading platform. This will be gamified with live leaderboards on the homepage of the site and weekly/monthly competitions for the community.
+
+#### Financial Planners
+
+The Investant Financial Planner will be an online personal finance planner and budgeter that provides natural language insights, forecasts, and recommendations to the user based on their personal financial situation.
+
+Inputs will be such as income, expenses, planned expenditures, etc. What-If queries can be performed by the user to receive forecasts, insights, and recommendations to afford certain goals/purchases/loans, retire in a certain time, or overall better understand their current financial situation to make step-by-step improvements.
+
+The user will be able to save a financial plan which can be returned to on our site whenever they please.
+
+#### The Investant Calculator
+
+The Investant Calculator will be an easy-to-approach financial loan and amortization calculator that 1: acts as an API for the public and internal site tools and 2: provides the common consumer brevity in understanding the full costs and impacts of things such as a car loan, home loans, increased income, etc.
 
 ## Components
 
@@ -456,15 +566,30 @@ In the settings block, we will be adding a Delete Account functionality as well 
 
 The Alert Banner Component can be found at `components\AlertBanner\AlertBanner.js` and styles at `styles\components\_alert-banner.scss`
 
-The Alert Banner allows us to share any prevelant news or releases to the users. It takes a dynamic message and link that is displayed at the top of the screen. It also takes an `onClose()` method that will be called if the user closes the component.
+The Alert Banner allows us to share any prevelant news or releases to the users. It pulls its message live from the Investant Admin Panel that we are able to change or turn on/off at any moment. This allows us to send any new news to the website users immediately.
+
+We store whether the client browser has closed the Alert Banner during this session in broswer localStorage.
 
 ``` javascript
-useEffect(() => {
-    const handleAlertBannerExitClick = () => {onClose();};
-    alertBannerExit.current?.addEventListener('click', handleAlertBannerExitClick);
+  // Check if user has alert banner closed in browser storage
+  useEffect(() => {
+    const isAlertBannerClosed = localStorage.getItem("investantNetAlertBannerClosed");
+    if (!isAlertBannerClosed) {setClientShowAlertBanner(true);}
+  }, []);
 
-    return () => {alertBannerExit.current?.removeEventListener('click', handleAlertBannerExitClick);};
-}, [onClose]);
+  // Events to trigger before terminating page session
+  useEffect(() => {
+    const handleBeforeUnload = () => {localStorage.removeItem("investantNetAlertBannerClosed");};
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {window.removeEventListener("beforeunload", handleBeforeUnload);};
+  }, []);
+
+  // Handle the closing of the alert banner with browser storage
+  const handleCloseAlertBanner = () => {
+    setClientShowAlertBanner(false);
+    localStorage.setItem("investantNetAlertBannerClosed", "true");
+  };
 ```
 
 ### Header:
@@ -500,26 +625,26 @@ const closeMobileMenu = () => {
 };
 ```
 
-While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the landing page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
+While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the products page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
 
 ``` javascript
 // Route to product sections if navigated to via header
 const handleProductClick = (productId) => {
-    // Close the mobile menu & route the user
-    if (router.pathname === '/' || router.pathname === '/#') {
-        closeMobileMenu();
+  // Close the mobile menu & route the user
+  if (router.pathname === '/products') {
+    closeMobileMenu();
+    const productSection = document.getElementById(productId);
+    if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
+
+  } else {
+    document.body.classList.remove('no-scroll');
+    router.push('/products').then(() => {
+      setTimeout(() => {
         const productSection = document.getElementById(productId);
         if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-
-    } else {
-        document.body.classList.remove('no-scroll');
-        router.push('/').then(() => {
-        setTimeout(() => {
-            const productSection = document.getElementById(productId);
-            if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-        }, 100);
-        });
-    }
+      }, 100);
+    });
+  }
 };
 ```
 
@@ -527,7 +652,7 @@ const handleProductClick = (productId) => {
 
 The Footer Component can be found at `components\Footer\Footer.js` and styles at `styles\components\_footer.scss`
 
-The Footer Component contains our rotating favicon and copyright. As the site is expanded and more pages added, there will be a selection of navigation links available within the footer.
+The Footer Component contains our rotating favicon and copyright at the baseline. In the body lives the Link Forest (containing each Link Tree of pages and paths around the website) and the Newsletter Signup call to action. The Newsletter Signup element will navigate the user to create an account as we do not want to allow general public to pass non-verified emails.
 
 ### Google Analytics:
 
@@ -541,7 +666,7 @@ The Google Analytics Component contains the script link with our website's KEY s
 
 The purpose of the Authentication Help module is to contain functions regarding the aiding of JWT and other token authentication, form guardrails, and any methods pertaining to verification and authentication of users.
 
-The `isValidUsername()`, `isValidEmail()`, and `isValidPassword()` methods verify user inputs from our account-related forms to fit our expectations for usernames, emails, and passwords. We make use of regular expressions which ensure inputs meet our defined patterns.
+The `isValidUsername()`, `isValidEmail()`, `isValidPassword()`, and `isValidText()` methods verify user inputs from our account and communication related forms to fit our expectations for usernames, emails, passwords, and text bodies. We make use of regular expressions which ensure inputs meet our defined patterns.
 
 We will be attempting to minimize the distasteful usernames that can be created on the site.
 
@@ -549,18 +674,18 @@ The `verifyGoogleRecaptcha()` method calls our Verify Google Recaptcha api and t
 
 ``` javascript
 export const verifyGoogleRecaptcha = async (token) => {
-    try {
-        const googleRecaptchaResponse = await fetch('/api/verify-google-recaptcha', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token })
-        });
-        const googleRecaptchaData = await googleRecaptchaResponse.json();
-        if (googleRecaptchaData.success === true && googleRecaptchaData.score > 0.5) {return true;}
-        return false;
-    } catch (error) {return false;}
+  try {
+    const googleRecaptchaResponse = await fetch('/api/verify-google-recaptcha', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token })
+    });
+    const googleRecaptchaData = await googleRecaptchaResponse.json();
+    if (googleRecaptchaData.success === true && googleRecaptchaData.score > 0.5) {return true;}
+    return false;
+  } catch (error) {return false;}
 };
 ```
 
@@ -573,19 +698,19 @@ The `customImage()` method is passed into any `<Markdown></Markdown>` calls as a
 ``` javascript
 // Custom component to conditionally render Cloudinary images as Next.js Image components
 export const customImage = ({ alt, src }) => {
-    // Check if the image src contains 'https://res.cloudinary.com'  
+  try {
     if (src.includes('https://res.cloudinary.com')) {
-        return (
-            <Image
-                alt={alt || ''}
-                src={src}
-                width={800}
-                height={600}
-            />
-        );
-    } else {
-        return <img alt={alt || ''} src={src}/>; // Return the original <img/>
+      return (
+        <Image
+          alt={alt || ''}
+          src={src}
+          width={800}
+          height={600}
+        />
+      );
     }
+    return <img alt={alt || ''} src={src}/>;
+  } catch (error) {return <img alt={alt || ''} src={src}/>};
 };
 ```
 
@@ -595,32 +720,32 @@ To maintain website styling, it adds the `investant-net-span` class to any **inv
 
 ``` javascript
 // Case investant.net found (accent with magenta)
-if (textBody[i] === "i" && i + 13 < textBody.length && textBody.substring(i, i + 13) === `investant.net`) {
-    if (i - 8 >= 0 && textBody.substring(i - 8, i) === `https://`) {continue;}
-    openIndex = i;
-    closeIndex = i + 13;
-    stringInsert = `<span className="investant-net-span">investant.net</span>`;
+if (textBody[i] === 'i' && i + 13 < textBody.length && textBody.substring(i, i + 13) === 'investant.net') {
+  if (i - 8 >= 0 && textBody.substring(i - 8, i) === 'https://') {continue;}
+  openIndex = i;
+  closeIndex = i + 13;
+  stringInsert = '<span className="investant-net-span">investant.net</span>';
 
-    textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
-    i = openIndex + stringInsert.length;
+  textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
+  i = openIndex + stringInsert.length;
 }
 ```
 
-The parser centers any embedded Tweets it finds from X/Twitter and sets embeddedTweetExists as true so the `/blog/[slug]` page knows to fetch the twitter widget.js script.
+The parser centers any embedded Tweets it finds from X/Twitter and sets embeddedTweetExists as true so the `/blog/[slug]` page, as an example, knows to fetch the twitter widget.js script.
 
 ``` javascript
 // Case: Twitter Embedded Tweet
-else if (textBody[i] === "<" && i + 34 < textBody.length && textBody.substring(i, i + 34) === `<blockquote class="twitter-tweet">`) {
-    // Let's flag that we've found an embedded tweet so we can preload the twitter widget
-    if (!embeddedTweetExists) {embeddedTweetExists = true;}
+else if (textBody[i] === '<' && i + 34 < textBody.length && textBody.substring(i, i + 34) === '<blockquote class="twitter-tweet">') {
+  // Let's flag that we've found an embedded tweet so we can preload the twitter widget
+  if (embeddedTweetExists !== true) {embeddedTweetExists = true;}
 
-    openIndex = i; // i must be the opening of a twitter embedded <blockquote></blockquote> tag
-    closeIndex = i + 34;
-    stringInsert = `<blockquote class="twitter-tweet tw-align-center">`;
+  openIndex = i;
+  closeIndex = i + 34;
+  stringInsert = '<blockquote class="twitter-tweet tw-align-center">';
 
-    // Apply the tw-align-center class to the embedded tweet
-    textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
-    i = openIndex + stringInsert.length - 1; // Go to end of our string insertion and continue iterating
+  // Apply the tw-align-center class to the embedded tweet
+  textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
+  i = openIndex + stringInsert.length - 1;
 }
 ```
 
@@ -628,28 +753,27 @@ The parser wraps any youtube embedded video iframes in our `youtube-embed-contai
 
 ``` javascript
 // Case: Youtube Embedded Video
-else if (textBody[i] === "<" && i + 7 < textBody.length && textBody.substring(i, i + 7) === "<iframe" && textBody.substring(i - 41, i) != `<div classname="youtube-embed-container">`) {
-    openIndex = i; // i must be the opening of an <iframe></iframe> tag
-    i += 7; // Skip forwards
+else if (textBody[i] === '<' && i + 7 < textBody.length && textBody.substring(i, i + 7) === '<iframe' && textBody.substring(i - 41, i) != '<div classname="youtube-embed-container">') {
+  openIndex = i;
+  i += 7;
 
-    // Check to find either closing > or 'youtube.com' | 
-    while (textBody[i] != ">" && i + 1 < textBody.length) {
-        i++;
-        // If 'youtube.com' in <iframe> tag, then fetch close of iframe
-        if (textBody[i] === "y" && i + 17 < textBody.length && textBody.substring(i, i + 17) === "youtube.com/embed") {
-            let j = i + 17; // Skip forwards
-            while (j + 1 < textBody.length && textBody.substring(j - 9, j + 1) != "></iframe>") {j++;}
+  while (textBody[i] != '>' && i + 1 < textBody.length) {
+    i++;
+    // If 'youtube.com/embed' in <iframe> tag, then fetch close of iframe
+    if (textBody[i] === 'y' && i + 17 < textBody.length && textBody.substring(i, i + 17) === 'youtube.com/embed') {
+      let j = i + 17;
+      while (j + 1 < textBody.length && textBody.substring(j - 9, j + 1) != "></iframe>") {j++;}
 
-            // We've exited while loop, check if we found found closing </iframe> tag and apply <div classname="youtube-embed-container"></div>
-            if (textBody.substring(j - 9, j + 1) === "></iframe>") {
-                closeIndex = j + 1;
-                stringInsert = `<div classname="youtube-embed-container">${textBody.substring(openIndex, closeIndex)}</div>`;
-                textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
-                i = openIndex + stringInsert.length - 1; // Go to end of our string insertion and continue iterating
-                break;
-            }
-        }
+      // We've exited while loop, check if we found found closing </iframe> tag and apply <div classname="youtube-embed-container"></div>
+      if (textBody.substring(j - 9, j + 1) === '></iframe>') {
+        closeIndex = j + 1;
+        stringInsert = `<div classname="youtube-embed-container">${textBody.substring(openIndex, closeIndex)}</div>`;
+        textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
+        i = openIndex + stringInsert.length - 1;
+        break;
+      }
     }
+  }
 }
 ```
 
@@ -661,29 +785,49 @@ The Default Layout can be found at `layouts\DefaultLayout.js`
 
 The Default Layout is used to render all standard pages containing the Header and Footer components. Attached to the Default Layout are the Vercel Analytics and Speed Insights scripts which allow for visibility on the frontend performance in the Vercel Dashboard. In addition, we are also tracking website activity with Google Analytics which is attached to the Default Layout pages.
 
-The Alert Banner can be closed by the user, which triggers the handleCloseAlertBanner() function. This function stores a cookie on the client stating that the Alert Banner is closed. This cookie is removed on the unload of the application, which means while navigating the site the Alert Banner will remain closed on each subsequent page, but upon closing or refreshing the tab containing the application, the cookie will be reset. This enables us to have an Alert Banner with any custom messaging that will be visible on each user's unique visit of the site, but can be closed for the current session.
+## Context
+
+### Global Context:
+
+The Global Context can be found at `context\GlobalContext.js`
+
+The Global Context is used to pull, update, and store variable global state of the application such as the user state.
+
+The user state is verified on the load of the application by checking for a user JWT token stored in the client browser and, if it's not expired, calling our backend for the user object. The user object is updated with its fields and available globally to the application in-memory by wrapping `/_app.js` in the InvestantUserAuthProvider.
 
 ``` javascript
-// Check if user has alert banner closed in browser storage
 useEffect(() => {
-    const isAlertBannerClosed = localStorage.getItem("investantNetAlertBannerClosed");
-    if (!isAlertBannerClosed) {setShowAlertBanner(true);}
-}, []);
-```
-``` javascript
-// Events to trigger before terminating page session
-useEffect(() => {
-    const handleBeforeUnload = () => {localStorage.removeItem("investantNetAlertBannerClosed");};
-    window.addEventListener("beforeunload", handleBeforeUnload);
+  // On application load, we should check if the user has a non-expired JWT and fetch user object if so
+  const verifyUserOnLoad = async () => {
+    const session = localStorage.getItem('investantUserSession');
+    if (!session) {clearInvestantUser(); return;}
 
-    return () => {window.removeEventListener("beforeunload", handleBeforeUnload);};
-}, []);
-```
+    try {
+      // If the token is expired, clear the user and return
+      const decodedToken = jwtDecode(session);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {clearInvestantUser(); return;}
 
-``` javascript
-// Handle the closing of the alert banner with browser storage
-const handleCloseAlertBanner = () => {
-    setShowAlertBanner(false);
-    localStorage.setItem("investantNetAlertBannerClosed", "true");
-};
+      const response = await fetch(`${STRAPIurl}/api/users/me`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${session}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {clearInvestantUser(); return;}
+      
+      const data = await response.json();
+      updateInvestantUser({
+        userJWT: session,
+        username: data.username,
+        userEmail: data.email,
+        userSubscriptions: {
+          blogPostSubscription: data.blogPostSubscription
+        },
+        userSignedIn: true
+      });
+    } catch (error) {clearInvestantUser(); return;}
+  }; verifyUserOnLoad();
+}, []);
 ```

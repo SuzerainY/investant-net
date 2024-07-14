@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Parse the Alert Banner Message and the Linked Portion of the message to create the text element with proper link location
 const generateAlertBannerComponent = (fullMessage, linkedPortion, linkURL) => {
   // Default message to send on failure
   let alertBannerMessage = (<h3>Investant | Financial Tools, Literacy, & Education | <Link href={'https://investant.net/contact-us'}>Contact Us</Link></h3>);

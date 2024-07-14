@@ -25,14 +25,14 @@ export async function getServerSidePaths() {
                 }
             `
         })
-    }
+    };
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const data = await res.json();
     const paths = data.data.blogPosts.data.map((post) => ({
         params: { slug: post.attributes.SLUG },
     }));
     return { paths, fallback: true };
-}
+};
 
 // Fetch the selected blog from the server via graphql
 export async function getServerSideProps({ params }) {
@@ -66,11 +66,11 @@ export async function getServerSideProps({ params }) {
             `,
             variables: {"slug": slug} // Select the BlogPost with this specific SLUG (every BlogPost has a unique SLUG)
         })
-    }
+    };
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const data = await res.json();
     return { props: data };
-}
+};
 
 export default function BlogPost(props) {
     const router = useRouter();
