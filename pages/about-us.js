@@ -1,5 +1,4 @@
 import { STRAPIurl, customImage, parseMarkdownHTML } from '@/my_modules/bloghelp';
-
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';

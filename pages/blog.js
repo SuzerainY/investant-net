@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
         }
       `
     })
-  }
+  };
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
