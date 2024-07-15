@@ -272,14 +272,18 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         align-items: center;
         width: 100%;
         margin: 40px 0px;
-        color: $black;
 
         .homepage-investor-roadmap-section-roadmap-step-commentary {
+          position: relative;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: flex-start;
           width: 60%;
+          padding: 10px;
+          color: $black;
+          border: 2px solid $black;
+          border-radius: 20px;
 
           .homepage-investor-roadmap-section-roadmap-step-button {
             display: flex;
@@ -298,6 +302,25 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             h4 {
               font-size: 16px;
               font-weight: 600;
+            }
+            // Hides the top and left border portions
+            &::before {
+              content: '';
+              position: absolute;
+              left: -2px;
+              bottom: 0px;
+              background-color: $chrome;
+              width: 10px;
+              height: 55%;
+            }
+            &::after {
+              content: '';
+              position: absolute;
+              top: -2px;
+              right: 0px;
+              background-color: $chrome;
+              width: 75%;
+              height: 10px;
             }
           }
 
@@ -323,6 +346,26 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
                 object-fit: cover;
               }
             }
+          }
+
+          // Hides the bottom and right border portions
+          &::before {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 0px;
+            background-color: $chrome;
+            width: 10px;
+            height: 55%;
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0px;
+            background-color: $chrome;
+            width: 75%;
+            height: 10px;
           }
         }
 

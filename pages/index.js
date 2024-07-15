@@ -248,8 +248,8 @@ export default function Home(props) {
                 <div className="homepage-investor-roadmap-section-step-icon-container">
                   <div className="homepage-investor-roadmap-section-step-icon">
                     <Image
-                      src={"/images/icons/investant-wallet-icon.png"}
-                      alt="Investant Wallet Icon"
+                      src={"/images/icons/investant-analytics-icon.png"}
+                      alt="Investant Analytics Icon"
                       width={500}
                       height={500}
                     />
