@@ -9,6 +9,12 @@ export default function Header() {
   const router = useRouter();
   const { userSignedIn, clearInvestantUser } = useInvestantUserAuth();
 
+  // Desktop menu references
+  const NavBarHomeLink = useRef(null);
+  const NavBarProductsLink = useRef(null);
+  const NavBarBlogLink = useRef(null);
+  const NavBarAboutLink = useRef(null);
+
   // Mobile menu references
   const mobileMenuContainer = useRef(null);
   const mobileMenu = useRef(null);
@@ -76,11 +82,13 @@ export default function Header() {
   };
 
   useEffect(() => {
+    // Will append to document method for any clicks outside of the mobile menu
     const handleClickOutsideMobileMenu = (event) => {
       let eventTarget = event.target;
       if (mobileMenuContainer.current?.contains(eventTarget) && !mobileMenu.current?.contains(eventTarget)) {closeMobileMenu();}
     };
 
+    // Will append to the window to handle closing of mobile menu if resize above threshold
     const handleViewportResize = () => {
       const viewportWidth = window.innerWidth;
       if (viewportWidth >= 1200) {closeMobileMenu();}
@@ -101,6 +109,20 @@ export default function Header() {
       window.removeEventListener('resize', handleViewportResize);
     };
   }, []);
+
+  useEffect(() => {
+    // On load of component, will check if we are on a main page and append the focused element to nav link if so
+    const handleFocusedPage = () => {
+      const mainPageRefs = [NavBarHomeLink, NavBarProductsLink, NavBarBlogLink, NavBarAboutLink];
+      const mainPages = ['/', '/products', '/blog', '/about-us'];
+      for (let i = 0; i < mainPages.length; i++) {
+        if (router.pathname === mainPages[i]) {
+          mainPageRefs[i].current?.classList.add('focused');
+          return;
+        }
+      }
+    }; handleFocusedPage();
+  }, [router.pathname]);
 
   return (
     <>
@@ -275,8 +297,8 @@ export default function Header() {
             </div>
             <div className="NavBar-Navigation-Links">
               <ul>
-                <li><Link href="/">Home</Link></li>
-                <li style={{marginRight: '20px'}} className="NavBar-Navigation-Links-Products-Dropdown">
+                <li ref={NavBarHomeLink}><Link href="/">Home</Link></li>
+                <li ref={NavBarProductsLink} style={{marginRight: '20px'}} className="NavBar-Navigation-Links-Products-Dropdown">
                   <Link href="/products">
                     Products
                     <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
@@ -294,8 +316,8 @@ export default function Header() {
                     <li><button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
                   </ul>
                 </li>
-                <li><Link href="/blog">Blog</Link></li>
-                <li><Link href="/about-us">About</Link></li>
+                <li ref={NavBarBlogLink}><Link href="/blog">Blog</Link></li>
+                <li ref={NavBarAboutLink}><Link href="/about-us">About</Link></li>
               </ul>
             </div>
             <div className="NavBar-Media-Links">

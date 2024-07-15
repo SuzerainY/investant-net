@@ -291,7 +291,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             margin-top: 20px;
             justify-content: center;
             align-items: center;
-            border-radius: 20px;
+            border-radius: $homepage-button-border-radius;
             background-color: $soft-purple;
             color: $white;
             white-space: nowrap;
@@ -328,12 +328,12 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
-            padding: 15px 0px 0px 0px;
+            margin-top: 15px;
             width: 100%;
   
             .homepage-investor-roadmap-section-roadmap-commentary-image {
               display: flex;
-              margin: 0px 20px;
+              margin: 0px 40px 0px 0px;
               width: 75px;
               height: 75px;
               border-radius: 50%;
@@ -373,6 +373,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
           display: flex;
           justify-content: center;
           width: 40%;
+          padding: 10px;
 
           .homepage-investor-roadmap-section-step-icon {
             display: flex;
@@ -881,6 +882,13 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             width: 100%;
             .homepage-investor-roadmap-section-roadmap-step-button {
               align-self: center;
+            }
+            .homepage-investor-roadmap-section-roadmap-commentary-images-container {
+              width: 100%;
+              justify-content: space-between;
+              .homepage-investor-roadmap-section-roadmap-commentary-image {
+                margin: 0;
+              }
             }
           }
           .homepage-investor-roadmap-section-step-icon-container {
