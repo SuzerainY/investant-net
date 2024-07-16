@@ -27,9 +27,7 @@ export default function Header() {
   const handleShowProductsDropdownClick = () => {
     if (!showProductsDropdown) {
       setShowProductsDropdown(true);
-    } else {
-      setShowProductsDropdown(false);
-    }
+    } else {setShowProductsDropdown(false);}
   };
 
   // Route to product sections if navigated to via header
@@ -113,14 +111,14 @@ export default function Header() {
   useEffect(() => {
     // On load of component, will check if we are on a main page and append the focused element to nav link if so
     const handleFocusedPage = () => {
-      const mainPageRefs = [NavBarHomeLink, NavBarProductsLink, NavBarBlogLink, NavBarAboutLink];
-      const mainPages = ['/', '/products', '/blog', '/about-us'];
-      for (let i = 0; i < mainPages.length; i++) {
-        if (router.pathname === mainPages[i]) {
-          mainPageRefs[i].current?.classList.add('focused');
-          return;
-        }
-      }
+      const focusedPath = router.pathname;
+      const pageRefs = {
+        '/': NavBarHomeLink,
+        '/products': NavBarProductsLink,
+        '/blog': NavBarBlogLink,
+        '/about-us': NavBarAboutLink
+      };
+      pageRefs[focusedPath]?.current?.classList.add('focused');
     }; handleFocusedPage();
   }, [router.pathname]);
 
@@ -174,11 +172,7 @@ export default function Header() {
           <div className="mobile-menu-media-links">
             <ul>        
               <li>
-                <Link
-                  href="https://discord.gg/SFUKKjWEjH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="https://discord.gg/SFUKKjWEjH" target="_blank" rel="noopener noreferrer">
                   <Image
                     src="/images/socialmedia/discord-investant.png"
                     alt="Discord Icon"
@@ -188,11 +182,7 @@ export default function Header() {
                 </Link>
               </li>
               <li className="NavBar-Media-Links-XLogo">
-                <Link
-                  href="https://twitter.com/InvestantGroup"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="https://twitter.com/InvestantGroup" target="_blank" rel="noopener noreferrer">
                   <Image
                     src="/images/socialmedia/x-investant.png"
                     alt="X Icon"
@@ -202,11 +192,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="https://www.instagram.com/investantgroup/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="https://www.instagram.com/investantgroup/" target="_blank" rel="noopener noreferrer">
                   <Image
                     src="/images/socialmedia/insta-investant.png"
                     alt="Instagram Icon"
@@ -263,10 +249,7 @@ export default function Header() {
               </Link>
               {userSignedIn === true ? (
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Link
-                    href="/account"
-                    className="NavBar-Investant-Sign-In-Button"
-                    style={{ height: 'auto', marginLeft: '-10px', marginBottom: '2px', padding: '4px 10px' }}>
+                  <Link href="/account" className="NavBar-Investant-Sign-In-Button" style={{ height: 'auto', marginLeft: '-10px', marginBottom: '2px', padding: '4px 10px' }}>
                     <p>Account</p>
                   </Link>
                   <button
@@ -278,18 +261,10 @@ export default function Header() {
                 </div>
               ) : (
                 <>
-                  <Link
-                    href="/login?form=SignUp"
-                    className="NavBar-Investant-Sign-In-Button"
-                    style={{ marginLeft: '-10px' }}
-                  >
+                  <Link href="/login?form=SignUp" className="NavBar-Investant-Sign-In-Button" style={{ marginLeft: '-10px' }}>
                     <p>Sign Up</p>
                   </Link>
-                  <Link
-                    href="/login?form=Login"
-                    className="NavBar-Investant-Sign-In-Button"
-                    style={{ marginLeft: '0px', padding: '5px 0px', backgroundColor: 'transparent', color: 'white' }}
-                  >
+                  <Link href="/login?form=Login" className="NavBar-Investant-Sign-In-Button" style={{ marginLeft: '0px', padding: '5px 0px', backgroundColor: 'transparent', color: 'white' }}>
                     <p>Login</p>
                   </Link>
                 </>
@@ -305,8 +280,8 @@ export default function Header() {
                       <Image
                         src={"/images/clipart/WhiteDropDownArrow.png"}
                         alt="Products Drop Down Arrow"
-                        width={22}
-                        height={22}
+                        width={18}
+                        height={18}
                       />
                     </span>
                   </Link>
@@ -323,11 +298,7 @@ export default function Header() {
             <div className="NavBar-Media-Links">
               <ul>
                 <li>
-                  <Link
-                    href="https://discord.gg/SFUKKjWEjH"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href="https://discord.gg/SFUKKjWEjH" target="_blank" rel="noopener noreferrer">
                     <Image
                       src="/images/socialmedia/discord-investant.png"
                       alt="Discord Icon"
@@ -337,11 +308,7 @@ export default function Header() {
                   </Link>
                 </li>
                 <li className="NavBar-Media-Links-XLogo">
-                  <Link
-                    href="https://twitter.com/InvestantGroup"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href="https://twitter.com/InvestantGroup" target="_blank" rel="noopener noreferrer">
                     <Image
                       src="/images/socialmedia/x-investant.png"
                       alt="X Icon"
@@ -351,11 +318,7 @@ export default function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="https://www.instagram.com/investantgroup/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href="https://www.instagram.com/investantgroup/" target="_blank" rel="noopener noreferrer">
                     <Image
                       src="/images/socialmedia/insta-investant.png"
                       alt="Instagram Icon"

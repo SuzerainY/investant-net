@@ -1,5 +1,5 @@
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -50,7 +50,7 @@ export default function Home(props) {
   // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
   const investorRoadmapSection = useRef(null);
   const blogPostsSection = useRef(null);
-
+  
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
   const handleGetStartedButtonClick = () => {investorRoadmapSection.current?.scrollIntoView({ behavior: 'smooth' })};
@@ -112,88 +112,77 @@ export default function Home(props) {
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_1_Paper.svg"}
                   alt="homepage hero section hero piece 1"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-2">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_2_White_Star.svg"}
                   alt="homepage hero section hero piece 2"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
-              <div className="homepage-hero-section-hero-piece-3">
+              <div  className="homepage-hero-section-hero-piece-3">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_3_Flower.svg"}
                   alt="homepage hero section hero piece 3"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-4">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_4_Green_Star.svg"}
                   alt="homepage hero section hero piece 4"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-5">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_5_Coins.svg"}
                   alt="homepage hero section hero piece 5"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-6">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_6_Person.svg"}
                   alt="homepage hero section hero piece 6"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-7">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_7_Pink_Star_1.svg"}
                   alt="homepage hero section hero piece 7"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-8">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_8_Pink_Star_2.svg"}
                   alt="homepage hero section hero piece 8"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-9">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_9_Blue_Star.svg"}
                   alt="homepage hero section hero piece 9"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-10">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_10_Yellow_Star.svg"}
                   alt="homepage hero section hero piece 10"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
               <div className="homepage-hero-section-hero-piece-11">
                 <Image
                   src={"/images/clipart/OfficeWorkerHeroComponents/Piece_11_Graph.svg"}
                   alt="homepage hero section hero piece 11"
-                  width={100}
-                  height={100}
+                  fill={true}
                 />
               </div>
             </div>
