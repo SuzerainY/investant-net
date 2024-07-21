@@ -1,4 +1,4 @@
-import { STRAPIurl, blogPostReadLengthText } from '@/my_modules/bloghelp';
+import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
   return { props: data };
-}
+};
 
 export default function Blog(props) {
 
@@ -78,36 +78,50 @@ export default function Blog(props) {
 
       <DefaultLayout>
         <main className="blogpage">
-          <section className="blogpage-title-background">
-            <div className="blogpage-title-wrapper">
-              <div className="blogpage-title">
-                <h1>Explore Our Latest Blog Posts</h1>
-                <h3>At <span className="blogpage-title-span">investant.net</span>, we aim to provide independent financial research and tools for <span className="blogpage-title-span">your</span>{" financial literacy and education in today's economy."}</h3>
+
+          <section className="blogpage-title-section">
+            <div className="blogpage-title-section-text-container">
+              <div className="blogpage-title-section-title">
+                <h1>The <span className="blogpage-title-section-title-span">Investant</span> Blog</h1>
               </div>
-              <div className="blogpage-featured-post">
-                <Link key={mostRecentPost.attributes.SLUG} href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-                  <div className="blogpage-featured-post-image-container">
-                    <Image
-                      src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
-                      alt={mostRecentPost.attributes.Title}
-                      priority={true}
-                      width={1000}
-                      height={500}
-                    />
+              <div className="blogpage-title-section-subtitle">
+                <p>Join us in the pursuit for financial <span className="blogpage-title-section-subtitle-span">freedom.</span></p>
+              </div>
+            </div>
+          </section>
+
+          <section className="blogpage-featured-post-section">
+            <div className="blogpage-featured-post-section-content-wrapper">
+              <div className="blogpage-featured-post-section-image-container">
+                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`}>
+                  <Image
+                    src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                    alt={mostRecentPost.attributes.Title}
+                    priority={true}
+                    width={1000}
+                    height={500}
+                  />
+                </Link>
+              </div>              
+              <div className="blogpage-featured-post-section-text-container">
+                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`}>
+                  <div className="blogpage-featured-post-section-title">
+                    <h1>{mostRecentPost.attributes.Title}</h1>
                   </div>
-                  <div className="blogpage-featured-post-text-container">
-                    <h2>{mostRecentPost.attributes.Title}</h2>
-                    <div className="blogpage-featured-post-description-container">
-                      <p>{mostRecentPost.attributes.BlogPostDescription}</p>
-                    </div>
-                    <div className="blogpage-blog-post-read-length">
-                      <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
-                    </div>
+                  <div className="blogpage-featured-post-section-title">
+                    <p><span style={{color: '#2D64A9'}}>{mostRecentPost.attributes.Author}</span> | {formatDate(new Date(mostRecentPost.attributes.PublishDate))}</p>
+                  </div>
+                  <div className="blogpage-featured-post-section-description">
+                    <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+                  </div>
+                  <div className="blogpage-featured-post-section-read-length">
+                    <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
                   </div>
                 </Link>
               </div>
             </div>
           </section>
+
           <section className="blogpage-blog-posts-wrapper">
             <div className="blogpage-blog-post-list">
               {blogPosts.map((post, index) => (
@@ -123,6 +137,7 @@ export default function Blog(props) {
                     </div>
                     <div className="blogpage-blog-post-text-container">
                       <h2>{post.attributes.Title}</h2>
+                      <p style={{paddingBottom: '10px'}}><span style={{color: '#2D64A9'}}>{post.attributes.Author}</span> | {formatDate(new Date(post.attributes.PublishDate))}</p>
                       <div className="blogpage-blog-post-description-container">
                         <p>{post.attributes.BlogPostDescription}</p>
                       </div>
@@ -136,5 +151,5 @@ export default function Blog(props) {
         </main>
       </DefaultLayout>
     </>
-  )
-}
+  );
+};
