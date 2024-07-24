@@ -28,7 +28,7 @@ export default function Login() {
                 }
             }
         }; verifyUserSignedIn();
-    }, [router.isReady, userSignedIn]);
+    }, [router.isReady, userSignedIn, liveLogin]);
 
     useEffect(() => {
         const loadGoogleRecaptcha = () => {

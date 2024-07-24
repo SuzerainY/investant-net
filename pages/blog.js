@@ -157,7 +157,7 @@ export default function Blog(props) {
                     <li>Get insights for financial success</li>
                     <li>Save and track your progress</li>
                   </ul>
-                  <a href="/products?block=FinancialPlanner" className="cta-button">Start Planning Now</a>
+                  <Link href="/products?block=FinancialPlanner" className="cta-button">Start Planning Now</Link>
                   <p className="ad-footer">Investant.net - Your partner in financial growth</p>
                 </div>
               </div>

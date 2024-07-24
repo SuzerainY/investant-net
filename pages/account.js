@@ -50,7 +50,7 @@ export default function Account() {
         }; document.addEventListener('click', handleClickOutsideSidebar);
 
         return () => {document.removeEventListener('click', handleClickOutsideSidebar);};
-    }, [showSidebarMenu]);
+    }, [showSidebarMenu, handleToggleSidebar]);
 
     useEffect(() => {
         const verifySignIn = () => {
