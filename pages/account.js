@@ -50,7 +50,7 @@ export default function Account() {
         }; document.addEventListener('click', handleClickOutsideSidebar);
 
         return () => {document.removeEventListener('click', handleClickOutsideSidebar);};
-    }, [showSidebarMenu, handleToggleSidebar]);
+    }, [showSidebarMenu]);
 
     useEffect(() => {
         const verifySignIn = () => {
@@ -77,7 +77,7 @@ export default function Account() {
                 }
             }
         }; handleActiveBlockOnLoad();
-    }, [router.isReady]);
+    }, [router.isReady, router.query.block]);
 
     useEffect(() => {
         const loadGoogleRecaptcha = () => {
