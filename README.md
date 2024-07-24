@@ -627,27 +627,6 @@ const closeMobileMenu = () => {
 
 While each [investant.net](https://investant.net) product itself is being developed, we are simply navigating the users to the section on the products page briefing the product and what's to come. As the products are released, the links will begin navigating the users to each product's dedicated page.
 
-``` javascript
-// Route to product sections if navigated to via header
-const handleProductClick = (productId) => {
-  // Close the mobile menu & route the user
-  if (router.pathname === '/products') {
-    closeMobileMenu();
-    const productSection = document.getElementById(productId);
-    if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-
-  } else {
-    document.body.classList.remove('no-scroll');
-    router.push('/products').then(() => {
-      setTimeout(() => {
-        const productSection = document.getElementById(productId);
-        if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-      }, 100);
-    });
-  }
-};
-```
-
 ### Footer:
 
 The Footer Component can be found at `components\Footer\Footer.js` and styles at `styles\components\_footer.scss`

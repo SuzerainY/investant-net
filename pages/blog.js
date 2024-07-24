@@ -78,7 +78,6 @@ export default function Blog(props) {
 
       <DefaultLayout>
         <main className="blogpage">
-
           <section className="blogpage-title-section">
             <div className="blogpage-title-section-text-container">
               <div className="blogpage-title-section-title">
@@ -90,64 +89,81 @@ export default function Blog(props) {
             </div>
           </section>
 
-          <section className="blogpage-featured-post-section">
-            <div className="blogpage-featured-post-section-content-wrapper">
-              <div className="blogpage-featured-post-section-image-container">
-                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-                  <Image
-                    src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
-                    alt={mostRecentPost.attributes.Title}
-                    priority={true}
-                    width={1000}
-                    height={500}
-                  />
+          <div className="blogpage-main-body-wrapper">
+            <div className="blogpage-post-content-wrapper">
+              <section className="blogpage-featured-post-section">
+                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`} className="blogpage-featured-post-section-content-wrapper">
+                  <div className="blogpage-featured-post-section-image-container">
+                    <Image
+                      src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
+                      alt={mostRecentPost.attributes.Title}
+                      priority={true}
+                      width={1000}
+                      height={500}
+                    />
+                  </div>              
+                  <div className="blogpage-featured-post-section-text-container">
+                    <div className="blogpage-featured-post-section-title">
+                      <h1>{mostRecentPost.attributes.Title}</h1>
+                    </div>
+                    <div className="blogpage-featured-post-section-title">
+                      <p><span style={{color: '#2D64A9'}}>{mostRecentPost.attributes.Author}</span> | {formatDate(new Date(mostRecentPost.attributes.PublishDate))}</p>
+                    </div>
+                    <div className="blogpage-featured-post-section-description">
+                      <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+                    </div>
+                    <div className="blogpage-featured-post-section-read-length">
+                      <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
+                    </div>
+                  </div>
                 </Link>
-              </div>              
-              <div className="blogpage-featured-post-section-text-container">
-                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`}>
-                  <div className="blogpage-featured-post-section-title">
-                    <h1>{mostRecentPost.attributes.Title}</h1>
-                  </div>
-                  <div className="blogpage-featured-post-section-title">
-                    <p><span style={{color: '#2D64A9'}}>{mostRecentPost.attributes.Author}</span> | {formatDate(new Date(mostRecentPost.attributes.PublishDate))}</p>
-                  </div>
-                  <div className="blogpage-featured-post-section-description">
-                    <p>{mostRecentPost.attributes.BlogPostDescription}</p>
-                  </div>
-                  <div className="blogpage-featured-post-section-read-length">
-                    <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </section>
+              </section>
 
-          <section className="blogpage-blog-posts-wrapper">
-            <div className="blogpage-blog-post-list">
-              {blogPosts.map((post, index) => (
-                <div key={index} className="blogpage-blog-post">
-                  <Link href={`/blog/${post.attributes.SLUG}`}>
-                    <div className="blogpage-blog-post-image-container">
-                      <Image
-                        src={`${post.attributes.SPLASH.data.attributes.url}`}
-                        alt={post.attributes.Title}
-                        width={1000}
-                        height={500}
-                      />
+              <section className="blogpage-blog-posts-wrapper">
+                <div className="blogpage-blog-post-list">
+                  {blogPosts.map((post, index) => (
+                    <div key={index} className="blogpage-blog-post">
+                      <Link href={`/blog/${post.attributes.SLUG}`}>
+                        <div className="blogpage-blog-post-image-container">
+                          <Image
+                            src={`${post.attributes.SPLASH.data.attributes.url}`}
+                            alt={post.attributes.Title}
+                            width={1000}
+                            height={500}
+                          />
+                        </div>
+                        <div className="blogpage-blog-post-text-container">
+                          <h2>{post.attributes.Title}</h2>
+                          <p style={{paddingBottom: '10px'}}><span style={{color: '#2D64A9'}}>{post.attributes.Author}</span> | {formatDate(new Date(post.attributes.PublishDate))}</p>
+                          <div className="blogpage-blog-post-description-container">
+                            <p>{post.attributes.BlogPostDescription}</p>
+                          </div>
+                          <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post.attributes.BlogPostBody)}</p>
+                        </div>
+                      </Link>
                     </div>
-                    <div className="blogpage-blog-post-text-container">
-                      <h2>{post.attributes.Title}</h2>
-                      <p style={{paddingBottom: '10px'}}><span style={{color: '#2D64A9'}}>{post.attributes.Author}</span> | {formatDate(new Date(post.attributes.PublishDate))}</p>
-                      <div className="blogpage-blog-post-description-container">
-                        <p>{post.attributes.BlogPostDescription}</p>
-                      </div>
-                      <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post.attributes.BlogPostBody)}</p>
-                    </div>
-                  </Link>
+                  ))}
                 </div>
-              ))}
+              </section>
             </div>
-          </section>
+
+            <section className="blogpage-advertisement-section">
+              <div className="blogpage-advertisement-container">
+                <div className="ad-content">
+                  <h3>Take Control of Your Finances</h3>
+                  <p>Discover our powerful Financial Planner</p>
+                  <ul>
+                    <li>Create personalized budget plans</li>
+                    <li>Get insights for financial success</li>
+                    <li>Save and track your progress</li>
+                  </ul>
+                  <a href="/products?block=FinancialPlanner" className="cta-button">Start Planning Now</a>
+                  <p className="ad-footer">Investant.net - Your partner in financial growth</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
         </main>
       </DefaultLayout>
     </>

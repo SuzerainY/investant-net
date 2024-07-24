@@ -66,13 +66,13 @@
         list-style: none;
 
         li {
-          a {
+          > a {
             position: relative;
             font-size: 18px;
             font-weight: 600;
           }
-          &.focused { // Add the white circle under focused page link
-            a {
+          &.focused { // Add the white underline to focused page link
+            > a {
               &::after {
                 pointer-events: none; // Disables the hover event
                 content: '';
@@ -121,25 +121,17 @@
               display: flex;
               flex-direction: column;
               width: 100%;
-              padding: 0px 5px;
               text-decoration: none;
               transition: transform 0.2s ease-in-out;
               &:hover {transform: scale(1.01);}
     
-              button {
-                background-color: transparent;
-                border: none;
-                outline: none;
-                font-family: inherit;
-                cursor: pointer;
-                text-align: left;
+              a {
                 padding: 5px;
                 color: $white;
                 transition: color 0.2s ease-in-out;
-                &:hover {color: $magenta;}
-                p {
-                  font-size: 16px;
-                }
+                font-size: 16px;
+                font-weight: lighter;
+                &:hover {color: $magenta; opacity: 1;}
               }
             }
           }
@@ -355,25 +347,16 @@
         li {
           padding-bottom: 0px;
           transition: transform 0.2s ease-in-out;
-          &:hover {
-            transform: scale(1.02);
-          }
+          &:hover {transform: scale(1.02);}
 
-          button {
-            background-color: transparent;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 2px;
+          a {
             text-align: left;
             color: $very-light-grey;
             transition: color 0.2s ease-in-out;
-            &:hover {
-              color: $magenta;
-            }
-            p {
-              font-size: 18px;
-            }
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.1s ease-in-out;
+            &:hover {color: $magenta;}
           }
         }
       }
@@ -412,9 +395,7 @@
             font-weight: bold;
             transition: transform 0.2s ease-in-out;
 
-            &:hover {
-              transform: scale(1.04);
-            }
+            &:hover {transform: scale(1.04);}
           }
         }
       }

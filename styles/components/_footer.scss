@@ -53,7 +53,6 @@ $footer-mobile-side-padding: 10px;
                         }
                     }
                 }
-    
                 a {
                     color: $white;
                     text-decoration: none;
@@ -61,21 +60,6 @@ $footer-mobile-side-padding: 10px;
                     padding: 2px 0px;
                     transition: color 0.2s ease-in-out;
                     &:hover {color: $magenta;}
-                }
-                button {
-                    background-color: transparent;
-                    border: none;
-                    outline: none;
-                    font: inherit;
-                    cursor: pointer;
-                    color: $white;
-                    padding: 2px 0px;
-                    text-align: left;
-                    p {
-                        font-size: 16px;
-                        transition: color 0.2s ease-in-out;
-                        &:hover {color: $magenta;}
-                    }
                 }
             }
         }
@@ -264,7 +248,6 @@ $footer-mobile-side-padding: 10px;
                     
                     .footer-body-link-tree-root h4 {font-size: 18px;}
                     a {font-size: 12px;}
-                    button p {font-size: 12px;}
                 }
             }
 

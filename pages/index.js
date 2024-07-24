@@ -1,5 +1,5 @@
 import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -305,7 +305,7 @@ export default function Home(props) {
                       </Link>
                     </div>
                   </div>
-                  <Link href="/products" className="homepage-investor-roadmap-section-roadmap-step-button">
+                  <Link href="/products?block=FinancialPlanner" className="homepage-investor-roadmap-section-roadmap-step-button">
                     <h4>Use The Investant Financial Planner</h4>
                   </Link>
                 </div>

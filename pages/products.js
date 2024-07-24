@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from "next/link";
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export default function Home() {
+  const router = useRouter();
 
   /*
   const downloadInvestantConsciousPlannerURL = '/files/UserTemplates/Investant-ConsciousSpendingPlan.xlsx';
@@ -21,6 +23,18 @@ export default function Home() {
   const paperTradeSection = useRef(null);
   const financialPlannerSection = useRef(null);
   const financialCalculatorSection = useRef(null);
+
+  useEffect(() => {
+    const handleBlockOnLoad = () => {
+      if (router.isReady && router.query.block === 'PaperTrade') {
+        paperTradeSection.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (router.isReady && router.query.block === 'FinancialPlanner') {
+        financialPlannerSection.current?.scrollIntoView({ behavior: 'smooth' });
+      } else if (router.isReady && router.query.block == 'FinancialCalculator') {
+        financialCalculatorSection.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }; handleBlockOnLoad();
+  }, [router.isReady, router.query.block]);
 
   return (
     <>

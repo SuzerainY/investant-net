@@ -30,25 +30,6 @@ export default function Header() {
     } else {setShowProductsDropdown(false);}
   };
 
-  // Route to product sections if navigated to via header
-  const handleProductClick = (productId) => {
-    // Close the mobile menu & route the user
-    if (router.pathname === '/products') {
-      closeMobileMenu();
-      const productSection = document.getElementById(productId);
-      if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-
-    } else {
-      document.body.classList.remove('no-scroll');
-      router.push('/products').then(() => {
-        setTimeout(() => {
-          const productSection = document.getElementById(productId);
-          if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-        }, 100);
-      });
-    }
-  };
-
   const openMobileMenu = () => {
     if (mobileMenuContainer.current?.style.display !== 'flex') {
       mobileMenuContainer.current.style.display = 'flex';
@@ -162,9 +143,9 @@ export default function Header() {
                   </span>
                 </div>
                 <ul ref={mobileMenuProductsDropdown} className="NavBar-Navigation-Links-Products-Dropdown-Content" style={{height: showProductsDropdown ? '80px' : '0px'}}>
-                  <li><button onClick={() => handleProductClick("productspage-papertrade-section")}><p>PaperTrade</p></button></li>
-                  <li><button onClick={() => handleProductClick("productspage-financial-planner-section")}><p>Financial Planners</p></button></li>
-                  <li><button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                  <li><MobileNavLink href={'/products?block=PaperTrade'}>PaperTrade</MobileNavLink></li>
+                  <li><MobileNavLink href={'/products?block=FinancialPlanner'}>Financial Planner</MobileNavLink></li>
+                  <li><MobileNavLink href={'/products?block=FinancialCalculator'}>Investant Calculator</MobileNavLink></li>
                 </ul>
               </li>
             </ul>
@@ -286,9 +267,9 @@ export default function Header() {
                     </span>
                   </Link>
                   <ul className="NavBar-Navigation-Links-Products-Dropdown-Content">
-                    <li><button onClick={() => handleProductClick("productspage-papertrade-section")}><p>PaperTrade</p></button></li>
-                    <li><button onClick={() => handleProductClick("productspage-financial-planner-section")}><p>Financial Planners</p></button></li>
-                    <li><button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button></li>
+                    <li><Link href={'/products?block=PaperTrade'}>PaperTrade</Link></li>
+                    <li><Link href={'/products?block=FinancialPlanner'}>Financial Planner</Link></li>
+                    <li><Link href={'/products?block=FinancialCalculator'}>Investant Calculator</Link></li>
                   </ul>
                 </li>
                 <li ref={NavBarBlogLink}><Link href="/blog">Blog</Link></li>

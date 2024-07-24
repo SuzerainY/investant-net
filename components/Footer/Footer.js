@@ -1,31 +1,13 @@
 import { isValidEmail } from '@/my_modules/authenticationhelp';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Footer() {
-    const router = useRouter();
 
     // Handle the Newsletter Signup form
     const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
     const validateNewsletterSignUpEmail = (email) => {return isValidEmail(email);};
-
-    // Route to product sections if navigated to via header
-    const handleProductClick = (productId) => {
-        // Close the mobile menu & route the user
-        if (router.pathname === '/products') {
-            const productSection = document.getElementById(productId);
-            if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-        } else {
-            router.push('/products').then(() => {
-                setTimeout(() => {
-                    const productSection = document.getElementById(productId);
-                    if (productSection) {productSection.scrollIntoView({ behavior: 'smooth' });}
-                }, 100);
-            });
-        }
-    };
 
     return (
         <>
@@ -80,9 +62,9 @@ export default function Footer() {
                         </div>
                         <div className="footer-body-link-tree">
                             <div className="footer-body-link-tree-root"><h4>Products</h4></div>
-                            <button onClick={() => handleProductClick("productspage-papertrade-section")}><p>PaperTrade</p></button>
-                            <button onClick={() => handleProductClick("productspage-financial-planner-section")}><p>Financial Planners</p></button>
-                            <button onClick={() => handleProductClick("productspage-financial-calculator-section")}><p>Investant Calculator</p></button>
+                            <Link href={'/products?block=PaperTrade'}>PaperTrade</Link>
+                            <Link href={'/products?block=FinancialPlanner'}>Financial Planner</Link>
+                            <Link href={'/products?block=FinancialCalculator'}>Investant Calculator</Link>
                         </div>
                         <div className="footer-body-link-tree">
                             <div className="footer-body-link-tree-root"><h4>Info</h4></div>
