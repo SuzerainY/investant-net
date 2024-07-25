@@ -230,7 +230,7 @@ export default function Header() {
               </Link>
               {userSignedIn === true ? (
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Link href="/account" className="NavBar-Investant-Sign-In-Button" style={{ height: 'auto', marginLeft: '-10px', marginBottom: '2px', padding: '4px 10px' }}>
+                  <Link href="/account" className="NavBar-Investant-Sign-In-Button" style={{ height: 'auto', marginBottom: '2px', padding: '4px 10px' }}>
                     <p>Account</p>
                   </Link>
                   <button
@@ -242,7 +242,7 @@ export default function Header() {
                 </div>
               ) : (
                 <>
-                  <Link href="/login?form=SignUp" className="NavBar-Investant-Sign-In-Button" style={{ marginLeft: '-10px' }}>
+                  <Link href="/login?form=SignUp" className="NavBar-Investant-Sign-In-Button">
                     <p>Sign Up</p>
                   </Link>
                   <Link href="/login?form=Login" className="NavBar-Investant-Sign-In-Button" style={{ marginLeft: '0px', padding: '5px 0px', backgroundColor: 'transparent', color: 'white' }}>
