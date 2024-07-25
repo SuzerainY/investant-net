@@ -8,7 +8,6 @@ $blogpage-mobile-side-padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
   background-color: $chrome;
 
   .blogpage-title-section {
@@ -75,10 +74,7 @@ $blogpage-mobile-side-padding: 20px;
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    max-height: 100svh;
     padding: 40px $blogpage-desktop-side-padding;
-    overflow-y: scroll;
-    scrollbar-width: none;
 
     .blogpage-post-content-wrapper {
       position: relative;
@@ -172,7 +168,6 @@ $blogpage-mobile-side-padding: 20px;
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 0px 0px 40px 0px;
     
         .blogpage-blog-post-list {
           display: flex;
@@ -247,18 +242,18 @@ $blogpage-mobile-side-padding: 20px;
       }
     }
 
-    .blogpage-advertisement-section {
-      position: sticky;
-      top: 0px;
+    .blogpage-sidebar-section {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       width: 25%;
       max-width: calc($blogpage-max-width * 0.25);
-      height: fit-content;
+      height: inherit;
       padding-left: 20px;
     
-      .blogpage-advertisement-container {
+      .blogpage-investant-product-container {
+        position: sticky;
+        top: 40px;
         display: flex;
         width: 100%;
         border: 2px solid $soft-purple;
@@ -267,7 +262,7 @@ $blogpage-mobile-side-padding: 20px;
         background-color: #f8f8ff;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     
-        .ad-content {
+        .blogpage-investant-product-content {
           padding: 20px;
           color: $black;
     
@@ -302,7 +297,7 @@ $blogpage-mobile-side-padding: 20px;
             }
           }
     
-          .cta-button {
+          .blogpage-investant-product-button {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -322,7 +317,7 @@ $blogpage-mobile-side-padding: 20px;
             }
           }
     
-          .ad-footer {
+          .blogpage-investant-product-footer {
             font-size: 12px;
             color: $soft-purple;
             margin-top: 15px;
@@ -336,7 +331,8 @@ $blogpage-mobile-side-padding: 20px;
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .blogpage {
-    .blogpage-title-section {      
+    .blogpage-title-section {
+      height: 300px;
       .blogpage-title-section-text-container {  
         .blogpage-title-section-title {
           padding: 10px $blogpage-tablet-side-padding;
@@ -372,13 +368,13 @@ $blogpage-mobile-side-padding: 20px;
         }
       }
   
-      .blogpage-advertisement-section {      
-        .blogpage-advertisement-container {      
-          .ad-content {      
+      .blogpage-sidebar-section {      
+        .blogpage-investant-product-container {      
+          .blogpage-investant-product-content {      
             h3 {font-size: 22px;}
             p {font-size: 14px;}
       
-            .cta-button {
+            .blogpage-investant-product-button {
               padding: 10px 10px;
               font-size: 14px;
             }
@@ -445,19 +441,19 @@ $blogpage-mobile-side-padding: 20px;
         }
       }
   
-      .blogpage-advertisement-section {
+      .blogpage-sidebar-section {
         position: relative;
         width: 100%;
         max-width: none;
         height: fit-content;
         padding: 0px 0px 20px 0px;
       
-        .blogpage-advertisement-container {      
-          .ad-content {      
+        .blogpage-investant-product-container {      
+          .blogpage-investant-product-content {      
             h3 {font-size: 22px;}
             p {font-size: 14px;}
       
-            .cta-button {
+            .blogpage-investant-product-button {
               padding: 10px 10px;
               font-size: 14px;
             }

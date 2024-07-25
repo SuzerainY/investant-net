@@ -147,9 +147,9 @@ export default function Blog(props) {
               </section>
             </div>
 
-            <section className="blogpage-advertisement-section">
-              <div className="blogpage-advertisement-container">
-                <div className="ad-content">
+            <section className="blogpage-sidebar-section">
+              <div className="blogpage-investant-product-container">
+                <div className="blogpage-investant-product-content">
                   <h3>Take Control of Your Finances</h3>
                   <p>Discover our powerful Financial Planner</p>
                   <ul>
@@ -157,8 +157,8 @@ export default function Blog(props) {
                     <li>Get insights for financial success</li>
                     <li>Save and track your progress</li>
                   </ul>
-                  <Link href="/products?block=FinancialPlanner" className="cta-button">Start Planning Now</Link>
-                  <p className="ad-footer">Investant.net - Your partner in financial growth</p>
+                  <Link href="/products?block=FinancialPlanner" className="blogpage-investant-product-button">Start Planning Now</Link>
+                  <p className="blogpage-investant-product-footer">Investant.net - Your partner in financial growth</p>
                 </div>
               </div>
             </section>
