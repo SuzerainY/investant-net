@@ -2,6 +2,7 @@ import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/blog
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export async function getServerSideProps(context) {
@@ -14,7 +15,7 @@ export async function getServerSideProps(context) {
     body: JSON.stringify({
       query: `
         query GetBlogPosts {
-          blogPosts(pagination: { pageSize: 15 }, sort: "id:desc") {
+          blogPosts(pagination: { pageSize: 10 }, sort: "PublishDate:desc") {
             data {
               id
               attributes {
@@ -33,6 +34,14 @@ export async function getServerSideProps(context) {
                 }
               }
             }
+            meta {
+              pagination {
+                total
+                pageSize
+                page
+                pageCount
+              }
+            }
           }
         }
       `
@@ -44,12 +53,58 @@ export async function getServerSideProps(context) {
 };
 
 export default function Blog(props) {
+  const [page, setPage] = useState(1);
+  const [hasMorePosts, setHasMorePosts] = useState(page < props.data.blogPosts.meta.pagination.pageCount);
+  const [displayedPosts, setDisplayedPosts] = useState(props.data.blogPosts.data.slice(1));
 
-  // Arrange blog post data and variables
-  const data = props.data.blogPosts.data;
-  const mostRecentPost = data[0]; // Get the most recent post
-  // let filterPostId = mostRecentPost.id; // When we fetch more posts, we will use this ID in a 'lt' (less than) filter clause to ensure we grab the next 15 earliest posts
-  const blogPosts = data.slice(1); // The rest of the blog posts with the mostRecentPost removed
+  const mostRecentPost = props.data.blogPosts.data[0];
+
+  const loadMorePosts = async () => {
+    const nextPage = page + 1;
+    const fetchParams = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        query: `
+          query GetMoreBlogPosts {
+            blogPosts(pagination: { page: ${nextPage}, pageSize: 9 }, sort: "PublishDate:desc") {
+              data {
+                id
+                attributes {
+                  Title
+                  BlogPostBody
+                  BlogPostDescription
+                  SLUG
+                  Author
+                  PublishDate
+                  SPLASH {
+                    data {
+                      attributes {
+                        url
+                      }
+                    }
+                  }
+                }
+              }
+              meta {
+                pagination {
+                  pageCount
+                }
+              }
+            }
+          }
+        `
+      })
+    };
+    const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+    const newData = await res.json();
+    
+    setDisplayedPosts(prevPosts => [...prevPosts, ...newData.data.blogPosts.data]);
+    setPage(nextPage);
+    setHasMorePosts(nextPage < newData.data.blogPosts.meta.pagination.pageCount);
+  };
 
   return (
     <>
@@ -121,8 +176,8 @@ export default function Blog(props) {
 
               <section className="blogpage-blog-posts-wrapper">
                 <div className="blogpage-blog-post-list">
-                  {blogPosts.map((post, index) => (
-                    <div key={index} className="blogpage-blog-post">
+                  {displayedPosts.map((post, index) => (
+                    <div key={post.id} className="blogpage-blog-post">
                       <Link href={`/blog/${post.attributes.SLUG}`}>
                         <div className="blogpage-blog-post-image-container">
                           <Image
@@ -144,6 +199,11 @@ export default function Blog(props) {
                     </div>
                   ))}
                 </div>
+                {hasMorePosts && (
+                  <button onClick={loadMorePosts} className="load-more-button">
+                    Load More
+                  </button>
+                )}
               </section>
             </div>
 

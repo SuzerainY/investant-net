@@ -166,6 +166,7 @@ $blogpage-mobile-side-padding: 20px;
       .blogpage-blog-posts-wrapper {
         position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         width: 100%;
     
@@ -237,6 +238,25 @@ $blogpage-mobile-side-padding: 20px;
               }
               p {color: $black;}
             }
+          }
+        }
+
+        .load-more-button {
+          display: block;
+          margin: 20px auto;
+          padding: 10px 20px;
+          background-color: $soft-purple;
+          color: $white;
+          border: none;
+          border-radius: 5px;
+          font-family: inherit;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        
+          &:hover {
+            background-color: $magenta;
           }
         }
       }
