@@ -139,7 +139,7 @@ export default function Blog(props) {
                 <h1>The <span className="blogpage-title-section-title-span">Investant</span> Blog</h1>
               </div>
               <div className="blogpage-title-section-subtitle">
-                <p>Join us in the pursuit for financial <span className="blogpage-title-section-subtitle-span">freedom.</span></p>
+                <p>Money management made <span className="blogpage-title-section-subtitle-span">simple.</span></p>
               </div>
             </div>
           </section>

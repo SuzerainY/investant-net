@@ -188,6 +188,62 @@ export default function Home(props) {
             </div>
           </section>
 
+          <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
+            <div className="homepage-featured-blog-posts-section-title-container">
+              <div className="homepage-featured-blog-posts-section-title">
+                <h1>Unlocking Financial Success Together</h1>
+              </div>
+              <div className="homepage-featured-blog-posts-section-subtitle">
+                <p>Stay informed with our latest blog posts</p>
+              </div>
+            </div>
+            <div className="homepage-featured-blog-posts-section-posts-container">
+              <div className="homepage-featured-blog-posts-section-top-post-container">
+                <div className="homepage-featured-blog-posts-section-top-post-header-container">
+                  <h3>Latest Story</h3>
+                </div>
+                <Link href={`/blog/${featuredPost.attributes.SLUG}`}>
+                  <div className="homepage-featured-blog-posts-section-top-post-image-container">
+                    <Image
+                      src={featuredPost.attributes.SPLASH.data.attributes.url}
+                      alt={featuredPost.attributes.BlogPostDescription}
+                      width={800}
+                      height={400}
+                      priority={true}
+                    />
+                  </div>
+                  <div className="homepage-featured-blog-posts-section-top-post-description-container">
+                    <h3>{featuredPost.attributes.Title}</h3>
+                    <h4>{featuredPost.attributes.BlogPostDescription}</h4>
+                    <p>{formatDate(new Date(featuredPost.attributes.PublishDate))}</p>
+                  </div>
+                </Link>
+              </div>
+              <div className="homepage-featured-blog-posts-section-other-posts-container">
+                <div className="homepage-featured-blog-posts-section-other-posts-header-container">
+                  <h3>More from <span className="homepage-featured-blog-posts-section-other-posts-header-span">investant.net</span></h3>
+                </div>
+                <div className="homepage-featured-blog-posts-section-other-posts-border-frame">
+                  {featuredPosts.map((post, index) => (
+                    <div key={index} className="homepage-featured-blog-posts-section-other-posts-row">
+                      <div className="homepage-featured-blog-posts-section-other-posts-row-identifier">
+                        <h4>{index + 1}</h4>
+                      </div>
+                      <div className="homepage-featured-blog-posts-section-other-posts-row-description">
+                        <h3><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.Title}</Link></h3>
+                        <h4><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.BlogPostDescription}</Link></h4>
+                        <p>{formatDate(new Date(post.attributes.PublishDate))}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <button className="homepage-featured-blog-posts-section-blogpage-button">
+              <Link href="/blog"><h4>View all</h4></Link>
+            </button>
+          </section>
+
           <section ref={investorRoadmapSection} id="homepage-investor-roadmap-section" className="homepage-investor-roadmap-section">
             <div className="homepage-investor-roadmap-section-title-container">
               <div className="homepage-investor-roadmap-section-title">
@@ -321,62 +377,6 @@ export default function Home(props) {
                 </div>
               </div>
             </div>
-          </section>
-
-          <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
-            <div className="homepage-featured-blog-posts-section-title-container">
-              <div className="homepage-featured-blog-posts-section-title">
-                <h1>Unlocking Financial Success Together</h1>
-              </div>
-              <div className="homepage-featured-blog-posts-section-subtitle">
-                <p>Stay informed with our latest blog posts</p>
-              </div>
-            </div>
-            <div className="homepage-featured-blog-posts-section-posts-container">
-              <div className="homepage-featured-blog-posts-section-top-post-container">
-                <div className="homepage-featured-blog-posts-section-top-post-header-container">
-                  <h3>Latest Story</h3>
-                </div>
-                <Link href={`/blog/${featuredPost.attributes.SLUG}`}>
-                  <div className="homepage-featured-blog-posts-section-top-post-image-container">
-                    <Image
-                      src={featuredPost.attributes.SPLASH.data.attributes.url}
-                      alt={featuredPost.attributes.BlogPostDescription}
-                      width={800}
-                      height={400}
-                      priority={true}
-                    />
-                  </div>
-                  <div className="homepage-featured-blog-posts-section-top-post-description-container">
-                    <h3>{featuredPost.attributes.Title}</h3>
-                    <h4>{featuredPost.attributes.BlogPostDescription}</h4>
-                    <p>{formatDate(new Date(featuredPost.attributes.PublishDate))}</p>
-                  </div>
-                </Link>
-              </div>
-              <div className="homepage-featured-blog-posts-section-other-posts-container">
-                <div className="homepage-featured-blog-posts-section-other-posts-header-container">
-                  <h3>More from <span className="homepage-featured-blog-posts-section-other-posts-header-span">investant.net</span></h3>
-                </div>
-                <div className="homepage-featured-blog-posts-section-other-posts-border-frame">
-                  {featuredPosts.map((post, index) => (
-                    <div key={index} className="homepage-featured-blog-posts-section-other-posts-row">
-                      <div className="homepage-featured-blog-posts-section-other-posts-row-identifier">
-                        <h4>{index + 1}</h4>
-                      </div>
-                      <div className="homepage-featured-blog-posts-section-other-posts-row-description">
-                        <h3><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.Title}</Link></h3>
-                        <h4><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.BlogPostDescription}</Link></h4>
-                        <p>{formatDate(new Date(post.attributes.PublishDate))}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <button className="homepage-featured-blog-posts-section-blogpage-button">
-              <Link href="/blog"><h4>View all</h4></Link>
-            </button>
           </section>
         </main>
       </DefaultLayout>
