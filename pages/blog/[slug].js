@@ -157,13 +157,12 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
     const [BlogPostBody, setBlogPostBody] = useState(null);
     const [embeddedTweetExists, setEmbeddedTweetExists] = useState(false);
 
-    
     useEffect(() => {
         const { textBody, embeddedTweetExists } = parseMarkdownHTML(currentPost.attributes.BlogPostBody);
         setBlogPostBody(textBody);
         setEmbeddedTweetExists(embeddedTweetExists);
     }, [currentPost]);
-    
+
     const [nextPost, setNextPost] = useState(null);
     const [previousPost, setPreviousPost] = useState(null);
     useEffect(() => {
@@ -171,35 +170,38 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
         setPreviousPost(previousPostTemp);
     }, [nextPostTemp, previousPostTemp]);
 
-    useEffect(() => {
+    /*useEffect(() => {
+        let script;
+
         const checkAndLoadTwitterWidget = () => {
             if (embeddedTweetExists) {
                 const loadTwitterWidgets = () => {
                     if (window.twttr) {
-                        window.twttr.widgets.load(document.getElementById("slug-page-body"));
+                        window.twttr.widgets.load(document.getElementById("blogpost-body"));
                     } else {
-                        const script = document.createElement('script');
+                        script = document.createElement('script');
                         script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
                         script.setAttribute('async', 'true');
                         script.onload = () => {
-                            window.twttr.widgets.load(document.getElementById("slug-page-body"));
+                            if (document.getElementById("blogpost-body")) {
+                                window.twttr.widgets.load(document.getElementById("blogpost-body"));
+                            }
                         };
                         document.head.appendChild(script);
                     }
-                };
-
-                // Execute loadTwitterWidgets on DOMContentLoaded if necessary
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', loadTwitterWidgets);
-                } else {loadTwitterWidgets();}
-
-                // Clean up event listener on component unmount
-                return () => {
-                    document.removeEventListener('DOMContentLoaded', loadTwitterWidgets);
-                };
+                }; loadTwitterWidgets();
             }
-        }; checkAndLoadTwitterWidget();
-    }, [embeddedTweetExists]);
+        };
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkAndLoadTwitterWidget);
+        } else {checkAndLoadTwitterWidget();}
+
+        return () => {
+            if (script) {document.head.removeChild(script);}
+            document.removeEventListener('DOMContentLoaded', checkAndLoadTwitterWidget);
+        };
+    }, [embeddedTweetExists]);*/
 
     // Render a loading state while data is being fetched
     if (router.isFallback || !currentPost) {
