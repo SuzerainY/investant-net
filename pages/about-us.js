@@ -20,6 +20,7 @@ export async function getServerSideProps(context) {
             data {
               id
               attributes {
+                CompanyDescription
                 HavenDescription
                 HavenProfilePicture {
                   data {
@@ -50,17 +51,20 @@ export async function getServerSideProps(context) {
 
 export default function AboutUs(props) {
 
+  const [companyDescription, setCompanyDescription] = useState(null);
   const [havenDescription, setHavenDescription] = useState(null);
   const [ryanDescription, setRyanDescription] = useState(null);
   const [havenProfilePictureURL, setHavenProfilePictureURL] = useState(null);
   const [ryanProfilePictureURL, setRyanProfilePictureURL] = useState(null);
 
   useEffect(() => {
+    setCompanyDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.CompanyDescription).textBody);
     setHavenDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.HavenDescription).textBody);
     setRyanDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.RyanDescription).textBody);
     setHavenProfilePictureURL(props.data.aboutUsPage.data.attributes.HavenProfilePicture.data.attributes.url);
     setRyanProfilePictureURL(props.data.aboutUsPage.data.attributes.RyanProfilePicture.data.attributes.url);
   }, [
+    props.data.aboutUsPage.data.attributes.CompanyDescription,
     props.data.aboutUsPage.data.attributes.HavenDescription,
     props.data.aboutUsPage.data.attributes.RyanDescription,
     props.data.aboutUsPage.data.attributes.HavenProfilePicture,
@@ -112,7 +116,11 @@ export default function AboutUs(props) {
                 <h2>Transforming <span className="about-us-page-company-description-section-title-span">Personal Finance</span> for New Professionals</h2>
               </div>
               <div className="about-us-page-company-description-section-subtitle">
+                {(companyDescription) ? (
+                  <Markdown className='html' rehypePlugins={[rehypeRaw]} components={{img: customImage}}>{companyDescription}</Markdown>
+                ) : (
                 <p>At <span className="about-us-page-company-description-section-subtitle-span">investant.net</span>, {`we're`} dedicated to providing new professionals with the tools and information they need to take control of their personal finances. Our mission is to empower individuals to make smart financial decisions and achieve their financial goals.</p>
+                )}
               </div>
               <Link href={'/contact-us'} className="about-us-page-company-description-section-button">
                 <h4>Contact Us</h4>

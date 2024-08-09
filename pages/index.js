@@ -189,6 +189,7 @@ export default function Home(props) {
           </section>
 
           <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
+            {/*}
             <div className="homepage-featured-blog-posts-section-title-container">
               <div className="homepage-featured-blog-posts-section-title">
                 <h1>Unlocking Financial Success Together</h1>
@@ -197,6 +198,7 @@ export default function Home(props) {
                 <p>Stay informed with our latest blog posts</p>
               </div>
             </div>
+            */}
             <div className="homepage-featured-blog-posts-section-posts-container">
               <div className="homepage-featured-blog-posts-section-top-post-container">
                 <div className="homepage-featured-blog-posts-section-top-post-header-container">
