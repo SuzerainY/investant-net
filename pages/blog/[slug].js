@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import GoogleAdSense from "@/components/GoogleAdSense/GoogleAdSense";
 
 // Fetch the SLUG for the selected BlogPost in order to route the new URL properly
 export async function getServerSidePaths() {
@@ -231,6 +232,9 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
 
                 {/* Favicon */}
                 <link rel="icon" href="/images/branding/FaviconTransparent.png" />
+
+                {/* Google Ad Sense */}
+                <GoogleAdSense />
             </Head>
 
             <DefaultLayout>
