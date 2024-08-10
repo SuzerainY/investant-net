@@ -2,7 +2,7 @@ import Script from 'next/script';
 
 export default function GoogleAdSense() {
 
-    const publisherID = process.env.GOOGLE_AD_SENSE_PUBLISHER_ID;
+    const publisherID = process.env.NEXT_PUBLIC_GOOGLE_AD_SENSE_PUBLISHER_ID;
 
     return (
         <Script
