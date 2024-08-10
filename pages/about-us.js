@@ -75,18 +75,18 @@ export default function AboutUs(props) {
     <>
       <Head>
         <title>Investant | About</title>
-        <meta name="description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta name="description" content="Investant's mission is to empower individuals to make smart financial decisions and achieve their wealth building goals." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Investant | About" />
-        <meta name="twitter:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta name="twitter:description" content="Investant's mission is to empower individuals to make smart financial decisions and achieve their wealth building goals." />
         <meta name="twitter:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
 
         {/* Open Graph Meta Tags (for platforms like Facebook) */}
         <meta property="og:title" content="Investant | About" />
-        <meta property="og:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta property="og:description" content="Investant's mission is to empower individuals to make smart financial decisions and achieve their wealth building goals." />
         <meta property="og:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
         <meta property="og:url" content="https://investant.net/about-us" />
         <meta property="og:type" content="website" />

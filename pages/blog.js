@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import GoogleAdSense from "@/components/GoogleAdSense/GoogleAdSense";
 
 export async function getServerSideProps(context) {
   // Fetch 15 most recent posts for inital page render
@@ -130,9 +129,6 @@ export default function Blog(props) {
 
         {/* Favicon */}
         <link rel="icon" href="/images/branding/FaviconTransparent.png" />
-
-        {/* Google Ad Sense */}
-        <GoogleAdSense />
       </Head>
 
       <DefaultLayout>

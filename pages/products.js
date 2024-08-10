@@ -40,18 +40,18 @@ export default function Home() {
     <>
       <Head>
         <title>Investant | Products</title>
-        <meta name="description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta name="description" content="Investant is committed to the development of tools for your financial growth." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Investant | Products" />
-        <meta name="twitter:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta name="twitter:description" content="Investant is committed to the development of tools for your financial growth." />
         <meta name="twitter:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
 
         {/* Open Graph Meta Tags (for platforms like Facebook) */}
         <meta property="og:title" content="Investant | Products" />
-        <meta property="og:description" content="Investant is a provider of independent financial research and tools for individuals who want to improve their financial literacy and education in today's economy." />
+        <meta property="og:description" content="Investant is committed to the development of tools for your financial growth." />
         <meta property="og:image" content="https://investant.net/images/branding/TransparentLogoHeader.png" />
         <meta property="og:url" content="https://investant.net/products" />
         <meta property="og:type" content="website" />
