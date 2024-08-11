@@ -43,6 +43,9 @@ export default function Account() {
     const [blogPostSubscriptionChecked, setBlogPostSubscriptionChecked] = useState(userSubscriptions.blogPostSubscription);
     const handleBlogPostSubscriptionChange = () => {setBlogPostSubscriptionChecked(!blogPostSubscriptionChecked);}
 
+    // Settings Block Variables & Components
+    const [showConfirmDeleteAccount, setShowConfirmDeleteAccount] = useState(false);
+
     useEffect(() => {
         const handleClickOutsideSidebar = (event) => {
             let eventTarget = event.target;
@@ -295,6 +298,37 @@ export default function Account() {
         });
     };
 
+    const handleDeleteAccount = async (e) => {
+        if (e) {e.preventDefault();}
+        setError('');
+        setInfo('');
+
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_Account_Page_Delete_Me' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (await verifyGoogleRecaptcha(token) !== true) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
+
+                    const response = await fetch(`${STRAPIurl}/api/user/me`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${userJWT}`,
+                            'Content-Type': 'application/json'                            
+                        }
+                    });
+
+                    if (!response.ok) {throw new Error('Unaccounted For Error Occurred.');}
+
+                    updateInvestantUser({userSignedIn: false});
+                    setInfo('Account Successfully Deleted.');
+                } catch (error) {setError('Something Went Wrong. Please Contact Us If The Issue Persists.');}
+            });
+        });
+    };
+
     return (
         <>
             <Head>
@@ -486,6 +520,41 @@ export default function Account() {
                                     <div className="account-page-form-body-row">
                                         <p className="account-page-form-body-row-info-message">Further Functionality Is In Development. We Are Committed To This Project And Will Continue To Deliver You More.</p>
                                     </div>
+                                    <div className="account-page-form-body-row">
+                                        {(showConfirmDeleteAccount === false) ? (
+                                            <button
+                                                className="account-page-form-body-row-button"
+                                                onClick={() => {setInfo(''); setError(''); setShowConfirmDeleteAccount(true);}}
+                                                style={{ backgroundColor: '#FFCC00', color: '#000000' }}
+                                            >
+                                                <p>Delete Account</p>
+                                            </button>
+                                        ) : (
+                                            <>
+                                                <p className="account-page-form-body-row-error-message">Are You Sure You Would Like To Delete Your Account?</p>
+                                                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', maxWidth: '100%' }}>
+                                                    <button
+                                                        className="account-page-form-body-row-button"
+                                                        onClick={() => {handleDeleteAccount(); setShowConfirmDeleteAccount(false);}}
+                                                        style={{ backgroundColor: '#FFCC00', color: '#000000', marginBottom: '10px' }}
+                                                    >
+                                                        <p>Yes, Delete My Account</p>
+                                                    </button>
+                                                    <button
+                                                        className="account-page-form-body-row-button"
+                                                        onClick={() => {setShowConfirmDeleteAccount(false);}}
+                                                        style={{ marginBottom: '10px' }}
+                                                    >
+                                                        <p>No, Keep My Account</p>
+                                                    </button>                                                
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className="account-page-form-body-row">
+                                        {error && <p className="account-page-form-body-row-error-message">{error}</p>}
+                                        {info && <p className="account-page-form-body-row-info-message">{info}</p>}
+                                    </div>                                    
                                     <div className="account-page-form-body-row">
                                         <p>Have Ideas Or Feedback? <Link href={'/contact-us'} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#E81CFF' }}>Please Contact Us</Link></p>
                                     </div>
