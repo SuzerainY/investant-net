@@ -13,5 +13,5 @@ export default async function handler(req, res) {
         // Redirect to login page
         res.writeHead(302, { Location: '/login' });
         res.end();
-    } catch (error) { res.status(500).json({ message: error.message }); }
+    } catch (error) { res.writeHead(302, { Location: '/error?type=EmailVerification' }); res.end(); }
 };

@@ -44,7 +44,7 @@ export default async function handler(req, res) {
         // Redirect to login page
         res.writeHead(302, { Location: '/login' });
         res.end();
-    } catch (error) { res.status(500).json({ message: error.message }); }
+    } catch (error) { res.writeHead(302, { Location: '/error?type=EmailVerification' }); res.end(); }
 };
 ```
 
@@ -489,7 +489,7 @@ In the profile block, we allow the user to update their info such as Username, E
 
 In the subscriptions block, we allow the user to subscribe/unsubscribe from our notifications. In the future, we will be adding the distinction between Paid and Free Subscriptions. Paid subscriptions will be handled through Stripe.
 
-In the settings block, we will be adding a Delete Account functionality as well as any user-specific web settings for our web-application.
+In the settings block, users may Delete Account and change other user-specific web settings for our web-application.
 
 ### Contact Us | `/contact-us`
 
@@ -559,6 +559,12 @@ The user will be able to save a financial plan which can be returned to on our s
 #### The Investant Calculator
 
 The Investant Calculator will be an easy-to-approach financial loan and amortization calculator that 1: acts as an API for the public and internal site tools and 2: provides the common consumer brevity in understanding the full costs and impacts of things such as a car loan, home loans, increased income, etc.
+
+### Error | `/error`
+
+Styles available at `styles\_account`
+
+The Error page is used to provide users a safe landing page in the case of breaking api errors or simple redirect issues. As an example, if the user clicks the link in their email to verify email and there is an error, they will land on the `/error` page with a useful message sharing what may have happened and a link to contact us.
 
 ## Components
 
