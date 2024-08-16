@@ -1,4 +1,5 @@
 import { STRAPIurl, customImage, blogPostReadLengthText, formatDate, parseMarkdownHTML } from '@/my_modules/bloghelp';
+import HavenBMC from '@/components/BuyACoffee/HavenBMC';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -207,7 +208,7 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
     if (router.isFallback || !currentPost) {
         return <div>Loading...</div>;
     }
-
+    if (currentPost.attributes.Author === 'Haven Smith') {console.log("It's Haven");}
     return (
         <>
             <Head>
@@ -231,6 +232,9 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
 
                 {/* Favicon */}
                 <link rel="icon" href="/images/branding/FaviconTransparent.png" />
+
+                {/* Buy Me A Coffee */}
+                {currentPost.attributes.Author === 'Haven Smith' ? <HavenBMC /> : currentPost.attributes.Author === 'Ryan White' ? <></> : <></>}
             </Head>
 
             <DefaultLayout>
