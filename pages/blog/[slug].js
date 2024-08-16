@@ -208,7 +208,7 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
     if (router.isFallback || !currentPost) {
         return <div>Loading...</div>;
     }
-    if (currentPost.attributes.Author === 'Haven Smith') {console.log("It's Haven");}
+
     return (
         <>
             <Head>
@@ -232,9 +232,6 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
 
                 {/* Favicon */}
                 <link rel="icon" href="/images/branding/FaviconTransparent.png" />
-
-                {/* Buy Me A Coffee */}
-                {currentPost.attributes.Author === 'Haven Smith' ? <HavenBMC /> : currentPost.attributes.Author === 'Ryan White' ? <></> : <></>}
             </Head>
 
             <DefaultLayout>
@@ -341,6 +338,25 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                     )}
                 </div>
             </DefaultLayout>
+
+            {/* Buy Me A Coffee */}
+            {currentPost.attributes.Author === 'Haven Smith' ? (
+                <script
+                    data-name="BMC-Widget"
+                    data-cfasync="false"
+                    src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+                    data-id="havensmith"
+                    data-description="Support me on Buy me a coffee!"
+                    data-message="Like the post? Buy Haven a coffee!"
+                    data-color="#BD5FFF"
+                    data-position="Right"
+                    data-x_margin="18"
+                    data-y_margin="18">
+                </script>
+                ) : currentPost.attributes.Author === 'Ryan White' ? (
+                    <></>
+                ) : <></>
+            }
         </>
     );
 };
