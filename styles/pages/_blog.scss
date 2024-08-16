@@ -241,10 +241,12 @@ $blogpage-mobile-side-padding: 20px;
           }
         }
 
-        .blogpage-blog-post-list:after { // Fills empty space of row if there are only 1 or 2, as an example
-          content: '';
-          flex-grow: 1;
-          max-width: calc(33% - 10px);
+        &.not-even-three {
+          .blogpage-blog-post-list:after { // Fills empty space of row if there are only 1 or 2, as an example
+            content: '';
+            flex-grow: 1;
+            max-width: calc(33% - 10px);
+          }
         }
 
         .load-more-button {

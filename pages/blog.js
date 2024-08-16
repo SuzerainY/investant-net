@@ -174,7 +174,7 @@ export default function Blog(props) {
                 </Link>
               </section>
 
-              <section className="blogpage-blog-posts-wrapper">
+              <section className={displayedPosts.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
                 <div className="blogpage-blog-post-list">
                   {displayedPosts.map((post, index) => (
                     <div key={post.id} className="blogpage-blog-post">
