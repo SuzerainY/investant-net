@@ -156,11 +156,15 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
 
     const [BlogPostBody, setBlogPostBody] = useState(null);
     const [embeddedTweetExists, setEmbeddedTweetExists] = useState(false);
+    const [BMCAuthor, setBMCAuthor] = useState(null);
 
     useEffect(() => {
         const { textBody, embeddedTweetExists } = parseMarkdownHTML(currentPost.attributes.BlogPostBody);
         setBlogPostBody(textBody);
         setEmbeddedTweetExists(embeddedTweetExists);
+        
+        if (currentPost.attributes.Author === 'Haven Smith') {setBMCAuthor('havensmith');}
+        else if (currentPost.attributes.Author === 'Ryan White') {setBMCAuthor('ryanwhite');}
     }, [currentPost]);
 
     const [nextPost, setNextPost] = useState(null);
@@ -274,6 +278,9 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                     </article>
                     <aside className='blogpost-sidebar'>
                         <div className='blogpost-sidebar-content'>
+                            <div className='blogpost-author-buy-me-a-coffee-container'>
+                                <iframe src={`https://www.buymeacoffee.com/widget/page/${BMCAuthor}?description=Support%20me%20on%20Buy%20me%20a%20coffee!&color=%235F7FFF`} />
+                            </div>
                             <div className='blogpost-investant-product-container'>
                                 <div className='blogpost-investant-product-content'>
                                     <h3>Take Control of Your Finances</h3>
@@ -337,25 +344,6 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                     )}
                 </div>
             </DefaultLayout>
-
-            {/* Buy Me A Coffee */}
-            {currentPost.attributes.Author === 'Haven Smith' ? (
-                <script
-                    data-name="BMC-Widget"
-                    data-cfasync="false"
-                    src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-                    data-id="havensmith"
-                    data-description="Support me on Buy me a coffee!"
-                    data-message="Like the post? Buy Haven a coffee!"
-                    data-color="#BD5FFF"
-                    data-position="Right"
-                    data-x_margin="18"
-                    data-y_margin="18">
-                </script>
-                ) : currentPost.attributes.Author === 'Ryan White' ? (
-                    <></>
-                ) : <></>
-            }
         </>
     );
 };

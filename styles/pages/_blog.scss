@@ -576,6 +576,35 @@ $blogpage-mobile-side-padding: 20px;
   top: 2rem;
 }
 
+.blogpost-author-buy-me-a-coffee-container {
+  width: 100%;
+  border: 2px solid $soft-purple;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f8f8ff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 5px; // Adjust this value as needed
+    background-color: $light-blue; // Match this with the background color
+  }
+
+  iframe {
+    width: calc(100% + 20px); // Make iframe wider by the same amount as the ::after element width
+    height: 300px; // Adjust this value as needed
+    border: none;
+    margin-right: -5px; // Pull the iframe to the right to hide the scrollbar
+  }
+}
+
 .blogpost-investant-product-container {
   display: flex;
   width: 100%;
@@ -783,7 +812,14 @@ $blogpage-mobile-side-padding: 20px;
 
 // Mobile adjustments
 @media screen and (max-width: 768px) {
+  .blogpost-content-wrapper {
+    flex-direction: column;
+    margin-top: 0;
+    padding: 0;
+  }
+
   .blogpost-container {
+    max-width: 100%;
     padding: 1rem;
   }
 
@@ -797,6 +833,14 @@ $blogpage-mobile-side-padding: 20px;
 
   .blogpost-title {
     font-size: 2rem;
+  }
+
+  .blogpost-sidebar {
+    display: block;
+    padding: 1rem;
+    margin-left: 0;
+    margin-top: 2rem;
+    width: 100%;
   }
 
   .blogpost-body {
