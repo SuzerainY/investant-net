@@ -278,9 +278,11 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                     </article>
                     <aside className='blogpost-sidebar'>
                         <div className='blogpost-sidebar-content'>
-                            <div className='blogpost-author-buy-me-a-coffee-container'>
-                                <iframe src={`https://www.buymeacoffee.com/widget/page/${BMCAuthor}?description=Support%20me%20on%20Buy%20me%20a%20coffee!&color=%235F7FFF`} />
-                            </div>
+                            {(BMCAuthor !== null) && (
+                                <div className='blogpost-author-buy-me-a-coffee-container'>
+                                    <iframe src={`https://www.buymeacoffee.com/widget/page/${BMCAuthor}?description=Support%20me%20on%20Buy%20me%20a%20coffee!&color=%235F7FFF`} />
+                                </div>
+                            )}
                             <div className='blogpost-investant-product-container'>
                                 <div className='blogpost-investant-product-content'>
                                     <h3>Take Control of Your Finances</h3>
