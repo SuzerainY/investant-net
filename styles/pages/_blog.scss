@@ -501,7 +501,6 @@ $blogpage-mobile-side-padding: 20px;
 }
 
 .blogpost-header {
-  max-width: 800px;
   @media screen and (min-width: 1199px) {
     max-width: 1200px;
   }
@@ -562,7 +561,6 @@ $blogpage-mobile-side-padding: 20px;
 }
 
 .blogpost-sidebar {
-  display: none;
   width: 300px;
   margin-left: 2rem;
 
@@ -574,6 +572,16 @@ $blogpage-mobile-side-padding: 20px;
 .blogpost-sidebar-content {
   position: sticky;
   top: 2rem;
+
+  @media screen and (max-width: 1199px) {
+    .blogpost-sidebar {
+      display: block;
+      padding: 1rem;
+      margin-left: 0;
+      margin-top: 2rem;
+      width: 100%;
+    }
+  }
 }
 
 .blogpost-author-buy-me-a-coffee-container {
@@ -593,15 +601,16 @@ $blogpage-mobile-side-padding: 20px;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 5px; // Adjust this value as needed
-    background-color: $light-blue; // Match this with the background color
+    width: 3px;
+    background-color: $light-blue;
   }
 
   iframe {
-    width: calc(100% + 20px); // Make iframe wider by the same amount as the ::after element width
-    height: 300px; // Adjust this value as needed
+    width: calc(100% + 40px);
+    height: 300px;
     border: none;
-    margin-right: -5px; // Pull the iframe to the right to hide the scrollbar
+    margin-left: -14px;
+    margin-top: -30px;
   }
 }
 
@@ -695,6 +704,8 @@ $blogpage-mobile-side-padding: 20px;
     color: $soft-purple;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    line-height: 3.5rem;
+    text-align: left;
   }
 
   p {
