@@ -1,4 +1,5 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
+import { isValidEmail } from '@/my_modules/authenticationhelp';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -106,6 +107,10 @@ export default function Blog(props) {
     setHasMorePosts(nextPage < newData.data.blogPosts.meta.pagination.pageCount);
   };
 
+  // Handle the Newsletter Signup form
+  const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
+  const validateNewsletterSignUpEmail = (email) => {return isValidEmail(email);};
+
   return (
     <>
       <Head>
@@ -140,6 +145,22 @@ export default function Blog(props) {
               </div>
               <div className="blogpage-title-section-subtitle">
                 <p>Money management made <span className="blogpage-title-section-subtitle-span">simple.</span></p>
+              </div>
+            </div>
+            <div className="blogpage-title-join-newsletter-section">
+              <div className="blogpage-title-join-newsletter-section-sign-up-container">
+                <div className="blogpage-title-join-newsletter-section-sign-up-input-container">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="blogpage-title-join-newsletter-section-sign-up-email-box"
+                    value={newsletterSignUpEmail}
+                    onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
+                  />
+                  <Link href={`/login?form=SignUp${validateNewsletterSignUpEmail(newsletterSignUpEmail) === true ? `&email=${newsletterSignUpEmail}` : ""}`} className="blogpage-title-join-newsletter-section-sign-up-button">
+                    <h4>Subscribe</h4>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>

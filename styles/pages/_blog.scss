@@ -13,6 +13,7 @@ $blogpage-mobile-side-padding: 20px;
   .blogpage-title-section {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -25,10 +26,10 @@ $blogpage-mobile-side-padding: 20px;
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       width: 100%;
-      height: 100%;
+      height: 50%;
       backdrop-filter: blur(2px);
       background-color: rgba(22, 11, 44, 0.6);
       color: $white;
@@ -63,6 +64,84 @@ $blogpage-mobile-side-padding: 20px;
         p {
           font-size: 20px;
           font-family: sans-serif;
+        }
+      }
+    }
+
+    .blogpage-title-join-newsletter-section {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: 50%;
+      padding: 0px $blogpage-desktop-side-padding;
+      @media screen and (min-width: 768px) and (max-width: 1199px) {padding: 0px $blogpage-tablet-side-padding;}
+      @media screen and (max-width: 768px) {padding: 0px $blogpage-mobile-side-padding;}
+      backdrop-filter: blur(2px);
+      background-color: rgba(22, 11, 44, 0.6);
+      color: $white;
+  
+      .blogpage-title-join-newsletter-section-sign-up-container {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        @media screen and (min-width: 400px) and (max-width: 1199px) {width: 25rem;}
+        @media screen and (max-width: 400px) {width: 100%;}
+      
+        .blogpage-title-join-newsletter-section-sign-up-input-container {
+          display: flex;
+          flex-direction: row;
+          @media screen and (max-width:1199px) {flex-direction: column;}
+          align-items: center;
+          width: 100%;
+          padding-top: 10px;
+          a {text-decoration: none;}
+    
+          .blogpage-title-join-newsletter-section-sign-up-email-box {
+            width: 100%;
+            border: 1px solid $white;
+            background-color: transparent;
+            padding: 10px 15px;
+            margin-right: 10px;
+            @media screen and (max-width: 1199px) {margin-right: 0px;}
+            font-size: 16px;
+            color: $white;
+            border-radius: 5px;
+            transition: border-color 0.3s ease-in-out;
+            
+            &::placeholder {
+              color: $white;
+              opacity: 0.7;
+            }
+            
+            &:focus {
+              outline: none;
+              border-color: $magenta;
+            }
+          }
+    
+          .blogpage-title-join-newsletter-section-sign-up-button {
+            border: none;
+            background: none;
+            font: inherit;
+            display: flex;
+            @media screen and (max-width: 1199px) {width: 100%; margin-top: 5px;}
+            background-color: $white;
+            padding: 10px 15px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            white-space: nowrap;
+            color: $black;
+            cursor: pointer;
+        
+            h4 {
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
         }
       }
     }
