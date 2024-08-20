@@ -231,7 +231,7 @@ export default function Home(props) {
                 </div>
               </div>
             </div>
-            <button className="homepage-featured-blog-posts-section-blogpage-button">
+            <button className="homepage-featured-blog-posts-section-blogpage-button" style={{marginTop: '2px'}}>
               <Link href="/blog"><h4>View all</h4></Link>
             </button>
           </section>
