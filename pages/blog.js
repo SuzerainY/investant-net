@@ -153,11 +153,18 @@ export default function Blog(props) {
               }
             })
           });
+          const data = await response.json();
 
           if (!response.ok) {
             // Handle Known Errors
+            if (data.message === 'Email Is Already A Subscriber') {
+              setInfo('');
+              setError('Email Is Already Subscribed!');
+              return;
+            }            
             throw new Error('Unaccounted For Error Occurred.');
           }
+
           setInfo('Successfully Subscribed!');
         } catch (error) {setError('Unable To Subscribe. Please Contact Us If The Issue Persists.');}
       });
