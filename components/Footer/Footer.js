@@ -139,7 +139,7 @@ export default function Footer() {
                                 <h2><span className="footer-join-newsletter-section-title-span">Subscribe</span> to our Newsletter</h2>
                             </div>
                         </div>
-                        <div className="footer-join-newsletter-section-sign-up-container">
+                        <form className="footer-join-newsletter-section-sign-up-container" onSubmit={handleNewsletterSignUp}>
                             <div className="footer-join-newsletter-section-sign-up-input-container">
                                 <input
                                     type="email"
@@ -148,7 +148,7 @@ export default function Footer() {
                                     value={newsletterSignUpEmail}
                                     onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
                                 />
-                                <button className="footer-join-newsletter-section-sign-up-button" onClick={handleNewsletterSignUp}>
+                                <button className="footer-join-newsletter-section-sign-up-button" type='submit'>
                                     <h4>Sign Up</h4>
                                 </button>
                             </div>
@@ -157,7 +157,7 @@ export default function Footer() {
                                 {info && (<p style={{color: '#40C9FF'}}>{info}</p>)}
                                 {error && (<p style={{color: '#FFCC00'}}>{error}</p>)}
                             </div>
-                        </div>
+                        </form>
                     </section>
                 </div>
                 <div className="footer-baseline">
