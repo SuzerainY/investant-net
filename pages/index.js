@@ -44,8 +44,8 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
 
   // Arrange blog posts for display
-  const featuredPosts = props.data.featuredPosts.data.slice(1);
-  const featuredPost = props.data.featuredPosts.data.slice(0, 1)[0];
+  const featuredPosts = props.data.featuredPosts?.data.slice(1);
+  const featuredPost = props.data.featuredPosts?.data.slice(0, 1)[0];
 
   // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
   const investorRoadmapSection = useRef(null);
@@ -189,35 +189,25 @@ export default function Home(props) {
           </section>
 
           <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
-            {/*}
-            <div className="homepage-featured-blog-posts-section-title-container">
-              <div className="homepage-featured-blog-posts-section-title">
-                <h1>Unlocking Financial Success Together</h1>
-              </div>
-              <div className="homepage-featured-blog-posts-section-subtitle">
-                <p>Stay informed with our latest blog posts</p>
-              </div>
-            </div>
-            */}
             <div className="homepage-featured-blog-posts-section-posts-container">
               <div className="homepage-featured-blog-posts-section-top-post-container">
                 <div className="homepage-featured-blog-posts-section-top-post-header-container">
                   <h3>Latest Story</h3>
                 </div>
-                <Link href={`/blog/${featuredPost.attributes.SLUG}`}>
+                <Link href={`/blog/${featuredPost?.attributes.SLUG}`}>
                   <div className="homepage-featured-blog-posts-section-top-post-image-container">
                     <Image
-                      src={featuredPost.attributes.SPLASH.data.attributes.url}
-                      alt={featuredPost.attributes.BlogPostDescription}
+                      src={featuredPost?.attributes.SPLASH.data.attributes.url}
+                      alt={featuredPost?.attributes.BlogPostDescription}
                       width={800}
                       height={400}
                       priority={true}
                     />
                   </div>
                   <div className="homepage-featured-blog-posts-section-top-post-description-container">
-                    <h3>{featuredPost.attributes.Title}</h3>
-                    <h4>{featuredPost.attributes.BlogPostDescription}</h4>
-                    <p>{formatDate(new Date(featuredPost.attributes.PublishDate))}</p>
+                    <h3>{featuredPost?.attributes.Title}</h3>
+                    <h4>{featuredPost?.attributes.BlogPostDescription}</h4>
+                    <p>{formatDate(new Date(featuredPost?.attributes.PublishDate))}</p>
                   </div>
                 </Link>
               </div>
@@ -226,7 +216,7 @@ export default function Home(props) {
                   <h3>More from <span className="homepage-featured-blog-posts-section-other-posts-header-span">investant.net</span></h3>
                 </div>
                 <div className="homepage-featured-blog-posts-section-other-posts-border-frame">
-                  {featuredPosts.map((post, index) => (
+                  {featuredPosts?.map((post, index) => (
                     <div key={index} className="homepage-featured-blog-posts-section-other-posts-row">
                       <div className="homepage-featured-blog-posts-section-other-posts-row-identifier">
                         <h4>{index + 1}</h4>

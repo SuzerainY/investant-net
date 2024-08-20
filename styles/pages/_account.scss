@@ -141,7 +141,8 @@ $account-page-form-tablet-side-padding: 20px;
                         font-size: 16px;
                         font-family: montserrat;
                         transition: border-color 0.3s;
-                        &:focus {outline: none;border-color: $magenta;}
+                        &:focus {outline: none; border-color: $magenta;}
+                        &::placeholder {color: $white; opacity: 0.7;}
     
                         &:-webkit-autofill,
                         &:-webkit-autofill:hover,

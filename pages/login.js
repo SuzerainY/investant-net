@@ -228,6 +228,7 @@ export default function Login() {
                                             type="username"
                                             id="username"
                                             value={username}
+                                            placeholder="investant_user"
                                             onChange={(e) => setUsername(e.target.value)}
                                             required
                                         />
@@ -239,6 +240,7 @@ export default function Login() {
                                             type="email"
                                             id="email"
                                             value={email}
+                                            placeholder="email@example.com"
                                             onChange={(e) => setEmail(e.target.value)}
                                             required
                                         />
@@ -253,6 +255,7 @@ export default function Login() {
                                         type="text"
                                         id="usernameEmail"
                                         value={usernameEmail}
+                                        placeholder="investant_user or email@example.com"
                                         onChange={(e) => setUsernameEmail(e.target.value)}
                                         required
                                     />

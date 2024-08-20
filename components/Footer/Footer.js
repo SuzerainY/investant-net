@@ -1,13 +1,56 @@
-import { isValidEmail } from '@/my_modules/authenticationhelp';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
+import { STRAPIurl } from '@/my_modules/bloghelp';
 import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Footer() {
 
+    const [info, setInfo] = useState('');
+    const [error, setError] = useState('');
+
     // Handle the Newsletter Signup form
     const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
-    const validateNewsletterSignUpEmail = (email) => {return isValidEmail(email);};
+    const handleNewsletterSignUp = (e) => {
+        if (e) {e.preventDefault();}
+        setError('');
+        setInfo('');
+    
+        if (isValidEmail(newsletterSignUpEmail) === false) {
+            setError('Invalid Email Address');
+            return;
+        }
+    
+        grecaptcha.ready(() => {
+            grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_BlogPage_Email_Subscription_Form_Submission' }).then(async (token) => {
+                try {
+                    // Google Recaptcha Verification
+                    if (await verifyGoogleRecaptcha(token) !== true) {
+                        setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+                        return;
+                    }
+        
+                    // POST request for entry creation
+                    const response = await fetch(`${STRAPIurl}/api/public-blog-subscribers`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            data: {
+                                Email: newsletterSignUpEmail,
+                                DateSubscribed: new Date().toISOString()
+                            }
+                        })
+                    });
+        
+                    if (!response.ok) {
+                        // Handle Known Errors
+                        throw new Error('Unaccounted For Error Occurred.');
+                    }
+                    setInfo('Successfully Subscribed!');
+                } catch (error) {setError('Unable To Subscribe. Please Contact Us If The Issue Persists.');}
+            });
+        });
+    };
 
     return (
         <>
@@ -88,12 +131,14 @@ export default function Footer() {
                                     value={newsletterSignUpEmail}
                                     onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
                                 />
-                                <Link href={`/login?form=SignUp${validateNewsletterSignUpEmail(newsletterSignUpEmail) === true ? `&email=${newsletterSignUpEmail}` : ""}`} className="footer-join-newsletter-section-sign-up-button">
+                                <button className="footer-join-newsletter-section-sign-up-button" onClick={handleNewsletterSignUp}>
                                     <h4>Sign Up</h4>
-                                </Link>
+                                </button>
                             </div>
-                            <div className="footer-join-newsletter-section-sign-up-description">
+                            <div className="footer-join-newsletter-section-sign-up-description" style={{flexDirection: 'column'}}>
                                 <p>Stay current with the latest personal finance news and updates</p>
+                                {info && (<p style={{color: '#40C9FF'}}>{info}</p>)}
+                                {error && (<p style={{color: '#FFCC00'}}>{error}</p>)}
                             </div>
                         </div>
                     </section>

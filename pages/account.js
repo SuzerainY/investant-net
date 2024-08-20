@@ -397,6 +397,7 @@ export default function Account() {
                                             autoComplete='off'
                                             id='newUsername'
                                             value={newUsername}
+                                            placeholder='investant_user'
                                             onChange={(e) => setNewUsername(e.target.value)}
                                         />
                                         <button className='account-page-form-body-row-button' type='submit'
@@ -413,6 +414,7 @@ export default function Account() {
                                             autoComplete='off'
                                             id='newEmail'
                                             value={newEmail}
+                                            placeholder='email@example.com'
                                             onChange={(e) => setNewEmail(e.target.value)}
                                         />
                                         <button className='account-page-form-body-row-button' type='submit'

@@ -1,5 +1,5 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
-import { isValidEmail } from '@/my_modules/authenticationhelp';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -54,11 +54,15 @@ export async function getServerSideProps(context) {
 };
 
 export default function Blog(props) {
-  const [page, setPage] = useState(1);
-  const [hasMorePosts, setHasMorePosts] = useState(page < props.data.blogPosts.meta.pagination.pageCount);
-  const [displayedPosts, setDisplayedPosts] = useState(props.data.blogPosts.data.slice(1));
 
-  const mostRecentPost = props.data.blogPosts.data[0];
+  const [info, setInfo] = useState('') ;
+  const [error, setError] = useState('');
+
+  const [page, setPage] = useState(1);
+  const [hasMorePosts, setHasMorePosts] = useState(page < props?.data.blogPosts?.meta.pagination.pageCount);
+  const [displayedPosts, setDisplayedPosts] = useState(props?.data.blogPosts?.data.slice(1));
+
+  const mostRecentPost = props?.data.blogPosts?.data[0];
 
   const loadMorePosts = async () => {
     const nextPage = page + 1;
@@ -109,7 +113,46 @@ export default function Blog(props) {
 
   // Handle the Newsletter Signup form
   const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
-  const validateNewsletterSignUpEmail = (email) => {return isValidEmail(email);};
+  const handleNewsletterSignUp = (e) => {
+    if (e) {e.preventDefault();}
+    setError('');
+    setInfo('');
+
+    if (isValidEmail(newsletterSignUpEmail) === false) {
+      setError('Invalid Email Address');
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_BlogPage_Email_Subscription_Form_Submission' }).then(async (token) => {
+        try {
+          // Google Recaptcha Verification
+          if (await verifyGoogleRecaptcha(token) !== true) {
+            setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+            return;
+          }
+
+          // POST request for entry creation
+          const response = await fetch(`${STRAPIurl}/api/public-blog-subscribers`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              data: {
+                Email: newsletterSignUpEmail,
+                DateSubscribed: new Date().toISOString()
+              }
+            })
+          });
+
+          if (!response.ok) {
+            // Handle Known Errors
+            throw new Error('Unaccounted For Error Occurred.');
+          }
+          setInfo('Successfully Subscribed!');
+        } catch (error) {setError('Unable To Subscribe. Please Contact Us If The Issue Persists.');}
+      });
+    });
+  };
 
   return (
     <>
@@ -145,6 +188,8 @@ export default function Blog(props) {
               </div>
               <div className="blogpage-title-section-subtitle">
                 <p>Money management made <span className="blogpage-title-section-subtitle-span">simple.</span></p>
+                {info && (<p style={{fontSize: '16px', color: '#40C9FF', paddingTop: '5px', marginBottom: '-10px'}}>{info}</p>)}
+                {error && (<p style={{fontSize: '16px', color: '#FFCC00', paddingTop: '5px', marginBottom: '-10px'}}>{error}</p>)}
               </div>
             </div>
             <div className="blogpage-title-join-newsletter-section">
@@ -157,9 +202,9 @@ export default function Blog(props) {
                     value={newsletterSignUpEmail}
                     onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
                   />
-                  <Link href={`/login?form=SignUp${validateNewsletterSignUpEmail(newsletterSignUpEmail) === true ? `&email=${newsletterSignUpEmail}` : ""}`} className="blogpage-title-join-newsletter-section-sign-up-button">
+                  <button className="blogpage-title-join-newsletter-section-sign-up-button" onClick={handleNewsletterSignUp}>
                     <h4>Subscribe</h4>
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
@@ -168,36 +213,38 @@ export default function Blog(props) {
           <div className="blogpage-main-body-wrapper">
             <div className="blogpage-post-content-wrapper">
               <section className="blogpage-featured-post-section">
-                <Link href={`/blog/${mostRecentPost.attributes.SLUG}`} className="blogpage-featured-post-section-content-wrapper">
+                <Link href={`/blog/${mostRecentPost?.attributes.SLUG}`} className="blogpage-featured-post-section-content-wrapper">
                   <div className="blogpage-featured-post-section-image-container">
-                    <Image
-                      src={`${mostRecentPost.attributes.SPLASH.data.attributes.url}`}
-                      alt={mostRecentPost.attributes.Title}
-                      priority={true}
-                      width={1000}
-                      height={500}
-                    />
-                  </div>              
+                    {mostRecentPost?.attributes.SPLASH.data.attributes.url && (
+                      <Image
+                        src={`${mostRecentPost?.attributes.SPLASH.data.attributes.url}`}
+                        alt={mostRecentPost?.attributes.Title}
+                        priority={true}
+                        width={1000}
+                        height={500}
+                      />
+                    )}
+                  </div>
                   <div className="blogpage-featured-post-section-text-container">
                     <div className="blogpage-featured-post-section-title">
-                      <h1>{mostRecentPost.attributes.Title}</h1>
+                      <h1>{mostRecentPost?.attributes.Title}</h1>
                     </div>
                     <div className="blogpage-featured-post-section-title">
-                      <p><span style={{color: '#2D64A9'}}>{mostRecentPost.attributes.Author}</span> | {formatDate(new Date(mostRecentPost.attributes.PublishDate))}</p>
+                      <p><span style={{color: '#2D64A9'}}>{mostRecentPost?.attributes.Author}</span> | {formatDate(new Date(mostRecentPost?.attributes.PublishDate))}</p>
                     </div>
                     <div className="blogpage-featured-post-section-description">
-                      <p>{mostRecentPost.attributes.BlogPostDescription}</p>
+                      <p>{mostRecentPost?.attributes.BlogPostDescription}</p>
                     </div>
                     <div className="blogpage-featured-post-section-read-length">
-                      <p>{blogPostReadLengthText(mostRecentPost.attributes.BlogPostBody)}</p>
+                      <p>{blogPostReadLengthText(mostRecentPost?.attributes.BlogPostBody)}</p>
                     </div>
                   </div>
                 </Link>
               </section>
 
-              <section className={displayedPosts.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
+              <section className={displayedPosts?.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
                 <div className="blogpage-blog-post-list">
-                  {displayedPosts.map((post, index) => (
+                  {displayedPosts?.map((post, index) => (
                     <div key={post.id} className="blogpage-blog-post">
                       <Link href={`/blog/${post.attributes.SLUG}`}>
                         <div className="blogpage-blog-post-image-container">
