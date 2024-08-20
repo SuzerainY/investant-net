@@ -1,6 +1,6 @@
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
 import { STRAPIurl } from '@/my_modules/bloghelp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 

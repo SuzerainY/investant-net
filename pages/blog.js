@@ -3,7 +3,7 @@ import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/m
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export async function getServerSideProps(context) {
