@@ -9,6 +9,16 @@ export default function Footer() {
     const [info, setInfo] = useState('');
     const [error, setError] = useState('');
 
+    useEffect(() => {
+        const loadGoogleRecaptcha = () => {
+            const googleRecaptchaScript = document.createElement('script');
+            googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+            googleRecaptchaScript.async = true;
+            googleRecaptchaScript.defer = true;
+            document.body.appendChild(googleRecaptchaScript);
+        }; loadGoogleRecaptcha();
+    }, []);
+
     // Handle the Newsletter Signup form
     const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
     const handleNewsletterSignUp = (e) => {
