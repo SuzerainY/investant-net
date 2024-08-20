@@ -55,14 +55,14 @@ export default function Footer() {
 
                     if (!response.ok) {
                       // Handle Known Errors
-                      if (data.message === 'Email Is Already A Subscriber') {
+                      if (data.error.message === 'This attribute must be unique') {
                         setInfo('');
                         setError('Email Is Already Subscribed!');
                         return;
                       }            
                       throw new Error('Unaccounted For Error Occurred.');
                     }
-                    
+
                     setInfo('Successfully Subscribed!');
                 } catch (error) {setError('Unable To Subscribe. Please Contact Us If The Issue Persists.');}
             });
