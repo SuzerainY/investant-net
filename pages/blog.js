@@ -157,7 +157,7 @@ export default function Blog(props) {
 
           if (!response.ok) {
             // Handle Known Errors
-            if (data.message === 'Email Is Already A Subscriber') {
+            if (data.error.message === 'This attribute must be unique') {
               setInfo('');
               setError('Email Is Already Subscribed!');
               return;
