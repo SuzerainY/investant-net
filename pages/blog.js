@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import DefaultLayout from '@/layouts/DefaultLayout';
 
 export async function getServerSideProps(context) {
-  // Fetch 15 most recent posts for inital page render
+  // Fetch 10 most recent posts for inital page render
   const fetchParams = {
     method: "POST",
     headers: {

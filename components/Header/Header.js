@@ -99,7 +99,13 @@ export default function Header() {
         '/blog': NavBarBlogLink,
         '/about-us': NavBarAboutLink
       };
-      pageRefs[focusedPath]?.current?.classList.add('focused');
+      // Check if the current path matches the blog post pattern
+      if (focusedPath.startsWith('/blog/')) {
+        pageRefs['/blog']?.current?.classList.add('focused');
+      } else {
+        // Check if the current path matches any of the other main pages
+        pageRefs[focusedPath]?.current?.classList.add('focused');
+      }
     }; handleFocusedPage();
   }, [router.pathname]);
 
