@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { TwitterTweetEmbed } from 'react-twitter-embed';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -155,13 +156,21 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
     const router = useRouter();
 
     const [BlogPostBody, setBlogPostBody] = useState(null);
-    const [embeddedTweetExists, setEmbeddedTweetExists] = useState(false);
     const [BMCAuthor, setBMCAuthor] = useState(null);
 
     useEffect(() => {
-        const { textBody, embeddedTweetExists } = parseMarkdownHTML(currentPost.attributes.BlogPostBody);
-        setBlogPostBody(textBody);
-        setEmbeddedTweetExists(embeddedTweetExists);
+        const textBody = parseMarkdownHTML(currentPost.attributes.BlogPostBody);
+        const parseBlogPost = (content) => {
+            const parts = content.split(/(https:\/\/x\.com\/\w+\/status\/\d+)/);
+            return parts.map((part, index) => {
+                if (part.startsWith('https://x.com/')) {
+                    const tweetId = part.split('/').pop();
+                    return { type: 'tweet', content: tweetId, key: `tweet-${index}` };
+                }
+                return { type: 'text', content: part, key: `text-${index}` };
+            });
+        };
+        setBlogPostBody(parseBlogPost(textBody));
         
         if (currentPost.attributes.Author === 'Haven Smith') {setBMCAuthor('havensmith');}
         else if (currentPost.attributes.Author === 'Ryan White') {setBMCAuthor('ryanwhite');}
@@ -173,39 +182,6 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
         setNextPost(nextPostTemp);
         setPreviousPost(previousPostTemp);
     }, [nextPostTemp, previousPostTemp]);
-
-    /*useEffect(() => {
-        let script;
-
-        const checkAndLoadTwitterWidget = () => {
-            if (embeddedTweetExists) {
-                const loadTwitterWidgets = () => {
-                    if (window.twttr) {
-                        window.twttr.widgets.load(document.getElementById("blogpost-body"));
-                    } else {
-                        script = document.createElement('script');
-                        script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
-                        script.setAttribute('async', 'true');
-                        script.onload = () => {
-                            if (document.getElementById("blogpost-body")) {
-                                window.twttr.widgets.load(document.getElementById("blogpost-body"));
-                            }
-                        };
-                        document.head.appendChild(script);
-                    }
-                }; loadTwitterWidgets();
-            }
-        };
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', checkAndLoadTwitterWidget);
-        } else {checkAndLoadTwitterWidget();}
-
-        return () => {
-            if (script) {document.head.removeChild(script);}
-            document.removeEventListener('DOMContentLoaded', checkAndLoadTwitterWidget);
-        };
-    }, [embeddedTweetExists]);*/
 
     // Render a loading state while data is being fetched
     if (router.isFallback || !currentPost) {
@@ -265,13 +241,28 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                             />
                             {BlogPostBody && (
                                 <div id='blogpost-body' className='blogpost-body'>
-                                    <Markdown 
-                                        className='markdown-content' 
-                                        rehypePlugins={[rehypeRaw]} 
-                                        components={{img: customImage}}
-                                    >
-                                        {BlogPostBody}
-                                    </Markdown>
+                                    {BlogPostBody.map((part) => {
+                                        if (part.type === 'tweet') {
+                                            return (
+                                                <TwitterTweetEmbed
+                                                    key={part.key}
+                                                    tweetId={part.content}
+                                                    options={{ align: 'center' }}
+                                                />
+                                            );
+                                        } else {
+                                            return (
+                                                <Markdown
+                                                    key={part.key}
+                                                    className='markdown-content'
+                                                    rehypePlugins={[rehypeRaw]}
+                                                    components={{img: customImage}}
+                                                >
+                                                    {part.content}
+                                                </Markdown>
+                                            );
+                                        }
+                                    })}
                                 </div>
                             )}
                         </div>

@@ -58,9 +58,9 @@ export default function AboutUs(props) {
   const [ryanProfilePictureURL, setRyanProfilePictureURL] = useState(null);
 
   useEffect(() => {
-    setCompanyDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.CompanyDescription).textBody);
-    setHavenDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.HavenDescription).textBody);
-    setRyanDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.RyanDescription).textBody);
+    setCompanyDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.CompanyDescription));
+    setHavenDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.HavenDescription));
+    setRyanDescription(parseMarkdownHTML(props.data.aboutUsPage.data.attributes.RyanDescription));
     setHavenProfilePictureURL(props.data.aboutUsPage.data.attributes.HavenProfilePicture.data.attributes.url);
     setRyanProfilePictureURL(props.data.aboutUsPage.data.attributes.RyanProfilePicture.data.attributes.url);
   }, [

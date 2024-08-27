@@ -50,11 +50,9 @@ export const formatDate = (date) => {
 
 // We need to parse the HTML of our Blog Posts and handle for edge cases:
 // - Parse the original Markdown text for any "investant.net" and wrap in our investant-net-span class
-// - Parse the original Markdown text for a twitter embedded <blockquote class="twitter-tweet"> and replace with <blockquote class="twitter-tweet tw-align-center">
 // - Parse the original Markdown text for a youtube embedded <iframe></iframe> and wrap in a <div classname="youtube-embed-container"></div>
 export const parseMarkdownHTML = (textBody) => {
     try {
-        let embeddedTweetExists = false;
         let openIndex = 0;
         let closeIndex = 0;
         let stringInsert = '';
@@ -71,20 +69,6 @@ export const parseMarkdownHTML = (textBody) => {
     
                 textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
                 i = openIndex + stringInsert.length;
-            }
-            
-            // Case: Twitter Embedded Tweet
-            else if (textBody[i] === '<' && i + 34 < textBody.length && textBody.substring(i, i + 34) === '<blockquote class="twitter-tweet">') {
-                // Let's flag that we've found an embedded tweet so we can preload the twitter widget
-                if (embeddedTweetExists !== true) {embeddedTweetExists = true;}
-    
-                openIndex = i;
-                closeIndex = i + 34;
-                stringInsert = '<blockquote class="twitter-tweet tw-align-center">';
-    
-                // Apply the tw-align-center class to the embedded tweet
-                textBody = textBody.substring(0, openIndex) + stringInsert + textBody.substring(closeIndex);
-                i = openIndex + stringInsert.length - 1;
             }
     
             // Case: Youtube Embedded Video
@@ -111,6 +95,6 @@ export const parseMarkdownHTML = (textBody) => {
                 }
             }
         }
-        return { textBody, embeddedTweetExists };
-    } catch (error) {const embeddedTweetExists = true; return { textBody, embeddedTweetExists };}
+        return textBody;
+    } catch (error) {return textBody;}
 };
