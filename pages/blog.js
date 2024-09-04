@@ -58,14 +58,14 @@ export default function Blog(props) {
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
 
-  const [page, setPage] = useState(1);
-  const [hasMorePosts, setHasMorePosts] = useState(page < props?.data.blogPosts?.meta.pagination.pageCount);
+  const [postCount, setPostCount] = useState(props?.data.blogPosts?.data.length);
+  const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.data.blogPosts?.meta.pagination.total);
   const [displayedPosts, setDisplayedPosts] = useState(props?.data.blogPosts?.data.slice(1));
 
   const mostRecentPost = props?.data.blogPosts?.data[0];
 
   const loadMorePosts = async () => {
-    const nextPage = page + 1;
+    const currentCount = postCount;
     const fetchParams = {
       method: "POST",
       headers: {
@@ -74,7 +74,7 @@ export default function Blog(props) {
       body: JSON.stringify({
         query: `
           query GetMoreBlogPosts {
-            blogPosts(pagination: { page: ${nextPage}, pageSize: 9 }, sort: "PublishDate:desc") {
+            blogPosts(pagination: { limit: 9, start: ${currentCount} }, sort: "PublishDate:desc") {
               data {
                 id
                 attributes {
@@ -95,7 +95,7 @@ export default function Blog(props) {
               }
               meta {
                 pagination {
-                  pageCount
+                  total
                 }
               }
             }
@@ -106,9 +106,9 @@ export default function Blog(props) {
     const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
     const newData = await res.json();
     
-    setDisplayedPosts(prevPosts => [...prevPosts, ...newData.data.blogPosts.data]);
-    setPage(nextPage);
-    setHasMorePosts(nextPage < newData.data.blogPosts.meta.pagination.pageCount);
+    setDisplayedPosts(prevPosts => [...prevPosts, ...newData?.data.blogPosts?.data]);
+    setPostCount(currentCount + newData?.data.blogPosts?.data.length);
+    setHasMorePosts(currentCount + newData?.data.blogPosts?.data.length < newData?.data.blogPosts?.meta.pagination.total);
   };
 
   useEffect(() => {
