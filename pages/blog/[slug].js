@@ -277,7 +277,7 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                             <div className='blogpost-investant-product-container'>
                                 <div className='blogpost-investant-product-content'>
                                     <h3>Investant | Our Story</h3>
-                                    <p>Investant is a platform for financial literacy, growth, and education.</p>
+                                    <p>Investant is a platform for financial tools, literacy, & education.</p>
                                     <ul>
                                         <li>Long-term wealth practices</li>
                                         <li>Financial literacy for all</li>

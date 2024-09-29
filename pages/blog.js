@@ -9,7 +9,7 @@ export default function BlogRedirect() {
     }, [router]);
 
     return null;
-}
+};
 
 export async function getServerSideProps({ res }) {
     res.setHeader('Location', '/');
