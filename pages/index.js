@@ -8,7 +8,7 @@ import DefaultLayout from "@/layouts/DefaultLayout";
 
 export async function getServerSideProps(context) {
   // Fetch 10 most recent posts for inital page render
-  const fetchParams = {
+  let fetchParams = {
     method: "POST",
     headers: {
       "content-type": "application/json"
@@ -48,21 +48,46 @@ export async function getServerSideProps(context) {
       `
     })
   };
-  const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
-  const data = await res.json();
-  return { props: data };
+  let res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+  const blogData = await res.json();
+
+  fetchParams = {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      query: `
+        query GetHomePageHero {
+          homePageHero {
+            data {
+              id
+              attributes {
+                TopLine
+                BottomLine
+                Subtext
+              }
+            }
+          }
+        }
+      `
+    })
+  };
+  res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+  const heroData = await res.json();
+  return { props: { blogData, heroData } };
 };
 
 export default function Home(props) {
-
+  
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
 
-  const [postCount, setPostCount] = useState(props?.data.blogPosts?.data.length);
-  const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.data.blogPosts?.meta.pagination.total);
-  const [displayedPosts, setDisplayedPosts] = useState(props?.data.blogPosts?.data.slice(1));
+  const [postCount, setPostCount] = useState(props?.blogData?.data?.blogPosts?.data?.length);
+  const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.blogData?.data?.blogPosts?.meta?.pagination?.total);
+  const [displayedPosts, setDisplayedPosts] = useState(props?.blogData?.data?.blogPosts?.data?.slice(1));
 
-  const mostRecentPost = props?.data.blogPosts?.data[0];
+  const mostRecentPost = props?.blogData?.data?.blogPosts?.data[0];
 
   const loadMorePosts = async () => {
     const currentCount = postCount;
@@ -107,8 +132,8 @@ export default function Home(props) {
     const newData = await res.json();
     
     setDisplayedPosts(prevPosts => [...prevPosts, ...newData?.data.blogPosts?.data]);
-    setPostCount(currentCount + newData?.data.blogPosts?.data.length);
-    setHasMorePosts(currentCount + newData?.data.blogPosts?.data.length < newData?.data.blogPosts?.meta.pagination.total);
+    setPostCount(currentCount + newData?.data?.blogPosts?.data?.length);
+    setHasMorePosts(currentCount + newData?.data?.blogPosts?.data?.length < newData?.data?.blogPosts?.meta?.pagination?.total);
   };
 
   useEffect(() => {
@@ -202,13 +227,13 @@ export default function Home(props) {
             <div className="blogpage-title-section">
               <div className="blogpage-title-section-text-container">
                 <div className="blogpage-title-section-title">
-                  <h1>Money Management
+                  <h1>{props.heroData?.data?.homePageHero?.data?.attributes?.TopLine ? props.heroData?.data?.homePageHero?.data?.attributes?.TopLine : 'Short stories about'}
                     <br/>
-                    <span className="blogpage-title-section-title-span">Made Simple</span>
+                    <span className="blogpage-title-section-title-span">{props.heroData?.data?.homePageHero?.data?.attributes?.BottomLine ? props.heroData?.data?.homePageHero?.data?.attributes?.BottomLine : 'wealth, behavior, and life'}</span>
                   </h1>
                 </div>
                 <div className="blogpage-title-section-subtitle">
-                  <p>Subscribe to our newsletter</p>
+                  <p>{props.heroData?.data?.homePageHero?.data?.attributes?.Subtext ? props.heroData?.data?.homePageHero?.data?.attributes?.Subtext : 'Subscribe to our newsletter'}</p>
                   {info && (<p style={{fontSize: '16px', color: '#40C9FF', paddingTop: '5px', marginBottom: '-10px'}}>{info}</p>)}
                   {error && (<p style={{fontSize: '16px', color: '#FFCC00', paddingTop: '5px', marginBottom: '-10px'}}>{error}</p>)}
                 </div>
