@@ -95,11 +95,13 @@ export default function Header() {
       const focusedPath = router.pathname;
       const pageRefs = {
         '/': NavBarHomeLink,
+        '/products': NavBarProductsLink,
+        '/blog': NavBarBlogLink,
         '/about-us': NavBarAboutLink
       };
       // Check if the current path matches the blog post pattern
       if (focusedPath.startsWith('/blog/')) {
-        pageRefs['/']?.current?.classList.add('focused');
+        pageRefs['/blog']?.current?.classList.add('focused');
       } else {
         // Check if the current path matches any of the other main pages
         pageRefs[focusedPath]?.current?.classList.add('focused');
@@ -130,8 +132,28 @@ export default function Header() {
           </div>
           <div className="mobile-menu-navigation">
             <ul>
-              <li><MobileNavLink href="/">Blog</MobileNavLink></li>
+              <li><MobileNavLink href="/">Home</MobileNavLink></li>
+              <li><MobileNavLink href="/blog">Blog</MobileNavLink></li>
               <li><MobileNavLink href="/about-us">About</MobileNavLink></li>
+              <li>
+                <div className="mobile-menu-navigation-products" onClick={() => handleShowProductsDropdownClick()}>
+                  Products
+                  <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
+                    <Image
+                      src={"/images/clipart/WhiteDropDownArrow.png"}
+                      alt="Products Drop Down Arrow"
+                      width={20}
+                      height={20}
+                      style={{rotate: showProductsDropdown ? '-180deg' : '0deg'}}
+                    />
+                  </span>
+                </div>
+                <ul ref={mobileMenuProductsDropdown} className="NavBar-Navigation-Links-Products-Dropdown-Content" style={{height: showProductsDropdown ? '80px' : '0px'}}>
+                  <li><MobileNavLink href={'/products?block=PaperTrade'}>PaperTrade</MobileNavLink></li>
+                  <li><MobileNavLink href={'/products?block=FinancialPlanner'}>Financial Planner</MobileNavLink></li>
+                  <li><MobileNavLink href={'/products?block=FinancialCalculator'}>Investant Calculator</MobileNavLink></li>
+                </ul>
+              </li>
             </ul>
           </div>
           <div className="mobile-menu-media-links">
@@ -237,7 +259,26 @@ export default function Header() {
             </div>
             <div className="NavBar-Navigation-Links">
               <ul>
-                <li ref={NavBarHomeLink}><Link href="/">Blog</Link></li>
+                <li ref={NavBarHomeLink}><Link href="/">Home</Link></li>
+                <li ref={NavBarProductsLink} style={{marginRight: '20px'}} className="NavBar-Navigation-Links-Products-Dropdown">
+                  <Link href="/products">
+                    Products
+                    <span className="NavBar-Navigation-Links-Products-Dropdown-Arrow">
+                      <Image
+                        src={"/images/clipart/WhiteDropDownArrow.png"}
+                        alt="Products Drop Down Arrow"
+                        width={18}
+                        height={18}
+                      />
+                    </span>
+                  </Link>
+                  <ul className="NavBar-Navigation-Links-Products-Dropdown-Content">
+                    <li><Link href={'/products?block=PaperTrade'}>PaperTrade</Link></li>
+                    <li><Link href={'/products?block=FinancialPlanner'}>Financial Planner</Link></li>
+                    <li><Link href={'/products?block=FinancialCalculator'}>Investant Calculator</Link></li>
+                  </ul>
+                </li>
+                <li ref={NavBarBlogLink}><Link href="/blog">Blog</Link></li>
                 <li ref={NavBarAboutLink}><Link href="/about-us">About</Link></li>
               </ul>
             </div>

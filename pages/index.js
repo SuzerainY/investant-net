@@ -1,27 +1,31 @@
-import { STRAPIurl, formatDate } from '@/my_modules/bloghelp';
-import { useRef } from 'react';
+import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
+import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
+import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
 
 export async function getServerSideProps(context) {
+  // Fetch 10 most recent posts for inital page render
   const fetchParams = {
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "content-type": "application/json"
     },
     body: JSON.stringify({
       query: `
         query GetBlogPosts {
-          featuredPosts: blogPosts(pagination: { pageSize: 5 } sort: "id:desc") {
+          blogPosts(pagination: { pageSize: 10 }, sort: "PublishDate:desc") {
             data {
               id
               attributes {
                 Title
+                BlogPostBody
                 BlogPostDescription
-                PublishDate
                 SLUG
+                Author
+                PublishDate
                 SPLASH {
                   data {
                     attributes {
@@ -31,10 +35,18 @@ export async function getServerSideProps(context) {
                 }
               }
             }
+            meta {
+              pagination {
+                total
+                pageSize
+                page
+                pageCount
+              }
+            }
           }
         }
-      `,
-    }),
+      `
+    })
   };
   const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
   const data = await res.json();
@@ -54,6 +66,122 @@ export default function Home(props) {
   // Handle the click of the "Get Started" button in the hero section
   const getStartedButton = useRef(null);
   const handleGetStartedButtonClick = () => {investorRoadmapSection.current?.scrollIntoView({ behavior: 'smooth' })};
+
+  const [info, setInfo] = useState('') ;
+  const [error, setError] = useState('');
+
+  const [postCount, setPostCount] = useState(props?.data.blogPosts?.data.length);
+  const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.data.blogPosts?.meta.pagination.total);
+  const [displayedPosts, setDisplayedPosts] = useState(props?.data.blogPosts?.data.slice(1));
+
+  const mostRecentPost = props?.data.blogPosts?.data[0];
+
+  const loadMorePosts = async () => {
+    const currentCount = postCount;
+    const fetchParams = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({
+        query: `
+          query GetMoreBlogPosts {
+            blogPosts(pagination: { limit: 9, start: ${currentCount} }, sort: "PublishDate:desc") {
+              data {
+                id
+                attributes {
+                  Title
+                  BlogPostBody
+                  BlogPostDescription
+                  SLUG
+                  Author
+                  PublishDate
+                  SPLASH {
+                    data {
+                      attributes {
+                        url
+                      }
+                    }
+                  }
+                }
+              }
+              meta {
+                pagination {
+                  total
+                }
+              }
+            }
+          }
+        `
+      })
+    };
+    const res = await fetch(`${STRAPIurl}/graphql`, fetchParams);
+    const newData = await res.json();
+    
+    setDisplayedPosts(prevPosts => [...prevPosts, ...newData?.data.blogPosts?.data]);
+    setPostCount(currentCount + newData?.data.blogPosts?.data.length);
+    setHasMorePosts(currentCount + newData?.data.blogPosts?.data.length < newData?.data.blogPosts?.meta.pagination.total);
+  };
+
+  useEffect(() => {
+    const loadGoogleRecaptcha = () => {
+      const googleRecaptchaScript = document.createElement('script');
+      googleRecaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${googleRecaptchaSiteKey}`;
+      googleRecaptchaScript.async = true;
+      googleRecaptchaScript.defer = true;
+      document.body.appendChild(googleRecaptchaScript);
+    }; loadGoogleRecaptcha();
+  }, []);
+
+  // Handle the Newsletter Signup form
+  const [newsletterSignUpEmail, setNewsletterSignUpEmail] = useState('');
+  const handleNewsletterSignUp = (e) => {
+    if (e) {e.preventDefault();}
+    setError('');
+    setInfo('');
+
+    if (isValidEmail(newsletterSignUpEmail) === false) {
+      setError('Invalid Email Address');
+      return;
+    }
+
+    grecaptcha.ready(() => {
+      grecaptcha.execute(googleRecaptchaSiteKey, { action: 'Investant_Web_User_BlogPage_Email_Subscription_Form_Submission' }).then(async (token) => {
+        try {
+          // Google Recaptcha Verification
+          if (await verifyGoogleRecaptcha(token) !== true) {
+            setError('We Believe You Are A Bot. Please Contact Us If The Issue Persists.');
+            return;
+          }
+
+          // POST request for entry creation
+          const response = await fetch(`${STRAPIurl}/api/public-blog-subscribers`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              data: {
+                Email: newsletterSignUpEmail,
+                DateSubscribed: new Date().toISOString()
+              }
+            })
+          });
+          const data = await response.json();
+
+          if (!response.ok) {
+            // Handle Known Errors
+            if (data.error.message === 'This attribute must be unique') {
+              setInfo('');
+              setError('Email Is Already Subscribed!');
+              return;
+            }            
+            throw new Error('Unaccounted For Error Occurred.');
+          }
+
+          setInfo('Successfully Subscribed!');
+        } catch (error) {setError('Unable To Subscribe. Please Contact Us If The Issue Persists.');}
+      });
+    });
+  };
 
   return (
     <>
@@ -83,23 +211,39 @@ export default function Home(props) {
       <DefaultLayout>
         <main className="homepage">
           <section id="homepage-hero-section" className="homepage-hero-section">
-            <div className="homepage-hero-section-text-container">
-              <div className="homepage-hero-section-large-slogan">
-                <h1>
-                  Start Your
-                  <br/>
-                  <span className="homepage-hero-section-text-span">Wealth-Building Journey</span>
-                </h1>
+
+            <div className="blogpage-title-section">
+              <div className="blogpage-title-section-text-container">
+                <div className="blogpage-title-section-title">
+                  <h1>Money Management
+                    <br/>
+                    <span className="blogpage-title-section-title-span">Made Simple</span>
+                  </h1>
+                </div>
+                <div className="blogpage-title-section-subtitle">
+                  <p>Subscribe to our newsletter</p>
+                  {info && (<p style={{fontSize: '16px', color: '#40C9FF', paddingTop: '5px', marginBottom: '-10px'}}>{info}</p>)}
+                  {error && (<p style={{fontSize: '16px', color: '#FFCC00', paddingTop: '5px', marginBottom: '-10px'}}>{error}</p>)}
+                </div>
               </div>
-              <div className="homepage-hero-section-button-container">
-                <button ref={getStartedButton} id="homepage-hero-section-get-started-button" className="homepage-hero-section-get-started-button" onClick={handleGetStartedButtonClick}>
-                  <h4>Get Started</h4>
-                </button>
-                <Link href="/about-us" className="homepage-hero-section-learn-more-button">
-                  <h4>Learn More</h4>
-                </Link>
+              <div className="blogpage-title-join-newsletter-section">
+                <div className="blogpage-title-join-newsletter-section-sign-up-container">
+                  <div className="blogpage-title-join-newsletter-section-sign-up-input-container">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className="blogpage-title-join-newsletter-section-sign-up-email-box"
+                      value={newsletterSignUpEmail}
+                      onChange={(e) => setNewsletterSignUpEmail(e.target.value)}
+                    />
+                    <button className="blogpage-title-join-newsletter-section-sign-up-button" onClick={handleNewsletterSignUp}>
+                      <h4>Subscribe</h4>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div className="homepage-hero-section-image-container">
               <Image
                 src={"/images/clipart/OfficeWorkerHeroComponents/Main_Piece_The_Guy.svg"}
@@ -188,186 +332,87 @@ export default function Home(props) {
             </div>
           </section>
 
-          <section ref={blogPostsSection} id="homepage-featured-blog-posts-section" className="homepage-featured-blog-posts-section">
-            <div className="homepage-featured-blog-posts-section-posts-container">
-              <div className="homepage-featured-blog-posts-section-top-post-container">
-                <div className="homepage-featured-blog-posts-section-top-post-header-container">
-                  <h3>Latest Story</h3>
-                </div>
-                <Link href={`/blog/${featuredPost?.attributes.SLUG}`}>
-                  <div className="homepage-featured-blog-posts-section-top-post-image-container">
-                    <Image
-                      src={featuredPost?.attributes.SPLASH.data.attributes.url}
-                      alt={featuredPost?.attributes.BlogPostDescription}
-                      width={800}
-                      height={400}
-                      priority={true}
-                    />
-                  </div>
-                  <div className="homepage-featured-blog-posts-section-top-post-description-container">
-                    <h3>{featuredPost?.attributes.Title}</h3>
-                    <h4>{featuredPost?.attributes.BlogPostDescription}</h4>
-                    <p>{formatDate(new Date(featuredPost?.attributes.PublishDate))}</p>
-                  </div>
-                </Link>
-              </div>
-              <div className="homepage-featured-blog-posts-section-other-posts-container">
-                <div className="homepage-featured-blog-posts-section-other-posts-header-container">
-                  <h3>More from <span className="homepage-featured-blog-posts-section-other-posts-header-span">investant.net</span></h3>
-                </div>
-                <div className="homepage-featured-blog-posts-section-other-posts-border-frame">
-                  {featuredPosts?.map((post, index) => (
-                    <div key={index} className="homepage-featured-blog-posts-section-other-posts-row">
-                      <div className="homepage-featured-blog-posts-section-other-posts-row-identifier">
-                        <h4>{index + 1}</h4>
+          <section className="blogpage">
+            <div className="blogpage-main-body-wrapper">
+              <div className="blogpage-post-content-wrapper">
+                <section className="blogpage-featured-post-section">
+                  <Link href={`/blog/${mostRecentPost?.attributes.SLUG}`} className="blogpage-featured-post-section-content-wrapper">
+                    <div className="blogpage-featured-post-section-image-container">
+                      {mostRecentPost?.attributes.SPLASH.data.attributes.url && (
+                        <Image
+                          src={`${mostRecentPost?.attributes.SPLASH.data.attributes.url}`}
+                          alt={mostRecentPost?.attributes.Title}
+                          priority={true}
+                          width={1000}
+                          height={500}
+                        />
+                      )}
+                    </div>
+                    <div className="blogpage-featured-post-section-text-container">
+                      <div className="blogpage-featured-post-section-title">
+                        <h1>{mostRecentPost?.attributes.Title}</h1>
                       </div>
-                      <div className="homepage-featured-blog-posts-section-other-posts-row-description">
-                        <h3><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.Title}</Link></h3>
-                        <h4><Link href={`/blog/${post.attributes.SLUG}`}>{post.attributes.BlogPostDescription}</Link></h4>
-                        <p>{formatDate(new Date(post.attributes.PublishDate))}</p>
+                      <div className="blogpage-featured-post-section-title">
+                        <p><span style={{color: '#2D64A9'}}>{mostRecentPost?.attributes.Author}</span> | {formatDate(new Date(mostRecentPost?.attributes.PublishDate))}</p>
+                      </div>
+                      <div className="blogpage-featured-post-section-description">
+                        <p>{mostRecentPost?.attributes.BlogPostDescription}</p>
+                      </div>
+                      <div className="blogpage-featured-post-section-read-length">
+                        <p>{blogPostReadLengthText(mostRecentPost?.attributes.BlogPostBody)}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <button className="homepage-featured-blog-posts-section-blogpage-button" style={{marginTop: '2px'}}>
-              <Link href="/blog"><h4>View all</h4></Link>
-            </button>
-          </section>
+                  </Link>
+                </section>
 
-          <section ref={investorRoadmapSection} id="homepage-investor-roadmap-section" className="homepage-investor-roadmap-section">
-            <div className="homepage-investor-roadmap-section-title-container">
-              <div className="homepage-investor-roadmap-section-title">
-                <h1>The <span className="homepage-investor-roadmap-section-title-span">Investant</span> Handbook</h1>
+                <section className={displayedPosts?.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
+                  <div className="blogpage-blog-post-list">
+                    {displayedPosts?.map((post, index) => (
+                      <div key={post.id} className="blogpage-blog-post">
+                        <Link href={`/blog/${post.attributes.SLUG}`}>
+                          <div className="blogpage-blog-post-image-container">
+                            <Image
+                              src={`${post.attributes.SPLASH.data.attributes.url}`}
+                              alt={post.attributes.Title}
+                              width={1000}
+                              height={500}
+                            />
+                          </div>
+                          <div className="blogpage-blog-post-text-container">
+                            <h2>{post.attributes.Title}</h2>
+                            <p style={{paddingBottom: '10px'}}><span style={{color: '#2D64A9'}}>{post.attributes.Author}</span> | {formatDate(new Date(post.attributes.PublishDate))}</p>
+                            <div className="blogpage-blog-post-description-container">
+                              <p>{post.attributes.BlogPostDescription}</p>
+                            </div>
+                            <p className="blogpage-blog-post-read-length">{blogPostReadLengthText(post.attributes.BlogPostBody)}</p>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                  {hasMorePosts && (
+                    <button onClick={loadMorePosts} className="load-more-button">
+                      Load More
+                    </button>
+                  )}
+                </section>
               </div>
-              <div className="homepage-investor-roadmap-section-subtitle">
-                <p>3 Steps To Take Today</p>
-              </div>
-            </div>
-            <div className="homepage-investor-roadmap-section-roadmap-container">
-              <div className="homepage-investor-roadmap-section-roadmap-step">
-                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                  <h2 style={{fontWeight: 'bold', color: 'black'}}>Step 1: Get Started</h2>
-                  <p><br/>This is the perfect time to start building your future! {`Let's`} find you an account to build wealth tax-deferred!</p>
-                  <ul style={{listStyle: 'inside'}}><br/>
-                    <li><span style={{fontWeight: 'bold'}}>Roth IRA</span>
-                      <ul style={{marginLeft: '20px'}}>
-                        <li>Pay taxes on money now, withdraw tax-free later</li>
-                        <li>Tax-free capital gains</li>
-                        <li>For those who expect to be in a higher tax bracket in the future</li>
-                      </ul>
-                    </li>
-                    <br/>
-                    <li><span style={{fontWeight: 'bold'}}>Traditional IRA</span>
-                      <ul style={{marginLeft: '20px'}}>
-                        <li>Pay taxes upon withdrawing money, contribute tax-free now</li>
-                        <li>For those who expect to be in a lower tax bracket in the future</li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <Link href="/contact-us" className="homepage-investor-roadmap-section-roadmap-step-button">
-                    <h4>Speak To Us About Your Goals</h4>
-                  </Link>
-                </div>
-                <div className="homepage-investor-roadmap-section-step-icon-container">
-                  <div className="homepage-investor-roadmap-section-step-icon">
-                    <Image
-                      src={"/images/icons/investant-path-icon.png"}
-                      alt="Investant Path From Here To There Icon"
-                      width={500}
-                      height={500}
-                    />
+
+              <section className="blogpage-sidebar-section">
+                <div className="blogpage-investant-product-container">
+                  <div className="blogpage-investant-product-content">
+                    <h3>Investant | Our Story</h3>
+                    <p>Investant is a platform for financial literacy, growth, and education.</p>
+                    <ul>
+                      <li>Long-term wealth practices</li>
+                      <li>Financial literacy for all</li>
+                      <li>Built for the new professional</li>
+                    </ul>
+                    <Link href="/about-us" className="blogpage-investant-product-button">Learn More</Link>
+                    <p className="blogpage-investant-product-footer">Investant.net - Your partner in financial growth</p>
                   </div>
                 </div>
-              </div>
-              <div className="homepage-investor-roadmap-section-roadmap-step reversed">
-                <div className="homepage-investor-roadmap-section-step-icon-container">
-                  <div className="homepage-investor-roadmap-section-step-icon">
-                    <Image
-                      src={"/images/icons/investant-analytics-icon.png"}
-                      alt="Investant Analytics Icon"
-                      width={500}
-                      height={500}
-                    />
-                  </div>
-                </div>
-                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                  <h2 style={{fontWeight: 'bold', color: 'black'}}>Step 2: Choose Your Path</h2>
-                  <ul style={{listStyle: 'inside'}}><br/>
-                    <li><span style={{fontWeight: 'bold'}}>DIY {'(Do It Yourself)'}</span>
-                      <ul style={{marginLeft: '20px'}}>
-                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Cheaper expense ratios through use of index funds</li>
-                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> More flexibility & oversight</li>
-                        <li><span style={{fontWeight: 'bold', color: '#820EA9'}}>Con:</span> Easier to make emotional & impulsive decisions</li>
-                      </ul>
-                    </li>
-                    <br/>
-                    <li><span style={{fontWeight: 'bold'}}>Financial Advisor</span>
-                      <ul style={{marginLeft: '20px'}}>
-                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Unemotional decision making</li>
-                        <li><span style={{fontWeight: 'bold', color: '#2D64A9'}}>Pro:</span> Financial planning assistance {'(tax, estate, etc.)'}</li>
-                        <li><span style={{fontWeight: 'bold', color: '#820EA9'}}>Con:</span> High management fees with AUM {'(Assets Under Management)'} model</li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <Link href="/blog" className="homepage-investor-roadmap-section-roadmap-step-button">
-                    <h4>The Power Of Doing It Yourself</h4>
-                  </Link>
-                </div>
-              </div>
-              <div className="homepage-investor-roadmap-section-roadmap-step">
-                <div className="homepage-investor-roadmap-section-roadmap-step-commentary">
-                  <h2 style={{fontWeight: 'bold', color: 'black'}}>Step 3: Build Your Future</h2>
-                  <p><br/>{`It's`} time to start funding your portfolio! Most individuals get paid on a biweekly basis, so we recommend setting up monthly contributions to your accounts on the first of each month. Budget and save your paycheck!</p>
-                  <p><br/>To set-up recurring deposits, check with your financial advisor or click on your broker below.</p>
-                  <div className="homepage-investor-roadmap-section-roadmap-commentary-images-container">
-                    <div className="homepage-investor-roadmap-section-roadmap-commentary-image">
-                      <Link href={'https://vanguard.com'} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={"/images/icons/VanguardIcon.png"}
-                          alt="Vanguard Icon and Link"
-                          width={100}
-                          height={100}
-                        />
-                      </Link>
-                    </div>
-                    <div className="homepage-investor-roadmap-section-roadmap-commentary-image">
-                      <Link href={'https://www.fidelity.com'} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={"/images/icons/FidelityIcon.png"}
-                          alt="Fidelity Icon and Link"
-                          width={100}
-                          height={100}
-                        />
-                      </Link>
-                    </div>
-                    <div className="homepage-investor-roadmap-section-roadmap-commentary-image">
-                      <Link href={'https://schwab.com'} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={"/images/icons/CharlesSchwabIcon.png"}
-                          alt="Charles Schwab Icon and Link"
-                          width={100}
-                          height={100}
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                  <Link href="/products?block=FinancialPlanner" className="homepage-investor-roadmap-section-roadmap-step-button">
-                    <h4>Use The Investant Financial Planner</h4>
-                  </Link>
-                </div>
-                <div className="homepage-investor-roadmap-section-step-icon-container">
-                  <div className="homepage-investor-roadmap-section-step-icon">
-                    <Image
-                      src={"/images/icons/investant-money-bag-icon.png"}
-                      alt="Investant Money Bag Icon"
-                      width={500}
-                      height={500}
-                    />
-                  </div>
-                </div>
-              </div>
+              </section>
             </div>
           </section>
         </main>

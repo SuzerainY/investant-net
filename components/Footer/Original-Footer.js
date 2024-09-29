@@ -114,9 +114,21 @@ export default function Footer() {
                             </Link>
                         </div>
                         <div className="footer-body-link-tree">
-                            <div className="footer-body-link-tree-root"><h4>Info</h4></div>
-                            <Link href={'/'}>Blog</Link>
+                            <div className="footer-body-link-tree-root"><h4>Pages</h4></div>
+                            <Link href={'/'}>Home</Link>
+                            <Link href={'/products'}>Products</Link>
+                            <Link href={'/blog'}>Blog</Link>
                             <Link href={'/about-us'}>About</Link>
+                        </div>
+                        <div className="footer-body-link-tree">
+                            <div className="footer-body-link-tree-root"><h4>Products</h4></div>
+                            <Link href={'/products?block=PaperTrade'}>PaperTrade</Link>
+                            <Link href={'/products?block=FinancialPlanner'}>Financial Planner</Link>
+                            <Link href={'/products?block=FinancialCalculator'}>Investant Calculator</Link>
+                        </div>
+                        <div className="footer-body-link-tree">
+                            <div className="footer-body-link-tree-root"><h4>Info</h4></div>
+                            <Link href={'/login'}>Sign Up / Login</Link>
                             <Link href={'/account?block=settings'}>Account Settings</Link>
                             <Link href={'/contact-us'}>Contact Us</Link>
                         </div>

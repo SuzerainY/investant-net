@@ -16,84 +16,125 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     width: 100%;
     align-items: center;
     overflow: hidden;
-    background-image: url("/images/styling/layered-peaks1-haikei.svg");
-    background-size: cover;
+    background-color: $soft-purple;
+    //background-image: url("/images/styling/layered-peaks1-haikei.svg");
+    //background-size: cover;
 
-    .homepage-hero-section-text-container {
+    .blogpage-title-section {
+      position: relative;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      width: 40%;
+      width: 60%;
+      height: 100%;
       padding: 0px 0px 0px $homepage-desktop-side-padding;
-      animation: fadeIn 0.5s ease-in;
 
-      // Remain on the right of your 40% chunk when screen width exceeds $homepage-max-width + 80px padding on either side (160px)
+      // Remain on the right of your 50% chunk when screen width exceeds $homepage-max-width + 80px padding on either side (160px)
       @media screen and (min-width: calc($homepage-max-width + ($homepage-desktop-side-padding * 2))) {
         padding: 0px 0px 0px calc((100% - $homepage-max-width) / 2);
       }
-
-      .homepage-hero-section-large-slogan {
-        width: 100%;
-        text-align: left;
-
-        .homepage-hero-section-text-span {
-          font-weight: 700;
-          animation: fadeIn 2.5s ease-in;
-        }
-  
-        h1 {
-          font-size: 42px;
-          line-height: 100%;
-        }
-      }
-
-      // Hero font sizes as we approach tablet viewport width
-      @media screen and (min-width: 1200px) and (max-width: 1600px) {
-        .homepage-hero-section-large-slogan h1 {font-size: 40px;}
-      }
-
-      .homepage-hero-section-button-container {
+      
+      .blogpage-title-section-text-container {
+        position: relative;
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-
-        .homepage-hero-section-get-started-button {
-          border: none;
-          background: none;
-          font: inherit;
-          display: flex;
-          padding: 10px 15px;
-          justify-content: center;
-          align-items: center;
-          border-radius: $homepage-button-border-radius;
-          background-color: $black;
-          color: $white;
-          white-space: nowrap;
-          cursor: pointer;
+        flex-direction: column;
+        width: 100%;
+        height: 50%;
+        color: $white;
   
-          h4 {
-            font-size: 16px;
-            font-weight: 600;
+        .blogpage-title-section-title {
+          .blogpage-title-section-title-span {
+            color: $magenta;
+            font-weight: bolder;
+            animation: fadeIn 2.5s ease-in;
+          }
+  
+          h1 {
+            font-size: 44px;
+            line-height: 120%;
           }
         }
-
-        .homepage-hero-section-learn-more-button {
-          display: flex;
-          padding: 10px 15px;
-          margin-left: 10px;
-          justify-content: center;
-          align-items: center;
-          border-radius: $homepage-button-border-radius;
-          background-color: $white;
-          color: $black;
-          white-space: nowrap;
-          text-decoration: none;
   
-          h4 {
-            font-size: 16px;
-            font-weight: 600;
+        .blogpage-title-section-subtitle {
+          padding: 5px 0px;
+  
+          .blogpage-title-section-subtitle-span {
+            color: $magenta;
+            font-weight: bold;
+          }
+  
+          p {
+            font-size: 20px;
+            font-family: sans-serif;
+          }
+        }
+      }
+  
+      .blogpage-title-join-newsletter-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        height: 50%;
+        color: $white;
+    
+        .blogpage-title-join-newsletter-section-sign-up-container {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          @media screen and (min-width: 400px) and (max-width: 1199px) {width: 25rem;}
+          @media screen and (max-width: 400px) {width: 100%;}
+        
+          .blogpage-title-join-newsletter-section-sign-up-input-container {
+            display: flex;
+            flex-direction: row;
+            @media screen and (max-width:1199px) {flex-direction: column;}
+            width: 100%;
+            padding-top: 10px;
+            a {text-decoration: none;}
+      
+            .blogpage-title-join-newsletter-section-sign-up-email-box {
+              width: 100%;
+              border: 2px solid $white;
+              background-color: transparent;
+              padding: 10px 15px;
+              margin-right: 10px;
+              @media screen and (max-width: 1199px) {margin-right: 0px;}
+              font-size: 16px;
+              color: $white;
+              border-radius: 5px;
+              transition: border-color 0.3s ease-in-out;
+              
+              &::placeholder {
+                color: $white;
+                opacity: 0.7;
+              }
+              
+              &:focus {
+                outline: none;
+                border-color: $magenta;
+              }
+            }
+      
+            .blogpage-title-join-newsletter-section-sign-up-button {
+              border: 2px solid white;
+              background: none;
+              font: inherit;
+              display: flex;
+              @media screen and (max-width: 1199px) {width: 100%; margin-top: 5px;}
+              background-color: $white;
+              padding: 10px 15px;
+              justify-content: center;
+              align-items: center;
+              border-radius: 5px;
+              white-space: nowrap;
+              color: $black;
+              cursor: pointer;
+          
+              h4 {
+                font-size: 16px;
+                font-weight: bold;
+              }
+            }
           }
         }
       }
@@ -101,7 +142,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 
     .homepage-hero-section-image-container {
       position: relative;
-      width: 60%;
+      width: 40%;
       height: 100%;
       margin: auto 0px -2px auto; // -2px bottom removes the split under table and following section
       aspect-ratio: 549.52 / 326.98;
@@ -740,19 +781,25 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
 @media screen and (min-width: 768px) and (max-width: 1199px) {
   .homepage {
     .homepage-hero-section {
-      flex-direction: column;
       width: 100%;
 
-      .homepage-hero-section-text-container {
-        width: 100%;
-        max-width: none;
-        padding: 40px $homepage-tablet-side-padding 0px $homepage-tablet-side-padding;
+      .blogpage-title-section {
+        width: 50%;
+        padding: 0px 0px 20px $homepage-tablet-side-padding;
+        
+        .blogpage-title-section-text-container {
+          width: 100%;
 
-        .homepage-hero-section-large-slogan h1 {font-size: 36px;}
+          .blogpage-title-section-title {
+            h1 {
+              font-size: 36px;
+            }
+          }
+        }
       }
 
       .homepage-hero-section-image-container {
-        width: 100%;
+        width: 50%;
         max-width: none;
       }
     }
@@ -838,11 +885,29 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
       flex-direction: column;
       width: 100%;
 
-      .homepage-hero-section-text-container {
+      .blogpage-title-section {
         width: 100%;
-        max-width: none;
-        padding: 40px $homepage-mobile-side-padding 0px $homepage-mobile-side-padding;
-        .homepage-hero-section-large-slogan h1 {font-size: 36px;}
+        padding: 0px $homepage-mobile-side-padding;
+        
+        .blogpage-title-section-text-container {
+          width: 100%;
+
+          .blogpage-title-section-title {
+            h1 {
+              padding-top: 10px;
+              font-size: 32px;
+              line-height: 120%;
+            }
+          }
+
+          .blogpage-title-section-subtitle {
+            display: none;
+          }
+        }
+
+        .blogpage-title-join-newsletter-section {
+          width: 100%;
+        }
       }
 
       .homepage-hero-section-image-container {

@@ -29,7 +29,6 @@ $footer-mobile-side-padding: 10px;
             .footer-body-link-tree {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: flex-start;
                 width: max-content;
                 text-align: left;
@@ -200,7 +199,7 @@ $footer-mobile-side-padding: 10px;
             flex-direction: column;
             align-items: center;
 
-            .footer-body-link-forest {width: 70%; max-width: none; justify-content: space-between;}
+            .footer-body-link-forest {width: 70%; max-width: none; justify-content: flex-start;}
 
             .footer-join-newsletter-section {
                 padding: $footer-mobile-side-padding;
@@ -241,13 +240,13 @@ $footer-mobile-side-padding: 10px;
             .footer-body-link-forest {
                 width: 100%;
                 max-width: none;
-                justify-content: space-between;
+                justify-content: flex-start;
 
                 .footer-body-link-tree {
                     padding: 0px 5px;
                     
                     .footer-body-link-tree-root h4 {font-size: 18px;}
-                    a {font-size: 12px;}
+                    a {font-size: 14px;}
                 }
             }
 
