@@ -276,14 +276,14 @@ export default function BlogPost({ currentPost, previousPostTemp, nextPostTemp }
                             )}
                             <div className='blogpost-investant-product-container'>
                                 <div className='blogpost-investant-product-content'>
-                                    <h3>Take Control of Your Finances</h3>
-                                    <p>Discover our powerful Financial Planner</p>
+                                    <h3>Investant | Our Story</h3>
+                                    <p>Investant is a platform for financial literacy, growth, and education.</p>
                                     <ul>
-                                        <li>Create personalized budget plans</li>
-                                        <li>Get insights for financial success</li>
-                                        <li>Save and track your progress</li>
+                                        <li>Long-term wealth practices</li>
+                                        <li>Financial literacy for all</li>
+                                        <li>Built for the new professional</li>
                                     </ul>
-                                    <Link href="/products?block=FinancialPlanner" className="blogpost-investant-product-button">Start Planning Now</Link>
+                                    <Link href="/about-us" className="blogpost-investant-product-button">Learn More</Link>
                                     <p className="blogpost-investant-product-footer">Investant.net - Your partner in financial growth</p>
                                 </div>
                             </div>
