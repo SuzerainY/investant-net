@@ -1,6 +1,6 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -54,18 +54,6 @@ export async function getServerSideProps(context) {
 };
 
 export default function Home(props) {
-
-  // Arrange blog posts for display
-  const featuredPosts = props.data.featuredPosts?.data.slice(1);
-  const featuredPost = props.data.featuredPosts?.data.slice(0, 1)[0];
-
-  // Document Sections by Reference | used by <Header/> component to navigate user: components\Header\Header.js
-  const investorRoadmapSection = useRef(null);
-  const blogPostsSection = useRef(null);
-  
-  // Handle the click of the "Get Started" button in the hero section
-  const getStartedButton = useRef(null);
-  const handleGetStartedButtonClick = () => {investorRoadmapSection.current?.scrollIntoView({ behavior: 'smooth' })};
 
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
@@ -211,7 +199,6 @@ export default function Home(props) {
       <DefaultLayout>
         <main className="homepage">
           <section id="homepage-hero-section" className="homepage-hero-section">
-
             <div className="blogpage-title-section">
               <div className="blogpage-title-section-text-container">
                 <div className="blogpage-title-section-title">
@@ -335,7 +322,7 @@ export default function Home(props) {
           <section className="blogpage">
             <div className="blogpage-main-body-wrapper">
               <div className="blogpage-post-content-wrapper">
-                <section className="blogpage-featured-post-section">
+                <div className="blogpage-featured-post-section">
                   <Link href={`/blog/${mostRecentPost?.attributes.SLUG}`} className="blogpage-featured-post-section-content-wrapper">
                     <div className="blogpage-featured-post-section-image-container">
                       {mostRecentPost?.attributes.SPLASH.data.attributes.url && (
@@ -363,9 +350,9 @@ export default function Home(props) {
                       </div>
                     </div>
                   </Link>
-                </section>
+                </div>
 
-                <section className={displayedPosts?.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
+                <div className={displayedPosts?.length % 3 !== 0 ? 'blogpage-blog-posts-wrapper not-even-three' : 'blogpage-blog-posts-wrapper'}>
                   <div className="blogpage-blog-post-list">
                     {displayedPosts?.map((post, index) => (
                       <div key={post.id} className="blogpage-blog-post">
@@ -395,10 +382,10 @@ export default function Home(props) {
                       Load More
                     </button>
                   )}
-                </section>
+                </div>
               </div>
 
-              <section className="blogpage-sidebar-section">
+              <div className="blogpage-sidebar-section">
                 <div className="blogpage-investant-product-container">
                   <div className="blogpage-investant-product-content">
                     <h3>Investant | Our Story</h3>
@@ -412,7 +399,7 @@ export default function Home(props) {
                     <p className="blogpage-investant-product-footer">Investant.net - Your partner in financial growth</p>
                   </div>
                 </div>
-              </section>
+              </div>
             </div>
           </section>
         </main>

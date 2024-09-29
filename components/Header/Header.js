@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import Image from "next/image";
@@ -11,8 +11,6 @@ export default function Header() {
 
   // Desktop menu references
   const NavBarHomeLink = useRef(null);
-  const NavBarProductsLink = useRef(null);
-  const NavBarBlogLink = useRef(null);
   const NavBarAboutLink = useRef(null);
 
   // Mobile menu references
@@ -20,16 +18,8 @@ export default function Header() {
   const mobileMenu = useRef(null);
   const mobileMenuButtonOpen = useRef(null);
   const mobileMenuButtonClose = useRef(null);
-  const mobileMenuProductsDropdown = useRef(null);
 
   //Mobile menu state
-  const [showProductsDropdown, setShowProductsDropdown] = useState(false);
-  const handleShowProductsDropdownClick = () => {
-    if (!showProductsDropdown) {
-      setShowProductsDropdown(true);
-    } else {setShowProductsDropdown(false);}
-  };
-
   const openMobileMenu = () => {
     if (mobileMenuContainer.current?.style.display !== 'flex') {
       mobileMenuContainer.current.style.display = 'flex';
@@ -39,7 +29,6 @@ export default function Header() {
 
   const closeMobileMenu = () => {
     if (mobileMenuContainer.current?.style.display !== 'none') {
-      setShowProductsDropdown(false);
       mobileMenuContainer.current.classList.add('mobile-menu-fade-out');
       document.body.classList.remove('no-scroll');
 
