@@ -15,10 +15,13 @@ body {
   box-sizing: border-box;
 }
 
+input[type=number] {-moz-appearance: textfield;}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; 
+}
+
 .grecaptcha-badge { visibility: hidden; }
 
 .no-scroll { overflow: hidden; }
-
-@media screen and (max-width: 1079px)  {
-
-}

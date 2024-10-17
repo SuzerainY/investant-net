@@ -1,10 +1,11 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
 import DefaultLayout from "@/layouts/DefaultLayout";
+import InvestantSavingsCalculatorChart from '@/components/Charts/InvestantSavingsCalculatorChart';
 
 export async function getServerSideProps(context) {
   // Fetch 10 most recent posts for inital page render
@@ -82,6 +83,15 @@ export default function Home(props) {
   
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
+
+  const investantCalculatorSection = useRef(null);
+  const [isTimeYears, setIsTimeYears] = useState(true);
+  const handleTimeSwitchToggle = (e) => {
+    if (e) {e.preventDefault();}
+    setError('');
+    setInfo('');
+    setIsTimeYears(!isTimeYears);
+  };
 
   const [postCount, setPostCount] = useState(props?.blogData?.data?.blogPosts?.data?.length);
   const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.blogData?.data?.blogPosts?.meta?.pagination?.total);
@@ -424,6 +434,101 @@ export default function Home(props) {
                     <p className="blogpage-investant-product-footer">Investant.net - Your partner in financial growth</p>
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section ref={investantCalculatorSection} className="investant-savings-calculator-section">
+            <div className="investant-savings-calculator-container">
+              <div className="investant-savings-calculator-wrapper">
+                <h2>Savings Calculator</h2>
+                <form className="calculator-form">
+                  <div className="input-group">
+                    <label htmlFor="initial-amount">Initial Amount ($)</label>
+                    <div className="input-wrapper">
+                      <span className="dollar-sign">$</span>
+                      <input
+                        type="number"
+                        id="initial-amount"
+                        name="initial-amount"
+                        placeholder="2000"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <label htmlFor="monthly-contribution">Monthly Contribution ($)</label>
+                    <div className="input-wrapper">
+                      <span className="dollar-sign">$</span>
+                      <input
+                        type="number"
+                        id="monthly-contribution"
+                        name="monthly-contribution"
+                        placeholder="200"
+                      />
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                      <label htmlFor="time-period">Time Period</label>
+                      <div className="toggle-interest-switch-container">
+                        <div className={`toggle-switch ${isTimeYears ? "active" : ""}`} onClick={handleTimeSwitchToggle}>
+                          <span className="toggle-label">Years</span>
+                          <span className="toggle-label">Months</span>
+                          <div className="toggle-slider"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <input
+                      type="number"
+                      id="time-period"
+                      name="time-period"
+                      placeholder="2"
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label htmlFor="interest-rate">Annual Interest Rate (%)</label>
+                    <input
+                      type="number"
+                      id="interest-rate"
+                      name="interest-rate"
+                      placeholder="2.0"
+                      step="0.1"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div className="investant-savings-calculator-insight-wrapper">
+                  <div style={{display: 'flex', flexDirection: 'row'}}>
+                    <div style={{margin: '0 auto 0 0'}}>
+                      <h2>Your Time Machine</h2>
+                      <div className="calculator-results">
+                        <h3>Future Value:<span className="result-amount">$200</span></h3>
+                      </div>
+                    </div>
+                    <div style={{width: '25%', height: 'auto', margin: '0 auto'}}>
+                      
+                    </div>
+                  </div>
+
+                <div className="calculator-insights">
+                  <div className="insight-item">
+                    <h4>Total Contributions</h4>
+                    <p>$<span id="total-contributions"></span></p>
+                  </div>
+                  <div className="insight-item">
+                    <h4>Total Interest Earned</h4>
+                    <p>$<span id="total-interest"></span></p>
+                  </div>
+                  <Link href={'https://investant.net/blog/TheFinancialTimeMachine'}>
+                    <div className="insight-item">
+                      <h4><span style={{fontWeight: 'bold'}}>Blog: </span>The Financial Time Machine</h4>
+                      <p>Learn how to use this simple savings calculator to help plan your future!</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+              <div className='savings-graph-wrapper'>
+                <InvestantSavingsCalculatorChart />
               </div>
             </div>
           </section>
