@@ -786,26 +786,46 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
     width: 100%;
     padding: 0px $homepage-desktop-side-padding 40px $homepage-desktop-side-padding;
     background-color: $chrome;
-  
+
+      // Tablet styles
+      @media screen and (min-width: 768px) and (max-width: 1199px) {
+        padding: 0px $homepage-tablet-side-padding 40px $homepage-tablet-side-padding;
+      }
+
+      // Mobile styles
+      @media screen and (max-width: 767px) {
+        padding: 0px $homepage-mobile-side-padding 30px $homepage-mobile-side-padding;
+      }
+
     .investant-savings-calculator-container {
       display: flex;
+      flex-direction: row;
       width: 100%;
       max-width: $homepage-max-width;
       background-color: $white;
       border-radius: 10px;
       box-shadow: 0px 10px 20px rgba($soft-purple, 0.1);
       overflow: hidden;
-  
-      @media (max-width: 968px) {
+
+      @media screen and (max-width: 767px) {
         flex-direction: column;
       }
 
       .investant-savings-calculator-wrapper {
         display: flex;
         flex-direction: column;
-        width: 33.3%;
+        width: 35%;
         padding: 30px;
         background-color: lighten($chrome, 5%);
+
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          padding: 15px;
+        }
+
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          padding: 10px;
+        }
     
         h2 {
           color: $soft-purple;
@@ -844,8 +864,8 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
                 width: 120px;
                 height: 30px;
                 justify-content: space-between;
-                background-color: $soft-purple;
                 border-radius: 40px;
+                border: 1px solid $soft-purple;
                 font-weight: bold;
                 transition: background-color 0.3s ease;
                 cursor: pointer;
@@ -854,7 +874,7 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
                   flex: 1;
                   text-align: center;
                   line-height: 30px;
-                  color: $magenta;
+                  color: $soft-purple;
                   font-size: 12px;
                   transition: color 0.3s ease;
                 }
@@ -862,16 +882,13 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
                 .toggle-slider {
                   width: 55px;
                   height: 24px;
-                  background-color: $magenta;
+                  background-color: $soft-purple;
                   border-radius: 30px;
                   position: absolute;
-                  top: 3px;
+                  top: 2px;
                   left: 3px;
                   transition: all 0.3s ease;
                 }
-              }
-              .toggle-switch.active {
-                background-color: $magenta;
               }
               .toggle-switch.active .toggle-label:first-child {
                 color: $soft-purple;
@@ -949,9 +966,20 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
       .investant-savings-calculator-insight-wrapper {
         display: flex;
         flex-direction: column;
-        width: 33.3%;
+        width: 35%;
         padding: 30px;
         background-color: lighten($chrome, 5%);
+
+        // Tablet styles
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          padding: 15px;
+        }
+
+        // Mobile styles
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          padding: 10px;
+        }
     
         h2 {
           color: $soft-purple;
@@ -991,8 +1019,15 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
             margin-bottom: 10px;
             box-shadow: 0px 4px 8px rgba($soft-purple, 0.1);
             transition: transform 0.3s ease-in-out;
-  
             &:hover {transform: translateY(-4px);}
+
+            .insight-item-span {
+              font-size: 22px;
+              color: $magenta;
+              font-weight: bold;
+              padding-left: 10px;
+              margin-bottom: -2px;
+            }
     
             h4 {
               color: $soft-purple;
@@ -1011,9 +1046,22 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 33.3%;
+        width: 30%;
         padding: 20px;
         margin-bottom: 10px;
+
+        // Tablet styles
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+          width: 35%;
+          padding: 15px;
+        }
+
+        // Mobile styles
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          padding: 10px;
+          margin: 0 auto;
+        }
       }
     }
   }

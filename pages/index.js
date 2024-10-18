@@ -1,6 +1,8 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
+import { isWholeNumber, isDecimal, investantSavingsCalculatorContributions, investantSavingsCalculatorInterest } from '@/my_modules/mathhelp';
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -80,11 +82,19 @@ export async function getServerSideProps(context) {
 };
 
 export default function Home(props) {
-  
+  const router = useRouter();
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
 
   const investantCalculatorSection = useRef(null);
+  useEffect(() => {
+    const handleBlockOnLoad = () => {
+      if (router.isReady && router.query.block === 'SavingsCalculator') {
+        investantCalculatorSection.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }; handleBlockOnLoad();
+  }, [router.isReady, router.query.block]);
+ 
   const [isTimeYears, setIsTimeYears] = useState(true);
   const handleTimeSwitchToggle = (e) => {
     if (e) {e.preventDefault();}
@@ -92,6 +102,34 @@ export default function Home(props) {
     setInfo('');
     setIsTimeYears(!isTimeYears);
   };
+
+  const [savingsInitialDeposit, setSavingsInitialDeposit] = useState('');
+  const [savingsContribution, setSavingsContribution] = useState('');
+  const [savingsTime, setSavingsTime] = useState('');
+  const [savingsInterestRate, setSavingsInterestRate] = useState('');
+  const [totalContributions, setTotalContributions] = useState('');
+  const [totalInterest, setTotalInterest] = useState('');
+  const [totalFutureValue, setTotalFutureValue] = useState('');
+
+  useEffect(() => {
+    const initialAmount = savingsInitialDeposit === '' ? 0 : parseFloat(savingsInitialDeposit);
+    const monthlyContribution = savingsContribution === '' ? 0 : parseFloat(savingsContribution);
+    const interestRate = savingsInterestRate === '' ? 0 : parseFloat(savingsInterestRate) / 100;
+    const time = savingsTime === '' ? 1 : parseFloat(savingsTime);
+    const timePeriod = isTimeYears === true ? 'Year' : 'Month';
+
+    if (savingsInitialDeposit === '' && savingsContribution === '') {
+      setTotalContributions('');
+      setTotalInterest('');
+      setTotalFutureValue('');
+    } else {
+      let contributions = investantSavingsCalculatorContributions(monthlyContribution, time, timePeriod);
+      let interestEarned = investantSavingsCalculatorInterest(initialAmount, monthlyContribution, time, timePeriod, interestRate);
+      setTotalContributions(contributions);
+      setTotalInterest(interestEarned.toFixed(2));
+      setTotalFutureValue((initialAmount + contributions + interestEarned).toFixed(2));
+    }
+  }, [savingsInitialDeposit, savingsContribution, savingsTime, savingsInterestRate, isTimeYears]);
 
   const [postCount, setPostCount] = useState(props?.blogData?.data?.blogPosts?.data?.length);
   const [hasMorePosts, setHasMorePosts] = useState(postCount < props?.blogData?.data?.blogPosts?.meta?.pagination?.total);
@@ -448,10 +486,12 @@ export default function Home(props) {
                     <div className="input-wrapper">
                       <span className="dollar-sign">$</span>
                       <input
-                        type="number"
+                        type="text"
                         id="initial-amount"
                         name="initial-amount"
                         placeholder="2000"
+                        value={savingsInitialDeposit}
+                        onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsInitialDeposit(e.target.value) : {}}}
                       />
                     </div>
                   </div>
@@ -460,10 +500,12 @@ export default function Home(props) {
                     <div className="input-wrapper">
                       <span className="dollar-sign">$</span>
                       <input
-                        type="number"
+                        type="text"
                         id="monthly-contribution"
                         name="monthly-contribution"
                         placeholder="200"
+                        value={savingsContribution}
+                        onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsContribution(e.target.value) : {}}}
                       />
                     </div>
                   </div>
@@ -479,20 +521,23 @@ export default function Home(props) {
                       </div>
                     </div>
                     <input
-                      type="number"
+                      type="text"
                       id="time-period"
                       name="time-period"
                       placeholder="2"
+                      value={savingsTime}
+                      onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsTime(e.target.value) : {}}}
                     />
                   </div>
                   <div className="input-group">
                     <label htmlFor="interest-rate">Annual Interest Rate (%)</label>
                     <input
-                      type="number"
+                      type="text"
                       id="interest-rate"
                       name="interest-rate"
                       placeholder="2.0"
-                      step="0.1"
+                      value={savingsInterestRate}
+                      onChange={(e) => {(isDecimal(e.target.value) === true || e.target.value === '') ? setSavingsInterestRate(e.target.value) : {}}}
                     />
                   </div>
                 </form>
@@ -502,33 +547,35 @@ export default function Home(props) {
                     <div style={{margin: '0 auto 0 0'}}>
                       <h2>Your Time Machine</h2>
                       <div className="calculator-results">
-                        <h3>Future Value:<span className="result-amount">$200</span></h3>
+                        <h3>Future Value:<span className="result-amount">$ {totalFutureValue}</span></h3>
                       </div>
-                    </div>
-                    <div style={{width: '25%', height: 'auto', margin: '0 auto'}}>
-                      
                     </div>
                   </div>
 
                 <div className="calculator-insights">
                   <div className="insight-item">
                     <h4>Total Contributions</h4>
-                    <p>$<span id="total-contributions"></span></p>
+                    <p><span className="insight-item-span">$ {totalContributions}</span></p>
                   </div>
                   <div className="insight-item">
                     <h4>Total Interest Earned</h4>
-                    <p>$<span id="total-interest"></span></p>
+                    <p><span className="insight-item-span">$ {totalInterest}</span></p>
                   </div>
-                  <Link href={'https://investant.net/blog/TheFinancialTimeMachine'}>
+                  <Link href={'https://investant.net/blog/CreatingaFinancialSystemforyourMoney'}>
                     <div className="insight-item">
-                      <h4><span style={{fontWeight: 'bold'}}>Blog: </span>The Financial Time Machine</h4>
+                      <h4><span style={{fontWeight: 'bold'}}>Blog: </span>Creating a Financial System for your Money</h4>
                       <p>Learn how to use this simple savings calculator to help plan your future!</p>
                     </div>
                   </Link>
                 </div>
               </div>
               <div className='savings-graph-wrapper'>
-                <InvestantSavingsCalculatorChart />
+                <InvestantSavingsCalculatorChart
+                  initialDeposit={savingsInitialDeposit > 0 ? savingsInitialDeposit : 0}
+                  contributions={totalContributions}
+                  interest={totalInterest}
+                  valuesNotSet={(savingsInitialDeposit === '' && savingsContribution === '') ? true : false}
+                />
               </div>
             </div>
           </section>

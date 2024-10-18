@@ -4,7 +4,7 @@ import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables);
 
-export default function InvestantSavingsCalculatorChart() {
+export default function InvestantSavingsCalculatorChart({ initialDeposit, contributions, interest, valuesNotSet }) {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -15,13 +15,18 @@ export default function InvestantSavingsCalculatorChart() {
         }
 
         const context = chartRef.current.getContext("2d");
+        if (valuesNotSet === true) {
+            initialDeposit = 2000;
+            contributions = 5000;
+            interest = 1000;
+        }
 
         const newChart = new Chart(context, {
             type: 'doughnut',
             data: {
-              //labels: ['Initial Deposit', 'Contributions', 'Interest'],
+              labels: ['Initial Deposit', 'Contributions', 'Interest'],
               datasets: [{
-                data: [2000, 5000, 1000],
+                data: [initialDeposit, contributions, interest],
                 backgroundColor: [
                     'rgb(64, 201, 255)',
                     'rgb(27, 0, 83)',
@@ -36,9 +41,8 @@ export default function InvestantSavingsCalculatorChart() {
                 }
             }
         });
-
         chartRef.current.chart = newChart;
-    }, [])
+    }, [initialDeposit, contributions, interest])
 
 
     return (
