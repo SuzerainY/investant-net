@@ -991,16 +991,22 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
         .calculator-results {
           margin-bottom: 30px;
     
-          h3 {
+          h4 {
             color: $soft-purple;
-            font-size: 24px;
+            font-size: 18px;
             margin-bottom: 15px;
+            font-weight: bold;
           }
     
           .result-amount {
             padding-left: 20px;
             font-size: 36px;
             font-weight: 700;
+            color: $magenta;
+          }
+
+          .result-amount-decimal {
+            font-size: 22px;
             color: $magenta;
           }
         }
@@ -1027,6 +1033,12 @@ $homepage-button-border-radius: 5px; // Consistent border radius throughout page
               font-weight: bold;
               padding-left: 10px;
               margin-bottom: -2px;
+            }
+
+            .insight-item-decimal-span {
+              font-size: 16px;
+              color: $magenta;
+              font-weight: bold;
             }
     
             h4 {

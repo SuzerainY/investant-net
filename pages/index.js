@@ -1,6 +1,6 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
-import { isWholeNumber, isDecimal, investantSavingsCalculatorContributions, investantSavingsCalculatorInterest } from '@/my_modules/mathhelp';
+import { isWholeNumber, isDecimal, investantSavingsCalculatorContributions, investantSavingsCalculatorInterest, formatNumberWithCommas } from '@/my_modules/mathhelp';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -125,9 +125,9 @@ export default function Home(props) {
     } else {
       let contributions = investantSavingsCalculatorContributions(monthlyContribution, time, timePeriod);
       let interestEarned = investantSavingsCalculatorInterest(initialAmount, monthlyContribution, time, timePeriod, interestRate);
-      setTotalContributions(contributions);
-      setTotalInterest(interestEarned.toFixed(2));
-      setTotalFutureValue((initialAmount + contributions + interestEarned).toFixed(2));
+      setTotalContributions(formatNumberWithCommas(contributions.toFixed(0)));
+      setTotalInterest(formatNumberWithCommas(interestEarned.toFixed(2)));
+      setTotalFutureValue(formatNumberWithCommas((initialAmount + contributions + interestEarned).toFixed(2)));
     }
   }, [savingsInitialDeposit, savingsContribution, savingsTime, savingsInterestRate, isTimeYears]);
 
@@ -450,7 +450,7 @@ export default function Home(props) {
                       </div>
                     ))}
                   </div>
-                  {hasMorePosts && (
+                  {(hasMorePosts === true) && (
                     <button onClick={loadMorePosts} className="load-more-button">
                       Load More
                     </button>
@@ -482,21 +482,21 @@ export default function Home(props) {
                 <h2>Savings Calculator</h2>
                 <form className="calculator-form">
                   <div className="input-group">
-                    <label htmlFor="initial-amount">Initial Amount ($)</label>
+                    <label htmlFor="initial-deposit">Initial Deposit</label>
                     <div className="input-wrapper">
                       <span className="dollar-sign">$</span>
                       <input
                         type="text"
-                        id="initial-amount"
-                        name="initial-amount"
+                        id="initial-deposit"
+                        name="initial-deposit"
                         placeholder="2000"
-                        value={savingsInitialDeposit}
-                        onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsInitialDeposit(e.target.value) : {}}}
+                        value={formatNumberWithCommas(savingsInitialDeposit)}
+                        onChange={(e) => {(isWholeNumber(e.target.value.replace(/,/g, '')) === true || e.target.value === '') ? setSavingsInitialDeposit(e.target.value.replace(/,/g, '')) : {}}}
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <label htmlFor="monthly-contribution">Monthly Contribution ($)</label>
+                    <label htmlFor="monthly-contribution">Monthly Contribution</label>
                     <div className="input-wrapper">
                       <span className="dollar-sign">$</span>
                       <input
@@ -504,8 +504,8 @@ export default function Home(props) {
                         id="monthly-contribution"
                         name="monthly-contribution"
                         placeholder="200"
-                        value={savingsContribution}
-                        onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsContribution(e.target.value) : {}}}
+                        value={formatNumberWithCommas(savingsContribution)}
+                        onChange={(e) => {(isWholeNumber(e.target.value.replace(/,/g, '')) === true || e.target.value === '') ? setSavingsContribution(e.target.value.replace(/,/g, '')) : {}}}
                       />
                     </div>
                   </div>
@@ -525,8 +525,8 @@ export default function Home(props) {
                       id="time-period"
                       name="time-period"
                       placeholder="2"
-                      value={savingsTime}
-                      onChange={(e) => {(isWholeNumber(e.target.value) === true || e.target.value === '') ? setSavingsTime(e.target.value) : {}}}
+                      value={formatNumberWithCommas(savingsTime)}
+                      onChange={(e) => {(isWholeNumber(e.target.value.replace(/,/g, '')) === true || e.target.value === '') ? setSavingsTime(e.target.value.replace(/,/g, '')) : {}}}
                     />
                   </div>
                   <div className="input-group">
@@ -536,8 +536,8 @@ export default function Home(props) {
                       id="interest-rate"
                       name="interest-rate"
                       placeholder="2.0"
-                      value={savingsInterestRate}
-                      onChange={(e) => {(isDecimal(e.target.value) === true || e.target.value === '') ? setSavingsInterestRate(e.target.value) : {}}}
+                      value={formatNumberWithCommas(savingsInterestRate)}
+                      onChange={(e) => {(isDecimal(e.target.value.replace(/,/g, '')) === true || e.target.value === '') ? setSavingsInterestRate(e.target.value.replace(/,/g, '')) : {}}}
                     />
                   </div>
                 </form>
@@ -547,7 +547,7 @@ export default function Home(props) {
                     <div style={{margin: '0 auto 0 0'}}>
                       <h2>Your Time Machine</h2>
                       <div className="calculator-results">
-                        <h3>Future Value:<span className="result-amount">$ {totalFutureValue}</span></h3>
+                        <h4>Total Savings:<span className="result-amount">$ {totalFutureValue.slice(0, -3)}</span><span className="result-amount-decimal">{totalFutureValue.slice(-3)}</span></h4>
                       </div>
                     </div>
                   </div>
@@ -559,7 +559,7 @@ export default function Home(props) {
                   </div>
                   <div className="insight-item">
                     <h4>Total Interest Earned</h4>
-                    <p><span className="insight-item-span">$ {totalInterest}</span></p>
+                    <p><span className="insight-item-span">$ {totalInterest.slice(0, -3)}</span><span className="insight-item-decimal-span">{totalInterest.slice(-3)}</span></p>
                   </div>
                   <Link href={'https://investant.net/blog/CreatingaFinancialSystemforyourMoney'}>
                     <div className="insight-item">
@@ -571,9 +571,9 @@ export default function Home(props) {
               </div>
               <div className='savings-graph-wrapper'>
                 <InvestantSavingsCalculatorChart
-                  initialDeposit={savingsInitialDeposit > 0 ? savingsInitialDeposit : 0}
-                  contributions={totalContributions}
-                  interest={totalInterest}
+                  initialDeposit={parseFloat(savingsInitialDeposit.replace(/,/g, '')) > 0 ? parseFloat(savingsInitialDeposit.replace(/,/g, '')) : 0}
+                  contributions={parseFloat(totalContributions.replace(/,/g, ''))}
+                  interest={parseFloat(totalInterest.replace(/,/g, ''))}
                   valuesNotSet={(savingsInitialDeposit === '' && savingsContribution === '') ? true : false}
                 />
               </div>
