@@ -561,9 +561,9 @@ export default function Home(props) {
                     <h4>Total Interest Earned</h4>
                     <p><span className="insight-item-span">$ {totalInterest.slice(0, -3)}</span><span className="insight-item-decimal-span">{totalInterest.slice(-3)}</span></p>
                   </div>
-                  <Link href={'https://investant.net/blog/CreatingaFinancialSystemforyourMoney'}>
+                  <Link href={'https://investant.net/blog/TheFinancialTimeMachine'}>
                     <div className="insight-item">
-                      <h4><span style={{fontWeight: 'bold'}}>Blog: </span>Creating a Financial System for your Money</h4>
+                      <h4><span style={{fontWeight: 'bold'}}>Blog: </span>The Financial Time Machine</h4>
                       <p>Learn how to use this simple savings calculator to help plan your future!</p>
                     </div>
                   </Link>
