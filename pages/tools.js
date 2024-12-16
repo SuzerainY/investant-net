@@ -50,7 +50,7 @@ export default function Tools() {
                                 <h1><span className="toolspage-title-section-title-span">Investant</span> Tools</h1>
                             </div>
                             <div className="toolspage-title-section-subtitle">
-                                <p>We'll provide tools for <span className="toolspage-title-section-subtitle-span">your</span> financial growth.</p>
+                                <p>{`We'll`} provide tools for <span className="toolspage-title-section-subtitle-span">your</span> financial growth.</p>
                             </div>
                         </div>
                     </section>
