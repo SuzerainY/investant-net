@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Footer() {
-
     const [info, setInfo] = useState('');
     const [error, setError] = useState('');
 
@@ -114,11 +113,16 @@ export default function Footer() {
                             </Link>
                         </div>
                         <div className="footer-body-link-tree">
-                            <div className="footer-body-link-tree-root"><h4>Info</h4></div>
+                            <div className="footer-body-link-tree-root"><h4>Pages</h4></div>
                             <Link href={'/'}>Blog</Link>
                             <Link href={'/about-us'}>About</Link>
-                            <Link href={'/account?block=settings'}>Account Settings</Link>
+                            <Link href={'/tools'}>Tools</Link>
                             <Link href={'/contact-us'}>Contact Us</Link>
+                        </div>
+                        <div className="footer-body-link-tree">
+                            <div className="footer-body-link-tree-root"><h4>Other</h4></div>
+                            <Link href={'/account?block=settings'}>Account Settings</Link>
+                            <Link href={'/tools?block=SavingsCalculator'}>Savings Calculator</Link>
                         </div>
                     </section>
                     <section className="footer-join-newsletter-section">

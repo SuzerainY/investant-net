@@ -1,0 +1,110 @@
+.toolspage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .toolspage-title-section {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+        background-image: url('https://res.cloudinary.com/dnmr13rcg/image/upload/f_auto,q_auto/small_man_plays_chess_with_robot_16882f0e0d');
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: 75%;
+        
+        .toolspage-title-section-text-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+            background-color: rgba(22, 11, 44, 0.75);
+            color: $white;
+        
+            .toolspage-title-section-title {
+                max-width: 1200px;
+                text-align: center;
+                padding: 10px $global-desktop-side-padding;
+        
+                .toolspage-title-section-title-span {
+                    color: $magenta;
+                    font-weight: bold;
+                }
+        
+                h1 {
+                    font-size: 60px;
+                    font-weight: 600;
+                    line-height: 100%;
+                }
+            }
+        
+            .toolspage-title-section-subtitle {
+                max-width: 1200px;
+                text-align: center;
+                padding: 10px $global-desktop-side-padding;
+        
+                .toolspage-title-section-subtitle-span {
+                    color: $magenta;
+                    font-weight: bold;
+                }
+        
+                p {
+                    font-size: 20px;
+                    font-family: sans-serif;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .toolspage {
+        .toolspage-title-section {
+            height: 300px;
+            .toolspage-title-section-text-container {
+                backdrop-filter: blur(6px);
+        
+                .toolspage-title-section-title {
+                    padding: 10px $global-tablet-side-padding;
+                    h1 {
+                        font-size: 50px;
+                    }
+                }
+
+                .toolspage-title-section-subtitle {
+                    padding: 10px $global-tablet-side-padding;
+                    p {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .toolspage {
+        .toolspage-title-section {
+            height: 300px;
+            .toolspage-title-section-text-container {
+                backdrop-filter: blur(4px);
+        
+                .toolspage-title-section-title {
+                    padding: 10px $global-mobile-side-padding;
+                    h1 {font-size: 28px;}
+                }
+            
+                .toolspage-title-section-subtitle {
+                    padding: 10px $global-mobile-side-padding;
+                    p {font-size: 16px;}
+                }
+            }
+        }
+    }
+}

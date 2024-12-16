@@ -11,6 +11,7 @@ export default function Header() {
 
   // Desktop menu references
   const NavBarHomeLink = useRef(null);
+  const NavBarToolsLink = useRef(null);
   const NavBarAboutLink = useRef(null);
 
   // Mobile menu references
@@ -84,6 +85,7 @@ export default function Header() {
       const focusedPath = router.pathname;
       const pageRefs = {
         '/': NavBarHomeLink,
+        '/tools': NavBarToolsLink,
         '/about-us': NavBarAboutLink
       };
       // Check if the current path matches the blog post pattern
@@ -120,6 +122,7 @@ export default function Header() {
           <div className="mobile-menu-navigation">
             <ul>
               <li><MobileNavLink href="/">Blog</MobileNavLink></li>
+              <li><MobileNavLink href="/tools">Tools</MobileNavLink></li>
               <li><MobileNavLink href="/about-us">About</MobileNavLink></li>
             </ul>
           </div>
@@ -227,6 +230,7 @@ export default function Header() {
             <div className="NavBar-Navigation-Links">
               <ul>
                 <li ref={NavBarHomeLink}><Link href="/">Blog</Link></li>
+                <li ref={NavBarToolsLink}><Link href="/tools">Tools</Link></li>
                 <li ref={NavBarAboutLink}><Link href="/about-us">About</Link></li>
               </ul>
             </div>

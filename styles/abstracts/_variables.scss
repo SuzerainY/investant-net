@@ -20,3 +20,10 @@ $trans-magenta: rgba(232, 28, 255, 0.9);
 $sepia: rgba(244, 236, 216, 1);
 $alert-yellow: #FFCC00;
 $trans-purple: rgba(22, 11, 44, 0.75);
+
+// global style options
+$global-button-border-radius: 5px;
+$global-max-width: 1600px; // maximum width for any div
+$global-desktop-side-padding: 80px; // padding on left and right sides on desktop viewport
+$global-tablet-side-padding: 40px; // padding on left and right sides of tablet viewport
+$global-mobile-side-padding: 20px; // padding on left and right sides of mobile viewport
