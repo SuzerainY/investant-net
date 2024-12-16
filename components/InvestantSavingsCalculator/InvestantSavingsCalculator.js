@@ -8,8 +8,6 @@ export default function InvestantSavingsCalculator() {
     const [isTimeYears, setIsTimeYears] = useState(true);
     const handleTimeSwitchToggle = (e) => {
         if (e) {e.preventDefault();}
-        setError('');
-        setInfo('');
         setIsTimeYears(!isTimeYears);
     };
 
