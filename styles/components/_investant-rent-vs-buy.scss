@@ -1,0 +1,316 @@
+.investant-rent-vs-buy-calculator {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .investant-rent-vs-buy-calculator-section {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        width: 100%;
+        padding: 40px $global-desktop-side-padding 40px $global-desktop-side-padding;
+        background-color: $chrome;
+    
+        // Tablet styles
+        @media screen and (min-width: 768px) and (max-width: 1199px) {
+            padding: 0px $global-tablet-side-padding 40px $global-tablet-side-padding;
+        }
+    
+        // Mobile styles
+        @media screen and (max-width: 767px) {
+            padding: 0px $global-mobile-side-padding 30px $global-mobile-side-padding;
+        }
+    
+        .investant-rent-vs-buy-calculator-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            max-width: $global-max-width;
+            background-color: $white;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba($soft-purple, 0.1);
+            overflow: hidden;
+        
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+            }
+        
+            .investant-rent-vs-buy-calculator-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 35%;
+                padding: 30px;
+                background-color: lighten($chrome, 5%);
+        
+                @media screen and (min-width: 768px) and (max-width: 1199px) {
+                    padding: 15px;
+                }
+        
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                    padding: 10px;
+                }
+            
+                h2 {
+                    color: $soft-purple;
+                    font-size: 28px;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+                }
+            
+                .calculator-form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    max-height: 365px;
+                    overflow-y: scroll;
+                    overflow-x: hidden;
+                    scroll-behavior: smooth;
+                    margin-top: 20px;
+                    padding-right: 10px;
+            
+                    .input-group {
+                        width: 100%;
+                        margin-bottom: 10px;
+                        
+                        label {
+                            display: block;
+                            margin-bottom: 10px;
+                            color: $soft-purple;
+                            font-weight: 500;
+                            font-size: 18px;
+                        }
+            
+                        .toggle-interest-switch-container {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            margin-bottom: 10px;
+                            margin-left: 10px;
+                            
+                            .toggle-switch {
+                                position: relative;
+                                display: flex;
+                                width: 120px;
+                                height: 30px;
+                                justify-content: space-between;
+                                border-radius: 40px;
+                                border: 1px solid $soft-purple;
+                                font-weight: bold;
+                                transition: background-color 0.3s ease;
+                                cursor: pointer;
+                
+                                .toggle-label {
+                                flex: 1;
+                                text-align: center;
+                                line-height: 30px;
+                                color: $soft-purple;
+                                font-size: 12px;
+                                transition: color 0.3s ease;
+                                }
+                
+                                .toggle-slider {
+                                width: 55px;
+                                height: 24px;
+                                background-color: $soft-purple;
+                                border-radius: 30px;
+                                position: absolute;
+                                top: 2px;
+                                left: 3px;
+                                transition: all 0.3s ease;
+                                }
+                            }
+                            .toggle-switch.active .toggle-label:first-child {
+                                color: $soft-purple;
+                            }
+                            .toggle-switch .toggle-label:last-child {
+                                color: $soft-purple;
+                            }
+                            .toggle-switch.active .toggle-slider {
+                                left: calc(100% - 58px);
+                                background-color: $soft-purple;
+                            }
+                        }
+                
+                        .input-wrapper {
+                            position: relative;
+                            background-color: $white;
+                            border-radius: $global-button-border-radius;
+                            box-shadow: 0px 4px 8px rgba($soft-purple, 0.1);
+                            transition: transform 0.3s ease-in-out;
+                    
+                            &:hover {transform: translateY(-3px);}
+                    
+                            .dollar-sign {
+                                position: absolute;
+                                left: 15px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                color: $soft-purple;
+                                font-size: 18px;
+                                font-weight: 500;
+                                pointer-events: none;
+                            }
+                    
+                            input {
+                                width: 100%;
+                                height: 50px;
+                                padding: 10px 15px 10px 30px;
+                                border: 2px solid transparent;
+                                border-radius: $global-button-border-radius;
+                                font-size: 18px;
+                                background-color: transparent;
+                                transition: border-color 0.3s ease-in-out;
+                    
+                                &:focus {
+                                outline: none;
+                                border-color: $magenta;
+                                }
+                            }
+                        }
+                
+                        input:not(.input-wrapper input) {
+                            width: 100%;
+                            height: 50px;
+                            padding: 10px 15px;
+                            border: 2px solid transparent;
+                            border-radius: $global-button-border-radius;
+                            font-size: 18px;
+                            background-color: $white;
+                            box-shadow: 0px 4px 8px rgba($soft-purple, 0.1);
+                            transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+                    
+                            &:hover {transform: translateY(-4px);}
+                    
+                            &:focus {
+                                outline: none;
+                                border-color: $magenta;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .investant-rent-vs-buy-results-wrapper {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                width: 65%;
+
+                .investant-rent-vs-buy-insight-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 30px;
+                    background-color: lighten($chrome, 5%);
+            
+                    // Tablet styles
+                    @media screen and (min-width: 768px) and (max-width: 1199px) {
+                        padding: 15px;
+                    }
+            
+                    // Mobile styles
+                    @media screen and (max-width: 767px) {
+                        width: 100%;
+                        padding: 10px;
+                    }
+                
+                    h2 {
+                        color: $soft-purple;
+                        font-size: 28px;
+                        font-weight: 600;
+                        margin-bottom: 20px;
+                    }
+                
+                    .calculator-results {
+                        margin-bottom: 30px;
+                    
+                        h4 {
+                            color: $soft-purple;
+                            font-size: 18px;
+                            margin-bottom: 15px;
+                            font-weight: bold;
+                        }
+                    
+                        .result-amount {
+                            padding-left: 20px;
+                            font-size: 36px;
+                            font-weight: 700;
+                            color: $magenta;
+                        }
+                
+                        .result-amount-decimal {
+                            font-size: 22px;
+                            color: $magenta;
+                        }
+                    }
+                
+                    .calculator-insights {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        a {text-decoration: none;}
+                    
+                        .insight-item {
+                            background-color: $white;
+                            border-radius: $global-button-border-radius;
+                            width: 100%;
+                            padding: 15px;
+                            margin-bottom: 10px;
+                            box-shadow: 0px 4px 8px rgba($soft-purple, 0.1);
+                            transition: transform 0.3s ease-in-out;
+                            &:hover {transform: translateY(-4px);}
+                
+                            .insight-item-span {
+                                font-size: 22px;
+                                color: $magenta;
+                                font-weight: bold;
+                                padding-left: 10px;
+                                margin-bottom: -2px;
+                            }
+                
+                            .insight-item-decimal-span {
+                                font-size: 16px;
+                                color: $magenta;
+                                font-weight: bold;
+                            }
+                    
+                            h4 {
+                                color: $soft-purple;
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
+                    
+                            p {
+                                color: $black;
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+                
+                .rent-vs-buy-graph-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    max-height: 60%;
+                    padding: 20px;
+                    margin-bottom: 10px;
+            
+                    // Tablet styles
+                    @media screen and (min-width: 768px) and (max-width: 1199px) {
+                        padding: 15px;
+                    }
+            
+                    // Mobile styles
+                    @media screen and (max-width: 767px) {
+                        padding: 10px;
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+    }
+}

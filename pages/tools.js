@@ -2,17 +2,21 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import InvestantSavingsCalculator from '@/components/InvestantSavingsCalculator/InvestantSavingsCalculator';
+import InvestantRentVsBuy from '@/components/InvestantTools/InvestantRentVsBuy/InvestantRentVsBuy';
+import InvestantSavingsCalculator from '@/components/InvestantTools/InvestantSavingsCalculator/InvestantSavingsCalculator';
 
 export default function Tools() {
     const router = useRouter();
 
+    const investantRentVsBuy = useRef(null);
     const investantSavingsCalculator = useRef(null);
 
     useEffect(() => {
         const handleBlockOnLoad = () => {
             if (router.isReady && router.query.block === 'SavingsCalculator') {
                 investantSavingsCalculator.current?.scrollIntoView({ behavior: 'smooth' });
+            } else if (router.isReady && router.query.block === 'RentVsBuy') {
+                investantRentVsBuy.current?.scrollIntoView({ behavior: 'smooth' });
             }
         }; handleBlockOnLoad();
       }, [router.isReady, router.query.block]);
@@ -55,8 +59,12 @@ export default function Tools() {
                         </div>
                     </section>
 
-                    <section ref={investantSavingsCalculator} className='investant-savings-calculator'>
+                    <section ref={investantSavingsCalculator} >
                         <InvestantSavingsCalculator />
+                    </section>
+
+                    <section ref={investantRentVsBuy}>
+                        <InvestantRentVsBuy />
                     </section>
                 </main>
             </DefaultLayout>

@@ -1,7 +1,7 @@
 import { STRAPIurl, formatDate, blogPostReadLengthText } from '@/my_modules/bloghelp';
 import { googleRecaptchaSiteKey, verifyGoogleRecaptcha, isValidEmail } from '@/my_modules/authenticationhelp';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from "next/head";
 import Image from "next/image";
@@ -80,7 +80,7 @@ export async function getServerSideProps(context) {
 };
 
 export default function Home(props) {
-  const router = useRouter();
+  // const router = useRouter();
   const [info, setInfo] = useState('') ;
   const [error, setError] = useState('');
 
