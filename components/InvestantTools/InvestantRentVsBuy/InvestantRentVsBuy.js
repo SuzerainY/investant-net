@@ -76,6 +76,7 @@ export default function InvestantSavingsCalculator() {
                                         />
                                     </div>
                                 </div>
+                                <div className="input-group"><label style={{fontWeight: 'bold'}}>Optional | Growth Rates</label></div>
                                 <div className="input-group">
                                     <label htmlFor="home-growth-rate">Annual Home Growth Rate (%)</label>
                                     <input
@@ -109,6 +110,90 @@ export default function InvestantSavingsCalculator() {
                                         // onChange={(e) => handleMonthlyRentChange(e)}
                                     />
                                 </div>
+                                <div className="input-group"><label style={{fontWeight: 'bold'}}>Optional | Buying Expenses</label></div>
+                                <div className="input-group">
+                                    <label htmlFor="mortgage-rate">Mortgage Rate (%)</label>
+                                    <input
+                                        type="text"
+                                        id="mortgage-rate"
+                                        name="mortgage-rate"
+                                        placeholder="5.0"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="monthly-hoa-fee">Monthly HOA Fee</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="monthly-hoa-fee"
+                                            name="monthly-hoa-fee"
+                                            placeholder="50"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="annual-property-tax">Annual Property Tax Rate (%)</label>
+                                    <input
+                                        type="text"
+                                        id="annual-property-tax"
+                                        name="annual-property-tax"
+                                        placeholder="2.5"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="annual-maintenance">Annual Maintenance Rate (%)</label>
+                                    <input
+                                        type="text"
+                                        id="annual-maintenance"
+                                        name="mannual-maintenance"
+                                        placeholder="1.5"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="purchase-costs">Purchase Costs (%)</label>
+                                    <input
+                                        type="text"
+                                        id="purchase-costs"
+                                        name="purhcase-costs"
+                                        placeholder="3.0"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="selling-costs">Selling Costs (%)</label>
+                                    <input
+                                        type="text"
+                                        id="selling-costs"
+                                        name="selling-costs"
+                                        placeholder="8.0"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="homeowners-insurance">Monthly Homeowner{`'`}s Insurance</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="homeowners-insurance"
+                                            name="homeowners-insurance"
+                                            placeholder="2000"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div className='investant-rent-vs-buy-results-wrapper'>
@@ -121,7 +206,7 @@ export default function InvestantSavingsCalculator() {
                                         </div>
                                         <div className="calculator-results">
                                             <h4>
-                                                If you plan to stay in the home for <span style={{color: '#E81CFF'}}>10</span> years or more, then it is better to <span style={{color: '#E81CFF'}}>buy</span>. However, if you would not live in the home for greater than <span style={{color: '#E81CFF'}}>10</span> years, then we recommend you <span style={{color: '#E81CFF'}}>rent</span>.
+                                                With a <span style={{color: '#E81CFF'}}>10</span> year living arrangement, it is best to <span style={{color: '#E81CFF'}}>buy</span> the home!
                                                 <br/><br/>
                                                 After <span style={{color: '#E81CFF'}}>8</span> years, the total cost of renting will be <span style={{color: '#E81CFF'}}>$ 120,000</span>, as opposed to total costs of buying the home after <span style={{color: '#E81CFF'}}>8</span> years of <span style={{color: '#E81CFF'}}>$ 100,000</span>.
                                                 After <span style={{color: '#E81CFF'}}>8</span> years, the investments you could earn by NOT buying the home would amount to <span style={{color: '#E81CFF'}}>$ 50,000</span>, as opposed to the total equity you could earn in the home after <span style={{color: '#E81CFF'}}>8</span> years of <span style={{color: '#E81CFF'}}>$ 75,000</span>.

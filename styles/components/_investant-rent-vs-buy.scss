@@ -40,7 +40,7 @@
                 display: flex;
                 flex-direction: column;
                 width: 35%;
-                padding: 30px;
+                padding: 30px 0px 0px 30px;
                 background-color: lighten($chrome, 5%);
         
                 @media screen and (min-width: 768px) and (max-width: 1199px) {
@@ -63,13 +63,13 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    max-height: 365px;
+                    max-height: 370px;
                     overflow-y: scroll;
                     overflow-x: hidden;
                     scroll-behavior: smooth;
                     margin-top: 20px;
                     padding-right: 10px;
-            
+
                     .input-group {
                         width: 100%;
                         margin-bottom: 10px;
@@ -197,6 +197,10 @@
                 display: flex;
                 flex-direction: column;
                 width: 65%;
+
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                }                
 
                 .investant-rent-vs-buy-insight-wrapper {
                     display: flex;
