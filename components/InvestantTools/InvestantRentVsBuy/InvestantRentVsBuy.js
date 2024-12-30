@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import InvestantSavingsCalculatorChart from '../../Charts/InvestantSavingsCalculatorChart';
+import { investantRentVsBuyRentalExpensePerYear } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {
 
@@ -23,6 +23,7 @@ export default function InvestantSavingsCalculator() {
                                 />
                             </div>
                             <form className="calculator-form">
+                                <div className="input-group"><label style={{fontWeight: 'bold'}}>Decision Inputs</label></div>
                                 <div className="input-group">
                                     <label htmlFor="property-value">Property Value</label>
                                     <div className="input-wrapper">
@@ -110,6 +111,49 @@ export default function InvestantSavingsCalculator() {
                                         // onChange={(e) => handleMonthlyRentChange(e)}
                                     />
                                 </div>
+                                <div className="input-group"><label style={{fontWeight: 'bold'}}>Optional | Rental Expenses</label></div>
+                                <div className="input-group">
+                                    <label htmlFor="rent-utility">Monthly Utility</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="rent-utility"
+                                            name="rent-utility"
+                                            placeholder="200"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="rent-broker-fee">Rent Broker Fee</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="rent-broker-fee"
+                                            name="rent-broker-fee"
+                                            placeholder="0"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="rent-insurance">Monthly Rent Insurance</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="rent-insurance"
+                                            name="rent-insurance"
+                                            placeholder="50"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
                                 <div className="input-group"><label style={{fontWeight: 'bold'}}>Optional | Buying Expenses</label></div>
                                 <div className="input-group">
                                     <label htmlFor="mortgage-rate">Mortgage Rate (%)</label>
@@ -118,6 +162,17 @@ export default function InvestantSavingsCalculator() {
                                         id="mortgage-rate"
                                         name="mortgage-rate"
                                         placeholder="5.0"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="mortgage-term">Mortgage Term (Years)</label>
+                                    <input
+                                        type="text"
+                                        id="mortgage-term"
+                                        name="mortgage-term"
+                                        placeholder="30"
                                         // value={formatNumberWithCommas(monthlyRent)}
                                         // onChange={(e) => handleMonthlyRentChange(e)}
                                     />
@@ -188,6 +243,31 @@ export default function InvestantSavingsCalculator() {
                                             type="text"
                                             id="homeowners-insurance"
                                             name="homeowners-insurance"
+                                            placeholder="2000"
+                                            // value={formatNumberWithCommas(monthlyRent)}
+                                            // onChange={(e) => handleMonthlyRentChange(e)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="marginal-tax-rate">Marginal Tax Rate (%)</label>
+                                    <input
+                                        type="text"
+                                        id="marginal-tax-rate"
+                                        name="marginal-tax-rate"
+                                        placeholder="25.0"
+                                        // value={formatNumberWithCommas(monthlyRent)}
+                                        // onChange={(e) => handleMonthlyRentChange(e)}
+                                    />
+                                </div>
+                                <div className="input-group">
+                                    <label htmlFor="annual-renovation">Annual Renovation</label>
+                                    <div className="input-wrapper">
+                                        <span className="dollar-sign">$</span>
+                                        <input
+                                            type="text"
+                                            id="annual-renovation"
+                                            name="annual-renovation"
                                             placeholder="2000"
                                             // value={formatNumberWithCommas(monthlyRent)}
                                             // onChange={(e) => handleMonthlyRentChange(e)}

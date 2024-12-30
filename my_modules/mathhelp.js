@@ -39,3 +39,13 @@ export const formatNumberWithCommas = (value) => {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');
 };
+
+export const investantRentVsBuyRentalExpensePerYear = (mortgageTerm, monthlyRent, rentGrowthRate, monthlyUtilities, monthlyRentInsurance, rentBrokerFee) => {
+    if (mortgageTerm < 1) {return -1;}
+    let yearlyRent = {};
+    for (let i = 1; i <= mortgageTerm; i++) {
+        yearlyRent[i] = (12 * (monthlyRent + monthlyUtilities + monthlyRentInsurance)) * Math.pow((1 + rentGrowthRate), i);
+    }
+    yearlyRent[1] += rentBrokerFee;
+    return yearlyRent;
+};
