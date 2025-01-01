@@ -1,9 +1,29 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { investantRentVsBuyRentalExpensePerYear } from '@/my_modules/mathhelp';
+import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpensePerYear } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {
+    /*
+    let mortgageTerm = 30;
+    let propertyValue = 400000;
+    let downPayment = 40000;
+    let mortgageRate = 0.0375;
+    let homeGrowthRate = 0.05;
+    let hoaFee = 200;
+    let propertyTaxRate = 0.01;
+    let maintenanceCostsRate = 0.02;
+    let purchaseCostsRate = 0.02;
+    let sellingCostsRate = 0.02;
+    let homeInsurance = 200;
+    let marginalTaxRate = 0.25;
+    let renovationCost = 2000;
+
+    let ownershipExpense = investantRentVsBuyOwnershipExpensePerYear(
+        mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
+        maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
+    );
+    */
 
     return (
         <>
@@ -197,7 +217,7 @@ export default function InvestantSavingsCalculator() {
                                         type="text"
                                         id="annual-property-tax"
                                         name="annual-property-tax"
-                                        placeholder="2.5"
+                                        placeholder="1.0"
                                         // value={formatNumberWithCommas(monthlyRent)}
                                         // onChange={(e) => handleMonthlyRentChange(e)}
                                     />
