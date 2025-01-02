@@ -55,31 +55,46 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
     maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
 ) => {
     if (mortgageTerm < 1) {return -1;}
+    const futureHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, mortgageTerm);
     let yearlyOwnershipExpense = {};
     let standardDeduction = 14600; // The standard deduction for a single taxpayer in the US (2024)
 
-    // determine mortgage payments
-    let periodicRate = mortgageRate / 12; // Most mortgage loans use a fixed rate
-    let annualmortgage = propertyValue <= downPayment ? 0 : ((periodicRate * (propertyValue - downPayment)) / (1 - Math.pow(1 + periodicRate, mortgageTerm * -12))) * 12;
-
-    // determine selling cost
-    let finalHomeValue = propertyValue + Math.pow((1 + homeGrowthRate), mortgageTerm);
-    let annualSellingCost = (finalHomeValue * sellingCostsRate) / mortgageTerm;
-
-    // apply by year: property tax / maintenance costs / mortgage payment / hoa fee / home insurance / renovation costs / projected selling costs
-    let currentPropertyValue = propertyValue;
-    for (let i = 0; i < mortgageTerm; i++) {
-        currentPropertyValue = propertyValue * Math.pow((1 + homeGrowthRate), i);
-        yearlyOwnershipExpense[i + 1] = (currentPropertyValue * propertyTaxRate) + (currentPropertyValue * maintenanceCostsRate) + annualmortgage + (hoaFee * 12) + (homeInsurance * 12) + renovationCost + annualSellingCost;
-
-        // if property taxes and interest paid in a given year are more than the standard deduction, then the excess above standard deduction is reduced by the marginal tax rate and returned to homeowner
-        let taxDeductions = (currentPropertyValue * propertyTaxRate) + (mortgageRate * propertyValue)
-        if (taxDeductions > standardDeduction) {
-            yearlyOwnershipExpense[i + 1] -= (taxDeductions - standardDeduction) * marginalTaxRate;
+    // Monthly mortgage calculation
+    const periodicRate = mortgageRate / 12; // Most mortgage loans use fixed annual interest rate
+    const loanAmount = propertyValue - downPayment;
+    const monthlyMortgage = loanAmount <= 0 ? 0 : (periodicRate * loanAmount) / (1 - Math.pow(1 + periodicRate, -mortgageTerm * 12));
+    const annualMortgage = monthlyMortgage * 12;
+    let remainingPrincipal = loanAmount;
+    
+    for (let year = 1; year <= mortgageTerm; year++) {
+        const currentHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, year - 1);
+        
+        // Calculate mortgage interest and principal for the year
+        let yearlyInterest = 0;
+        let yearlyPrincipal = 0;
+        for (let month = 0; month < 12; month++) {
+            const monthlyInterest = remainingPrincipal * periodicRate;
+            const monthlyPrincipal = monthlyMortgage - monthlyInterest;
+            yearlyInterest += monthlyInterest;
+            yearlyPrincipal += monthlyPrincipal;
+            remainingPrincipal -= monthlyPrincipal;
         }
+        
+        // Calculate property tax
+        const propertyTax = currentHomeValue * propertyTaxRate;
+        const maintenance = currentHomeValue * maintenanceCostsRate;
+        const annualSellingCost = (futureHomeValue * sellingCostsRate) / mortgageTerm; // Calculate selling costs (based on future value)
+        
+        // Calculate tax deductions
+        const totalDeductions = yearlyInterest + propertyTax;
+        const taxSavings = totalDeductions > standardDeduction ? (totalDeductions - standardDeduction) * marginalTaxRate : 0;
+        
+        // Sum all costs for the year | morgage, hoa fees, insurance, property tax, maintenance, renovation, amortized selling costs, tax benefits
+        yearlyOwnershipExpense[year] = annualMortgage + (hoaFee * 12) + (homeInsurance * 12) + propertyTax + maintenance + renovationCost + annualSellingCost - taxSavings;
     }
     yearlyOwnershipExpense[1] += propertyValue * purchaseCostsRate;
-    /*
+
+    // Just want to view the aggregate cost over each year
     let tempDict = {};
     for (let i = 0; i < mortgageTerm; i++) {
         tempDict[i + 1] = yearlyOwnershipExpense[i + 1]
@@ -89,7 +104,8 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
     }
     console.log(yearlyOwnershipExpense);
     console.log(tempDict);
-    */
+    console.log(tempDict[30]);
+
     return yearlyOwnershipExpense;
 };
 

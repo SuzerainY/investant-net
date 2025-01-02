@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpensePerYear } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {
-    /*
+
     let mortgageTerm = 30;
     let propertyValue = 400000;
     let downPayment = 40000;
     let mortgageRate = 0.0375;
-    let homeGrowthRate = 0.05;
+    let homeGrowthRate = 0.03;
     let hoaFee = 200;
     let propertyTaxRate = 0.01;
     let maintenanceCostsRate = 0.02;
@@ -23,7 +23,6 @@ export default function InvestantSavingsCalculator() {
         mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
         maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
     );
-    */
 
     return (
         <>
@@ -181,7 +180,7 @@ export default function InvestantSavingsCalculator() {
                                         type="text"
                                         id="mortgage-rate"
                                         name="mortgage-rate"
-                                        placeholder="5.0"
+                                        placeholder="7.0"
                                         // value={formatNumberWithCommas(monthlyRent)}
                                         // onChange={(e) => handleMonthlyRentChange(e)}
                                     />
