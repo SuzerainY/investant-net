@@ -1,28 +1,37 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpensePerYear } from '@/my_modules/mathhelp';
+import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpensePerYear, investantRentVsBuyInvestmentOpportunityCostPerYear } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {
 
-    let mortgageTerm = 30;
-    let propertyValue = 400000;
-    let downPayment = 40000;
-    let mortgageRate = 0.0375;
-    let homeGrowthRate = 0.03;
-    let hoaFee = 200;
-    let propertyTaxRate = 0.01;
-    let maintenanceCostsRate = 0.02;
-    let purchaseCostsRate = 0.02;
-    let sellingCostsRate = 0.02;
-    let homeInsurance = 200;
-    let marginalTaxRate = 0.25;
-    let renovationCost = 2000;
+    const mortgageTerm = 30;
+    const propertyValue = 400000;
+    const downPayment = 40000;
+    const mortgageRate = 0.06649;
+    const homeGrowthRate = 0.03;
+    const hoaFee = 50;
+    const propertyTaxRate = 0.0275;
+    const maintenanceCostsRate = 0.018;
+    const purchaseCostsRate = 0.03;
+    const sellingCostsRate = 0.08;
+    const homeInsurance = 200;
+    const marginalTaxRate = 0.25;
+    const renovationCost = 1888;
+    const monthlyRent = 2000;
+    const rentGrowthRate = 0.025;
+    const monthlyUtilities = 200;
+    const monthlyRentInsurance = 50;
+    const rentBrokerFee = 0;
+    const investmentReturn = 0.05;
 
-    let ownershipExpense = investantRentVsBuyOwnershipExpensePerYear(
+    let { yearlyOwnershipExpense, yearlyEquityGained } = investantRentVsBuyOwnershipExpensePerYear(
         mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
         maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
     );
+
+    let yearlyRentExpense = investantRentVsBuyRentalExpensePerYear(mortgageTerm, monthlyRent, rentGrowthRate, monthlyUtilities, monthlyRentInsurance, rentBrokerFee);
+    let { rentalOpportunityCost, purchaseOpportunityCost } = investantRentVsBuyInvestmentOpportunityCostPerYear(yearlyRentExpense, yearlyOwnershipExpense, investmentReturn);
 
     return (
         <>
@@ -120,11 +129,11 @@ export default function InvestantSavingsCalculator() {
                                     />
                                 </div>
                                 <div className="input-group">
-                                    <label htmlFor="investments-return">Annual Investments Return (%)</label>
+                                    <label htmlFor="investment-return">Annual Investment Return (%)</label>
                                     <input
                                         type="text"
-                                        id="investments-return"
-                                        name="investments-return"
+                                        id="investment-return"
+                                        name="investment-return"
                                         placeholder="5.0"
                                         // value={formatNumberWithCommas(monthlyRent)}
                                         // onChange={(e) => handleMonthlyRentChange(e)}
