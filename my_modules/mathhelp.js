@@ -72,6 +72,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
     const annualMortgage = monthlyMortgage * 12;
     let remainingPrincipal = loanAmount;
     let equityOwned = 0;
+    let tempEquity = 0;
 
     for (let year = 1; year <= mortgageTerm; year++) {
         const currentHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, year - 1);
@@ -89,7 +90,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
             if (remainingPrincipal > (0.8 * propertyValue)) {yearlyPMI += (loanAmount * pmiRate); pmiMonths += 1;} // If we haven't reached 20% equity, we continue paying PMI
         }
         pmiTotal += yearlyPMI;
-        let tempEquity = equityOwned;
+        tempEquity = equityOwned;
         equityOwned = currentHomeValue - remainingPrincipal;
         yearlyEquityGained[year] = equityOwned - tempEquity;
         
@@ -115,7 +116,7 @@ export const investantRentVsBuyInvestmentOpportunityCostPerYear = (yearlyRentExp
     let rentalOpportunityCost = {};
     for (let year = 1; year <= totalRentYears; year++) {
         totalInvestmentValue += yearlyRentExpense[year]; // Make deposits
-        totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn); //Earn interest
+        totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn); // Earn interest
         rentalOpportunityCost[year] = totalInvestmentValue;
     }
 
