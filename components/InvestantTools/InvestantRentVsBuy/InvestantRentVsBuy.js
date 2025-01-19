@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import InvestantRentVsBuyChart from '@/components/Charts/InvestantRentVsBuyChart';
 import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpensePerYear, investantRentVsBuyInvestmentOpportunityCostPerYear } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {
@@ -10,16 +11,16 @@ export default function InvestantSavingsCalculator() {
     const downPayment = 40000;
     const mortgageRate = 0.06649;
     const homeGrowthRate = 0.03;
-    const hoaFee = 50;
-    const propertyTaxRate = 0.0275;
-    const maintenanceCostsRate = 0.018;
-    const purchaseCostsRate = 0.03;
+    const hoaFee = 21;
+    const propertyTaxRate = 0.015;
+    const maintenanceCostsRate = 0.01;
+    const purchaseCostsRate = 0.02;
     const sellingCostsRate = 0.08;
     const homeInsurance = 200;
     const marginalTaxRate = 0.25;
-    const renovationCost = 1888;
-    const monthlyRent = 2000;
-    const rentGrowthRate = 0.025;
+    const renovationCost = 2000;
+    const monthlyRent = 2400;
+    const rentGrowthRate = 0.03;
     const monthlyUtilities = 200;
     const monthlyRentInsurance = 50;
     const rentBrokerFee = 0;
@@ -306,19 +307,19 @@ export default function InvestantSavingsCalculator() {
                         </div>
                         <div className='investant-rent-vs-buy-results-wrapper'>
                             <div className="investant-rent-vs-buy-insight-wrapper">
-                                <div style={{display: 'flex', flexDirection: 'row'}}>
-                                    <div style={{margin: '0 auto 0 0'}}>
+                                <div>
+                                    <div style={{position: 'relative', width: '100%'}}>
                                         <h2>Your Financial Decision</h2>
-                                        <div className="calculator-results">
+                                        <div className="calculator-results" style={{marginBottom: '0px'}}>
                                             <h4>Recommended Option: <span className="result-amount">Buy</span></h4>
                                         </div>
-                                        <div className="calculator-results">
-                                            <h4>
-                                                With a <span style={{color: '#E81CFF'}}>10</span> year living arrangement, it is best to <span style={{color: '#E81CFF'}}>buy</span> the home!
-                                                <br/><br/>
-                                                After <span style={{color: '#E81CFF'}}>8</span> years, the total cost of renting will be <span style={{color: '#E81CFF'}}>$ 120,000</span>, as opposed to total costs of buying the home after <span style={{color: '#E81CFF'}}>8</span> years of <span style={{color: '#E81CFF'}}>$ 100,000</span>.
-                                                After <span style={{color: '#E81CFF'}}>8</span> years, the investments you could earn by NOT buying the home would amount to <span style={{color: '#E81CFF'}}>$ 50,000</span>, as opposed to the total equity you could earn in the home after <span style={{color: '#E81CFF'}}>8</span> years of <span style={{color: '#E81CFF'}}>$ 75,000</span>.
-                                            </h4>
+                                        <InvestantRentVsBuyChart
+                                            yearlyRentExpense={yearlyRentExpense}
+                                            yearlyOwnershipExpense={yearlyOwnershipExpense}
+                                            mortgageTerm={mortgageTerm}
+                                        />
+                                        <div className="calculator-results" style={{paddingTop: '10px'}}>
+                                            <h4>After <span style={{color: '#E81CFF'}}>10</span> years...</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -335,11 +336,11 @@ export default function InvestantSavingsCalculator() {
                                     </div>
                                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                         <div className="insight-item" style={{width: '49%'}}>
-                                            <h4>Investments Earned</h4>
+                                            <h4>Investments Earned (Renting)</h4>
                                             <p><span className="insight-item-span">$ 50,000</span></p>
                                         </div>
                                         <div className="insight-item" style={{width: '49%'}}>
-                                            <h4>Equity Earned</h4>
+                                            <h4>Equity Earned (Buying)</h4>
                                             <p><span className="insight-item-span">$ 75,000</span></p>
                                         </div>
                                     </div>                                    

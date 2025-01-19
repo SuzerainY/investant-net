@@ -63,7 +63,7 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    max-height: 410px;
+                    max-height: 725px;
                     overflow-y: scroll;
                     overflow-x: hidden;
                     scroll-behavior: smooth;
@@ -254,6 +254,7 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
+                        margin-top: -20px;
                         a {text-decoration: none;}
                     
                         .insight-item {

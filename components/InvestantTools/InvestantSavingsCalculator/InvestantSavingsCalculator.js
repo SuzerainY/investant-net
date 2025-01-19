@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import InvestantSavingsCalculatorChart from '../../Charts/InvestantSavingsCalculatorChart';
+import InvestantSavingsCalculatorChart from '@/components/Charts/InvestantSavingsCalculatorChart';
 import { formatNumberWithCommas, isWholeNumber, isDecimal, investantSavingsCalculatorContributions, investantSavingsCalculatorInterest } from '@/my_modules/mathhelp';
 
 export default function InvestantSavingsCalculator() {

@@ -33,11 +33,18 @@ export default function InvestantSavingsCalculatorChart({ initialDeposit, contri
                     'rgb(232, 28, 255)'
                 ]
               }],
-
             },
             options: {
                 animation: {
                     animateRotate: true
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    }
                 }
             }
         });
