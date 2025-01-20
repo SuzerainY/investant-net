@@ -54,11 +54,12 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
     mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
     maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
 ) => {
+
     if (mortgageTerm < 1) {return -1;}
     const futureHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, mortgageTerm);
     const annualSellingCost = (futureHomeValue * sellingCostsRate) / mortgageTerm; // Calculate selling costs (based on future value)
-    let yearlyOwnershipExpense = {};
-    let yearlyEquityGained = {};
+    let iYearlyOwnershipExpense = {};
+    let iYearlyEquityGained = {};
 
     const standardDeduction = 14600; // The standard deduction for a single taxpayer in the US (2024)
     const pmiRate = 0.008 / 12; // If the down payment is less than 20% of the home value, we will apply an assumed PMI cost of 0.8% until 20% equity is reached
@@ -92,7 +93,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
         pmiTotal += yearlyPMI;
         tempEquity = equityOwned;
         equityOwned = currentHomeValue - remainingPrincipal;
-        yearlyEquityGained[year] = equityOwned - tempEquity;
+        iYearlyEquityGained[year] = equityOwned - tempEquity;
         
         // Calculate maintenance, property tax, and tax deductions
         const maintenance = currentHomeValue * maintenanceCostsRate;
@@ -101,35 +102,31 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
         const taxSavings = totalDeductions > standardDeduction ? (totalDeductions - standardDeduction) * marginalTaxRate : 0;
         
         // Sum all costs for the year | morgage, hoa fees, insurance, property tax, pmi, maintenance, renovation, amortized selling costs, tax benefits
-        yearlyOwnershipExpense[year] = annualMortgage + (hoaFee * 12) + (homeInsurance * 12) + propertyTax + yearlyPMI + maintenance + renovationCost + annualSellingCost - taxSavings;
+        iYearlyOwnershipExpense[year] = annualMortgage + (hoaFee * 12) + (homeInsurance * 12) + propertyTax + yearlyPMI + maintenance + renovationCost + annualSellingCost - taxSavings;
     }
-    yearlyOwnershipExpense[1] += (propertyValue * purchaseCostsRate) + downPayment;
-    return { yearlyOwnershipExpense, yearlyEquityGained };
+    iYearlyOwnershipExpense[1] += (propertyValue * purchaseCostsRate) + downPayment;
+    return { iYearlyOwnershipExpense, iYearlyEquityGained };
 };
 
 export const investantRentVsBuyInvestmentOpportunityCostPerYear = (yearlyRentExpense, yearlyOwnershipExpense, investmentReturn) => {
     const totalRentYears = Object.keys(yearlyRentExpense).length;
     const totalOwnershipYears = Object.keys(yearlyOwnershipExpense).length;
+    if (totalRentYears !== totalOwnershipYears) {return 0;}
     
-    // Possible investment gain per year if we do not rent
+    // Possible investment gain per year if we rent
     let totalInvestmentValue = 0;
-    let rentalOpportunityCost = {};
+    let rentalInvestmentsEarned = {};
+
+    let tempInvestment = 0;
     for (let year = 1; year <= totalRentYears; year++) {
-        totalInvestmentValue += yearlyRentExpense[year]; // Make deposits
-        totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn); // Earn interest
-        rentalOpportunityCost[year] = totalInvestmentValue;
+        tempInvestment = yearlyRentExpense[year] <= yearlyOwnershipExpense[year] ? yearlyOwnershipExpense[year] - yearlyRentExpense[year] : 0;
+
+        totalInvestmentValue += tempInvestment;
+        totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn);
+        rentalInvestmentsEarned[year] = totalInvestmentValue;
     }
 
-    // Possible investment gain per year if we do not buy
-    totalInvestmentValue = 0;
-    let purchaseOpportunityCost = {};
-    for (let year = 1; year <= totalOwnershipYears; year++) {
-        totalInvestmentValue += yearlyOwnershipExpense[year]; // Make deposits
-        totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn); //Earn interest
-        purchaseOpportunityCost[year] = totalInvestmentValue;
-    }
-
-    return { rentalOpportunityCost, purchaseOpportunityCost };
+    return rentalInvestmentsEarned;
 };
 
 // Time Value of Money

@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
+import { formatNumberWithCommas } from "@/my_modules/mathhelp";
 
 Chart.register(...registerables);
 
@@ -17,7 +18,6 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
         const pointsCount = 30; // mortgageTerm
         let labels = [];
         for (let i = 1; i <= pointsCount; i++) {labels.push(i);}
-        console.log(labels);
 
         let rentData = [];
         for (let key in yearlyRentExpense) {rentData.push(Math.round(yearlyRentExpense[key] / 12));}
@@ -32,14 +32,14 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
                 labels: labels,
                 datasets: [
                     {
-                        label: 'Monthly Rental Expense',
+                        label: 'Rental Expense',
                         data: rentData,
                         borderColor: '#E81CFF',
                         backgroundColor: '#E81CFF',
                         tension: 0.2
                     },
                     {
-                        label: 'Monthly Ownership Expense',
+                        label: 'Ownership Expense',
                         data: buyData,
                         borderColor: '#40C9FF',
                         backgroundColor: '#40C9FF',
@@ -51,7 +51,7 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
                 responsive: true,
                 elements: {
                     point: {
-                        radius: 0,
+                    radius: 0,
                         hoverRadius: 15,
                         hitRadius: 100
                     }
@@ -60,13 +60,36 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
                     x: {
                         grid: {
                             display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Years',
+                            font: {
+                                family: ['Montserrat', 'sans-serif'],
+                                size: 14,
+                                weight: 'bold'
+                            }
                         }
                     },
                     y: {
                         grid: {
                             display: true
+                        },
+                        title: {
+                            display: true,
+                            text: 'Avg Monthly Expense',
+                            font: {
+                                family: ['Montserrat', 'sans-serif'],
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            callback: (value, index, values) => {
+                                return '$' + formatNumberWithCommas(value)
+                            }
                         }
-                    }
+                    },
                 },
                 plugins: {
                     legend: {
