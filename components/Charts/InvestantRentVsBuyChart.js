@@ -5,7 +5,7 @@ import { formatNumberWithCommas } from "@/my_modules/mathhelp";
 
 Chart.register(...registerables);
 
-export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwnershipExpense, mortgageTerm }) {
+export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwnershipExpense }) {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -15,9 +15,9 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
             }
         }
 
-        const pointsCount = 30; // mortgageTerm
+        const targetYears = Object.keys(yearlyRentExpense).length;
         let labels = [];
-        for (let i = 1; i <= pointsCount; i++) {labels.push(i);}
+        for (let i = 1; i <= targetYears; i++) {labels.push(i);}
 
         let rentData = [];
         for (let key in yearlyRentExpense) {rentData.push(Math.round(yearlyRentExpense[key] / 12));}
@@ -109,7 +109,7 @@ export default function InvestantRentVsBuyChart({ yearlyRentExpense, yearlyOwner
             }
         });
         chartRef.current.chart = newChart;
-    }, [yearlyRentExpense, yearlyOwnershipExpense, mortgageTerm])
+    }, [yearlyRentExpense, yearlyOwnershipExpense])
 
 
     return (

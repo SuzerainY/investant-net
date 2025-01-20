@@ -40,10 +40,17 @@ export const formatNumberWithCommas = (value) => {
     return parts.join('.');
 };
 
-export const investantRentVsBuyRentalExpensePerYear = (mortgageTerm, monthlyRent, rentGrowthRate, monthlyUtilities, monthlyRentInsurance, rentBrokerFee) => {
-    if (mortgageTerm < 1) {return -1;}
+export const investantRentVsBuyRentalExpensePerYear = (livingYears, mortgageTerm, monthlyRent, rentGrowthRate, monthlyUtilities, monthlyRentInsurance, rentBrokerFee) => {
+    let targetYears = livingYears < mortgageTerm ? mortgageTerm : livingYears;
+    if (targetYears < 1) {
+        return {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
+            11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0,
+            21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0, 27: 0, 28: 0, 29: 0, 30: 0
+        };
+    }
     let yearlyRentExpense = {};
-    for (let i = 0; i < mortgageTerm; i++) {
+    for (let i = 0; i < targetYears; i++) {
         yearlyRentExpense[i + 1] = (12 * (monthlyRent + monthlyUtilities + monthlyRentInsurance)) * Math.pow((1 + rentGrowthRate), i);
     }
     yearlyRentExpense[1] += rentBrokerFee;
@@ -51,13 +58,20 @@ export const investantRentVsBuyRentalExpensePerYear = (mortgageTerm, monthlyRent
 };
 
 export const investantRentVsBuyOwnershipExpensePerYear = (
-    mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
+    livingYears, mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee, propertyTaxRate,
     maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance, marginalTaxRate, renovationCost
 ) => {
 
-    if (mortgageTerm < 1) {return -1;}
-    const futureHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, mortgageTerm);
-    const annualSellingCost = (futureHomeValue * sellingCostsRate) / mortgageTerm; // Calculate selling costs (based on future value)
+    let targetYears = livingYears < mortgageTerm ? mortgageTerm : livingYears;
+    if (targetYears < 1) {
+        return {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
+            11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0,
+            21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0, 27: 0, 28: 0, 29: 0, 30: 0
+        };
+    }
+    const futureHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, targetYears);
+    const annualSellingCost = (futureHomeValue * sellingCostsRate) / targetYears; // Calculate selling costs (based on future value)
     let iYearlyOwnershipExpense = {};
     let iYearlyEquityGained = {};
 
@@ -75,7 +89,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
     let equityOwned = 0;
     let tempEquity = 0;
 
-    for (let year = 1; year <= mortgageTerm; year++) {
+    for (let year = 1; year <= targetYears; year++) {
         const currentHomeValue = propertyValue * Math.pow(1 + homeGrowthRate, year - 1);
         
         // Calculate mortgage interest and principal for the year
@@ -83,6 +97,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
         let yearlyPrincipal = 0;
         let yearlyPMI = 0;
         for (let month = 0; month < 12; month++) {
+            if (remainingPrincipal <= 0) {break;}
             const monthlyInterest = remainingPrincipal * periodicRate;
             const monthlyPrincipal = monthlyMortgage - monthlyInterest;
             yearlyInterest += monthlyInterest;
@@ -102,7 +117,7 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
         const taxSavings = totalDeductions > standardDeduction ? (totalDeductions - standardDeduction) * marginalTaxRate : 0;
         
         // Sum all costs for the year | morgage, hoa fees, insurance, property tax, pmi, maintenance, renovation, amortized selling costs, tax benefits
-        iYearlyOwnershipExpense[year] = annualMortgage + (hoaFee * 12) + (homeInsurance * 12) + propertyTax + yearlyPMI + maintenance + renovationCost + annualSellingCost - taxSavings;
+        iYearlyOwnershipExpense[year] = (year <= mortgageTerm ? annualMortgage : 0) + (hoaFee * 12) + (homeInsurance * 12) + propertyTax + yearlyPMI + maintenance + renovationCost + annualSellingCost - taxSavings;
     }
     iYearlyOwnershipExpense[1] += (propertyValue * purchaseCostsRate) + downPayment;
     return { iYearlyOwnershipExpense, iYearlyEquityGained };
@@ -111,21 +126,29 @@ export const investantRentVsBuyOwnershipExpensePerYear = (
 export const investantRentVsBuyInvestmentOpportunityCostPerYear = (yearlyRentExpense, yearlyOwnershipExpense, investmentReturn) => {
     const totalRentYears = Object.keys(yearlyRentExpense).length;
     const totalOwnershipYears = Object.keys(yearlyOwnershipExpense).length;
-    if (totalRentYears !== totalOwnershipYears) {return 0;}
-    
-    // Possible investment gain per year if we rent
+
+    if (totalRentYears !== totalOwnershipYears) {
+        return {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
+            11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0,
+            21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0, 27: 0, 28: 0, 29: 0, 30: 0
+        };
+    }
+
     let totalInvestmentValue = 0;
     let rentalInvestmentsEarned = {};
 
     let tempInvestment = 0;
     for (let year = 1; year <= totalRentYears; year++) {
-        tempInvestment = yearlyRentExpense[year] <= yearlyOwnershipExpense[year] ? yearlyOwnershipExpense[year] - yearlyRentExpense[year] : 0;
+        const rentExpense = yearlyRentExpense[year] || 0;
+        const ownershipExpense = yearlyOwnershipExpense[year] || 0;
+
+        tempInvestment = rentExpense < ownershipExpense ? ownershipExpense - rentExpense : 0;
 
         totalInvestmentValue += tempInvestment;
         totalInvestmentValue = totalInvestmentValue * (1 + investmentReturn);
         rentalInvestmentsEarned[year] = totalInvestmentValue;
     }
-
     return rentalInvestmentsEarned;
 };
 

@@ -7,6 +7,7 @@ import { investantRentVsBuyRentalExpensePerYear, investantRentVsBuyOwnershipExpe
 export default function InvestantSavingsCalculator() {
 
     // Inputs
+    const [livingYears, setLivingYears] = useState('');
     const [mortgageTerm, setMortgageTerm] = useState('');
     const [propertyValue, setPropertyValue] = useState('');
     const [downPayment, setDownPayment] = useState('');
@@ -27,8 +28,6 @@ export default function InvestantSavingsCalculator() {
     const [rentBrokerFee, setRentBrokerFee] = useState('');
     const [investmentReturn, setInvestmentReturn] = useState('');
 
-    const [livingYears, setLivingYears] = useState('');
-
     // Outputs
     const [yearlyOwnershipExpense, setYearlyOwnershipExpense] = useState({
         1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
@@ -45,13 +44,12 @@ export default function InvestantSavingsCalculator() {
         11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0,
         21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0, 27: 0, 28: 0, 29: 0, 30: 0
     });
-    const [rentalInvestmentsEarned, setRentalInvestmentsEarned] = useState({
-        1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0,
-        11: 0, 12: 0, 13: 0, 14: 0, 15: 0, 16: 0, 17: 0, 18: 0, 19: 0, 20: 0,
-        21: 0, 22: 0, 23: 0, 24: 0, 25: 0, 26: 0, 27: 0, 28: 0, 29: 0, 30: 0
-    });
+    
+    // User View Values
+    const [rentInvestmentsEarned, setRentInvestmentsEarned] = useState('');
 
     useEffect(() => {
+        const iLivingYears = livingYears === '' ? 10 : parseFloat(livingYears);
         const iMortgageTerm = mortgageTerm === '' ? 30 : parseFloat(mortgageTerm);
         const iPropertyValue = propertyValue === '' ? 400000 : parseFloat(propertyValue);
         const iDownPayment = downPayment === '' ? 80000 : parseFloat(downPayment);
@@ -73,19 +71,19 @@ export default function InvestantSavingsCalculator() {
         const iInvestmentReturn = investmentReturn === '' ? 0.05 : parseFloat(investmentReturn) / 100;
 
         let { iYearlyOwnershipExpense, iYearlyEquityGained } = investantRentVsBuyOwnershipExpensePerYear(
-            iMortgageTerm, iPropertyValue, iDownPayment, iMortgageRate, iHomeGrowthRate, iHoaFee, iPropertyTaxRate,
+            iLivingYears, iMortgageTerm, iPropertyValue, iDownPayment, iMortgageRate, iHomeGrowthRate, iHoaFee, iPropertyTaxRate,
             iMaintenanceCostsRate, iPurchaseCostsRate, iSellingCostsRate, iHomeInsurance, iMarginalTaxRate, iRenovationCost
         );
     
-        let iYearlyRentExpense = investantRentVsBuyRentalExpensePerYear(iMortgageTerm, iMonthlyRent, iRentGrowthRate, iMonthlyUtilities, iMonthlyRentInsurance, iRentBrokerFee);
+        let iYearlyRentExpense = investantRentVsBuyRentalExpensePerYear(iLivingYears, iMortgageTerm, iMonthlyRent, iRentGrowthRate, iMonthlyUtilities, iMonthlyRentInsurance, iRentBrokerFee);
         let iRentalInvestmentsEarned = investantRentVsBuyInvestmentOpportunityCostPerYear(iYearlyRentExpense, iYearlyOwnershipExpense, iInvestmentReturn);
 
         setYearlyOwnershipExpense(iYearlyOwnershipExpense);
         setYearlyEquityGained(iYearlyEquityGained);
         setYearlyRentExpense(iYearlyRentExpense);
-        setRentalInvestmentsEarned(iRentalInvestmentsEarned);
+        setRentInvestmentsEarned(formatNumberWithCommas(iRentalInvestmentsEarned[livingYears ? parseFloat(livingYears) : 10].toFixed(0)));
     }, [
-        mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee,
+        livingYears, mortgageTerm, propertyValue, downPayment, mortgageRate, homeGrowthRate, hoaFee,
         propertyTaxRate, maintenanceCostsRate, purchaseCostsRate, sellingCostsRate, homeInsurance,
         marginalTaxRate, renovationCost, monthlyRent, rentGrowthRate, monthlyUtilities,
         monthlyRentInsurance, rentBrokerFee, investmentReturn
@@ -380,7 +378,6 @@ export default function InvestantSavingsCalculator() {
                                         <InvestantRentVsBuyChart
                                             yearlyRentExpense={yearlyRentExpense}
                                             yearlyOwnershipExpense={yearlyOwnershipExpense}
-                                            mortgageTerm={mortgageTerm}
                                         />
                                         <div className="calculator-results" style={{paddingTop: '10px'}}>
                                             <h4>After <span style={{color: '#E81CFF'}}>{livingYears ? livingYears : 10}</span> years...</h4>
@@ -401,16 +398,16 @@ export default function InvestantSavingsCalculator() {
                                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                         <div className="insight-item" style={{width: '49%'}}>
                                             <h4>Investments Earned (Renting)</h4>
-                                            <p><span className="insight-item-span">$ {formatNumberWithCommas(rentalInvestmentsEarned[livingYears ? livingYears : 10].toFixed(0))}</span></p>
+                                            <p><span className="insight-item-span">$ {rentInvestmentsEarned}</span></p>
                                         </div>
                                         <div className="insight-item" style={{width: '49%'}}>
                                             <h4>Equity Earned (Buying)</h4>
                                             <p><span className="insight-item-span">$ {formatNumberWithCommas((sumExpense((livingYears ? livingYears : 10), yearlyEquityGained)).toFixed(0))}</span></p>
                                         </div>
                                     </div>                                    
-                                    <Link href={'https://investant.net/blog/RentVsBuyGuide'}>
+                                    <Link href={'https://investant.net/blog/RentOrBuyGuide'}>
                                         <div className="insight-item">
-                                            <h4><span style={{fontWeight: 'bold'}}>Blog: </span>Rent vs Buy Guide</h4>
+                                            <h4><span style={{fontWeight: 'bold'}}>Blog: </span>Rent or Buy Guide</h4>
                                             <p>Learn how to use this tool and make the smartest financial decision of your life!</p>
                                         </div>
                                     </Link>

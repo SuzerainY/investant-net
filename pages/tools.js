@@ -15,7 +15,7 @@ export default function Tools() {
         const handleBlockOnLoad = () => {
             if (router.isReady && router.query.block === 'SavingsCalculator') {
                 investantSavingsCalculator.current?.scrollIntoView({ behavior: 'smooth' });
-            } else if (router.isReady && router.query.block === 'RentVsBuy') {
+            } else if (router.isReady && router.query.block === 'RentOrBuy') {
                 investantRentVsBuy.current?.scrollIntoView({ behavior: 'smooth' });
             }
         }; handleBlockOnLoad();
