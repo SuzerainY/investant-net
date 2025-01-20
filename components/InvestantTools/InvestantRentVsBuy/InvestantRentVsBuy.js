@@ -375,10 +375,12 @@ export default function InvestantSavingsCalculator() {
                                         <div className="calculator-results" style={{marginBottom: '0px'}}>
                                             <h4>If you stay for <span style={{color: '#E81CFF'}}>{livingYears ? livingYears : 10}</span> years, <span className="result-amount">{yearlyOwnershipExpense[parseFloat(livingYears ? livingYears : 10)] <= yearlyRentExpense[parseFloat(livingYears ? livingYears : 10)] ? "Buying" : "Renting"}</span> is cheaper!</h4>
                                         </div>
-                                        <InvestantRentVsBuyChart
-                                            yearlyRentExpense={yearlyRentExpense}
-                                            yearlyOwnershipExpense={yearlyOwnershipExpense}
-                                        />
+                                        <div className='rent-vs-buy-graph-wrapper'>
+                                            <InvestantRentVsBuyChart
+                                                yearlyRentExpense={yearlyRentExpense}
+                                                yearlyOwnershipExpense={yearlyOwnershipExpense}
+                                            />
+                                        </div>
                                         <div className="calculator-results" style={{paddingTop: '10px'}}>
                                             <h4>After <span style={{color: '#E81CFF'}}>{livingYears ? livingYears : 10}</span> years...</h4>
                                         </div>

@@ -218,6 +218,10 @@
                     @media screen and (max-width: 767px) {
                         width: 100%;
                         padding: 10px;
+
+                        .rent-vs-buy-graph-wrapper {
+                            display: none;
+                        }
                     }
                 
                     h2 {
